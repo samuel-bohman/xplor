@@ -24,11 +24,11 @@ xploR ingår i ett forskningsprojekt som syftar till att utveckla nya metoder oc
 
 **Vem står bakom xploR?**
 
-xploR är utvecklad på Institutionen för data- och systemvetenskap (DSV) vid Stockholms universitet [^1] i samarbete med Skolan för arkitektur och samhällsbyggande (ABE) vid Kunglika Tekniska högskolan [^2] och Upplands Väsby kommun [^3]. 
+xploR är utvecklad på Institutionen för data- och systemvetenskap vid Stockholms universitet [^1]. 
 
 **Vilka är de tekniska kraven för att använda xploR?**
 
-Du behöver en dator med en uppdaterad webbläsare installerad, t.ex. Chrome, Firefox, Safari, Internet Explorer, eller Edge. 
+Du behöver en persondator med en uppdaterad webbläsare installerad, t.ex. Chrome, Firefox, Safari, Internet Explorer, eller Edge. 
 
 **Vilken data finns i xploR?**
 
@@ -36,15 +36,13 @@ xploR redovisar resultaten av en webbenkät som genomfördes i Upplands Väsby k
 
 **Varifrån kommer namnet xploR?**
 
-Namnet xploR kommer från begreppet explorativ dataanalys (EDA) som är samling grafiska metoder inom den beskrivande statistiken. EDA går ut på att utforska data visuellt för att upptäcka mönster, trender och avvikelser i de fenomen som studeras. 
+Namnet xploR kommer från begreppet explorativ dataanalys som är samling grafiska metoder inom den beskrivande statistiken. Explorativ dataanalys går ut på att utforska data visuellt för att upptäcka mönster, trender och avvikelser i de fenomen som studeras. 
 
 **Kan jag ladda ned datan?**
 
 Ja, [här](). 
 
 [^1]: http://dsv.su.se/
-[^2]: http://www.kth.se/abe/
-[^3]: http://www.upplandsvasby.se/
 
 
 
