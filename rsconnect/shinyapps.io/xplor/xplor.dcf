@@ -1,0 +1,11 @@
+name: xplor
+title: xplor
+account: xplor
+server: shinyapps.io
+appId: 106337
+bundleId: 604977
+url: https://xplor.shinyapps.io/xplor/
+when: 1478208087.11947
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: data/.Rapp.history
