@@ -148,34 +148,41 @@ server <- function(input, output, session) {
   ### GROUP 1 FILTERS AND CALCULATIONS ########################
   
   # subset: background variables
+  # seq_along() is a safer way to create a sequence than 1:length(): it handles the empty case much better
   group1Filter1 <- reactive({
     if (input[["area1"]] != "Alla") {
-      for (i in 1:length(input[["area1"]])) { 
+      for (i in seq_along(input[["area1"]])) {
+      # for (i in 1:length(input[["area1"]])) { 
         results_spdf1 <- results_spdf1[results_spdf1[["Omrade"]] %in% input[["area1"]], ]
       }
     }
     if (input[["sex1"]] != "Alla") {
-      for (j in 1:length(input[["sex1"]])) { 
+      for (i in seq_along(input[["sex1"]])) {
+      # for (j in 1:length(input[["sex1"]])) { 
         results_spdf1 <- results_spdf1[results_spdf1[["Kön"]] %in% input[["sex1"]], ]
       }
     }
     if (input[["age1"]] != "Alla") {
-      for (k in 1:length(input[["age1"]])) { 
+      for (k in seq_along(input[["age1"]])) { 
+      # for (k in 1:length(input[["age1"]])) { 
         results_spdf1 <- results_spdf1[results_spdf1[["Ålder"]] %in% input[["age1"]], ]
       }
     }
     if (input[["occupation1"]] != "Alla") {
-      for (l in 1:length(input[["occupation1"]])) { 
+      for (l in seq_along(input[["occupation1"]])) { 
+      # for (l in 1:length(input[["occupation1"]])) { 
         results_spdf1 <- results_spdf1[results_spdf1[["Sysselsättning"]] %in% input[["occupation1"]], ]
       }
     }
     if (input[["education1"]] != "Alla") {
-      for (m in 1:length(input[["education1"]])) { 
+      for (m in seq_along(input[["education1"]])) { 
+      # for (m in 1:length(input[["education1"]])) { 
         results_spdf1 <- results_spdf1[results_spdf1[["Utbildningsnivå"]] %in% input[["education1"]], ]
       }
     }
     if (input[["years1"]] != "Alla") {
-      for (n in 1:length(input[["years1"]])) { 
+      for (n in seq_along(input[["years1"]])) {
+      # for (n in 1:length(input[["years1"]])) { 
         results_spdf1 <- results_spdf1[results_spdf1[["År"]] %in% input[["years1"]], ]
       }
     }
@@ -399,32 +406,38 @@ server <- function(input, output, session) {
   # subset: background variables
   group2Filter1 <- reactive({
     if (input[["area2"]] != "Alla") {
-      for (a in 1:length(input[["area2"]])) { 
+      for (a in seq_along(input[["area2"]])) { 
+      # for (a in 1:length(input[["area2"]])) { 
         results_spdf2 <- results_spdf2[results_spdf2[["Omrade"]] %in% input[["area2"]], ]
       }
     }
     if (input[["sex2"]] != "Alla") {
-      for (b in 1:length(input[["sex2"]])) { 
+      for (b in seq_along(input[["sex2"]])) {
+      # for (b in 1:length(input[["sex2"]])) { 
         results_spdf2 <- results_spdf2[results_spdf2[["Kön"]] %in% input[["sex2"]], ]
       }
     }
     if (input[["age2"]] != "Alla") {
-      for (c in 1:length(input[["age2"]])) { 
+      for (c in seq_along(input[["age2"]])) {
+      # for (c in 1:length(input[["age2"]])) { 
         results_spdf2 <- results_spdf2[results_spdf2[["Ålder"]] %in% input[["age2"]], ]
       }
     }
     if (input[["occupation2"]] != "Alla") {
-      for (d in 1:length(input[["occupation2"]])) { 
+      for (d in seq_along(input[["occupation2"]])) { 
+      # for (d in 1:length(input[["occupation2"]])) { 
         results_spdf2 <- results_spdf2[results_spdf2[["Sysselsättning"]] %in% input[["occupation2"]], ]
       }
     }
     if (input[["education2"]] != "Alla") {
-      for (e in 1:length(input[["education2"]])) { 
+      for (e in seq_along(input[["education2"]])) {
+      # for (e in 1:length(input[["education2"]])) { 
         results_spdf2 <- results_spdf2[results_spdf2[["Utbildningsnivå"]] %in% input[["education2"]], ]
       }
     }
     if (input[["years2"]] != "Alla") {
-      for (f in 1:length(input[["years2"]])) {
+      for (f in seq_along(input[["years2"]])) {
+      # for (f in 1:length(input[["years2"]])) {
         results_spdf2 <- results_spdf2[results_spdf2[["År"]] %in% input[["years2"]], ]
       }
     }
@@ -705,7 +718,7 @@ server <- function(input, output, session) {
   observe({
     leafletProxy(mapId = "map") %>% 
       clearControls() %>% 
-      addLegend(position = "bottomleft", pal = colorpal(), values = c(0: 14))
+      addLegend(position = "bottomleft", pal = colorpal(), values = c(0:14))
   })
   
   # popups
@@ -749,27 +762,33 @@ server <- function(input, output, session) {
   # subset: background variables
   tableFilter <- reactive({
     if (input[["area"]] != "Alla" || is.null(input[["area"]]))
-      for (o in 1:length(input[["area"]])) { 
+      for (o in seq_along(input[["area"]])) { 
+      # for (o in 1:length(input[["area"]])) { 
         results_df <- head(results_df[results_df[["Omrade"]] %in% input[["area"]], ], n = 1040, drop = FALSE)
       }
     if (input[["sex"]] != "Alla" || is.null(input[["sex"]])) 
-      for (p in 1:length(input[["sex"]])) { 
+      for (p in seq_along(input[["sex"]])) { 
+      # for (p in 1:length(input[["sex"]])) { 
         results_df <- head(results_df[results_df[["Kön"]] %in% input[["sex"]], ], n = 1040, drop = FALSE)
       }
     if (input[["age"]] != "Alla" || is.null(input[["age"]])) 
-      for (q in 1:length(input[["age"]])) { 
+      for (q in seq_along(input[["age"]])) { 
+      # for (q in 1:length(input[["age"]])) { 
         results_df <- head(results_df[results_df[["Ålder"]] %in% input[["age"]], ], n = 1040, drop = FALSE)
       }
     if (input[["occupation"]] != "Alla" || is.null(input[["occupation"]])) 
-      for (r in 1:length(input[["occupation"]])) { 
+      for (r in seq_along(input[["occupation"]])) { 
+      # for (r in 1:length(input[["occupation"]])) { 
         results_df <- head(results_df[results_df[["Sysselsättning"]] %in% input[["occupation"]], ], n = 1040, drop = FALSE)
       }
     if (input[["education"]] != "Alla" || is.null(input[["education"]])) 
-      for (s in 1:length(input[["education"]])) { 
+      for (s in seq_along(input[["education"]])) { 
+      # for (s in 1:length(input[["education"]])) { 
         results_df <- head(results_df[results_df[["Utbildningsnivå"]] %in% input[["education"]], ], n = 1040, drop = FALSE)
       }
     if (input[["years"]] != "Alla" || is.null(input[["years"]])) 
-      for (t in 1:length(input[["years"]])) { 
+      for (t in seq_along(input[["years"]])) { 
+      # for (t in 1:length(input[["years"]])) { 
         results_df <- head(results_df[results_df[["År"]] %in% input[["years"]], ], n = 1040, drop = FALSE)
       }
     results_df
