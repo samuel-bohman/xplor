@@ -11,6 +11,7 @@ shinyUI(
         tags[["head"]](includeCSS("styles.css")),
         leafletOutput("map", width = "100%", height = "100%"),
         # panel 1
+
         absolutePanel(
           id = "panel1",
           class = "panel panel-default",
@@ -21,6 +22,17 @@ shinyUI(
           bottom = "auto",
           width = 320,
           heigh = "auto",
+          h3("Dynamic"),
+          lapply(seq_along(backgroundChoices), function(i) {
+            selectInput(
+              inputId = names(backgroundChoices)[i],
+              label = names(backgroundChoices)[i],
+              choices = backgroundChoices[[i]]
+              )
+            #selectInput(paste0('a', i), paste0('SelectA', i),
+            #choices = sample(LETTERS, 5))
+          }),
+          h3("/dynamic"),
           h3("Grupp 1"),
           selectInput(
             inputId = "area1",

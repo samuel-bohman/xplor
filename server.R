@@ -112,10 +112,6 @@ shinyServer(function(input, output, session) {
 
       allowed <- c("area1", "sex1", "age1", "occupation1", "education1", "years1")
 
-      #forbidden1 = c("table_cell_clicked", "table_rows_all", "table_rows_current", "table_rows_selected", "table_search", "table_state")
-
-      #inputFilter = !any(column == c("map_click","table_row_last_clicked","map_shape_click","alt", "colors", "map_groups", "map_bounds", "map_groups", "map_shape_mouseout", "map_shape_mouseover", "map_zoom", "markers1", "markers2", "nav", "themes", "pop1", "pop2", forbidden1))
-
       inputFilter = any(column == allowed)
 
       #Debug part

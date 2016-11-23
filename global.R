@@ -19,6 +19,14 @@ vars_occupation <- c("Inget val" = "", "Alla", sort(unique(as.character(results_
 vars_education <- c("Inget val" = "", "Alla", "Inte gått ut grundskola eller motsvarande obligatorisk skola", "Grundskola eller motsvarande obligatorisk skola", "Gymnasium, folkhögskola eller motsvarande", "Annan eftergymnasial utbildning", "Högskola/universitet", "Forskarutbildning")
 vars_years <- c("Inget val" = "", "Alla", "0-4 år", "5-9 år", "10 år eller mer")
 
+backgroundChoices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_education, vars_years)
+
+for (n in seq_along(backgroundChoices)){
+  names(backgroundChoices)[n] <- getCategory(backgroundChoices[[n]])
+}
+
+
+
 # Define themes and alternatives variables ----
 themes <- c("1. Parker & grönområden", "2. Mångfald i bostadsutbudet", "3. Levandegöra gemensamma platser", "4. Kommunikationer", "5. Kultur & fritid", "6. Utbildning", "7. Omsorg", "8. Skolan", "9. Trygghet", "10. Hållbar utveckling")
 altTheme1 <- c("1a. Bevara existerande större grönområden", "1b. Anlägga parker i existerande stadsdelar", "1c. Bygga bostäder nära grönområden", "1d. Rusta upp befintliga parker", "1e. Skapa bättre tillgänglighet till större grönområden")
@@ -69,7 +77,7 @@ myfunction <- function(vars){
 ##Returns the name of the column in results_df where the data value exists
 getCategory <- function(data){
 
-  
+
 
   a <- which(sapply(results_df, function(x) any(x == data)))
 
@@ -84,6 +92,8 @@ getCategory <- function(data){
 
 }
 
+showPanel <- FALSE
+
 
 ###Start with manual approach:
 #colNames
@@ -96,10 +106,6 @@ getCategory <- function(data){
 #lookUp <- c(lookUp, myfunction(vars_education))
 #lookUp <- c(lookUp, myfunction(vars_years))
 #lookUp <- c(lookUp, myfunction(vars_sex))
-
-
-print(lookUp[["Sanda Ängar"]])
-
 #In results df, find the column name tha contains the element
 
 
