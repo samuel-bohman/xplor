@@ -25,7 +25,7 @@ for (n in seq_along(backgroundChoices)){
   names(backgroundChoices)[n] <- getCategory(backgroundChoices[[n]])
 }
 
-uiNamesBg1 <- c("area1", "sex1", "age1", "occupation1", "education1", "years1")
+uiNamesBg1 <- c("area", "sex", "age", "occupation", "education", "years")
 
 
 
