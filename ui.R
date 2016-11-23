@@ -22,54 +22,17 @@ shinyUI(
           bottom = "auto",
           width = 320,
           heigh = "auto",
-          h3("Dynamic"),
+          h3("Dynamic: Group 1"),
           lapply(seq_along(backgroundChoices), function(i) {
             selectInput(
-              inputId = names(backgroundChoices)[i],
+              inputId = uiNamesBg1[i],
               label = names(backgroundChoices)[i],
+              #label = uiNamesBg1[i],
               choices = backgroundChoices[[i]]
               )
             #selectInput(paste0('a', i), paste0('SelectA', i),
             #choices = sample(LETTERS, 5))
           }),
-          h3("/dynamic"),
-          h3("Grupp 1"),
-          selectInput(
-            inputId = "area1",
-            label = "Område:",
-            choices = vars_area,
-            selected = c("Eds Glesbygd")
-          ),
-          selectInput(
-            inputId = "sex1",
-            label = "Kön:",
-            choices = vars_sex,
-            selected = c("Alla")
-          ),
-          selectInput(
-            inputId = "age1",
-            label = "Ålder:",
-            choices = vars_age,
-            selected = c("Alla")
-          ),
-          selectInput(
-            inputId = "occupation1",
-            label = "Sysselsättning:",
-            choices = vars_occupation,
-            selected = "Alla"
-          ),
-          selectInput(
-            inputId = "education1",
-            label = "Utbildningsnivå:",
-            choices = vars_education,
-            selected = "Alla"
-          ),
-          selectInput(
-            inputId = "years1",
-            label = "Hur länge bott i kommunen:",
-            choices = vars_years,
-            selected = "Alla"
-          ),
           checkboxInput(
             inputId = "pop1",
             label = "Visa namn"

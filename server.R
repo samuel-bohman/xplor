@@ -95,8 +95,63 @@ shinyServer(function(input, output, session) {
 
   ### GROUP 1 FILTERS AND CALCULATIONS ########################
 
-  #New test formula
+  backgroundFilter <- function(spdf){
+
+    for (i in seq_along(names(backgroundChoices))){
+
+      #Example: "Omrade"
+      column <- names(input)[[i]]
+
+      #Example: input[["Omrade"]]
+      value <- input[[column]]
+
+      #Only parse selected
+      if (value != "" && value != "Alla"){
+
+        for (j in seq_along(value)){
+          spdf <- spdf[spdf[[column]] %in% value,]
+        }
+
+      }
+
+    }
+    return(spdf)
+  }
+
+
+
+
+  #More basic solution using uiNamesBg1 (hardcoded) to eliminate ifs
+  #Works!
+  #Drawback: relies on unique input values per column
   group1Filter1 <- reactive({
+
+    for (i in seq_along(uiNamesBg1)){
+
+      col <- uiNamesBg1[i]
+      dfCol <- getCategory(input[[col]]) #Gets name of column in results_df containing the input value
+
+
+      if (input[[col]] != "Alla" && input[[col]] != "") {
+        #browser()
+        for (i in seq_along(input[[col]])) {
+          results_spdf1 <-
+            results_spdf1[results_spdf1[[dfCol]] %in% input[[col]],]
+        }
+      }
+    }
+    results_spdf1
+
+
+    })
+
+  #Function test
+  group1Filter13 <- reactive({
+    backgroundFilter(results_spdf1)
+    })
+
+  #New test formula
+  group1Filter12 <- reactive({
 
 
     ##TODO: Handle filtering dynamically
