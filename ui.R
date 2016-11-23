@@ -10,16 +10,14 @@ shinyUI(
         class = "outer",
         tags[["head"]](includeCSS("styles.css")),
         leafletOutput("map", width = "100%", height = "100%"),
-        # panel 1
-
-        # panel 2
-        lapply(1:2, function(i){
+        # panel 1 & 2, Dynamically:
+        lapply(1:groupAmount, function(i){
           absolutePanel(
             id = paste("panel", i, sep=""),
             class = "panel panel-default",
             draggable = TRUE,
             top = 30,
-            left = 60 * i^2,
+            left = 60 * (i^2.5),
             right = "auto",
             bottom = "auto",
             width = 320,

@@ -19,14 +19,18 @@ vars_occupation <- c("Inget val" = "", "Alla", sort(unique(as.character(results_
 vars_education <- c("Inget val" = "", "Alla", "Inte gått ut grundskola eller motsvarande obligatorisk skola", "Grundskola eller motsvarande obligatorisk skola", "Gymnasium, folkhögskola eller motsvarande", "Annan eftergymnasial utbildning", "Högskola/universitet", "Forskarutbildning")
 vars_years <- c("Inget val" = "", "Alla", "0-4 år", "5-9 år", "10 år eller mer")
 
+
+#Part of non-current solution, ignore for now
 backgroundChoices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_education, vars_years)
 
 for (n in seq_along(backgroundChoices)){
   names(backgroundChoices)[n] <- getCategory(backgroundChoices[[n]])
 }
 
+#Names to be used as basis for group input dropdown ids
 uiNamesBg1 <- c("area", "sex", "age", "occupation", "education", "years")
 
+#Determines the number of controlled groups (generates a form for each)
 groupAmount = 2
 
 # Define themes and alternatives variables ----
