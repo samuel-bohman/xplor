@@ -27,7 +27,7 @@ for (n in seq_along(backgroundChoices)){
 
 uiNamesBg1 <- c("area", "sex", "age", "occupation", "education", "years")
 
-
+groupAmount = 2
 
 # Define themes and alternatives variables ----
 themes <- c("1. Parker & grönområden", "2. Mångfald i bostadsutbudet", "3. Levandegöra gemensamma platser", "4. Kommunikationer", "5. Kultur & fritid", "6. Utbildning", "7. Omsorg", "8. Skolan", "9. Trygghet", "10. Hållbar utveckling")

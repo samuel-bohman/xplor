@@ -400,9 +400,14 @@ shinyServer(function(input, output, session) {
 
   ### GROUP 2 FILTERS AND CALCULATIONS ########################
 
-  # Subset background variables
   group2Filter1 <- reactive({
+    bgFilter(2, results_spdf2)
+    })
+
+  # Subset background variables
+  group2Filter1old <- reactive({
     if (input[["area2"]] != "Alla") {
+      browser()
       for (a in seq_along(input[["area2"]])) {
         results_spdf2 <-
           results_spdf2[results_spdf2[["Omrade"]] %in% input[["area2"]],]
