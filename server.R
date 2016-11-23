@@ -96,6 +96,8 @@ shinyServer(function(input, output, session) {
   ### GROUP 1 FILTERS AND CALCULATIONS ########################
 
 
+  #Filters given spdf by reading numbered group input ids
+  #Same as below: relies on unique input values per column in dataframe
   bgFilter <- function(groupNumber, spdf){
     for (i in seq_along(uiNamesBg1)){
 
@@ -121,7 +123,7 @@ shinyServer(function(input, output, session) {
   #More basic solution using uiNamesBg1 (hardcoded) to eliminate ifs
   #Works!
   #Drawback: relies on unique input values per column
-  group1Filter1working <- reactive({
+  group1Filter1old3working <- reactive({
 
     for (i in seq_along(uiNamesBg1)){
 
@@ -143,7 +145,7 @@ shinyServer(function(input, output, session) {
     })
 
   #New test formula
-  group1Filter12 <- reactive({
+  group1Filter1old2 <- reactive({
 
 
     ##TODO: Handle filtering dynamically
@@ -188,7 +190,7 @@ shinyServer(function(input, output, session) {
     })
 
   # Subset background variables
-  group1Filter11 <- reactive({
+  group1Filter1old1 <- reactive({
     if (input[["area1"]] != "Alla") {
       for (i in seq_along(input[["area1"]])) {
         results_spdf1 <-
