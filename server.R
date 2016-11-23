@@ -101,8 +101,8 @@ shinyServer(function(input, output, session) {
   bgFilter <- function(groupNumber, spdf){
     for (i in seq_along(uiNamesBg1)){
 
-      col <- paste(uiNamesBg1[i], groupNumber, sep="")
-      dfCol <- getCategory(input[[col]]) #Gets name of column in results_df containing the input value
+      col <- paste(uiNamesBg1[i], groupNumber, sep="") #e.g. "area1"
+      dfCol <- getCategory(input[[col]]) #e.g. "area1" -> "Omrade"
 
 
       if (input[[col]] != "Alla" && input[[col]] != "") {
