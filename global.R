@@ -3,6 +3,8 @@ library(shiny)
 library(leaflet)
 library(RColorBrewer)
 
+WD <- getwd()
+
 # Read data ----
 results_spdf1 <- readRDS("data/results2.rds") # SpatialPolygonsDataFrame for group 1
 results_spdf2 <- readRDS("data/results2.rds") # SpatialPolygonsDataFrame for group 2
@@ -30,3 +32,83 @@ altTheme8 <- c("8a. Mindre barngrupper i förskolan", "8b. Höj kvaliteten i und
 altTheme9 <- c("9a. Öka tryggheten kring stationsområdet", "9b. Fler poliser i centrala Väsby", "9c. Förbättra belysningen i centrala Väsby", "9d. Begränsa öppettider för alkoholutskänkning i centrala Väsby", "9e. Förläng öppettider för affärsverksamhet i centrala Väsby")
 altTheme10 <- c("10a. Minska förbrukningen av energi", "10b. Minska transporter och buller", "10c. Öka klimatanpassning och kretsloppstänkande", "10d. Prioritera miljövänliga transportsätt (gång, cykel, kollektivtrafik)", "10e. Minska miljögifter och farliga kemikalier i naturen")
 contra <- c("12. Vatten eller bostäder", "13. Service eller grönområden", "14. Centralort eller mindre tätort")
+
+#keys <- c("Brunnsberg, Tomtelilla")
+#values <- list("Omrade", "Omrade")
+#names(values) <- keys
+
+#keys2 <- c("Man", "Kvinna")
+#values2 <- list("Kön", "Kön")
+#names(values2) <- keys2
+
+#val <- c(values, values2)
+
+myfunction <- function(vars){
+  values <- c()
+  keys <- c()
+  colNames <- c()
+
+  for (i in seq_along(vars)){
+    #values[i] <- "Omrade"
+
+    if (!(vars[i] == "Alla" || vars[i] == "")){
+      keys[i] <- vars[[i]]
+
+      testing <- which(sapply(results_df, function(x) any(x == vars[[i]])))
+      #print( names(testing)[0] )
+      values[i] <- names(testing)
+    }else print("Alla found")
+  }
+  names(values) <- (keys)
+
+  colNames <- c(colNames, values)
+
+  return (colNames)
+}
+
+##Returns the name of the column in results_df where the data value exists
+getCategory <- function(data){
+
+  
+
+  a <- which(sapply(results_df, function(x) any(x == data)))
+
+  a <- names(a)
+
+  noVal <- character(0)
+  if (identical(a, character(0))){
+    return ("404")
+  }
+
+  return (a)
+
+}
+
+
+###Start with manual approach:
+#colNames
+
+#lookUp <- c()
+
+#lookUp <- c(lookUp, myfunction(vars_area))
+#lookUp <- c(lookUp, myfunction(vars_age))
+#lookUp <- c(lookUp, myfunction(vars_occupation))
+#lookUp <- c(lookUp, myfunction(vars_education))
+#lookUp <- c(lookUp, myfunction(vars_years))
+#lookUp <- c(lookUp, myfunction(vars_sex))
+
+
+print(lookUp[["Sanda Ängar"]])
+
+#In results df, find the column name tha contains the element
+
+
+
+
+
+#UI-names for each column in results_df
+#
+
+#Works!
+
+#For each vars_ assign names from names(results_df)
