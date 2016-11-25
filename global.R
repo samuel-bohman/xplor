@@ -19,16 +19,12 @@ vars_occupation <- c("Inget val" = "", "Alla", sort(unique(as.character(results_
 vars_education <- c("Inget val" = "", "Alla", "Inte gått ut grundskola eller motsvarande obligatorisk skola", "Grundskola eller motsvarande obligatorisk skola", "Gymnasium, folkhögskola eller motsvarande", "Annan eftergymnasial utbildning", "Högskola/universitet", "Forskarutbildning")
 vars_years <- c("Inget val" = "", "Alla", "0-4 år", "5-9 år", "10 år eller mer")
 
-
-#Part of non-current solution, ignore for now
-backgroundChoices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_education, vars_years)
-
-for (n in seq_along(backgroundChoices)){
-  names(backgroundChoices)[n] <- getCategory(backgroundChoices[[n]])
-}
-
+##Use these for input matching - TODO: Generate dynamically / From file
 #Names to be used as basis for group input dropdown ids
-uiNamesBg1 <- c("area", "sex", "age", "occupation", "education", "years")
+uiNamesBg <- c("area", "sex", "age", "occupation", "education", "years")
+#Corresponding dataframe column names
+dfNamesBg <- c("Omrade", "Kön", "Ålder", "Sysselsättning", "Utbildningsnivå", "År")
+names(dfNamesBg) <- uiNamesBg1
 
 #Determines the number of controlled groups (generates a form for each)
 groupAmount = 2
@@ -47,48 +43,14 @@ altTheme9 <- c("9a. Öka tryggheten kring stationsområdet", "9b. Fler poliser i
 altTheme10 <- c("10a. Minska förbrukningen av energi", "10b. Minska transporter och buller", "10c. Öka klimatanpassning och kretsloppstänkande", "10d. Prioritera miljövänliga transportsätt (gång, cykel, kollektivtrafik)", "10e. Minska miljögifter och farliga kemikalier i naturen")
 contra <- c("12. Vatten eller bostäder", "13. Service eller grönområden", "14. Centralort eller mindre tätort")
 
-#keys <- c("Brunnsberg, Tomtelilla")
-#values <- list("Omrade", "Omrade")
-#names(values) <- keys
-
-#keys2 <- c("Man", "Kvinna")
-#values2 <- list("Kön", "Kön")
-#names(values2) <- keys2
-
-#val <- c(values, values2)
-
-myfunction <- function(vars){
-  values <- c()
-  keys <- c()
-  colNames <- c()
-
-  for (i in seq_along(vars)){
-    #values[i] <- "Omrade"
-
-    if (!(vars[i] == "Alla" || vars[i] == "")){
-      keys[i] <- vars[[i]]
-
-      testing <- which(sapply(results_df, function(x) any(x == vars[[i]])))
-      #print( names(testing)[0] )
-      values[i] <- names(testing)
-    }else print("Alla found")
-  }
-  names(values) <- (keys)
-
-  colNames <- c(colNames, values)
-
-  return (colNames)
-}
-
 ##Returns the name of the column in results_df where the data value exists
-getCategory <- function(data){
-
-
+getCategoryUnique <- function(data){
 
   a <- which(sapply(results_df, function(x) any(x == data)))
 
   a <- names(a)
 
+  #Null handling
   noVal <- character(0)
   if (identical(a, character(0))){
     return ("404")
@@ -98,29 +60,21 @@ getCategory <- function(data){
 
 }
 
-showPanel <- FALSE
+#Returns corresponding dataframe column name of an input column name
+getInputCategory <- function(uiColName){
 
+  #Error handling
+  if (!is.element(uiColName, names(dfNamesBg))){
+    return("404")
+  }
+  a <- dfNamesBg[[uiColName]]
 
-###Start with manual approach:
-#colNames
+  #Null handling
+  noVal <- character(0)
+  if (identical(a, character(0))){
+    return ("404")
+  }
 
-#lookUp <- c()
+  return (a)
 
-#lookUp <- c(lookUp, myfunction(vars_area))
-#lookUp <- c(lookUp, myfunction(vars_age))
-#lookUp <- c(lookUp, myfunction(vars_occupation))
-#lookUp <- c(lookUp, myfunction(vars_education))
-#lookUp <- c(lookUp, myfunction(vars_years))
-#lookUp <- c(lookUp, myfunction(vars_sex))
-#In results df, find the column name tha contains the element
-
-
-
-
-
-#UI-names for each column in results_df
-#
-
-#Works!
-
-#For each vars_ assign names from names(results_df)
+}

@@ -97,139 +97,30 @@ shinyServer(function(input, output, session) {
 
 
   #Filters given spdf by reading numbered group input ids
-  #Same as below: relies on unique input values per column in dataframe
   bgFilter <- function(groupNumber, spdf){
     for (i in seq_along(uiNamesBg1)){
 
       col <- paste(uiNamesBg1[i], groupNumber, sep="") #e.g. "area1"
-      dfCol <- getCategory(input[[col]]) #e.g. "area1" -> "Omrade"
+      dfCol <- getInputCategory(substr(col, 1, nchar(col)-1)) #e.g. "area1" -> "area" -> "Omrade"
 
 
+      #Do not filter non-selection
       if (input[[col]] != "Alla" && input[[col]] != "") {
-        #browser()
+
         for (i in seq_along(input[[col]])) {
+          #Get rows in spdf where value matches input selection
           spdf <-
-            results_spdf1[spdf[[dfCol]] %in% input[[col]],]
+            spdf[spdf[[dfCol]] %in% input[[col]],]
         }
       }
     }
     return(spdf)
   }
 
+  #Subset background variables
   group1Filter1 <- reactive({
     bgFilter(1, results_spdf1)
     })
-
-  #More basic solution using uiNamesBg1 (hardcoded) to eliminate ifs
-  #Works!
-  #Drawback: relies on unique input values per column
-  group1Filter1old3working <- reactive({
-
-    for (i in seq_along(uiNamesBg1)){
-
-      col <- uiNamesBg1[i]
-      dfCol <- getCategory(input[[col]]) #Gets name of column in results_df containing the input value
-
-
-      if (input[[col]] != "Alla" && input[[col]] != "") {
-        #browser()
-        for (i in seq_along(input[[col]])) {
-          results_spdf1 <-
-            results_spdf1[results_spdf1[[dfCol]] %in% input[[col]],]
-        }
-      }
-    }
-    results_spdf1
-
-
-    })
-
-  #New test formula
-  group1Filter1old2 <- reactive({
-
-
-    ##TODO: Handle filtering dynamically
-
-    #For every column name in input (area1, sex2 etc.)
-    for (i in seq_along(names(input))){
-
-      #Example: "area1"
-      column <- names(input)[[i]]
-
-      #Example: input[["area1"]]
-      value <- input[[column]]
-
-      allowed <- c("area1", "sex1", "age1", "occupation1", "education1", "years1")
-
-      inputFilter = any(column == allowed)
-
-      #Debug part
-      if (is.na(value != "Alla" && inputFilter)) browser()
-
-      if (value != "Alla" && inputFilter){
-
-        if (typeof(value) != "character") browser()
-
-        resultsColumn <- getCategory(value)
-
-        #Temporary breakpoint
-        if (resultsColumn == "404"){
-          browser()
-        }
-
-        for (j in seq_along(value)){
-            results_spdf1 <- results_spdf1[results_spdf1[[resultsColumn]] %in% value,]
-
-        }
-
-      }
-
-    }
-
-    results_spdf1
-    })
-
-  # Subset background variables
-  group1Filter1old1 <- reactive({
-    if (input[["area1"]] != "Alla") {
-      for (i in seq_along(input[["area1"]])) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1[["Omrade"]] %in% input[["area1"]],]
-      }
-    }
-
-    if (input[["sex1"]] != "Alla") {
-      for (i in seq_along(input[["sex1"]])) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1[["Kön"]] %in% input[["sex1"]],]
-      }
-    }
-    if (input[["age1"]] != "Alla") {
-      for (k in seq_along(input[["age1"]])) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1[["Ålder"]] %in% input[["age1"]],]
-      }
-    }
-    if (input[["occupation1"]] != "Alla") {
-      for (l in seq_along(input[["occupation1"]])) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1[["Sysselsättning"]] %in% input[["occupation1"]],]
-      }
-    }
-    if (input[["education1"]] != "Alla") {
-      for (m in seq_along(input[["education1"]])) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1[["Utbildningsnivå"]] %in% input[["education1"]],]
-      }
-    }
-    if (input[["years1"]] != "Alla") {
-      for (n in seq_along(input[["years1"]])) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1[["År"]] %in% input[["years1"]],]
-      }
-    }
-    results_spdf1
-  })
 
   # Subset theme alternatives
   group1Filter2 <- reactive({
@@ -405,48 +296,6 @@ shinyServer(function(input, output, session) {
   group2Filter1 <- reactive({
     bgFilter(2, results_spdf2)
     })
-
-  # Subset background variables
-  group2Filter1old <- reactive({
-    if (input[["area2"]] != "Alla") {
-      browser()
-      for (a in seq_along(input[["area2"]])) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2[["Omrade"]] %in% input[["area2"]],]
-      }
-    }
-    if (input[["sex2"]] != "Alla") {
-      for (b in seq_along(input[["sex2"]])) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2[["Kön"]] %in% input[["sex2"]],]
-      }
-    }
-    if (input[["age2"]] != "Alla") {
-      for (c in seq_along(input[["age2"]])) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2[["Ålder"]] %in% input[["age2"]],]
-      }
-    }
-    if (input[["occupation2"]] != "Alla") {
-      for (d in seq_along(input[["occupation2"]])) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2[["Sysselsättning"]] %in% input[["occupation2"]],]
-      }
-    }
-    if (input[["education2"]] != "Alla") {
-      for (e in seq_along(input[["education2"]])) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2[["Utbildningsnivå"]] %in% input[["education2"]],]
-      }
-    }
-    if (input[["years2"]] != "Alla") {
-      for (f in seq_along(input[["years2"]])) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2[["År"]] %in% input[["years2"]],]
-      }
-    }
-    results_spdf2
-  })
 
   # Subset theme alternatives
   group2Filter2 <- reactive({
