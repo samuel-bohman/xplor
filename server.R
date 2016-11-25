@@ -19,78 +19,20 @@ shinyServer(function(input, output, session) {
       )
   })
   
-  # Render alternatives menu
   output[["alternatives"]] <- renderUI({
-    if (input[["themes"]] == "1. Parker & grönområden") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme1,
-      ))
-    }
-    if (input[["themes"]] == "2. Mångfald i bostadsutbudet") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme2,
-      ))
-    }
-    if (input[["themes"]] == "3. Levandegöra gemensamma platser") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme3,
-      ))
-    }
-    if (input[["themes"]] == "4. Kommunikationer") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme4,
-      ))
-    }
-    if (input[["themes"]] == "5. Kultur & fritid") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme5,
-      ))
-    }
-    if (input[["themes"]] == "6. Utbildning") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme6,
-      ))
-    }
-    if (input[["themes"]] == "7. Omsorg") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme7,
-      ))
-    }
-    if (input[["themes"]] == "8. Skolan") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme8,
-      ))
-    }
-    if (input[["themes"]] == "9. Trygghet") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme9,
-      ))
-    }
-    if (input[["themes"]] == "10. Hållbar utveckling") {
-      return(selectInput(
-        inputId = "alt",
-        label = h5("Alternativ"),
-        choices = altTheme10,
-      ))
-    }
+    alt_list <- list(altTheme1, altTheme2, altTheme3, altTheme4, altTheme5, altTheme6, altTheme7, altTheme8, altTheme9, altTheme10)
+    switch(input$themes,
+           "1. Parker & grönområden" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[1]]),
+           "2. Mångfald i bostadsutbudet" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[2]]),
+           "3. Levandegöra gemensamma platser" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[3]]),
+           "4. Kommunikationer" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[4]]),
+           "5. Kultur & fritid" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[5]]),
+           "6. Utbildning" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[6]]),
+           "7. Omsorg" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[7]]),
+           "8. Skolan" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[8]]),
+           "9. Trygghet" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[9]]),
+           "10. Hållbar utveckling" = selectInput(inputId = "alt", label = h5("Alternativ"), choices = alt_list[[10]])
+          )
   })
   
   ### GROUP 1 FILTERS AND CALCULATIONS ########################

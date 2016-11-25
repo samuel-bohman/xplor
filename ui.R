@@ -26,37 +26,43 @@ shinyUI(
             inputId = "area1",
             label = "Område:",
             choices = vars_area,
-            selected = c("Eds Glesbygd")
+            selected = "Eds Glesbygd",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "sex1",
             label = "Kön:",
             choices = vars_sex,
-            selected = c("Alla")
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "age1",
             label = "Ålder:",
             choices = vars_age,
-            selected = c("Alla")
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "occupation1",
             label = "Sysselsättning:",
             choices = vars_occupation,
-            selected = "Alla"
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "education1",
             label = "Utbildningsnivå:",
             choices = vars_education,
-            selected = "Alla"
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "years1",
             label = "Hur länge bott i kommunen:",
             choices = vars_years,
-            selected = "Alla"
+            selected = "Alla",
+            multiple = TRUE
           ),
           checkboxInput(
             inputId = "pop1",
@@ -83,37 +89,43 @@ shinyUI(
             inputId = "area2",
             label = "Område:",
             choices = vars_area,
-            selected = c("Fresta glesbygd")
+            selected = "Fresta glesbygd",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "sex2",
             label = "Kön:",
             choices = vars_sex,
-            selected = "Man"
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "age2",
             label = "Ålder:",
             choices = vars_age,
-            selected = c("Alla")
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "occupation2",
             label = "Sysselsättning:",
             choices = vars_occupation,
-            selected = "Alla"
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "education2",
             label = "Utbildningsnivå:",
             choices = vars_education,
-            selected = "Alla"
+            selected = "Alla",
+            multiple = TRUE
           ),
           selectInput(
             inputId = "years2",
             label = "Hur länge bott i kommunen:",
             choices = vars_years,
-            selected = "Alla"
+            selected = "Alla",
+            multiple = TRUE
           ),
           checkboxInput(
             inputId = "pop2",
