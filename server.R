@@ -98,9 +98,9 @@ shinyServer(function(input, output, session) {
 
   #Filters given spdf by reading numbered group input ids
   bgFilter <- function(groupNumber, spdf){
-    for (i in seq_along(uiNamesBg1)){
+    for (i in seq_along(uiNamesBg)){
 
-      col <- paste(uiNamesBg1[i], groupNumber, sep="") #e.g. "area1"
+      col <- paste(uiNamesBg[i], groupNumber, sep="") #e.g. "area1"
       dfCol <- getInputCategory(substr(col, 1, nchar(col)-1)) #e.g. "area1" -> "area" -> "Omrade"
 
 
