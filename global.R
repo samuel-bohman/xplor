@@ -19,7 +19,7 @@ vars_occupation <- c("Inget val" = "", "Alla", sort(unique(as.character(results_
 vars_education <- c("Inget val" = "", "Alla", "Inte gått ut grundskola eller motsvarande obligatorisk skola", "Grundskola eller motsvarande obligatorisk skola", "Gymnasium, folkhögskola eller motsvarande", "Annan eftergymnasial utbildning", "Högskola/universitet", "Forskarutbildning")
 vars_years <- c("Inget val" = "", "Alla", "0-4 år", "5-9 år", "10 år eller mer")
 
-
+#Needed for dynamic form generation (group forms)
 backgroundChoices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_education, vars_years)
 
 ##Use these for input matching - TODO: Generate dynamically / From file
