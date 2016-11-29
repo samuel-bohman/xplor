@@ -1,7 +1,7 @@
 shinyServer(function(input, output, session) {
-  
-  
-  
+
+
+
   ##Returns the name of the column in results_df where the data value exists
   get_category_unique <- function(data){
     a <- which(sapply(results_df, function(x) any(x == data)))
@@ -13,7 +13,7 @@ shinyServer(function(input, output, session) {
     }
     return(a)
   }
-  
+
   #Returns corresponding dataframe column name of an input column name
   get_input_category <- function(ui_col_name){
     #Error handling
@@ -28,7 +28,7 @@ shinyServer(function(input, output, session) {
     }
     return(a)
   }
-  
+
 
   # Create static map
   output[["map"]] <- renderLeaflet({
@@ -143,352 +143,352 @@ shinyServer(function(input, output, session) {
   }
 
   #Subset background variables
-  group1Filter1 <- reactive({
+  group_1_filter_1 <- reactive({
     bg_filter(1, results_spdf1)
     })
 
   # Subset theme alternatives
-  group1Filter2 <- reactive({
+  group_1_filter_2 <- reactive({
     # theme 1
     if (input[["alt"]] == "1a. Bevara existerande större grönområden") {
-      return(as.matrix(group1Filter1()@data[, 10]))
+      return(as.matrix(group_1_filter_1()@data[, 10]))
     }
     if (input[["alt"]] == "1b. Anlägga parker i existerande stadsdelar") {
-      return(as.matrix(group1Filter1()@data[, 11]))
+      return(as.matrix(group_1_filter_1()@data[, 11]))
     }
     if (input[["alt"]] == "1c. Bygga bostäder nära grönområden") {
-      return(as.matrix(group1Filter1()@data[, 12]))
+      return(as.matrix(group_1_filter_1()@data[, 12]))
     }
     if (input[["alt"]] == "1d. Rusta upp befintliga parker") {
-      return(as.matrix(group1Filter1()@data[, 13]))
+      return(as.matrix(group_1_filter_1()@data[, 13]))
     }
     if (input[["alt"]] == "1e. Skapa bättre tillgänglighet till större grönområden") {
-      return(as.matrix(group1Filter1()@data[, 14]))
+      return(as.matrix(group_1_filter_1()@data[, 14]))
     }
     # theme 2
     if (input[["alt"]] == "2a. Erbjuda fler bostadstyper") {
-      return(as.matrix(group1Filter1()@data[, 15]))
+      return(as.matrix(group_1_filter_1()@data[, 15]))
     }
     if (input[["alt"]] == "2b. Erbjuda fler lägenhetsstorlekar") {
-      return(as.matrix(group1Filter1()@data[, 16]))
+      return(as.matrix(group_1_filter_1()@data[, 16]))
     }
     if (input[["alt"]] == "2c. Erbjuda småskaligt markägande") {
-      return(as.matrix(group1Filter1()@data[, 17]))
+      return(as.matrix(group_1_filter_1()@data[, 17]))
     }
     if (input[["alt"]] == "2d. Bevara de idémässiga grunderna för bebyggelsen från 1970-talet") {
-      return(as.matrix(group1Filter1()@data[, 18]))
+      return(as.matrix(group_1_filter_1()@data[, 18]))
     }
     if (input[["alt"]] == "2e. Erbjuda fler bostäder nära vatten") {
-      return(as.matrix(group1Filter1()@data[, 19]))
+      return(as.matrix(group_1_filter_1()@data[, 19]))
     }
     # theme 3
     if (input[["alt"]] == "3a. Blanda trafikslagen") {
-      return(as.matrix(group1Filter1()@data[, 20]))
+      return(as.matrix(group_1_filter_1()@data[, 20]))
     }
     if (input[["alt"]] == "3b. Förlägga parkering längs med gator") {
-      return(as.matrix(group1Filter1()@data[, 21]))
+      return(as.matrix(group_1_filter_1()@data[, 21]))
     }
     if (input[["alt"]] == "3c. Vända entréer mot gator") {
-      return(as.matrix(group1Filter1()@data[, 22]))
+      return(as.matrix(group_1_filter_1()@data[, 22]))
     }
     if (input[["alt"]] == "3d. Förlägga publika lokaler i transparenta bottenvåningar") {
-      return(as.matrix(group1Filter1()@data[, 23]))
+      return(as.matrix(group_1_filter_1()@data[, 23]))
     }
     if (input[["alt"]] == "3e. Trygga parkeringslösningar under bostäder") {
-      return(as.matrix(group1Filter1()@data[, 24]))
+      return(as.matrix(group_1_filter_1()@data[, 24]))
     }
     # theme 4
     if (input[["alt"]] == "4a. Koppla ihop nya gator med befintliga för att stärka kopplingen till intilliggande stadsdelar och minska barriärerna som de stora vägarna utgör") {
-      return(as.matrix(group1Filter1()@data[, 25]))
+      return(as.matrix(group_1_filter_1()@data[, 25]))
     }
     if (input[["alt"]] == "4b. Förbättra kommunikationerna nattetid mellan olika delar av kommunen") {
-      return(as.matrix(group1Filter1()@data[, 26]))
+      return(as.matrix(group_1_filter_1()@data[, 26]))
     }
     if (input[["alt"]] == "4c. Förbättra kommunikationerna till och från Uppsala") {
-      return(as.matrix(group1Filter1()@data[, 27]))
+      return(as.matrix(group_1_filter_1()@data[, 27]))
     }
     if (input[["alt"]] == "4d. Förbättra de nord-sydliga och öst-västliga stråken via ett finmaskigare och väl integrerat stadsnät") {
-      return(as.matrix(group1Filter1()@data[, 28]))
+      return(as.matrix(group_1_filter_1()@data[, 28]))
     }
     if (input[["alt"]] == "4e. Förbättra kommunikationerna till och från Stockholms innerstad") {
-      return(as.matrix(group1Filter1()@data[, 29]))
+      return(as.matrix(group_1_filter_1()@data[, 29]))
     }
     # theme 5
     if (input[["alt"]] == "5a. Utöka utbudet av kultur- sport- och fritidsaktiviteter") {
-      return(as.matrix(group1Filter1()@data[, 30]))
+      return(as.matrix(group_1_filter_1()@data[, 30]))
     }
     if (input[["alt"]] == "5b. Skapa bättre möjligheter för festivaler och konserter") {
-      return(as.matrix(group1Filter1()@data[, 31]))
+      return(as.matrix(group_1_filter_1()@data[, 31]))
     }
     if (input[["alt"]] == "5c. Skapa fler förutsättningar för utomhussporter") {
-      return(as.matrix(group1Filter1()@data[, 32]))
+      return(as.matrix(group_1_filter_1()@data[, 32]))
     }
     if (input[["alt"]] == "5d. Skapa marknadsplatser utomhus") {
-      return(as.matrix(group1Filter1()@data[, 33]))
+      return(as.matrix(group_1_filter_1()@data[, 33]))
     }
     if (input[["alt"]] == "5e. Erbjuda kommunala bidrag för kultur- och fritidsprojekt") {
-      return(as.matrix(group1Filter1()@data[, 34]))
+      return(as.matrix(group_1_filter_1()@data[, 34]))
     }
     # theme 6
     if (input[["alt"]] == "6a. Rusta upp äldre skolor") {
-      return(as.matrix(group1Filter1()@data[, 35]))
+      return(as.matrix(group_1_filter_1()@data[, 35]))
     }
     if (input[["alt"]] == "6b. Bygg nya skolor") {
-      return(as.matrix(group1Filter1()@data[, 36]))
+      return(as.matrix(group_1_filter_1()@data[, 36]))
     }
     if (input[["alt"]] == "6c. Förbättra skolgårdarnas fysiska miljöer") {
-      return(as.matrix(group1Filter1()@data[, 37]))
+      return(as.matrix(group_1_filter_1()@data[, 37]))
     }
     if (input[["alt"]] == "6d. Höj kvaliteten i grundskolan") {
-      return(as.matrix(group1Filter1()@data[, 38]))
+      return(as.matrix(group_1_filter_1()@data[, 38]))
     }
     if (input[["alt"]] == "6e. Höj kvaliteten på gymnasieutbildningarna") {
-      return(as.matrix(group1Filter1()@data[, 39]))
+      return(as.matrix(group_1_filter_1()@data[, 39]))
     }
     # theme 7
     if (input[["alt"]] == "7a. Fler kultur- och fritidsaktiviteter för äldre") {
-      return(as.matrix(group1Filter1()@data[, 40]))
+      return(as.matrix(group_1_filter_1()@data[, 40]))
     }
     if (input[["alt"]] == "7b. Fler kultur- och fritidsaktiviteter för barn och ungdomar") {
-      return(as.matrix(group1Filter1()@data[, 41]))
+      return(as.matrix(group_1_filter_1()@data[, 41]))
     }
     if (input[["alt"]] == "7c. Förbättra äldreomsorgen i kommunen") {
-      return(as.matrix(group1Filter1()@data[, 42]))
+      return(as.matrix(group_1_filter_1()@data[, 42]))
     }
     if (input[["alt"]] == "7d. Fler ungdomsgårdar och fältassistenter") {
-      return(as.matrix(group1Filter1()@data[, 43]))
+      return(as.matrix(group_1_filter_1()@data[, 43]))
     }
     if (input[["alt"]] == "7e. Minska barngrupperna i förskolan") {
-      return(as.matrix(group1Filter1()@data[, 44]))
+      return(as.matrix(group_1_filter_1()@data[, 44]))
     }
     # theme 8
     if (input[["alt"]] == "8a. Mindre barngrupper i förskolan") {
-      return(as.matrix(group1Filter1()@data[, 45]))
+      return(as.matrix(group_1_filter_1()@data[, 45]))
     }
     if (input[["alt"]] == "8b. Höj kvaliteten i undervisningen") {
-      return(as.matrix(group1Filter1()@data[, 46]))
+      return(as.matrix(group_1_filter_1()@data[, 46]))
     }
     if (input[["alt"]] == "8c. Mer kompetensutveckling för skolor och lärare") {
-      return(as.matrix(group1Filter1()@data[, 47]))
+      return(as.matrix(group_1_filter_1()@data[, 47]))
     }
     if (input[["alt"]] == "8d. Mer modern informationsteknologi (IT) i undervisningen") {
-      return(as.matrix(group1Filter1()@data[, 48]))
+      return(as.matrix(group_1_filter_1()@data[, 48]))
     }
     if (input[["alt"]] == "8e. Involvera vårdnadshavare mer i skolan") {
-      return(as.matrix(group1Filter1()@data[, 49]))
+      return(as.matrix(group_1_filter_1()@data[, 49]))
     }
     # theme 9
     if (input[["alt"]] == "9a. Öka tryggheten kring stationsområdet") {
-      return(as.matrix(group1Filter1()@data[, 50]))
+      return(as.matrix(group_1_filter_1()@data[, 50]))
     }
     if (input[["alt"]] == "9b. Fler poliser i centrala Väsby") {
-      return(as.matrix(group1Filter1()@data[, 51]))
+      return(as.matrix(group_1_filter_1()@data[, 51]))
     }
     if (input[["alt"]] == "9c. Förbättra belysningen i centrala Väsby") {
-      return(as.matrix(group1Filter1()@data[, 52]))
+      return(as.matrix(group_1_filter_1()@data[, 52]))
     }
     if (input[["alt"]] == "9d. Begränsa öppettider för alkoholutskänkning i centrala Väsby") {
-      return(as.matrix(group1Filter1()@data[, 53]))
+      return(as.matrix(group_1_filter_1()@data[, 53]))
     }
     if (input[["alt"]] == "9e. Förläng öppettider för affärsverksamhet i centrala Väsby") {
-      return(as.matrix(group1Filter1()@data[, 54]))
+      return(as.matrix(group_1_filter_1()@data[, 54]))
     }
     # theme 10
     if (input[["alt"]] == "10a. Minska förbrukningen av energi") {
-      return(as.matrix(group1Filter1()@data[, 55]))
+      return(as.matrix(group_1_filter_1()@data[, 55]))
     }
     if (input[["alt"]] == "10b. Minska transporter och buller") {
-      return(as.matrix(group1Filter1()@data[, 56]))
+      return(as.matrix(group_1_filter_1()@data[, 56]))
     }
     if (input[["alt"]] == "10c. Öka klimatanpassning och kretsloppstänkande") {
-      return(as.matrix(group1Filter1()@data[, 57]))
+      return(as.matrix(group_1_filter_1()@data[, 57]))
     }
     if (input[["alt"]] == "10d. Prioritera miljövänliga transportsätt (gång, cykel, kollektivtrafik)") {
-      return(as.matrix(group1Filter1()@data[, 58]))
+      return(as.matrix(group_1_filter_1()@data[, 58]))
     }
     if (input[["alt"]] == "10e. Minska miljögifter och farliga kemikalier i naturen") {
-      return(as.matrix(group1Filter1()@data[, 59]))
+      return(as.matrix(group_1_filter_1()@data[, 59]))
     }
   })
 
   # Calculate mean
   group1Mean <- reactive({
-    mean1 <- round(mean(group1Filter2()))
+    mean1 <- round(mean(group_1_filter_2()))
   })
 
   ### GROUP 2 FILTERS AND CALCULATIONS ########################
 
-  group2Filter1 <- reactive({
+  group_2_filter_1 <- reactive({
     bg_filter(2, results_spdf2)
     })
 
   # Subset theme alternatives
-  group2Filter2 <- reactive({
+  group_2_filter_2 <- reactive({
     # Theme 1
     if (input[["alt"]] == "1a. Bevara existerande större grönområden") {
-      return(as.matrix(group2Filter1()@data[, 10]))
+      return(as.matrix(group_2_filter_1()@data[, 10]))
     }
     if (input[["alt"]] == "1b. Anlägga parker i existerande stadsdelar") {
-      return(as.matrix(group2Filter1()@data[, 11]))
+      return(as.matrix(group_2_filter_1()@data[, 11]))
     }
     if (input[["alt"]] == "1c. Bygga bostäder nära grönområden") {
-      return(as.matrix(group2Filter1()@data[, 12]))
+      return(as.matrix(group_2_filter_1()@data[, 12]))
     }
     if (input[["alt"]] == "1d. Rusta upp befintliga parker") {
-      return(as.matrix(group2Filter1()@data[, 13]))
+      return(as.matrix(group_2_filter_1()@data[, 13]))
     }
     if (input[["alt"]] == "1e. Skapa bättre tillgänglighet till större grönområden") {
-      return(as.matrix(group2Filter1()@data[, 14]))
+      return(as.matrix(group_2_filter_1()@data[, 14]))
     }
     # Theme 2
     if (input[["alt"]] == "2a. Erbjuda fler bostadstyper") {
-      return(as.matrix(group2Filter1()@data[, 15]))
+      return(as.matrix(group_2_filter_1()@data[, 15]))
     }
     if (input[["alt"]] == "2b. Erbjuda fler lägenhetsstorlekar") {
-      return(as.matrix(group2Filter1()@data[, 16]))
+      return(as.matrix(group_2_filter_1()@data[, 16]))
     }
     if (input[["alt"]] == "2c. Erbjuda småskaligt markägande") {
-      return(as.matrix(group2Filter1()@data[, 17]))
+      return(as.matrix(group_2_filter_1()@data[, 17]))
     }
     if (input[["alt"]] == "2d. Bevara de idémässiga grunderna för bebyggelsen från 1970-talet") {
-      return(as.matrix(group2Filter1()@data[, 18]))
+      return(as.matrix(group_2_filter_1()@data[, 18]))
     }
     if (input[["alt"]] == "2e. Erbjuda fler bostäder nära vatten") {
-      return(as.matrix(group2Filter1()@data[, 19]))
+      return(as.matrix(group_2_filter_1()@data[, 19]))
     }
     # Theme 3
     if (input[["alt"]] == "3a. Blanda trafikslagen") {
-      return(as.matrix(group2Filter1()@data[, 20]))
+      return(as.matrix(group_2_filter_1()@data[, 20]))
     }
     if (input[["alt"]] == "3b. Förlägga parkering längs med gator") {
-      return(as.matrix(group2Filter1()@data[, 21]))
+      return(as.matrix(group_2_filter_1()@data[, 21]))
     }
     if (input[["alt"]] == "3c. Vända entréer mot gator") {
-      return(as.matrix(group2Filter1()@data[, 22]))
+      return(as.matrix(group_2_filter_1()@data[, 22]))
     }
     if (input[["alt"]] == "3d. Förlägga publika lokaler i transparenta bottenvåningar") {
-      return(as.matrix(group2Filter1()@data[, 23]))
+      return(as.matrix(group_2_filter_1()@data[, 23]))
     }
     if (input[["alt"]] == "3e. Trygga parkeringslösningar under bostäder") {
-      return(as.matrix(group2Filter1()@data[, 24]))
+      return(as.matrix(group_2_filter_1()@data[, 24]))
     }
     # Theme 4
     if (input[["alt"]] == "4a. Koppla ihop nya gator med befintliga för att stärka kopplingen till intilliggande stadsdelar och minska barriärerna som de stora vägarna utgör") {
-      return(as.matrix(group2Filter1()@data[, 25]))
+      return(as.matrix(group_2_filter_1()@data[, 25]))
     }
     if (input[["alt"]] == "4b. Förbättra kommunikationerna nattetid mellan olika delar av kommunen") {
-      return(as.matrix(group2Filter1()@data[, 26]))
+      return(as.matrix(group_2_filter_1()@data[, 26]))
     }
     if (input[["alt"]] == "4c. Förbättra kommunikationerna till och från Uppsala") {
-      return(as.matrix(group2Filter1()@data[, 27]))
+      return(as.matrix(group_2_filter_1()@data[, 27]))
     }
     if (input[["alt"]] == "4d. Förbättra de nord-sydliga och öst-västliga stråken via ett finmaskigare och väl integrerat stadsnät") {
-      return(as.matrix(group2Filter1()@data[, 28]))
+      return(as.matrix(group_2_filter_1()@data[, 28]))
     }
     if (input[["alt"]] == "4e. Förbättra kommunikationerna till och från Stockholms innerstad") {
-      return(as.matrix(group2Filter1()@data[, 29]))
+      return(as.matrix(group_2_filter_1()@data[, 29]))
     }
     # Theme 5
     if (input[["alt"]] == "5a. Utöka utbudet av kultur- sport- och fritidsaktiviteter") {
-      return(as.matrix(group2Filter1()@data[, 30]))
+      return(as.matrix(group_2_filter_1()@data[, 30]))
     }
     if (input[["alt"]] == "5b. Skapa bättre möjligheter för festivaler och konserter") {
-      return(as.matrix(group2Filter1()@data[, 31]))
+      return(as.matrix(group_2_filter_1()@data[, 31]))
     }
     if (input[["alt"]] == "5c. Skapa fler förutsättningar för utomhussporter") {
-      return(as.matrix(group2Filter1()@data[, 32]))
+      return(as.matrix(group_2_filter_1()@data[, 32]))
     }
     if (input[["alt"]] == "5d. Skapa marknadsplatser utomhus") {
-      return(as.matrix(group2Filter1()@data[, 33]))
+      return(as.matrix(group_2_filter_1()@data[, 33]))
     }
     if (input[["alt"]] == "5e. Erbjuda kommunala bidrag för kultur- och fritidsprojekt") {
-      return(as.matrix(group2Filter1()@data[, 34]))
+      return(as.matrix(group_2_filter_1()@data[, 34]))
     }
     # Theme 6
     if (input[["alt"]] == "6a. Rusta upp äldre skolor") {
-      return(as.matrix(group2Filter1()@data[, 35]))
+      return(as.matrix(group_2_filter_1()@data[, 35]))
     }
     if (input[["alt"]] == "6b. Bygg nya skolor") {
-      return(as.matrix(group2Filter1()@data[, 36]))
+      return(as.matrix(group_2_filter_1()@data[, 36]))
     }
     if (input[["alt"]] == "6c. Förbättra skolgårdarnas fysiska miljöer") {
-      return(as.matrix(group2Filter1()@data[, 37]))
+      return(as.matrix(group_2_filter_1()@data[, 37]))
     }
     if (input[["alt"]] == "6d. Höj kvaliteten i grundskolan") {
-      return(as.matrix(group2Filter1()@data[, 38]))
+      return(as.matrix(group_2_filter_1()@data[, 38]))
     }
     if (input[["alt"]] == "6e. Höj kvaliteten på gymnasieutbildningarna") {
-      return(as.matrix(group2Filter1()@data[, 39]))
+      return(as.matrix(group_2_filter_1()@data[, 39]))
     }
     # Theme 7
     if (input[["alt"]] == "7a. Fler kultur- och fritidsaktiviteter för äldre") {
-      return(as.matrix(group2Filter1()@data[, 40]))
+      return(as.matrix(group_2_filter_1()@data[, 40]))
     }
     if (input[["alt"]] == "7b. Fler kultur- och fritidsaktiviteter för barn och ungdomar") {
-      return(as.matrix(group2Filter1()@data[, 41]))
+      return(as.matrix(group_2_filter_1()@data[, 41]))
     }
     if (input[["alt"]] == "7c. Förbättra äldreomsorgen i kommunen") {
-      return(as.matrix(group2Filter1()@data[, 42]))
+      return(as.matrix(group_2_filter_1()@data[, 42]))
     }
     if (input[["alt"]] == "7d. Fler ungdomsgårdar och fältassistenter") {
-      return(as.matrix(group2Filter1()@data[, 43]))
+      return(as.matrix(group_2_filter_1()@data[, 43]))
     }
     if (input[["alt"]] == "7e. Minska barngrupperna i förskolan") {
-      return(as.matrix(group2Filter1()@data[, 44]))
+      return(as.matrix(group_2_filter_1()@data[, 44]))
     }
     # Theme 8
     if (input[["alt"]] == "8a. Mindre barngrupper i förskolan") {
-      return(as.matrix(group2Filter1()@data[, 45]))
+      return(as.matrix(group_2_filter_1()@data[, 45]))
     }
     if (input[["alt"]] == "8b. Höj kvaliteten i undervisningen") {
-      return(as.matrix(group2Filter1()@data[, 46]))
+      return(as.matrix(group_2_filter_1()@data[, 46]))
     }
     if (input[["alt"]] == "8c. Mer kompetensutveckling för skolor och lärare") {
-      return(as.matrix(group2Filter1()@data[, 47]))
+      return(as.matrix(group_2_filter_1()@data[, 47]))
     }
     if (input[["alt"]] == "8d. Mer modern informationsteknologi (IT) i undervisningen") {
-      return(as.matrix(group2Filter1()@data[, 48]))
+      return(as.matrix(group_2_filter_1()@data[, 48]))
     }
     if (input[["alt"]] == "8e. Involvera vårdnadshavare mer i skolan") {
-      return(as.matrix(group2Filter1()@data[, 49]))
+      return(as.matrix(group_2_filter_1()@data[, 49]))
     }
     # Theme 9
     if (input[["alt"]] == "9a. Öka tryggheten kring stationsområdet") {
-      return(as.matrix(group2Filter1()@data[, 50]))
+      return(as.matrix(group_2_filter_1()@data[, 50]))
     }
     if (input[["alt"]] == "9b. Fler poliser i centrala Väsby") {
-      return(as.matrix(group2Filter1()@data[, 51]))
+      return(as.matrix(group_2_filter_1()@data[, 51]))
     }
     if (input[["alt"]] == "9c. Förbättra belysningen i centrala Väsby") {
-      return(as.matrix(group2Filter1()@data[, 52]))
+      return(as.matrix(group_2_filter_1()@data[, 52]))
     }
     if (input[["alt"]] == "9d. Begränsa öppettider för alkoholutskänkning i centrala Väsby") {
-      return(as.matrix(group2Filter1()@data[, 53]))
+      return(as.matrix(group_2_filter_1()@data[, 53]))
     }
     if (input[["alt"]] == "9e. Förläng öppettider för affärsverksamhet i centrala Väsby") {
-      return(as.matrix(group2Filter1()@data[, 54]))
+      return(as.matrix(group_2_filter_1()@data[, 54]))
     }
     # Theme 10
     if (input[["alt"]] == "10a. Minska förbrukningen av energi") {
-      return(as.matrix(group2Filter1()@data[, 55]))
+      return(as.matrix(group_2_filter_1()@data[, 55]))
     }
     if (input[["alt"]] == "10b. Minska transporter och buller") {
-      return(as.matrix(group2Filter1()@data[, 56]))
+      return(as.matrix(group_2_filter_1()@data[, 56]))
     }
     if (input[["alt"]] == "10c. Öka klimatanpassning och kretsloppstänkande") {
-      return(as.matrix(group2Filter1()@data[, 57]))
+      return(as.matrix(group_2_filter_1()@data[, 57]))
     }
     if (input[["alt"]] == "10d. Prioritera miljövänliga transportsätt (gång, cykel, kollektivtrafik)") {
-      return(as.matrix(group2Filter1()@data[, 58]))
+      return(as.matrix(group_2_filter_1()@data[, 58]))
     }
     if (input[["alt"]] == "10e. Minska miljögifter och farliga kemikalier i naturen") {
-      return(as.matrix(group2Filter1()@data[, 59]))
+      return(as.matrix(group_2_filter_1()@data[, 59]))
     }
   })
 
   # Calculate mean
   group2Mean <- reactive({
-    mean2 <- round(mean(group2Filter2()))
+    mean2 <- round(mean(group_2_filter_2()))
   })
 
   ### DYNAMIC MAP ELEMENTS ####################################
@@ -530,28 +530,28 @@ shinyServer(function(input, output, session) {
     if (!is.null(nullChecks1())) {
       leafletProxy(mapId = "map") %>%
         addPolygons(
-          data = group1Filter1(),
+          data = group_1_filter_1(),
           fill = TRUE,
           fillColor = ~colorpal()(group1Mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
           weight = 2,
           color = "red",
-          layerId = group1Filter1()[["Omrade"]],
+          layerId = group_1_filter_1()[["Omrade"]],
           group = "group1Polygons"
         )
     }
     if (!is.null(nullChecks2())) {
       leafletProxy(mapId = "map") %>%
         addPolygons(
-          data = group2Filter1(),
+          data = group_2_filter_1(),
           fill = TRUE,
           fillColor = ~colorpal()(group2Mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
           weight = 2,
           color = "blue",
-          layerId = group2Filter1()[["Omrade"]],
+          layerId = group_2_filter_1()[["Omrade"]],
           group = "group2Polygons"
         )
     }
@@ -584,11 +584,11 @@ shinyServer(function(input, output, session) {
       if (input[["pop1"]]) {
         leafletProxy(mapId = "map") %>%
           addPopups(
-            data = group1Filter1(),
+            data = group_1_filter_1(),
             lng = ~long,
             lat = ~lat,
-            popup = group1Filter1()[["Omrade"]],
-            layerId = group1Filter1()[["Omrade"]]
+            popup = group_1_filter_1()[["Omrade"]],
+            layerId = group_1_filter_1()[["Omrade"]]
           )
       }
     }
@@ -596,11 +596,11 @@ shinyServer(function(input, output, session) {
       if (input[["pop2"]]) {
         leafletProxy(mapId = "map") %>%
           addPopups(
-            data = group2Filter1(),
+            data = group_2_filter_1(),
             lng = ~long,
             lat = ~lat,
-            popup = group2Filter1()[["Omrade"]],
-            layerId = group2Filter1()[["Omrade"]]
+            popup = group_2_filter_1()[["Omrade"]],
+            layerId = group_2_filter_1()[["Omrade"]]
           )
       }
     }
@@ -614,11 +614,11 @@ shinyServer(function(input, output, session) {
       if (input[["markers1"]]) {
         leafletProxy(mapId = "map") %>%
           addMarkers(
-            data = group1Filter1(),
+            data = group_1_filter_1(),
             lng = ~long,
             lat = ~lat,
-            popup = group1Filter1()[["Omrade"]],
-            layerId = group1Filter1()[["Omrade"]]
+            popup = group_1_filter_1()[["Omrade"]],
+            layerId = group_1_filter_1()[["Omrade"]]
           )
       }
     }
@@ -626,11 +626,11 @@ shinyServer(function(input, output, session) {
       if (input[["markers2"]]) {
         leafletProxy(mapId = "map") %>%
           addMarkers(
-            data = group2Filter1(),
+            data = group_2_filter_1(),
             lng = ~long,
             lat = ~lat,
-            popup = group2Filter1()[["Omrade"]],
-            layerId = group2Filter1()[["Omrade"]]
+            popup = group_2_filter_1()[["Omrade"]],
+            layerId = group_2_filter_1()[["Omrade"]]
           )
       }
     }
