@@ -55,70 +55,70 @@ shinyServer(function(input, output, session) {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme1,
+        choices = alt_theme_1,
       ))
     }
     if (input[["themes"]] == "2. Mångfald i bostadsutbudet") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme2,
+        choices = alt_theme_2,
       ))
     }
     if (input[["themes"]] == "3. Levandegöra gemensamma platser") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme3,
+        choices = alt_theme_3,
       ))
     }
     if (input[["themes"]] == "4. Kommunikationer") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme4,
+        choices = alt_theme_4,
       ))
     }
     if (input[["themes"]] == "5. Kultur & fritid") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme5,
+        choices = alt_theme_5,
       ))
     }
     if (input[["themes"]] == "6. Utbildning") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme6,
+        choices = alt_theme_6,
       ))
     }
     if (input[["themes"]] == "7. Omsorg") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme7,
+        choices = alt_theme_7,
       ))
     }
     if (input[["themes"]] == "8. Skolan") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme8,
+        choices = alt_theme_8,
       ))
     }
     if (input[["themes"]] == "9. Trygghet") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme9,
+        choices = alt_theme_9,
       ))
     }
     if (input[["themes"]] == "10. Hållbar utveckling") {
       return(selectInput(
         inputId = "alt",
         label = h5("Alternativ"),
-        choices = altTheme10,
+        choices = alt_theme_10,
       ))
     }
   })
@@ -312,7 +312,7 @@ shinyServer(function(input, output, session) {
   })
 
   # Calculate mean
-  group1Mean <- reactive({
+  group_1_mean <- reactive({
     mean1 <- round(mean(group_1_filter_2()))
   })
 
@@ -487,14 +487,14 @@ shinyServer(function(input, output, session) {
   })
 
   # Calculate mean
-  group2Mean <- reactive({
+  group_2_mean <- reactive({
     mean2 <- round(mean(group_2_filter_2()))
   })
 
   ### DYNAMIC MAP ELEMENTS ####################################
 
   # NULL checks
-  nullChecks1 <- reactive({
+  null_checks1 <- reactive({
     if (is.null(input[["alt"]]) ||
         is.null(input[["area1"]]) ||
         is.null(input[["sex1"]]) ||
@@ -508,7 +508,7 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  nullChecks2 <- reactive({
+  null_checks2 <- reactive({
     if (is.null(input[["alt"]]) ||
         is.null(input[["area2"]]) ||
         is.null(input[["sex2"]]) ||
@@ -527,12 +527,12 @@ shinyServer(function(input, output, session) {
     leafletProxy(mapId = "map") %>%
       clearGroup(group = "group1Polygons") %>%
       clearGroup(group = "group2Polygons")
-    if (!is.null(nullChecks1())) {
+    if (!is.null(null_checks1())) {
       leafletProxy(mapId = "map") %>%
         addPolygons(
           data = group_1_filter_1(),
           fill = TRUE,
-          fillColor = ~colorpal()(group1Mean()),
+          fillColor = ~colorpal()(group_1_mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
           weight = 2,
@@ -541,12 +541,12 @@ shinyServer(function(input, output, session) {
           group = "group1Polygons"
         )
     }
-    if (!is.null(nullChecks2())) {
+    if (!is.null(null_checks2())) {
       leafletProxy(mapId = "map") %>%
         addPolygons(
           data = group_2_filter_1(),
           fill = TRUE,
-          fillColor = ~colorpal()(group2Mean()),
+          fillColor = ~colorpal()(group_2_mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
           weight = 2,
@@ -580,7 +580,7 @@ shinyServer(function(input, output, session) {
   observe({
     leafletProxy(mapId = "map") %>%
       clearPopups()
-    if (!is.null(nullChecks1())) {
+    if (!is.null(null_checks1())) {
       if (input[["pop1"]]) {
         leafletProxy(mapId = "map") %>%
           addPopups(
@@ -592,7 +592,7 @@ shinyServer(function(input, output, session) {
           )
       }
     }
-    if (!is.null(nullChecks2())) {
+    if (!is.null(null_checks2())) {
       if (input[["pop2"]]) {
         leafletProxy(mapId = "map") %>%
           addPopups(
@@ -608,7 +608,7 @@ shinyServer(function(input, output, session) {
 
   # Add markers to map
   observe({
-    if (!is.null(nullChecks1())) {
+    if (!is.null(null_checks1())) {
       leafletProxy(mapId = "map") %>%
         clearMarkers()
       if (input[["markers1"]]) {
@@ -622,7 +622,7 @@ shinyServer(function(input, output, session) {
           )
       }
     }
-    if (!is.null(nullChecks2())) {
+    if (!is.null(null_checks2())) {
       if (input[["markers2"]]) {
         leafletProxy(mapId = "map") %>%
           addMarkers(
@@ -639,7 +639,7 @@ shinyServer(function(input, output, session) {
   ### DATA TABLE ##############################################
 
   # Subset: background variables
-  tableFilter <- reactive({
+  table_filter <- reactive({
     if (input[["area"]] != "Alla" || is.null(input[["area"]]))
       for (o in seq_along(input[["area"]])) {
         results_df <-
@@ -676,6 +676,6 @@ shinyServer(function(input, output, session) {
   })
 
   output[["table"]] <- DT::renderDataTable({
-    tableFilter()
+    table_filter()
   }, server = TRUE)
 })
