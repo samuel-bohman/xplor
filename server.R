@@ -3,7 +3,7 @@ shinyServer(function(input, output, session) {
   
   
   ##Returns the name of the column in results_df where the data value exists
-  getCategoryUnique <- function(data){
+  get_category_unique <- function(data){
     a <- which(sapply(results_df, function(x) any(x == data)))
     a <- names(a)
     #Null handling
@@ -15,15 +15,15 @@ shinyServer(function(input, output, session) {
   }
   
   #Returns corresponding dataframe column name of an input column name
-  getInputCategory <- function(uiColName){
+  get_input_category <- function(ui_col_name){
     #Error handling
-    if (!is.element(uiColName, names(dfNamesBg))) {
+    if (!is.element(ui_col_name, names(df_names_bg))) {
       return("404")
     }
-    a <- dfNamesBg[[uiColName]]
+    a <- df_names_bg[[ui_col_name]]
     #Null handling
-    noVal <- character(0)
-    if (identical(a, character(0))) {
+    no_val <- character(0)
+    if (identical(a, no_val)) {
       return("404")
     }
     return(a)
@@ -127,15 +127,15 @@ shinyServer(function(input, output, session) {
 
 
   #Filters given spdf by reading numbered group input ids
-  bgFilter <- function(groupNumber, spdf){
-    for (i in seq_along(uiNamesBg)) {
-      col <- paste(uiNamesBg[i], groupNumber, sep = "") #e.g. "area1"
-      dfCol <- getInputCategory(substr(col, 1, nchar(col) - 1)) #e.g. "area1" -> "area" -> "Omrade"
+  bg_filter <- function(group_number, spdf){
+    for (i in seq_along(ui_names_bg)) {
+      col <- paste(ui_names_bg[i], group_number, sep = "") #e.g. "area1"
+      df_col <- get_input_category(substr(col, 1, nchar(col) - 1)) #e.g. "area1" -> "area" -> "Omrade"
       #Do not filter non-selection
       if (input[[col]] != "Alla" && input[[col]] != "") {
         for (i in seq_along(input[[col]])) {
           #Get rows in spdf where value matches input selection
-          spdf <- spdf[spdf[[dfCol]] %in% input[[col]],]
+          spdf <- spdf[spdf[[df_col]] %in% input[[col]],]
         }
       }
     }
@@ -144,7 +144,7 @@ shinyServer(function(input, output, session) {
 
   #Subset background variables
   group1Filter1 <- reactive({
-    bgFilter(1, results_spdf1)
+    bg_filter(1, results_spdf1)
     })
 
   # Subset theme alternatives
@@ -319,7 +319,7 @@ shinyServer(function(input, output, session) {
   ### GROUP 2 FILTERS AND CALCULATIONS ########################
 
   group2Filter1 <- reactive({
-    bgFilter(2, results_spdf2)
+    bg_filter(2, results_spdf2)
     })
 
   # Subset theme alternatives

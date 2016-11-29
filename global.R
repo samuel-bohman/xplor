@@ -18,17 +18,17 @@ vars_education <- c("Inget val" = "", "Alla", "Inte gått ut grundskola eller mo
 vars_years <- c("Inget val" = "", "Alla", "0-4 år", "5-9 år", "10 år eller mer")
 
 #Needed for dynamic form generation (group forms)
-backgroundChoices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_education, vars_years)
+background_choices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_education, vars_years)
 
 ##Use these for input matching - TODO: Generate dynamically / From file
 #Names to be used as basis for group input dropdown ids
-uiNamesBg <- c("area", "sex", "age", "occupation", "education", "years")
+ui_names_bg <- c("area", "sex", "age", "occupation", "education", "years")
 #Corresponding dataframe column names
-dfNamesBg <- c("Omrade", "Kön", "Ålder", "Sysselsättning", "Utbildningsnivå", "År")
-names(dfNamesBg) <- uiNamesBg
+df_names_bg <- c("Omrade", "Kön", "Ålder", "Sysselsättning", "Utbildningsnivå", "År")
+names(df_names_bg) <- ui_names_bg
 
 #Determines the number of controlled groups (generates a form for each)
-groupAmount = 2
+group_amount = 2
 
 # Define themes and alternatives variables ----
 themes <- c("1. Parker & grönområden", "2. Mångfald i bostadsutbudet", "3. Levandegöra gemensamma platser", "4. Kommunikationer", "5. Kultur & fritid", "6. Utbildning", "7. Omsorg", "8. Skolan", "9. Trygghet", "10. Hållbar utveckling")

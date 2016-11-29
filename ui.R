@@ -11,7 +11,7 @@ shinyUI(
         tags[["head"]](includeCSS("styles.css")),
         leafletOutput("map", width = "100%", height = "100%"),
         # panel 1 & 2, Dynamically:
-        lapply(1:groupAmount, function(i){
+        lapply(1:group_amount, function(i){
           absolutePanel(
             id = paste("panel", i, sep = ""),
             class = "panel panel-default",
@@ -24,12 +24,12 @@ shinyUI(
             heigh = "auto",
             h3(paste("Dynamic: Group ", i, sep = "")),
 
-            lapply(seq_along(backgroundChoices), function(j) {
+            lapply(seq_along(background_choices), function(j) {
               selectInput(
-                inputId = paste(uiNamesBg[j], i, sep = ""),
-                #label = names(backgroundChoices)[j], #Taken from results_df for now
-                label = paste(uiNamesBg[j], i, sep = ""),
-                choices = backgroundChoices[[j]]
+                inputId = paste(ui_names_bg[j], i, sep = ""),
+                #label = names(background_choices)[j], #Taken from results_df for now
+                label = paste(ui_names_bg[j], i, sep = ""),
+                choices = background_choices[[j]]
                 )
             }),
             checkboxInput(
