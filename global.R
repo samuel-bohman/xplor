@@ -3,8 +3,6 @@ library(shiny)
 library(leaflet)
 library(RColorBrewer)
 
-WD <- getwd()
-
 # Read data ----
 results_spdf1 <- readRDS("data/results2.rds") # SpatialPolygonsDataFrame for group 1
 results_spdf2 <- readRDS("data/results2.rds") # SpatialPolygonsDataFrame for group 2
@@ -55,29 +53,29 @@ getCategoryUnique <- function(data){
 
   #Null handling
   noVal <- character(0)
-  if (identical(a, character(0))){
-    return ("404")
+  
+  if (identical(a, character(0))) {
+    
+    return("404")
   }
-
-  return (a)
-
+  return(a)
 }
 
 #Returns corresponding dataframe column name of an input column name
 getInputCategory <- function(uiColName){
 
   #Error handling
-  if (!is.element(uiColName, names(dfNamesBg))){
+  if (!is.element(uiColName, names(dfNamesBg))) {
     return("404")
   }
   a <- dfNamesBg[[uiColName]]
 
   #Null handling
   noVal <- character(0)
-  if (identical(a, character(0))){
-    return ("404")
+  if (identical(a, character(0))) {
+    return("404")
   }
 
-  return (a)
+  return(a)
 
 }

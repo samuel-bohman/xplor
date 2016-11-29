@@ -13,31 +13,31 @@ shinyUI(
         # panel 1 & 2, Dynamically:
         lapply(1:groupAmount, function(i){
           absolutePanel(
-            id = paste("panel", i, sep=""),
+            id = paste("panel", i, sep = ""),
             class = "panel panel-default",
             draggable = TRUE,
             top = 30,
-            left = 60 * (i^2.5),
+            left = 60 * (i ^ 2.5),
             right = "auto",
             bottom = "auto",
             width = 320,
             heigh = "auto",
-            h3(paste("Dynamic: Group ", i, sep="")),
+            h3(paste("Dynamic: Group ", i, sep = "")),
 
             lapply(seq_along(backgroundChoices), function(j) {
               selectInput(
-                inputId = paste(uiNamesBg[j], i, sep=""),
+                inputId = paste(uiNamesBg[j], i, sep = ""),
                 #label = names(backgroundChoices)[j], #Taken from results_df for now
-                label = paste(uiNamesBg[j], i, sep=""),
+                label = paste(uiNamesBg[j], i, sep = ""),
                 choices = backgroundChoices[[j]]
                 )
             }),
             checkboxInput(
-              inputId = paste("pop", i, sep=""),
+              inputId = paste("pop", i, sep = ""),
               label = "Visa namn"
             ),
             checkboxInput(
-              inputId = paste("markers", i, sep=""),
+              inputId = paste("markers", i, sep = ""),
               label = "Visa markörer"
             )
           )

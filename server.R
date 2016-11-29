@@ -98,10 +98,10 @@ shinyServer(function(input, output, session) {
 
   #Filters given spdf by reading numbered group input ids
   bgFilter <- function(groupNumber, spdf){
-    for (i in seq_along(uiNamesBg)){
+    for (i in seq_along(uiNamesBg)) {
 
-      col <- paste(uiNamesBg[i], groupNumber, sep="") #e.g. "area1"
-      dfCol <- getInputCategory(substr(col, 1, nchar(col)-1)) #e.g. "area1" -> "area" -> "Omrade"
+      col <- paste(uiNamesBg[i], groupNumber, sep = "") #e.g. "area1"
+      dfCol <- getInputCategory(substr(col, 1, nchar(col) - 1)) #e.g. "area1" -> "area" -> "Omrade"
 
 
       #Do not filter non-selection
@@ -507,7 +507,7 @@ shinyServer(function(input, output, session) {
         addPolygons(
           data = group1Filter1(),
           fill = TRUE,
-          fillColor = ~ colorpal()(group1Mean()),
+          fillColor = ~colorpal()(group1Mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
           weight = 2,
@@ -521,7 +521,7 @@ shinyServer(function(input, output, session) {
         addPolygons(
           data = group2Filter1(),
           fill = TRUE,
-          fillColor = ~ colorpal()(group2Mean()),
+          fillColor = ~colorpal()(group2Mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
           weight = 2,
@@ -560,8 +560,8 @@ shinyServer(function(input, output, session) {
         leafletProxy(mapId = "map") %>%
           addPopups(
             data = group1Filter1(),
-            lng = ~ long,
-            lat = ~ lat,
+            lng = ~long,
+            lat = ~lat,
             popup = group1Filter1()[["Omrade"]],
             layerId = group1Filter1()[["Omrade"]]
           )
@@ -572,8 +572,8 @@ shinyServer(function(input, output, session) {
         leafletProxy(mapId = "map") %>%
           addPopups(
             data = group2Filter1(),
-            lng = ~ long,
-            lat = ~ lat,
+            lng = ~long,
+            lat = ~lat,
             popup = group2Filter1()[["Omrade"]],
             layerId = group2Filter1()[["Omrade"]]
           )
@@ -590,8 +590,8 @@ shinyServer(function(input, output, session) {
         leafletProxy(mapId = "map") %>%
           addMarkers(
             data = group1Filter1(),
-            lng = ~ long,
-            lat = ~ lat,
+            lng = ~long,
+            lat = ~lat,
             popup = group1Filter1()[["Omrade"]],
             layerId = group1Filter1()[["Omrade"]]
           )
@@ -602,8 +602,8 @@ shinyServer(function(input, output, session) {
         leafletProxy(mapId = "map") %>%
           addMarkers(
             data = group2Filter1(),
-            lng = ~ long,
-            lat = ~ lat,
+            lng = ~long,
+            lat = ~lat,
             popup = group2Filter1()[["Omrade"]],
             layerId = group2Filter1()[["Omrade"]]
           )
