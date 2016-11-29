@@ -1,6 +1,7 @@
 # Load libraries
 library(shiny)
 library(leaflet)
+library(sp)
 library(RColorBrewer)
 
 # Read data ----
@@ -71,4 +72,16 @@ alt_theme_7 <- c("7a. Fler kultur- och fritidsaktiviteter för äldre", "7b. Fle
 alt_theme_8 <- c("8a. Mindre barngrupper i förskolan", "8b. Höj kvaliteten i undervisningen", "8c. Mer kompetensutveckling för skolor och lärare", "8d. Mer modern informationsteknologi (IT) i undervisningen", "8e. Involvera vårdnadshavare mer i skolan")
 alt_theme_9 <- c("9a. Öka tryggheten kring stationsområdet", "9b. Fler poliser i centrala Väsby", "9c. Förbättra belysningen i centrala Väsby", "9d. Begränsa öppettider för alkoholutskänkning i centrala Väsby", "9e. Förläng öppettider för affärsverksamhet i centrala Väsby")
 alt_theme_10 <- c("10a. Minska förbrukningen av energi", "10b. Minska transporter och buller", "10c. Öka klimatanpassning och kretsloppstänkande", "10d. Prioritera miljövänliga transportsätt (gång, cykel, kollektivtrafik)", "10e. Minska miljögifter och farliga kemikalier i naturen")
-alt_list <- list(alt_theme_1, alt_theme_2, alt_theme_3, alt_theme_4, alt_theme_5, alt_theme_6, alt_theme_7, alt_theme_8, alt_theme_9, alt_theme_10)
+alt_list <-
+  list(
+    alt_theme_1,
+    alt_theme_2,
+    alt_theme_3,
+    alt_theme_4,
+    alt_theme_5,
+    alt_theme_6,
+    alt_theme_7,
+    alt_theme_8,
+    alt_theme_9,
+    alt_theme_10
+  )

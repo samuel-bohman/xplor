@@ -45,21 +45,8 @@ shinyServer(function(input, output, session) {
         group = "nyko"
       )
   })
-  
+  # Render alternatives menu
   output[["alternatives"]] <- renderUI({
-    alt_list <-
-      list(
-        alt_theme_1,
-        alt_theme_2,
-        alt_theme_3,
-        alt_theme_4,
-        alt_theme_5,
-        alt_theme_6,
-        alt_theme_7,
-        alt_theme_8,
-        alt_theme_9,
-        alt_theme_10
-      )
     switch(
       input$themes,
       "1. Parker & grönområden" = selectInput(
@@ -113,6 +100,7 @@ shinyServer(function(input, output, session) {
         choices = alt_list[[10]]
       )
     )
+  })
     
     ### GROUP 1 FILTERS AND CALCULATIONS ########################
     
@@ -672,4 +660,3 @@ shinyServer(function(input, output, session) {
       table_filter()
     }, server = TRUE)
   })
-})
