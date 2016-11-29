@@ -1,4 +1,34 @@
 shinyServer(function(input, output, session) {
+  
+  
+  
+  ##Returns the name of the column in results_df where the data value exists
+  getCategoryUnique <- function(data){
+    a <- which(sapply(results_df, function(x) any(x == data)))
+    a <- names(a)
+    #Null handling
+    noVal <- character(0)
+    if (identical(a, character(0))) {
+      return("404")
+    }
+    return(a)
+  }
+  
+  #Returns corresponding dataframe column name of an input column name
+  getInputCategory <- function(uiColName){
+    #Error handling
+    if (!is.element(uiColName, names(dfNamesBg))) {
+      return("404")
+    }
+    a <- dfNamesBg[[uiColName]]
+    #Null handling
+    noVal <- character(0)
+    if (identical(a, character(0))) {
+      return("404")
+    }
+    return(a)
+  }
+  
 
   # Create static map
   output[["map"]] <- renderLeaflet({
@@ -99,18 +129,13 @@ shinyServer(function(input, output, session) {
   #Filters given spdf by reading numbered group input ids
   bgFilter <- function(groupNumber, spdf){
     for (i in seq_along(uiNamesBg)) {
-
       col <- paste(uiNamesBg[i], groupNumber, sep = "") #e.g. "area1"
       dfCol <- getInputCategory(substr(col, 1, nchar(col) - 1)) #e.g. "area1" -> "area" -> "Omrade"
-
-
       #Do not filter non-selection
       if (input[[col]] != "Alla" && input[[col]] != "") {
-
         for (i in seq_along(input[[col]])) {
           #Get rows in spdf where value matches input selection
-          spdf <-
-            spdf[spdf[[dfCol]] %in% input[[col]],]
+          spdf <- spdf[spdf[[dfCol]] %in% input[[col]],]
         }
       }
     }

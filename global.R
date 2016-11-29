@@ -43,39 +43,3 @@ altTheme8 <- c("8a. Mindre barngrupper i förskolan", "8b. Höj kvaliteten i und
 altTheme9 <- c("9a. Öka tryggheten kring stationsområdet", "9b. Fler poliser i centrala Väsby", "9c. Förbättra belysningen i centrala Väsby", "9d. Begränsa öppettider för alkoholutskänkning i centrala Väsby", "9e. Förläng öppettider för affärsverksamhet i centrala Väsby")
 altTheme10 <- c("10a. Minska förbrukningen av energi", "10b. Minska transporter och buller", "10c. Öka klimatanpassning och kretsloppstänkande", "10d. Prioritera miljövänliga transportsätt (gång, cykel, kollektivtrafik)", "10e. Minska miljögifter och farliga kemikalier i naturen")
 contra <- c("12. Vatten eller bostäder", "13. Service eller grönområden", "14. Centralort eller mindre tätort")
-
-##Returns the name of the column in results_df where the data value exists
-getCategoryUnique <- function(data){
-
-  a <- which(sapply(results_df, function(x) any(x == data)))
-
-  a <- names(a)
-
-  #Null handling
-  noVal <- character(0)
-  
-  if (identical(a, character(0))) {
-    
-    return("404")
-  }
-  return(a)
-}
-
-#Returns corresponding dataframe column name of an input column name
-getInputCategory <- function(uiColName){
-
-  #Error handling
-  if (!is.element(uiColName, names(dfNamesBg))) {
-    return("404")
-  }
-  a <- dfNamesBg[[uiColName]]
-
-  #Null handling
-  noVal <- character(0)
-  if (identical(a, character(0))) {
-    return("404")
-  }
-
-  return(a)
-
-}
