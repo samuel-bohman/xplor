@@ -10,152 +10,23 @@ shinyUI(
         class = "outer",
         tags[["head"]](includeCSS("styles.css")),
         leafletOutput("map", width = "100%", height = "100%"),
-<<<<<<< HEAD
-        # panel 1
-        absolutePanel(
-          id = "panel1",
-          class = "panel panel-default",
-          draggable = TRUE,
-          top = 30,
-          left = 60,
-          right = "auto",
-          bottom = "auto",
-          width = 320,
-          heigh = "auto",
-          h3("Grupp 1"),
-          selectInput(
-            inputId = "area1",
-            label = "Område:",
-            choices = vars_area,
-            selected = "Eds Glesbygd",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "sex1",
-            label = "Kön:",
-            choices = vars_sex,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "age1",
-            label = "Ålder:",
-            choices = vars_age,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "occupation1",
-            label = "Sysselsättning:",
-            choices = vars_occupation,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "education1",
-            label = "Utbildningsnivå:",
-            choices = vars_education,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "years1",
-            label = "Hur länge bott i kommunen:",
-            choices = vars_years,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          checkboxInput(
-            inputId = "pop1",
-            label = "Visa namn"
-          ),
-          checkboxInput(
-            inputId = "markers1",
-            label = "Visa markörer"
-          )
-        ),
-        # panel 2
-        absolutePanel(
-          id = "panel2",
-          class = "panel panel-default",
-          draggable = TRUE,
-          top = 30,
-          left = "auto",
-          right = 20,
-          bottom = "auto",
-          width = 320,
-          height = "auto",
-          h3("Grupp 2"),
-          selectInput(
-            inputId = "area2",
-            label = "Område:",
-            choices = vars_area,
-            selected = "Fresta glesbygd",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "sex2",
-            label = "Kön:",
-            choices = vars_sex,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "age2",
-            label = "Ålder:",
-            choices = vars_age,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "occupation2",
-            label = "Sysselsättning:",
-            choices = vars_occupation,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "education2",
-            label = "Utbildningsnivå:",
-            choices = vars_education,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          selectInput(
-            inputId = "years2",
-            label = "Hur länge bott i kommunen:",
-            choices = vars_years,
-            selected = "Alla",
-            multiple = TRUE
-          ),
-          checkboxInput(
-            inputId = "pop2",
-            label = "Visa namn"
-          ),
-          checkboxInput(
-            inputId = "markers2",
-            label = "Visa markörer"
-          )
-        ),
-=======
-        # panel 1 & 2, Dynamically:
-        lapply(1:group_amount, function(i){
+        # Panel 1 & 2 dynamically
+        lapply(1:group_amount, function(i) {
           absolutePanel(
             id = paste("panel", i, sep = ""),
             class = "panel panel-default",
             draggable = TRUE,
             top = 30,
-            left = 60 * (i ^ 2.5),
+            left = 60 * (i ^ 2.7),
             right = "auto",
             bottom = "auto",
             width = 320,
             heigh = "auto",
-            h3(paste("Dynamic: Group ", i, sep = "")),
-
+            h3(paste("Grupp ", i, sep = "")),
             lapply(seq_along(background_choices), function(j) {
               selectInput(
                 inputId = paste(ui_names_bg[j], i, sep = ""),
-                #label = names(background_choices)[j], #Taken from results_df for now
+                #label = names(background_choices)[j], taken from results_df for now
                 label = paste(ui_names_bg[j], i, sep = ""),
                 choices = background_choices[[j]]
                 )
@@ -170,14 +41,13 @@ shinyUI(
             )
           )
         }),
->>>>>>> 7b75ed137328295b5d9632c8733e89f668a636bc
-        # panel 3
+        # Panel 3
         absolutePanel(
           id = "panel3",
           class = "panel panel-default",
           draggable = TRUE,
           top = 30,
-          left = 400,
+          left = 750,
           right = "auto",
           bottom = "auto",
           width = "auto",
