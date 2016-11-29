@@ -10,6 +10,7 @@ shinyUI(
         class = "outer",
         tags[["head"]](includeCSS("styles.css")),
         leafletOutput("map", width = "100%", height = "100%"),
+<<<<<<< HEAD
         # panel 1
         absolutePanel(
           id = "panel1",
@@ -136,6 +137,40 @@ shinyUI(
             label = "Visa markörer"
           )
         ),
+=======
+        # panel 1 & 2, Dynamically:
+        lapply(1:group_amount, function(i){
+          absolutePanel(
+            id = paste("panel", i, sep = ""),
+            class = "panel panel-default",
+            draggable = TRUE,
+            top = 30,
+            left = 60 * (i ^ 2.5),
+            right = "auto",
+            bottom = "auto",
+            width = 320,
+            heigh = "auto",
+            h3(paste("Dynamic: Group ", i, sep = "")),
+
+            lapply(seq_along(background_choices), function(j) {
+              selectInput(
+                inputId = paste(ui_names_bg[j], i, sep = ""),
+                #label = names(background_choices)[j], #Taken from results_df for now
+                label = paste(ui_names_bg[j], i, sep = ""),
+                choices = background_choices[[j]]
+                )
+            }),
+            checkboxInput(
+              inputId = paste("pop", i, sep = ""),
+              label = "Visa namn"
+            ),
+            checkboxInput(
+              inputId = paste("markers", i, sep = ""),
+              label = "Visa markörer"
+            )
+          )
+        }),
+>>>>>>> 7b75ed137328295b5d9632c8733e89f668a636bc
         # panel 3
         absolutePanel(
           id = "panel3",
