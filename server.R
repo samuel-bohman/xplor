@@ -494,7 +494,7 @@ shinyServer(function(input, output, session) {
   ### DYNAMIC MAP ELEMENTS ####################################
 
   # NULL checks
-  null_checks1 <- reactive({
+  null_checks_1 <- reactive({
     if (is.null(input[["alt"]]) ||
         is.null(input[["area1"]]) ||
         is.null(input[["sex1"]]) ||
@@ -508,7 +508,7 @@ shinyServer(function(input, output, session) {
     }
   })
 
-  null_checks2 <- reactive({
+  null_checks_2 <- reactive({
     if (is.null(input[["alt"]]) ||
         is.null(input[["area2"]]) ||
         is.null(input[["sex2"]]) ||
@@ -527,7 +527,7 @@ shinyServer(function(input, output, session) {
     leafletProxy(mapId = "map") %>%
       clearGroup(group = "group1Polygons") %>%
       clearGroup(group = "group2Polygons")
-    if (!is.null(null_checks1())) {
+    if (!is.null(null_checks_1())) {
       leafletProxy(mapId = "map") %>%
         addPolygons(
           data = group_1_filter_1(),
@@ -541,7 +541,7 @@ shinyServer(function(input, output, session) {
           group = "group1Polygons"
         )
     }
-    if (!is.null(null_checks2())) {
+    if (!is.null(null_checks_2())) {
       leafletProxy(mapId = "map") %>%
         addPolygons(
           data = group_2_filter_1(),
@@ -580,7 +580,7 @@ shinyServer(function(input, output, session) {
   observe({
     leafletProxy(mapId = "map") %>%
       clearPopups()
-    if (!is.null(null_checks1())) {
+    if (!is.null(null_checks_1())) {
       if (input[["pop1"]]) {
         leafletProxy(mapId = "map") %>%
           addPopups(
@@ -592,7 +592,7 @@ shinyServer(function(input, output, session) {
           )
       }
     }
-    if (!is.null(null_checks2())) {
+    if (!is.null(null_checks_2())) {
       if (input[["pop2"]]) {
         leafletProxy(mapId = "map") %>%
           addPopups(
@@ -608,7 +608,7 @@ shinyServer(function(input, output, session) {
 
   # Add markers to map
   observe({
-    if (!is.null(null_checks1())) {
+    if (!is.null(null_checks_1())) {
       leafletProxy(mapId = "map") %>%
         clearMarkers()
       if (input[["markers1"]]) {
@@ -622,7 +622,7 @@ shinyServer(function(input, output, session) {
           )
       }
     }
-    if (!is.null(null_checks2())) {
+    if (!is.null(null_checks_2())) {
       if (input[["markers2"]]) {
         leafletProxy(mapId = "map") %>%
           addMarkers(
