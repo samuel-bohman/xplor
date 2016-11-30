@@ -11,7 +11,7 @@ shinyServer(function(input, output, session) {
     }
     return(a)
   }
-  
+
   # Returns corresponding dataframe column name of an input column name
   get_input_category <- function(ui_col_name) {
     # Error handling
@@ -26,7 +26,7 @@ shinyServer(function(input, output, session) {
     }
     return(a)
   }
-  
+
   # Create static map
   output[["map"]] <- renderLeaflet({
     leaflet() %>%
@@ -101,9 +101,9 @@ shinyServer(function(input, output, session) {
       )
     )
   })
-    
+
     ### GROUP 1 FILTERS AND CALCULATIONS ########################
-    
+
     # Filters given spdf by reading numbered group input ids
     bg_filter <- function(group_number, spdf) {
       for (i in seq_along(ui_names_bg)) {
@@ -120,12 +120,12 @@ shinyServer(function(input, output, session) {
       }
       return(spdf)
     }
-    
+
     # Subset background variables
     group_1_filter_1 <- reactive({
       bg_filter(1, results_spdf1)
     })
-    
+
     # Subset theme alternatives
     group_1_filter_2 <- reactive({
       # Theme 1
@@ -289,18 +289,18 @@ shinyServer(function(input, output, session) {
         return(as.matrix(group_1_filter_1()@data[, 59]))
       }
     })
-    
+
     # Calculate mean
     group_1_mean <- reactive({
       mean1 <- round(mean(group_1_filter_2()))
     })
-    
+
     ### GROUP 2 FILTERS AND CALCULATIONS ########################
-    
+
     group_2_filter_1 <- reactive({
       bg_filter(2, results_spdf2)
     })
-    
+
     # Subset theme alternatives
     group_2_filter_2 <- reactive({
       # Theme 1
@@ -464,43 +464,38 @@ shinyServer(function(input, output, session) {
         return(as.matrix(group_2_filter_1()@data[, 59]))
       }
     })
-    
+
     # Calculate mean
     group_2_mean <- reactive({
       mean2 <- round(mean(group_2_filter_2()))
     })
-    
+
     ### DYNAMIC MAP ELEMENTS ####################################
-    
+
     # NULL checks
     null_checks_1 <- reactive({
-      if (is.null(input[["alt"]]) ||
-          is.null(input[["area1"]]) ||
-          is.null(input[["sex1"]]) ||
-          is.null(input[["age1"]]) ||
-          is.null(input[["occupation1"]]) ||
-          is.null(input[["education1"]]) ||
-          is.null(input[["years1"]])) {
-        return(NULL)
-      } else {
-        return(TRUE)
-      }
+      return(null_check(1, ui_names_bg))
     })
-    
+
     null_checks_2 <- reactive({
-      if (is.null(input[["alt"]]) ||
-          is.null(input[["area2"]]) ||
-          is.null(input[["sex2"]]) ||
-          is.null(input[["age2"]]) ||
-          is.null(input[["occupation2"]]) ||
-          is.null(input[["education2"]]) ||
-          is.null(input[["years2"]])) {
-        return(NULL)
-      } else {
-        return(TRUE)
-      }
+      return(null_check(2, ui_names_bg))
     })
-    
+
+    # Run a null check on all the input values of a given list of keys
+    null_check <- function(group_number, ui_names_list){
+      # Check alt first as done in old null_check_n functions
+      if (is.null(input[["alt"]])){
+        return(NULL)
+      }
+      for (i in seq_along(ui_names_list)) {
+        input_key <- paste(ui_names_list[[i]], group_number, sep = "") # Add group number to key
+        if (is.null(input[[input_key]])){
+          return(NULL)
+        }
+      }
+      return(TRUE)
+    }
+
     # Create polygons
     observe({
       leafletProxy(mapId = "map") %>%
@@ -535,7 +530,7 @@ shinyServer(function(input, output, session) {
           )
       }
     })
-    
+
     # Create color palette
     colorpal <- reactive({
       colorNumeric(
@@ -544,7 +539,7 @@ shinyServer(function(input, output, session) {
         na.color = "gray"
       )
     })
-    
+
     # Add color legend to map
     observe({
       leafletProxy(mapId = "map") %>%
@@ -556,7 +551,7 @@ shinyServer(function(input, output, session) {
           labels = c("Red", "Yellow", "Green")
         )
     })
-    
+
     # Add popups to map
     observe({
       leafletProxy(mapId = "map") %>%
@@ -586,7 +581,7 @@ shinyServer(function(input, output, session) {
         }
       }
     })
-    
+
     # Add markers to map
     observe({
       if (!is.null(null_checks_1())) {
@@ -616,9 +611,9 @@ shinyServer(function(input, output, session) {
         }
       }
     })
-    
+
     ### DATA TABLE ##############################################
-    
+
     # Subset background variables
     table_filter <- reactive({
       if (input[["area"]] != "Alla" || is.null(input[["area"]]))
@@ -655,7 +650,7 @@ shinyServer(function(input, output, session) {
         }
       results_df
     })
-    
+
     output[["table"]] <- DT::renderDataTable({
       table_filter()
     }, server = TRUE)
