@@ -1,16 +1,17 @@
 shinyServer(function(input, output, session) {
   # Returns the name of the column in results_df where the data value exists
-  get_category_unique <- function(data) {
-    a <- which(sapply(results_df, function(x)
-      any(x == data)))
-    a <- names(a)
-    # Null handling
-    noVal <- character(0)
-    if (identical(a, character(0))) {
-      return("404")
-    }
-    return(a)
-  }
+  #Currently not used
+  #get_category_unique <- function(entry_value) {
+  #  a <- which(sapply(results_df, function(x)
+  #    any(x == entry_value)))
+  #  a <- names(a)
+  #  # Null handling
+  #  noVal <- character(0)
+  #  if (identical(a, character(0))) {
+  #    return("404")
+  #  }
+  #  return(a)
+  #}
 
   # Returns corresponding dataframe column name of an input column name
   get_input_category <- function(ui_col_name) {
