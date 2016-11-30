@@ -483,13 +483,13 @@ shinyServer(function(input, output, session) {
     })
 
     # Run a null check on all the input values of a given list of keys
-    null_check <- function(group_number, ui_names_list){
+    null_check <- function(input_group_number, ui_names_list){
       # Check alt first as done in old null_check_n functions
       if (is.null(input[["alt"]])){
         return(NULL)
       }
       for (i in seq_along(ui_names_list)) {
-        input_key <- paste(ui_names_list[[i]], group_number, sep = "") # Add group number to key
+        input_key <- paste(ui_names_list[[i]], input_group_number, sep = "") # Add group number to key
         if (is.null(input[[input_key]])){
           return(NULL)
         }
