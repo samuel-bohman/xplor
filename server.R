@@ -112,7 +112,7 @@ shinyServer(function(input, output, session) {
         df_col <-
           get_input_category(substr(col, 1, nchar(col) - 1)) # E.g. "area1" -> "area" -> "Omrade"
         # Do not filter non-selection
-        if (input[[col]] != "Alla" && input[[col]] != "") {
+        if (input[[col]] != "Alla") {
           for (i in seq_along(input[[col]])) {
             # Get rows in spdf where value matches input selection
             spdf <- spdf[spdf[[df_col]] %in% input[[col]], ]

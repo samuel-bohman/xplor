@@ -24,10 +24,17 @@ shinyUI(
             heigh = "auto",
             h3(paste("Grupp ", i, sep = "")),
             lapply(seq_along(background_choices), function(j) {
+              # Set selection of first dropdown to blank and the rest to "Alla"
+              if (j == 1){
+                to_select <- background_choices[[1]][1]
+              }else{
+                to_select <- background_choices[[1]][2]
+              }
               selectInput(
                 inputId = paste(ui_names_bg[j], i, sep = ""),
                 label = paste(dropdown_names_bg[j], ":", sep = ""),
-                choices = background_choices[[j]]
+                choices = background_choices[[j]],
+                selected = to_select
                 )
             }),
             checkboxInput(
