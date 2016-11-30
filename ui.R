@@ -26,7 +26,6 @@ shinyUI(
             lapply(seq_along(background_choices), function(j) {
               selectInput(
                 inputId = paste(ui_names_bg[j], i, sep = ""),
-                #label = names(background_choices)[j], taken from results_df for now
                 label = paste(dropdown_names_bg[j], ":", sep = ""),
                 choices = background_choices[[j]]
                 )
