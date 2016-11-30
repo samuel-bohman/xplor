@@ -52,9 +52,10 @@ background_choices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_
 # Use these for input matching - TODO: Generate dynamically / From file
 # Names to be used as basis for group input dropdown ids
 ui_names_bg <- c("area", "sex", "age", "occupation", "education", "years")
-
 # Corresponding dataframe column names
 df_names_bg <- c("Omrade", "Kön", "Ålder", "Sysselsättning", "Utbildningsnivå", "År")
+# The labels that will appear for the ui_names entries on the forms
+dropdown_names_bg <- c("Område", "Kön", "Ålder", "Sysselsättning", "Utbildningsnivå", "Hur länge bott i kommunen")
 names(df_names_bg) <- ui_names_bg
 
 # Determines the number of controlled groups (generates a form for each)
