@@ -1,6 +1,6 @@
 shinyUI(
   navbarPage(
-    "xploR beta",
+    "xplor beta",
     id = "nav",
     position = "static-top",
     collapsible = TRUE,
@@ -25,9 +25,9 @@ shinyUI(
             h3(paste("Grupp ", i, sep = "")),
             lapply(seq_along(background_choices), function(j) {
               # Set selection of first dropdown to blank and the rest to "Alla"
-              if (j == 1){
+              if (j == 1) {
                 to_select <- background_choices[[1]][1]
-              }else{
+              } else {
                 to_select <- background_choices[[1]][2]
               }
               selectInput(
@@ -35,16 +35,12 @@ shinyUI(
                 label = paste(dropdown_names_bg[j], ":", sep = ""),
                 choices = background_choices[[j]],
                 selected = to_select
-                )
+              )
             }),
-            checkboxInput(
-              inputId = paste("pop", i, sep = ""),
-              label = "Visa namn"
-            ),
-            checkboxInput(
-              inputId = paste("markers", i, sep = ""),
-              label = "Visa markörer"
-            )
+            checkboxInput(inputId = paste("pop", i, sep = ""),
+                          label = "Visa namn"),
+            checkboxInput(inputId = paste("markers", i, sep = ""),
+                          label = "Visa markörer")
           )
         }),
         # Panel 3
