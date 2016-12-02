@@ -10,6 +10,7 @@ shinyUI(
         class = "outer",
         tags[["head"]](includeCSS("styles.css")),
         leafletOutput("map", width = "100%", height = "100%"),
+        
         # Panel 1 & 2 dynamically
         lapply(1:group_amount, function(i) {
           absolutePanel(
@@ -25,9 +26,9 @@ shinyUI(
             h3(paste("Grupp ", i, sep = "")),
             lapply(seq_along(background_choices), function(j) {
               # Set selection of first dropdown to blank and the rest to "Alla"
-              if (j == 1){
+              if (j == 1) {
                 to_select <- background_choices[[1]][1]
-              }else{
+              } else {
                 to_select <- background_choices[[1]][2]
               }
               selectInput(
@@ -47,6 +48,8 @@ shinyUI(
             )
           )
         }),
+        
+        
         # Panel 3
         absolutePanel(
           id = "panel3",
