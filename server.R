@@ -1,7 +1,7 @@
 shinyServer(function(input, output, session) {
   # Returns the name of the column in results_df where the data value exists
-  #Currently not used
-  #get_category_unique <- function(entry_value) {
+  # Currently not used
+  # get_category_unique <- function(entry_value) {
   #  a <- which(sapply(results_df, function(x)
   #    any(x == entry_value)))
   #  a <- names(a)
