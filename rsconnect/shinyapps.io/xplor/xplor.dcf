@@ -3,9 +3,9 @@ title: xplor
 account: xplor
 server: shinyapps.io
 appId: 106337
-bundleId: 628889
+bundleId: 634820
 url: https://xplor.shinyapps.io/xplor/
-when: 1480429175.46495
+when: 1480794434.33246
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: data/.Rapp.history
