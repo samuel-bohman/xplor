@@ -16,7 +16,7 @@ results_spdf2 <- readRDS("data/results_spdf.rds")
 # data frame for tabPanel "Data"
 results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
-# Define background variables ----
+# Background variables ----
 vars_area <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Area"]]))))
 vars_gender <- c("No selection" = "", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
 vars_age <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Age"]]))))
@@ -38,15 +38,12 @@ df_names_bg <- c("Area", "Gender", "Age", "Occupation", "Education.level", "Year
 dropdown_names_bg <- c("Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
 names(df_names_bg) <- ui_names_bg
 
-# Determines the number of controlled groups (generates a form for each)
-# group_amount = 2
-
-# Define themes and alternatives variables ----
+# Themes ----
 themes <- colnames(results_df)[57:66]
 themes <- gsub(pattern = ".", replacement = " ", x = themes, fixed = TRUE)
 themes <- paste(c(1:10), themes, sep = ". ")
 
-
+# Alternatives ----
 alt_theme_1 <- c("1a. Preserve existing large green areas", "1b. Build parks in existing urban districts", "1c. Build homes close to green areas", "1d. Renovate existing parks", "1e. Improve accessibility to major green areas")
 alt_theme_2 <- c("2a. Offer more residential building types", "2b. Offer more apartment sizes", "2c. Offer small-scale land ownership", "2d. Preserve the conceptual foundations of the buildings from the 1970s", "2e. Offer more waterfront residences")
 alt_theme_3 <- c("3a. Enable more diverse traffic", "3b. Enable car parking along the streets", "3c. Face residential entrances toward the streets", "3d. Make public ground floor premises transparent", "3e. Build underground car parks in residential buildings")
