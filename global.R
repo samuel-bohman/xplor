@@ -18,14 +18,14 @@ results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncod
 
 # Define background variables ----
 vars_area <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Area"]]))))
-vars_sex <- c("No selection" = "", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
+vars_gender <- c("No selection" = "", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
 vars_age <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Age"]]))))
 vars_occupation <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Occupation"]]))))
 vars_education <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Education.level"]]))))
 vars_years <- c("No selection" = "", "All", "0-4 years", "5-9 years", "10 years or more")
 
 # Needed for dynamic form generation (group forms)
-background_choices <- list(vars_area, vars_sex, vars_age, vars_occupation, vars_education, vars_years)
+background_choices <- list(vars_area, vars_gender, vars_age, vars_occupation, vars_education, vars_years)
 
 # Use these for input matching - TODO: Generate dynamically / From file
 # Names to be used as basis for group input dropdown ids
