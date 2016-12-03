@@ -1,143 +1,88 @@
-shinyUI(
-  navbarPage(
-    "xploR beta",
-    id = "nav",
-    position = "static-top",
-    collapsible = TRUE,
-    tabPanel(
-      "Karta",
-      div(
-        class = "outer",
-        tags[["head"]](includeCSS("styles.css")),
-        leafletOutput("map", width = "100%", height = "100%"),
-        # Panel 1 & 2 dynamically
-        lapply(1:group_amount, function(i) {
-          absolutePanel(
-            id = paste("panel", i, sep = ""),
-            class = "panel panel-default",
-            draggable = TRUE,
-            top = 30,
-            left = 60 * (i ^ 2.7),
-            right = "auto",
-            bottom = "auto",
-            width = 320,
-            heigh = "auto",
-            h3(paste("Grupp ", i, sep = "")),
+# Header ----
+header <- dashboardHeader(title = "xplor beta", titleWidth = 150)
+
+# Sidebar ----
+sidebar <- dashboardSidebar(width = 150,
+  sidebarMenu(id = "tabs",
+    menuItem(text = "Map", tabName = "map", icon = icon("map-o"), selected = TRUE),
+    menuItem(text = "Plots", tabName = "plots", icon = icon("bar-chart")),
+    menuItem(text = "Table", tabName = "table", icon = icon("table")),
+    menuItem(text = "Report", tabName = "report", icon = icon("file-o")),
+    menuItem(text = "About", tabName = "about", icon = icon("question")),
+    menuItem(text = "Code", href = "https://github.com/samuel-bohman/xplor/", icon = icon("github"))
+  )
+)
+
+# Body ----
+body <- dashboardBody(
+  fluidRow(
+    tabItems(
+      tabItem(tabName = "map",
+        tabBox(id = "tabset", width = 3,
+          tabPanel(h4("Theme"),
+            selectInput(inputId = "themes", label = "Theme", choices = themes, selected = themes[1]),
+            uiOutput("alternatives"),
+            selectInput(inputId = "colors", label = "Palette", choices = rownames(subset(brewer.pal.info, category %in% c("seq", "div"))), selected = "RdYlGn")
+          ),
+          tabPanel(h4("Group 1"), 
             lapply(seq_along(background_choices), function(j) {
-              # Set selection of first dropdown to blank and the rest to "Alla"
-              if (j == 1){
-                to_select <- background_choices[[1]][1]
-              }else{
+              if (j == 1) {
+                to_select <- c("Vilunda/Korpkulla", "Dragonvägen", "Messingen/Optimus", "Folkparksområdet", "Stallgatan", "Kavallerigatan/Vilundaparken", "Väsby villastad/Tegelbruket", "Länk-/Klock-/Kedje-/Bygelvägen")
+              } else {
                 to_select <- background_choices[[1]][2]
               }
               selectInput(
-                inputId = paste(ui_names_bg[j], i, sep = ""),
-                label = paste(dropdown_names_bg[j], ":", sep = ""),
+                inputId = paste(ui_names_bg[j], 1, sep = ""),
+                label = paste(dropdown_names_bg[j]),
                 choices = background_choices[[j]],
-                selected = to_select
-                )
+                selected = to_select,
+                multiple = TRUE
+              )
             }),
-            checkboxInput(
-              inputId = paste("pop", i, sep = ""),
-              label = "Visa namn"
-            ),
-            checkboxInput(
-              inputId = paste("markers", i, sep = ""),
-              label = "Visa markörer"
-            )
-          )
-        }),
-        # Panel 3
-        absolutePanel(
-          id = "panel3",
-          class = "panel panel-default",
-          draggable = TRUE,
-          top = 30,
-          left = 750,
-          right = "auto",
-          bottom = "auto",
-          width = "auto",
-          height = "auto",
-          h3("Tema & Alternativ"),
-          selectInput(
-            inputId = "themes",
-            label = h5("Tema"),
-            choices = themes,
-            selected = "1. Parker & grönområden"
+            checkboxInput(inputId = "pop1", label = "Add popups", value = FALSE),
+            checkboxInput(inputId = "markers1", label = "Add markers", value = TRUE)
           ),
-          uiOutput("alternatives"),
-          selectInput(
-            inputId = "colors",
-            label = "Färgschema",
-            choices = rownames(subset(
-              brewer.pal.info, category %in% c("seq", "div")
-            )),
-            selected = "RdYlGn"
-          )
-        )
-      )
-    ),
-    tabPanel(
-      "Tabell",
-      fluidRow(
-        column(
-          width = 3,
-          selectInput(
-            inputId = "area",
-            label = "Område:",
-            choices = vars_area,
-            selected = "Alla"
+          tabPanel(h4("Group 2"), 
+            lapply(seq_along(background_choices), function(j) {
+              if (j == 1) {
+                to_select <- c("Eds Glesbygd", "Södra Bollstanäs", "Infra City", "Antuna/Älvsunda", "Holmen", "Fresta glesbygd", "Frestaby", "Ekeby/Sköldnora")
+              } else {
+                to_select <- background_choices[[1]][2]
+              }
+              selectInput(
+                inputId = paste(ui_names_bg[j], 2, sep = ""),
+                label = paste(dropdown_names_bg[j]),
+                choices = background_choices[[j]],
+                selected = to_select,
+                multiple = TRUE
+              )
+            }),
+            checkboxInput(inputId = "pop2", label = "Add popups", value = TRUE),
+            checkboxInput(inputId = "markers2", label = "Add markers", value = FALSE)
           )
         ),
-        column(
-          width = 3,
-          selectInput(
-            inputId = "sex",
-            label = "Kön:",
-            choices = vars_sex,
-            selected = "Alla"
-          )
-        ),
-        column(
-          width = 3,
-          selectInput(
-            inputId = "age",
-            label = "Ålder:",
-            choices = vars_age,
-            selected = "Alla"
-          )
-        ),
-        column(
-          width = 3,
-          selectInput(
-            inputId = "occupation",
-            label = "Sysselsättning:",
-            choices = vars_occupation,
-            selected = "Alla"
-          )
-        ),
-        column(
-          width = 3,
-          selectInput(
-            inputId = "education",
-            label = "Utbildningsnivå:",
-            choices = vars_education,
-            selected = "Alla"
-          )
-        ),
-        column(
-          width = 3,
-          selectInput(
-            inputId = "years",
-            label = "Hur länge bott i kommunen:",
-            choices = vars_years,
-            selected = "Alla"
-          )
-        )
+        box(width = 9, title = NULL, leafletOutput(outputId = "map", height = 800))
       ),
-      fluidRow(DT::dataTableOutput(outputId = "table"))
-    ),
-    tabPanel("Hjälp",
-             fluidRow(includeMarkdown("help.Rmd")))
+      tabItem(tabName = "plots", box(title = "Plots", width = NULL)),
+      tabItem(tabName = "table", 
+        box(title = NULL, width = NULL, 
+          fluidRow(
+            column(width = 3, selectInput(inputId = "area", label = "Area", choices = vars_area, selected = "All", multiple = TRUE)),
+            column(width = 3, selectInput(inputId = "gender", label = "Gender", choices = vars_gender, selected = "All", multiple = TRUE)),
+            column(width = 3, selectInput(inputId = "age", label = "Age", choices = vars_age, selected = "All", multiple = TRUE)),
+            column(width = 3, selectInput(inputId = "occupation", label = "Occupation", choices = vars_occupation, selected = "All", multiple = TRUE)),
+            column(width = 3, selectInput(inputId = "education", label = "Education level", choices = vars_education, selected = "All", multiple = TRUE)),
+            column( width = 3, selectInput(inputId = "years", label = "Length of residency", choices = vars_years, selected = "All", multiple = TRUE))
+          )
+        ),
+        box(title = NULL, width = NULL, DT::dataTableOutput(outputId = "table"))),
+      tabItem(tabName = "report", box(title = "Report", width = NULL)),
+      tabItem(tabName = "about", box(title = "About", width = NULL))
+    )
   )
 )
+
+# dashboardPage
+ui <- dashboardPage(header,
+  sidebar,
+  body)
