@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Widget</title>
+	<script src="raphael.min.js"></script>
+	<script src="rankedChoiceInput.js"></script>
+	<script
+			  src="https://code.jquery.com/jquery-3.1.1.min.js"
+			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			  crossorigin="anonymous"></script>
+
+	<script>
+	$(document).ready(function() {
+		var choicesText = {strings: ["Blanda trafikslagen",
+									"Förlägga parkering längs med gator",
+									"Vända entréer mot gator",
+									"Förlägga publika lokaler i transparenta bottenvåningar",
+									"Trygga parkeringslösningar under bostäder"],
+							positions: [1, 1, 2, 2, 3],
+							font_size: 15,
+							font_family: 'Garamond',
+							padding: [15, 5]
+		};
+
+		var scaleText = {strings: ["Dåligt", "Varken eller", "Bra"],
+						positions: [0, 50, 100],
+						font_size: 18,
+						font_family: 'Garamond'};
+
+
+		var gradients = {fill: ["0-#00ff00-#fff", "0-#fff-#ff0000"],
+						positions: [[50, 0], [50, 100]]};
+
+		/*
+		var scaleTextList2 = ["är lika bra",
+							  "är bättre än",
+							  "är markant bättre än",
+							  "är mycket bättre än",
+							  "är väldigt mycket bättre än",
+							  "är extremt mycket bättre än",
+							  "är extremt mycket bättre än (+)",
+							  "är extremt mycket bättre än (++)",
+							  "är extremt mycket bättre än (+++)",
+							  "är extremt mycket bättre än (++++)",
+							  "är extremt mycket bättre än (+++++)",
+							  "är extremt mycket bättre än (++++++)",
+							  "är extremt mycket bättre än (+++++++)",
+							  "är extremt mycket bättre än (++++++++)"];
+	*/
+		createRankedChoiceInput('question1', 1024, 320, 15, choicesText, scaleText, gradients);
+	});
+	</script>
+</head>
+<body>
+	<div id="question1" style="width: 1024px; height: 320px; border: 1px solid black"></div>
+</body>
+</html>
