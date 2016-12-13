@@ -241,7 +241,7 @@ shinyServer(function(input, output, session) {
   
   # Calculate mean
   group_1_mean <- reactive({
-    mean1 <- round(mean(group_1_filter_2()))
+    mean1 <- round(mean(group_1_filter_2()), digits = 2)
   })
   
   ### GROUP 2 FILTERS AND CALCULATIONS ########################
@@ -416,7 +416,7 @@ shinyServer(function(input, output, session) {
   
   # Calculate mean
   group_2_mean <- reactive({
-    mean2 <- round(mean(group_2_filter_2()))
+    mean2 <- round(mean(group_2_filter_2()), digits = 2)
   })
   
   ### DYNAMIC MAP ELEMENTS ####################################
@@ -563,8 +563,8 @@ shinyServer(function(input, output, session) {
   
   # Value boxes
   output$group_1_mean <- renderValueBox({
-    x <- group_1_mean()
     if (!is.null(null_checks_1())) {
+      x <- group_1_mean()
       valueBox(
         value = x, 
         subtitle = "Group 1 Mean", 
@@ -586,10 +586,10 @@ shinyServer(function(input, output, session) {
   })
   
     output$group_2_mean <- renderValueBox({
-      x <- group_2_mean()
       if (!is.null(null_checks_2())) {
+        x <- group_2_mean()
         valueBox(
-          value = group_2_mean(), 
+          value = x, 
           subtitle = "Group 2 Mean", 
           icon = if (x >= 7) {
             icon(name = "thumbs-o-up") 
@@ -601,23 +601,28 @@ shinyServer(function(input, output, session) {
         valueBox(
           value = 0, 
           subtitle = "Group 2 Mean", 
-          icon = icon("users"), 
+          icon = icon(name = ""), 
           color = "light-blue")
       }
   })
     
     output$overall_mean <- renderValueBox({
       if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
+        x <- round((group_1_mean() + group_2_mean()) / 2, digits = 2)
         valueBox(
-          value = (group_1_mean() + group_2_mean()) / 2, 
+          value = x, 
           subtitle = "Overall Mean", 
-          icon = icon("hand-peace-o"), 
+          icon = if (x >= 7) {
+            icon(name = "thumbs-o-up") 
+            } else {
+              icon(name = "thumbs-o-down")
+              },  
           color = "light-blue")
       } else {
         valueBox(
           value = 0, 
-          subtitle = "Overall Mean", 
-          icon = icon("users"), 
+          subtitle = "Total Mean", 
+          icon = icon(name = ""), 
           color = "light-blue")
       }
   })

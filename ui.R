@@ -13,6 +13,17 @@ sidebar <- dashboardSidebar(width = 150,
   )
 )
 
+to_select_rnd <- function(group_number) {
+rnd_1 <- rnd_2 <- NULL
+rnd_1 <- sample(x = sort(unique(as.character(results_df[["Area"]]))), size = 5)
+rnd_2 <- sample(x = rnd_1, size = 5)
+  if (group_number == 1) { 
+  rnd_1
+  } else {
+  rnd_2
+  }
+}
+
 # Body ----
 body <- dashboardBody(
   tabItems(
@@ -30,7 +41,7 @@ body <- dashboardBody(
             tabPanel(h4("Group 1"), 
               lapply(seq_along(background_choices), function(j) {
                 if (j == 1) {
-                  to_select <- c("Eds Glesbygd")
+                  to_select <- to_select_rnd(1)
                 } else {
                   to_select <- background_choices[[1]][2]
                 }
@@ -42,13 +53,13 @@ body <- dashboardBody(
                   multiple = TRUE
                 )
               }),
-              checkboxInput(inputId = "pop1", label = "Add popups", value = TRUE),
-              checkboxInput(inputId = "markers1", label = "Add markers", value = FALSE)
+              checkboxInput(inputId = "pop1", label = "Add popups", value = FALSE),
+              checkboxInput(inputId = "markers1", label = "Add markers", value = TRUE)
             ),
             tabPanel(h4("Group 2"), 
               lapply(seq_along(background_choices), function(j) {
                 if (j == 1) {
-                  to_select <- c("Fresta glesbygd")
+                  to_select <- to_select_rnd(2)
                 } else {
                   to_select <- background_choices[[1]][2]
                 }
@@ -60,8 +71,8 @@ body <- dashboardBody(
                   multiple = TRUE
                 )
               }),
-              checkboxInput(inputId = "pop2", label = "Add popups", value = TRUE),
-              checkboxInput(inputId = "markers2", label = "Add markers", value = FALSE)
+              checkboxInput(inputId = "pop2", label = "Add popups", value = FALSE),
+              checkboxInput(inputId = "markers2", label = "Add markers", value = TRUE)
             )
           )
         ),
