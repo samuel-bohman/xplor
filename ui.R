@@ -27,7 +27,7 @@ body <- dashboardBody(
           tabPanel(h4("Group 1"), 
             lapply(seq_along(background_choices), function(j) {
               if (j == 1) {
-                to_select <- c("Vilunda/Korpkulla", "Dragonvägen", "Messingen/Optimus", "Folkparksområdet", "Stallgatan", "Kavallerigatan/Vilundaparken", "Väsby villastad/Tegelbruket", "Länk-/Klock-/Kedje-/Bygelvägen")
+                to_select <- c("Carlslund/Brunnby Park")
               } else {
                 to_select <- background_choices[[1]][2]
               }
@@ -45,7 +45,7 @@ body <- dashboardBody(
           tabPanel(h4("Group 2"), 
             lapply(seq_along(background_choices), function(j) {
               if (j == 1) {
-                to_select <- c("Eds Glesbygd", "Södra Bollstanäs", "Infra City", "Antuna/Älvsunda", "Holmen", "Fresta glesbygd", "Frestaby", "Ekeby/Sköldnora")
+                to_select <- c("")
               } else {
                 to_select <- background_choices[[1]][2]
               }
