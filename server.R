@@ -458,7 +458,7 @@ shinyServer(function(input, output, session) {
           fillColor = ~ colorpal()(group_1_mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
-          weight = 2,
+          weight = 3,
           color = "red",
           layerId = group_1_filter_1()[["Area"]],
           group = "group1Polygons"
@@ -472,7 +472,7 @@ shinyServer(function(input, output, session) {
           fillColor = ~ colorpal()(group_2_mean()),
           fillOpacity = 0.8,
           stroke = TRUE,
-          weight = 2,
+          weight = 3,
           color = "blue",
           layerId = group_2_filter_1()[["Area"]],
           group = "group2Polygons"
@@ -559,6 +559,67 @@ shinyServer(function(input, output, session) {
           )
       }
     }
+  })
+  
+  # Value boxes
+  output$group_1_mean <- renderValueBox({
+    x <- group_1_mean()
+    if (!is.null(null_checks_1())) {
+      valueBox(
+        value = x, 
+        subtitle = "Group 1 Mean", 
+        icon = if (x >= 7) {
+          icon(name = "thumbs-o-up") 
+          } else {
+            icon(name = "thumbs-o-down")
+            }, 
+        color = "light-blue"
+      )
+    } else {
+      valueBox(
+        value = 0, 
+        subtitle = "Group 1 Mean", 
+        icon = icon(name = ""), 
+        color = "light-blue"
+        )
+    }
+  })
+  
+    output$group_2_mean <- renderValueBox({
+      x <- group_2_mean()
+      if (!is.null(null_checks_2())) {
+        valueBox(
+          value = group_2_mean(), 
+          subtitle = "Group 2 Mean", 
+          icon = if (x >= 7) {
+            icon(name = "thumbs-o-up") 
+            } else {
+              icon(name = "thumbs-o-down")
+              }, 
+          color = "light-blue")
+      } else {
+        valueBox(
+          value = 0, 
+          subtitle = "Group 2 Mean", 
+          icon = icon("users"), 
+          color = "light-blue")
+      }
+  })
+    
+    output$overall_mean <- renderValueBox({
+      if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
+        valueBox(
+          value = (group_1_mean() + group_2_mean()) / 2, 
+          subtitle = "Overall Mean", 
+          icon = icon("hand-peace-o"), 
+          color = "light-blue")
+      } else {
+        valueBox(
+          value = 0, 
+          subtitle = "Overall Mean", 
+          icon = icon("users"), 
+          color = "light-blue")
+      }
   })
   
   ### DATA TABLE ##############################################
