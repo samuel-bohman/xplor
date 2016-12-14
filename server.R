@@ -6,7 +6,7 @@ shinyServer(function(input, output, session) {
       addTiles() %>%
       setView(lng = 17.91128,
         lat = 59.51839,
-        zoom = 12) %>%
+        zoom = 13) %>%
       addPolygons(
         data = nyko,
         fill = TRUE,
@@ -51,14 +51,11 @@ shinyServer(function(input, output, session) {
     return(a)
   }
   
-  ### GROUP 1 FILTERS AND CALCULATIONS ########################
-  
   # Filters given spdf by reading numbered group input ids
   bg_filter <- function(group_number, spdf) {
-    for (i in seq_along(ui_names_bg)) {
+    for (i in seq_along(ui_names_bg)) { # ui_names_bg <- c("area", "gender", "age", "occupation", "education", "years")
       col <- paste(ui_names_bg[i], group_number, sep = "") # E.g. "area1"
-      df_col <-
-        get_input_category(substr(col, 1, nchar(col) - 1)) # E.g. "area1" -> "area" -> "Omrade"
+      df_col <- get_input_category(substr(col, 1, nchar(col) - 1)) # E.g. "area1" -> "area" -> "Omrade"
       # Do not filter non-selection
       if (input[[col]] != "All") {
         for (i in seq_along(input[[col]])) {
@@ -69,6 +66,8 @@ shinyServer(function(input, output, session) {
     }
     return(spdf)
   }
+  
+  ### GROUP 1 FILTERS AND CALCULATIONS ########################
   
   # Subset background variables
   group_1_filter_1 <- reactive({
@@ -129,16 +128,16 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_4[1]) {
       return(as.matrix(group_1_filter_1()@data[, 25]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[2]) {
       return(as.matrix(group_1_filter_1()@data[, 26]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[3]) {
       return(as.matrix(group_1_filter_1()@data[, 27]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[4]) {
       return(as.matrix(group_1_filter_1()@data[, 28]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[5]) {
       return(as.matrix(group_1_filter_1()@data[, 29]))
     }
     # Theme 5
@@ -241,7 +240,7 @@ shinyServer(function(input, output, session) {
   
   # Calculate mean
   group_1_mean <- reactive({
-    mean1 <- round(mean(group_1_filter_2()), digits = 2)
+    round(mean(group_1_filter_2()), digits = 2)
   })
   
   ### GROUP 2 FILTERS AND CALCULATIONS ########################
@@ -304,16 +303,16 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_4[1]) {
       return(as.matrix(group_2_filter_1()@data[, 25]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[2]) {
       return(as.matrix(group_2_filter_1()@data[, 26]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[3]) {
       return(as.matrix(group_2_filter_1()@data[, 27]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[4]) {
       return(as.matrix(group_2_filter_1()@data[, 28]))
     }
-    if (input[["alt"]] == alt_theme_4[1]) {
+    if (input[["alt"]] == alt_theme_4[5]) {
       return(as.matrix(group_2_filter_1()@data[, 29]))
     }
     # Theme 5
@@ -416,7 +415,12 @@ shinyServer(function(input, output, session) {
   
   # Calculate mean
   group_2_mean <- reactive({
-    mean2 <- round(mean(group_2_filter_2()), digits = 2)
+    round(mean(group_2_filter_2()), digits = 2)
+  })
+  
+  # Disagreement
+  disagreement <- reactive({
+    
   })
   
   ### DYNAMIC MAP ELEMENTS ####################################
@@ -431,13 +435,12 @@ shinyServer(function(input, output, session) {
   })
   
   # Run a null check on all the input values of a given list of keys
-  null_check <- function(input_group_number, ui_names_list) {
-    # Check alt first as done in old null_check_n functions
+  null_check <- function(input_group_number, ui_names_bg) {
     if (is.null(input[["alt"]])) {
       return(NULL)
     }
-    for (i in seq_along(ui_names_list)) {
-      input_key <- paste(ui_names_list[[i]], input_group_number, sep = "") # Add group number to key
+    for (i in seq_along(ui_names_bg)) { # ui_names_bg <- c("area", "gender", "age", "occupation", "education", "years")
+      input_key <- paste(ui_names_bg[[i]], input_group_number, sep = "") # Add group number to key
       if (is.null(input[[input_key]])) {
         return(NULL)
       }
@@ -562,99 +565,124 @@ shinyServer(function(input, output, session) {
   })
   
   # Value boxes
-  output$group_1_mean <- renderValueBox({
+  output$group_1_mean <- renderInfoBox({
     if (!is.null(null_checks_1())) {
       x <- group_1_mean()
-      valueBox(
+      if (x >= 7) {
+        thumb <- "thumbs-o-up"
+      } else {
+        thumb <- "thumbs-o-down"
+      }
+      infoBox(
+        title = "Group 1",
         value = x, 
-        subtitle = "Group 1 Mean", 
-        icon = if (x >= 7) {
-          icon(name = "thumbs-o-up") 
-          } else {
-            icon(name = "thumbs-o-down")
-            }, 
-        color = "light-blue"
+        subtitle = "Mean Value", 
+        icon = icon(name = thumb), 
+        color = "light-blue",
+        fill = TRUE
       )
     } else {
-      valueBox(
-        value = 0, 
-        subtitle = "Group 1 Mean", 
-        icon = icon(name = ""), 
-        color = "light-blue"
-        )
-    }
+    infoBox(
+      title = "Group 1",
+      value = "-", 
+      subtitle = "Mean Value", 
+      icon = icon(name = ""),
+      color = "light-blue",
+      fill = TRUE
+    )
+  }
   })
   
-    output$group_2_mean <- renderValueBox({
-      if (!is.null(null_checks_2())) {
-        x <- group_2_mean()
-        valueBox(
-          value = x, 
-          subtitle = "Group 2 Mean", 
-          icon = if (x >= 7) {
-            icon(name = "thumbs-o-up") 
-            } else {
-              icon(name = "thumbs-o-down")
-              }, 
-          color = "light-blue")
+  output$group_2_mean <- renderInfoBox({
+    if (!is.null(null_checks_2())) {
+      x <- group_2_mean()
+      if (x >= 7) {
+        thumb <- "thumbs-o-up"
       } else {
-        valueBox(
-          value = 0, 
-          subtitle = "Group 2 Mean", 
-          icon = icon(name = ""), 
-          color = "light-blue")
+        thumb <- "thumbs-o-down"
       }
+      infoBox(
+        title = "Group 2",
+        value = x, 
+        subtitle = "Mean Value", 
+        icon = icon(name = thumb), 
+        color = "light-blue",
+        fill = TRUE
+      )
+    } else {
+    infoBox(
+      title = "Group 2",
+      value = "-", 
+      subtitle = "Mean Value",
+      icon = icon(name = ""),
+      color = "light-blue",
+      fill = TRUE
+    )
+  }
   })
     
-    output$overall_mean <- renderValueBox({
-      if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
-        x <- round((group_1_mean() + group_2_mean()) / 2, digits = 2)
-        valueBox(
-          value = x, 
-          subtitle = "Overall Mean", 
-          icon = if (x >= 7) {
-            icon(name = "thumbs-o-up") 
-            } else {
-              icon(name = "thumbs-o-down")
-              },  
-          color = "light-blue")
-      } else {
-        valueBox(
-          value = 0, 
-          subtitle = "Total Mean", 
-          icon = icon(name = ""), 
-          color = "light-blue")
-      }
-  })
+output$overall_mean <- renderInfoBox({
+  if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
+    x <- 0.4 # round((group_1_mean() + group_2_mean()) / 2, digits = 2)
+    if (x >= 0.5) {
+      thumb <- "bolt"
+    } else {
+      thumb <- "balance-scale"
+    }
+    infoBox(
+      title = "Overall",
+      value = x, 
+      subtitle = "Disagreement", 
+      icon = icon(name = thumb),  
+      color = "light-blue",
+      fill = TRUE
+    )
+  } else {
+    infoBox(
+      title = "Overall",
+      value = "-", 
+      subtitle = "Disagreement", 
+      color = "light-blue",
+      fill = TRUE
+    )
+  }
+})
   
   ### DATA TABLE ##############################################
   
   # Subset background variables ----
   table_filter <- reactive({
-    if (input[["area"]] != "All" || is.null(input[["area"]]))
-      for (o in seq_along(input[["area"]])) {
-        results_df <- head(results_df[results_df[["Area"]] %in% input[["area"]], ], n = 1040, drop = FALSE)
+    
+    if (!identical(input$"area3", "All")) {
+      for (o in seq_along(input[["area3"]])) {
+        results_df <- head(results_df[results_df[["Area"]] %in% input[["area3"]], ], n = 1040, drop = FALSE)
       }
-    if (input[["gender"]] != "All" || is.null(input[["gender"]]))
-      for (p in seq_along(input[["gender"]])) {
-        results_df <- head(results_df[results_df[["Gender"]] %in% input[["gender"]], ], n = 1040, drop = FALSE)
+    }
+    if (!identical(input$"gender3", "All")) {
+      for (p in seq_along(input[["gender3"]])) {
+        results_df <- head(results_df[results_df[["Gender"]] %in% input[["gender3"]], ], n = 1040, drop = FALSE)
       }
-    if (input[["age"]] != "All" || is.null(input[["age"]]))
-      for (q in seq_along(input[["age"]])) {
-        results_df <- head(results_df[results_df[["Age"]] %in% input[["age"]], ], n = 1040, drop = FALSE)
+    }
+    if (!identical(input$"age3", "All")) {
+      for (q in seq_along(input[["age3"]])) {
+        results_df <- head(results_df[results_df[["Age"]] %in% input[["age3"]], ], n = 1040, drop = FALSE)
       }
-    if (input[["occupation"]] != "All" || is.null(input[["occupation"]]))
-      for (r in seq_along(input[["occupation"]])) {
-        results_df <- head(results_df[results_df[["Occupation"]] %in% input[["occupation"]], ], n = 1040, drop = FALSE)
+    }
+    if (!identical(input$"occupation3", "All")) {
+      for (r in seq_along(input[["occupation3"]])) {
+        results_df <- head(results_df[results_df[["Occupation"]] %in% input[["occupation3"]], ], n = 1040, drop = FALSE)
       }
-    if (input[["education"]] != "All" || is.null(input[["education"]]))
-      for (s in seq_along(input[["education"]])) {
-        results_df <- head(results_df[results_df[["Education.level"]] %in% input[["education"]], ], n = 1040, drop = FALSE)
+    }
+    if (!identical(input$"education3", "All")) {
+      for (s in seq_along(input[["education3"]])) {
+        results_df <- head(results_df[results_df[["Education.level"]] %in% input[["education3"]], ], n = 1040, drop = FALSE)
       }
-    if (input[["years"]] != "All" || is.null(input[["years"]]))
-      for (t in seq_along(input[["years"]])) {
-        results_df <- head(results_df[results_df[["Year"]] %in% input[["years"]], ], n = 1040, drop = FALSE)
+    }
+    if (!identical(input$"years3", "All")) {
+      for (t in seq_along(input[["years3"]])) {
+        results_df <- head(results_df[results_df[["Year"]] %in% input[["years3"]], ], n = 1040, drop = FALSE)
       }
+    }
     results_df
   })
   

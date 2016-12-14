@@ -17,12 +17,12 @@ results_spdf2 <- readRDS("data/results_spdf.rds")
 results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
 # Background variables ----
-vars_area <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Area"]]))))
-vars_gender <- c("No selection" = "", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
-vars_age <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Age"]]))))
-vars_occupation <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Occupation"]]))))
-vars_education <- c("No selection" = "", "All", sort(unique(as.character(results_df[["Education.level"]]))))
-vars_years <- c("No selection" = "", "All", "0-4 years", "5-9 years", "10 years or more")
+vars_area <- c("", "All", sort(unique(as.character(results_df[["Area"]]))))
+vars_gender <- c("", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
+vars_age <- c("", "All", sort(unique(as.character(results_df[["Age"]]))))
+vars_occupation <- c("", "All", sort(unique(as.character(results_df[["Occupation"]]))))
+vars_education <- c("", "All", sort(unique(as.character(results_df[["Education.level"]]))))
+vars_years <- c("", "All", "0-4 years", "5-9 years", "10 years or more")
 
 # Needed for dynamic form generation (group forms)
 background_choices <- list(vars_area, vars_gender, vars_age, vars_occupation, vars_education, vars_years)

@@ -6,6 +6,7 @@ sidebar <- dashboardSidebar(width = 150,
   sidebarMenu(id = "tabs",
     menuItem(text = "Map", tabName = "map", icon = icon("map-o"), selected = TRUE),
     menuItem(text = "Plots", tabName = "plots", icon = icon("bar-chart")),
+    menuItem(text = "Simulation", tabName = "simulation", icon = icon("magic")),
     menuItem(text = "Table", tabName = "table", icon = icon("table")),
     menuItem(text = "Report", tabName = "report", icon = icon("file-o")),
     menuItem(text = "About", tabName = "about", icon = icon("question")),
@@ -13,15 +14,16 @@ sidebar <- dashboardSidebar(width = 150,
   )
 )
 
-to_select_rnd <- function(group_number) {
-rnd_1 <- rnd_2 <- NULL
-rnd_1 <- sample(x = sort(unique(as.character(results_df[["Area"]]))), size = 5)
-rnd_2 <- sample(x = rnd_1, size = 5)
-  if (group_number == 1) { 
-  rnd_1
+results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
+
+to_select_rnd <- function(group) {
+  rnd <- NULL
+rnd <- sample(x = vars_area[3:45], size = 10) %>% split(f = c(1, 2))
+  if (group == 1) {
+  rnd[[1]]
   } else {
-  rnd_2
-  }
+    rnd[[2]]
+    }
 }
 
 # Body ----
@@ -53,8 +55,8 @@ body <- dashboardBody(
                   multiple = TRUE
                 )
               }),
-              checkboxInput(inputId = "pop1", label = "Add popups", value = FALSE),
-              checkboxInput(inputId = "markers1", label = "Add markers", value = TRUE)
+              checkboxInput(inputId = "pop1", label = "Add popups", value = TRUE),
+              checkboxInput(inputId = "markers1", label = "Add markers", value = FALSE)
             ),
             tabPanel(h4("Group 2"), 
               lapply(seq_along(background_choices), function(j) {
@@ -80,7 +82,7 @@ body <- dashboardBody(
         # Column 2
         column(width = 8,
           fluidRow(
-            valueBoxOutput(outputId = "group_1_mean"),
+            infoBoxOutput(outputId = "group_1_mean"),
             valueBoxOutput(outputId = "group_2_mean"),
             valueBoxOutput(outputId = "overall_mean")
           ),
@@ -89,15 +91,16 @@ body <- dashboardBody(
       )
     ),
     tabItem(tabName = "plots", box(title = "Plots", width = NULL)),
+    tabItem(tabName = "simulation", box(title = "Simulation", width = NULL)),
     tabItem(tabName = "table", 
       box(title = NULL, width = NULL, 
         fluidRow(
-          column(width = 3, selectInput(inputId = "area", label = "Area", choices = vars_area, selected = "All", multiple = TRUE)),
-          column(width = 3, selectInput(inputId = "gender", label = "Gender", choices = vars_gender, selected = "All", multiple = TRUE)),
-          column(width = 3, selectInput(inputId = "age", label = "Age", choices = vars_age, selected = "All", multiple = TRUE)),
-          column(width = 3, selectInput(inputId = "occupation", label = "Occupation", choices = vars_occupation, selected = "All", multiple = TRUE)),
-          column(width = 3, selectInput(inputId = "education", label = "Education level", choices = vars_education, selected = "All", multiple = TRUE)),
-          column( width = 3, selectInput(inputId = "years", label = "Length of residency", choices = vars_years, selected = "All", multiple = TRUE))
+          column(width = 3, selectInput(inputId = "area3", label = "Area", choices = vars_area, selected = "All", multiple = TRUE)),
+          column(width = 3, selectInput(inputId = "gender3", label = "Gender", choices = vars_gender, selected = "All", multiple = TRUE)),
+          column(width = 3, selectInput(inputId = "age3", label = "Age", choices = vars_age, selected = "All", multiple = TRUE)),
+          column(width = 3, selectInput(inputId = "occupation3", label = "Occupation", choices = vars_occupation, selected = "All", multiple = TRUE)),
+          column(width = 3, selectInput(inputId = "education3", label = "Education level", choices = vars_education, selected = "All", multiple = TRUE)),
+          column( width = 3, selectInput(inputId = "years3", label = "Length of residency", choices = vars_years, selected = "All", multiple = TRUE))
         )
       ),
       box(title = NULL, width = NULL, DT::dataTableOutput(outputId = "table"))),
