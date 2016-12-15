@@ -1,7 +1,5 @@
-# header ----
 header <- dashboardHeader(title = "xplor beta", titleWidth = 150)
 
-# sidebar ----
 sidebar <- dashboardSidebar(width = 150,
   sidebarMenu(id = "tabs",
     menuItem(text = "Map", tabName = "map", icon = icon("map-o"), selected = TRUE),
@@ -13,8 +11,6 @@ sidebar <- dashboardSidebar(width = 150,
   )
 )
 
-results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
-
 to_select_rnd <- function(group) {
   rnd <- NULL
 rnd <- sample(x = vars_area[3:45], size = 10) %>% split(f = c(1, 2))
@@ -25,7 +21,6 @@ rnd <- sample(x = vars_area[3:45], size = 10) %>% split(f = c(1, 2))
     }
 }
 
-# body ----
 body <- dashboardBody(
   tabItems(
     tabItem(tabName = "map",
@@ -107,7 +102,6 @@ body <- dashboardBody(
   )
 )
 
-# dashboardPage
 ui <- dashboardPage(header,
   sidebar,
   body)

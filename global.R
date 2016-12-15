@@ -13,7 +13,7 @@ results_spdf1 <- readRDS("data/results_spdf.rds")
 # SpatialPolygonsDataFrame for group 2
 results_spdf2 <- readRDS("data/results_spdf.rds")
 
-# data frame for tabPanel "Data"
+# data frame for tabPanel "Table"
 results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
 # background variables ----
