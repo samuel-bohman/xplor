@@ -1,6 +1,6 @@
 shinyServer(function(input, output, session) {
   
-  # Create static map ----
+  # create static map
   output[["map"]] <- renderLeaflet({
     leaflet() %>%
       addTiles() %>%
@@ -19,7 +19,7 @@ shinyServer(function(input, output, session) {
       )
   })
   
-  # Render alternatives menu ----
+  # render alternatives menu
   output[["alternatives"]] <- renderUI({
     switch(
       input[["themes"]],
@@ -36,7 +36,7 @@ shinyServer(function(input, output, session) {
     )
   })
   
-  # Returns corresponding dataframe column name of an input column name ----
+  # return corresponding dataframe column name of an input column name
   get_input_category <- function(ui_col_name) {
     # Error handling
     if (!is.element(ui_col_name, names(df_names_bg))) {
@@ -51,7 +51,7 @@ shinyServer(function(input, output, session) {
     return(a)
   }
   
-  # Filters given spdf by reading numbered group input ids
+  # filter given spdf by reading numbered group input ids
   bg_filter <- function(group_number, spdf) {
     for (i in seq_along(ui_names_bg)) { # ui_names_bg <- c("area", "gender", "age", "occupation", "education", "years")
       col <- paste(ui_names_bg[i], group_number, sep = "") # E.g. "area1"
@@ -69,14 +69,14 @@ shinyServer(function(input, output, session) {
   
   ### GROUP 1 FILTERS AND CALCULATIONS ########################
   
-  # Subset background variables
+  # subset background variables
   group_1_filter_1 <- reactive({
     bg_filter(1, results_spdf1)
   })
   
-  # Subset theme alternatives
+  # subset theme alternatives
   group_1_filter_2 <- reactive({
-    # Theme 1
+    # theme 1
     if (input[["alt"]] == alt_theme_1[1]) {
       return(as.matrix(group_1_filter_1()@data[, 10]))
     }
@@ -92,7 +92,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_1[5]) {
       return(as.matrix(group_1_filter_1()@data[, 14]))
     }
-    # Theme 2
+    # theme 2
     if (input[["alt"]] == alt_theme_2[1]) {
       return(as.matrix(group_1_filter_1()@data[, 15]))
     }
@@ -108,7 +108,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_2[5]) {
       return(as.matrix(group_1_filter_1()@data[, 19]))
     }
-    # Theme 3
+    # theme 3
     if (input[["alt"]] == alt_theme_3[1]) {
       return(as.matrix(group_1_filter_1()@data[, 20]))
     }
@@ -124,7 +124,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_3[5]) {
       return(as.matrix(group_1_filter_1()@data[, 24]))
     }
-    # Theme 4
+    # theme 4
     if (input[["alt"]] == alt_theme_4[1]) {
       return(as.matrix(group_1_filter_1()@data[, 25]))
     }
@@ -140,7 +140,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_4[5]) {
       return(as.matrix(group_1_filter_1()@data[, 29]))
     }
-    # Theme 5
+    # theme 5
     if (input[["alt"]] == alt_theme_5[1]) {
       return(as.matrix(group_1_filter_1()@data[, 30]))
     }
@@ -156,7 +156,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_5[5]) {
       return(as.matrix(group_1_filter_1()@data[, 34]))
     }
-    # Theme 6
+    # theme 6
     if (input[["alt"]] == alt_theme_6[1]) {
       return(as.matrix(group_1_filter_1()@data[, 35]))
     }
@@ -172,7 +172,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_6[5]) {
       return(as.matrix(group_1_filter_1()@data[, 39]))
     }
-    # Theme 7
+    # theme 7
     if (input[["alt"]] == alt_theme_7[1]) {
       return(as.matrix(group_1_filter_1()@data[, 40]))
     }
@@ -188,7 +188,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_7[5]) {
       return(as.matrix(group_1_filter_1()@data[, 44]))
     }
-    # Theme 8
+    # theme 8
     if (input[["alt"]] == alt_theme_8[1]) {
       return(as.matrix(group_1_filter_1()@data[, 45]))
     }
@@ -204,7 +204,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_8[5]) {
       return(as.matrix(group_1_filter_1()@data[, 49]))
     }
-    # Theme 9
+    # theme 9
     if (input[["alt"]] == alt_theme_9[1]) {
       return(as.matrix(group_1_filter_1()@data[, 50]))
     }
@@ -220,7 +220,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_9[5]) {
       return(as.matrix(group_1_filter_1()@data[, 54]))
     }
-    # Theme 10
+    # theme 10
     if (input[["alt"]] == alt_theme_10[1]) {
       return(as.matrix(group_1_filter_1()@data[, 55]))
     }
@@ -238,7 +238,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # Calculate mean
+  # calculate mean
   group_1_mean <- reactive({
     round(mean(group_1_filter_2()), digits = 2)
   })
@@ -249,9 +249,9 @@ shinyServer(function(input, output, session) {
     bg_filter(2, results_spdf2)
   })
   
-  # Subset theme alternatives
+  # subset theme alternatives
   group_2_filter_2 <- reactive({
-    # Theme 1
+    # theme 1
     if (input[["alt"]] == alt_theme_1[1]) {
       return(as.matrix(group_2_filter_1()@data[, 10]))
     }
@@ -267,7 +267,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_1[5]) {
       return(as.matrix(group_2_filter_1()@data[, 14]))
     }
-    # Theme 2
+    # theme 2
     if (input[["alt"]] == alt_theme_2[1]) {
       return(as.matrix(group_2_filter_1()@data[, 15]))
     }
@@ -283,7 +283,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_2[5]) {
       return(as.matrix(group_2_filter_1()@data[, 19]))
     }
-    # Theme 3
+    # theme 3
     if (input[["alt"]] == alt_theme_3[1]) {
       return(as.matrix(group_2_filter_1()@data[, 20]))
     }
@@ -299,7 +299,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_3[5]) {
       return(as.matrix(group_2_filter_1()@data[, 24]))
     }
-    # Theme 4
+    # theme 4
     if (input[["alt"]] == alt_theme_4[1]) {
       return(as.matrix(group_2_filter_1()@data[, 25]))
     }
@@ -315,7 +315,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_4[5]) {
       return(as.matrix(group_2_filter_1()@data[, 29]))
     }
-    # Theme 5
+    # theme 5
     if (input[["alt"]] == alt_theme_5[1]) {
       return(as.matrix(group_2_filter_1()@data[, 30]))
     }
@@ -331,7 +331,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_5[5]) {
       return(as.matrix(group_2_filter_1()@data[, 34]))
     }
-    # Theme 6
+    # theme 6
     if (input[["alt"]] == alt_theme_6[1]) {
       return(as.matrix(group_2_filter_1()@data[, 35]))
     }
@@ -347,7 +347,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_6[5]) {
       return(as.matrix(group_2_filter_1()@data[, 39]))
     }
-    # Theme 7
+    # theme 7
     if (input[["alt"]] == alt_theme_7[1]) {
       return(as.matrix(group_2_filter_1()@data[, 40]))
     }
@@ -363,7 +363,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_7[5]) {
       return(as.matrix(group_2_filter_1()@data[, 44]))
     }
-    # Theme 8
+    # theme 8
     if (input[["alt"]] == alt_theme_8[1]) {
       return(as.matrix(group_2_filter_1()@data[, 45]))
     }
@@ -379,7 +379,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_8[5]) {
       return(as.matrix(group_2_filter_1()@data[, 49]))
     }
-    # Theme 9
+    # theme 9
     if (input[["alt"]] == alt_theme_9[1]) {
       return(as.matrix(group_2_filter_1()@data[, 50]))
     }
@@ -395,7 +395,7 @@ shinyServer(function(input, output, session) {
     if (input[["alt"]] == alt_theme_9[5]) {
       return(as.matrix(group_2_filter_1()@data[, 54]))
     }
-    # Theme 10
+    # theme 10
     if (input[["alt"]] == alt_theme_10[1]) {
       return(as.matrix(group_2_filter_1()@data[, 55]))
     }
@@ -413,12 +413,12 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # Calculate mean
+  # calculate mean
   group_2_mean <- reactive({
     round(mean(group_2_filter_2()), digits = 2)
   })
   
-  # Disagreement
+  # disagreement
   disagreement <- reactive({
     
   })
@@ -434,7 +434,7 @@ shinyServer(function(input, output, session) {
     return(null_check(2, ui_names_bg))
   })
   
-  # Run a null check on all the input values of a given list of keys
+  # run a NULL check on all the input values of a given list of keys
   null_check <- function(input_group_number, ui_names_bg) {
     if (is.null(input[["alt"]])) {
       return(NULL)
@@ -448,7 +448,7 @@ shinyServer(function(input, output, session) {
     return(TRUE)
   }
   
-  # Create polygons
+  # add polygons
   observe({
     leafletProxy(mapId = "map") %>%
       clearGroup(group = "group1Polygons") %>%
@@ -483,7 +483,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # Create color palette
+  # add color palette
   colorpal <- reactive({
     colorNumeric(
       palette = input[["colors"]],
@@ -492,7 +492,7 @@ shinyServer(function(input, output, session) {
     )
   })
   
-  # Add color legend to map
+  # add color legend to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearControls() %>%
@@ -504,7 +504,7 @@ shinyServer(function(input, output, session) {
       )
   })
   
-  # Add popups to map
+  # add popups to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearPopups()
@@ -534,7 +534,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # Add markers to map
+  # add markers to map
   observe({
     if (!is.null(null_checks_1())) {
       leafletProxy(mapId = "map") %>%
@@ -564,7 +564,8 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # Value boxes
+  # add info boxes
+  # info box 1
   output$group_1_mean <- renderInfoBox({
     if (!is.null(null_checks_1())) {
       x <- group_1_mean()
@@ -593,6 +594,7 @@ shinyServer(function(input, output, session) {
   }
   })
   
+  # info box 2
   output$group_2_mean <- renderInfoBox({
     if (!is.null(null_checks_2())) {
       x <- group_2_mean()
@@ -620,37 +622,38 @@ shinyServer(function(input, output, session) {
     )
   }
   })
-    
-output$overall_mean <- renderInfoBox({
-  if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
-    x <- 0.4 # round((group_1_mean() + group_2_mean()) / 2, digits = 2)
-    if (x >= 0.5) {
-      thumb <- "bolt"
+
+  # info box 3    
+  output$overall_mean <- renderInfoBox({
+    if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
+      x <- 0.4
+      if (x >= 0.5) {
+        thumb <- "bolt"
+      } else {
+        thumb <- "balance-scale"
+      }
+      infoBox(
+        title = "Overall",
+        value = x, 
+        subtitle = "Disagreement", 
+        icon = icon(name = thumb),  
+        color = "light-blue",
+        fill = TRUE
+      )
     } else {
-      thumb <- "balance-scale"
+      infoBox(
+        title = "Overall",
+        value = "-", 
+        subtitle = "Disagreement", 
+        color = "light-blue",
+        fill = TRUE
+      )
     }
-    infoBox(
-      title = "Overall",
-      value = x, 
-      subtitle = "Disagreement", 
-      icon = icon(name = thumb),  
-      color = "light-blue",
-      fill = TRUE
-    )
-  } else {
-    infoBox(
-      title = "Overall",
-      value = "-", 
-      subtitle = "Disagreement", 
-      color = "light-blue",
-      fill = TRUE
-    )
-  }
-})
+  })
   
   ### DATA TABLE ##############################################
   
-  # Subset background variables ----
+  # subset background variables
   table_filter <- reactive({
     
     if (!identical(input$"area3", "All")) {

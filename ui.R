@@ -1,12 +1,11 @@
-# Header ----
+# header ----
 header <- dashboardHeader(title = "xplor beta", titleWidth = 150)
 
-# Sidebar ----
+# sidebar ----
 sidebar <- dashboardSidebar(width = 150,
   sidebarMenu(id = "tabs",
     menuItem(text = "Map", tabName = "map", icon = icon("map-o"), selected = TRUE),
     menuItem(text = "Plots", tabName = "plots", icon = icon("bar-chart")),
-    menuItem(text = "Simulation", tabName = "simulation", icon = icon("magic")),
     menuItem(text = "Table", tabName = "table", icon = icon("table")),
     menuItem(text = "Report", tabName = "report", icon = icon("file-o")),
     menuItem(text = "About", tabName = "about", icon = icon("question")),
@@ -26,13 +25,13 @@ rnd <- sample(x = vars_area[3:45], size = 10) %>% split(f = c(1, 2))
     }
 }
 
-# Body ----
+# body ----
 body <- dashboardBody(
   tabItems(
     tabItem(tabName = "map",
       fluidRow(
         
-        # Column 1
+        # column 1
         column(width = 3,
           tabBox(id = "tabset", width = NULL,
             tabPanel(h4("Theme"),
@@ -79,7 +78,7 @@ body <- dashboardBody(
           )
         ),
         
-        # Column 2
+        # column 2
         column(width = 8,
           fluidRow(
             infoBoxOutput(outputId = "group_1_mean"),
@@ -91,7 +90,6 @@ body <- dashboardBody(
       )
     ),
     tabItem(tabName = "plots", box(title = "Plots", width = NULL)),
-    tabItem(tabName = "simulation", box(title = "Simulation", width = NULL)),
     tabItem(tabName = "table", 
       box(title = NULL, width = NULL, 
         fluidRow(
