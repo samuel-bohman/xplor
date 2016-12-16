@@ -31,11 +31,12 @@ bcar <- function(pseudo.name, colNames, aNames, question.name, criterion.name, r
   for (i in aNames) {
     cName = paste0(question.name, nr, ".cop", collapse = NULL) # cname = collName = alternativeName
     columnNamesList <- append(columnNamesList, cName)
-    resultat[cName] <- apply(resultat, 1, function(x) {
-      if (as.numeric(x[i]) < as.numeric(x[paste(question.name, "6", sep = "")])) {
-        res <- 0
-      } else {res <- 1}
-    })
+    resultat[cName] <- 
+      apply(resultat, 1, function(x) {
+        if (as.numeric(x[i]) < as.numeric(x[paste(question.name, "6", sep = "")])) {
+          res <- 0
+        } else {res <- 1}
+      })
     nr = nr + 1
   }
   
