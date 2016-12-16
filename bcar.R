@@ -56,7 +56,7 @@ bcar <- function(pseudo.name, colNames, aNames, question.name, criterion.name, r
   
   names(tmpresults.vec) <- tmpnames.vec
   
-  # add a column with weighted con-values
+  # add a column with weighted con values
   for (i in columnNamesList) {
     altName <- substr(i, 1, 4)
     pseuName <- c(paste(substr(i, 1, 3), "6", sep = ''))

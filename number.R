@@ -4,7 +4,7 @@ number <- function(pseudo.name, colNames, aNames, question.name, criterion.name,
   resultNames.vec <- c()
   resultValues.vec <- c()
   
-  # add new columns used for the proportinal scores used in the bipolar cardinal ranking of the alternatives
+  # add new columns for the proportinal scores in the bipolar cardinal ranking of alternatives
   resultat[pseudo.name] <- 7
   nr = 1
   v = c()
@@ -71,3 +71,29 @@ number <- function(pseudo.name, colNames, aNames, question.name, criterion.name,
   names(resultValues.vec) <- resultNames.vec
   return(resultValues.vec)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
