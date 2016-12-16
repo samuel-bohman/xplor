@@ -1,8 +1,8 @@
 # PLEASE NOTE: This app may time-out if left idle too long, which will cause the screen to grey-out. To use the app again, refresh the page. This will reset all previously-selected input options. 
 
-header <- dashboardHeader(title = "xplor beta", titleWidth = 150)
+header <- dashboardHeader(title = "xplor beta", titleWidth = 130)
 
-sidebar <- dashboardSidebar(width = 150,
+sidebar <- dashboardSidebar(width = 130,
   sidebarMenu(id = "tabs",
     menuItem(text = "Map", tabName = "map", icon = icon("map-o"), selected = TRUE),
     menuItem(text = "Plots", tabName = "plots", icon = icon("bar-chart")),
@@ -52,7 +52,7 @@ body <- dashboardBody(
                 )
               }),
               checkboxInput(inputId = "pop1", label = "Add popups", value = FALSE),
-              checkboxInput(inputId = "markers1", label = "Add markers", value = FALSE)
+              checkboxInput(inputId = "markers1", label = "Add markers", value = TRUE)
             ),
             tabPanel(h4("Group 2"), 
               lapply(seq_along(background_choices), function(j) {
@@ -70,7 +70,7 @@ body <- dashboardBody(
                 )
               }),
               checkboxInput(inputId = "pop2", label = "Add popups", value = FALSE),
-              checkboxInput(inputId = "markers2", label = "Add markers", value = FALSE)
+              checkboxInput(inputId = "markers2", label = "Add markers", value = TRUE)
             )
           )
         ),
