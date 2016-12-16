@@ -1,3 +1,5 @@
+# PLEASE NOTE: This app may time-out if left idle too long, which will cause the screen to grey-out. To use the app again, refresh the page. This will reset all previously-selected input options. 
+
 header <- dashboardHeader(title = "xplor beta", titleWidth = 150)
 
 sidebar <- dashboardSidebar(width = 150,
@@ -6,7 +8,7 @@ sidebar <- dashboardSidebar(width = 150,
     menuItem(text = "Plots", tabName = "plots", icon = icon("bar-chart")),
     menuItem(text = "Table", tabName = "table", icon = icon("table")),
     menuItem(text = "Report", tabName = "report", icon = icon("file-o")),
-    menuItem(text = "About", tabName = "about", icon = icon("question")),
+    menuItem(text = "Help", tabName = "help", icon = icon("question")),
     menuItem(text = "Code", href = "https://github.com/samuel-bohman/xplor/", icon = icon("github"))
   )
 )
@@ -49,7 +51,7 @@ body <- dashboardBody(
                   multiple = TRUE
                 )
               }),
-              checkboxInput(inputId = "pop1", label = "Add popups", value = TRUE),
+              checkboxInput(inputId = "pop1", label = "Add popups", value = FALSE),
               checkboxInput(inputId = "markers1", label = "Add markers", value = FALSE)
             ),
             tabPanel(h4("Group 2"), 
@@ -68,7 +70,7 @@ body <- dashboardBody(
                 )
               }),
               checkboxInput(inputId = "pop2", label = "Add popups", value = FALSE),
-              checkboxInput(inputId = "markers2", label = "Add markers", value = TRUE)
+              checkboxInput(inputId = "markers2", label = "Add markers", value = FALSE)
             )
           )
         ),
@@ -78,7 +80,7 @@ body <- dashboardBody(
           fluidRow(
             infoBoxOutput(outputId = "group_1_mean"),
             valueBoxOutput(outputId = "group_2_mean"),
-            valueBoxOutput(outputId = "overall_mean")
+            valueBoxOutput(outputId = "disagreement")
           ),
           box(width = NULL, leafletOutput(outputId = "map", height = 800))
         )
@@ -98,7 +100,7 @@ body <- dashboardBody(
       ),
       box(title = NULL, width = NULL, DT::dataTableOutput(outputId = "table"))),
     tabItem(tabName = "report", box(title = "Report", width = NULL)),
-    tabItem(tabName = "about", box(title = "About", width = NULL))
+    tabItem(tabName = "help", box(title = "Help", width = NULL))
   )
 )
 

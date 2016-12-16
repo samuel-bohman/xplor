@@ -579,8 +579,8 @@ shinyServer(function(input, output, session) {
         value = x, 
         subtitle = "Mean Value", 
         icon = icon(name = thumb), 
-        color = "light-blue",
-        fill = TRUE
+        color = "red",
+        fill = FALSE
       )
     } else {
     infoBox(
@@ -588,8 +588,8 @@ shinyServer(function(input, output, session) {
       value = "-", 
       subtitle = "Mean Value", 
       icon = icon(name = ""),
-      color = "light-blue",
-      fill = TRUE
+      color = "red",
+      fill = FALSE
     )
   }
   })
@@ -608,8 +608,8 @@ shinyServer(function(input, output, session) {
         value = x, 
         subtitle = "Mean Value", 
         icon = icon(name = thumb), 
-        color = "light-blue",
-        fill = TRUE
+        color = "blue",
+        fill = FALSE
       )
     } else {
     infoBox(
@@ -617,14 +617,14 @@ shinyServer(function(input, output, session) {
       value = "-", 
       subtitle = "Mean Value",
       icon = icon(name = ""),
-      color = "light-blue",
-      fill = TRUE
+      color = "blue",
+      fill = FALSE
     )
   }
   })
 
   # info box 3    
-  output$overall_mean <- renderInfoBox({
+  output$disagreement <- renderInfoBox({
     if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
       x <- 0.4
       if (x >= 0.5) {
@@ -637,16 +637,16 @@ shinyServer(function(input, output, session) {
         value = x, 
         subtitle = "Disagreement", 
         icon = icon(name = thumb),  
-        color = "light-blue",
-        fill = TRUE
+        color = "purple",
+        fill = FALSE
       )
     } else {
       infoBox(
         title = "Overall",
         value = "-", 
         subtitle = "Disagreement", 
-        color = "light-blue",
-        fill = TRUE
+        color = "purple",
+        fill = FALSE
       )
     }
   })
