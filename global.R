@@ -13,10 +13,10 @@ results_spdf1 <- readRDS("data/results_spdf.rds")
 # SpatialPolygonsDataFrame for group 2
 results_spdf2 <- readRDS("data/results_spdf.rds")
 
-# data frame for tabPanel "Table"
+# Data frame for tabPanel "Table"
 results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
-# background variables ----
+# Background variables ----
 vars_area <- c("", "All", sort(unique(as.character(results_df[["Area"]]))))
 vars_gender <- c("", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
 vars_age <- c("", "All", sort(unique(as.character(results_df[["Age"]]))))
@@ -24,27 +24,27 @@ vars_occupation <- c("", "All", sort(unique(as.character(results_df[["Occupation
 vars_education <- c("", "All", sort(unique(as.character(results_df[["Education.level"]]))))
 vars_years <- c("", "All", "0-4 years", "5-9 years", "10 years or more")
 
-# needed for dynamic form generation (group forms)
+# Needed for dynamic form generation (group forms)
 background_choices <- list(vars_area, vars_gender, vars_age, vars_occupation, vars_education, vars_years)
 
-# use these for input matching - TODO: Generate dynamically / From file
-# names to be used as basis for group input dropdown ids
+# Use these for input matching - TODO: Generate dynamically / From file
+# Names to be used as basis for group input dropdown ids
 ui_names_bg <- c("area", "gender", "age", "occupation", "education", "years")
 
-# corresponding dataframe column names
+# Corresponding dataframe column names
 df_names_bg <- c("Area", "Gender", "Age", "Occupation", "Education.level", "Year")
 
-# the labels that will appear in the GUI
+# The labels that will appear in the GUI
 dropdown_names_bg <- c("Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
 names(df_names_bg) <- ui_names_bg
 
-# themes
-themes <- colnames(results_df)[57:66]
-themes %<>%
-  gsub(pattern = ".", replacement = " ", x = ., fixed = TRUE) %>%
-  paste(c(1:10), ., sep = ". ")
+# randomization for polygons just for development purposes
+rnd <- sample(x = vars_area[3:45], size = 10) %>% split(f = c(1, 2))
 
-# alternatives
+# Themes
+theme <- colnames(results_df)[57:66] %>% gsub(pattern = ".", replacement = " ", x = ., fixed = TRUE) %>% paste(c(1:10), ., sep = ". ")
+
+# Alternatives
 alt_theme_1 <- c(
   "1a. Preserve existing large green areas", 
   "1b. Build parks in existing urban districts", 

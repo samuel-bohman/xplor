@@ -1,4 +1,4 @@
-bcar <- function(pseudo.name, colNames, aNames, question.name, criterion.name, resultat) {
+disagreement_data <- function(pseudo.name, colNames, aNames, question.name, criterion.name, resultat) {
   results.vec <- c()
   rNames.vec <- c()
   resultNames.vec <- c()

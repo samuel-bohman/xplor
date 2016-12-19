@@ -1,17 +1,10 @@
 shinyServer(function(input, output, session) {
   
-  # create static map
-  output$map <- renderLeaflet({
-    leaflet() %>%
-      addTiles() %>%
-      setView(lng = 17.91128, lat = 59.51839, zoom = 13) %>%
-      addPolygons(data = nyko, fill = TRUE, fillOpacity = 0.1, fillColor = "black", stroke = TRUE, weight = 1, color = "black", group = "nyko")
-  })
+  # callModule(module = tabset_module, id = "one")
   
-  # render alternatives menu
   output$alternatives <- renderUI({
     switch(
-      input$themes,
+      input$theme,
       "1. Parks and green areas" = selectInput(inputId = "alt", label = "Alternatives", choices = alt_list[[1]]),
       "2. Diversity in housing supply" = selectInput(inputId = "alt", label = "Alternatives", choices = alt_list[[2]]),
       "3. Invest in public areas" = selectInput(inputId = "alt", label = "Alternatives", choices = alt_list[[3]]),
@@ -24,6 +17,12 @@ shinyServer(function(input, output, session) {
       "10. Ecological sustainability" = selectInput(inputId = "alt", label = "Alternatives", choices = alt_list[[10]])
     )
   })
+  
+  ####################################################################################################################
+  
+  ### ALL FILTERS ####################################################################################################
+  
+  ####################################################################################################################
   
   # return corresponding dataframe column name of an input column name
   get_input_category <- function(ui_col_name) {
@@ -56,7 +55,7 @@ shinyServer(function(input, output, session) {
     return(spdf)
   }
   
-  ### GROUP 1 FILTERS AND CALCULATIONS ########################
+  ### GROUP 1 FILTERS ################################################
   
   # subset background variables
   group_1_filter_1 <- reactive({
@@ -232,7 +231,7 @@ shinyServer(function(input, output, session) {
     round(mean(group_1_filter_2()), digits = 2)
   })
   
-  ### GROUP 2 FILTERS AND CALCULATIONS ########################
+  ### GROUP 2 FILTERS ################################################
   
   group_2_filter_1 <- reactive({
     bg_filter(2, results_spdf2)
@@ -407,7 +406,40 @@ shinyServer(function(input, output, session) {
     round(mean(group_2_filter_2()), digits = 2)
   })
   
-  ### DYNAMIC MAP ELEMENTS ####################################
+  ####################################################################################################################
+  
+  ### MAP ############################################################################################################
+  
+  ####################################################################################################################
+  
+  # Create static map and empty polygons
+  output$map <- renderLeaflet({
+    leaflet() %>%
+      addTiles() %>%
+      setView(lng = 17.91128, lat = 59.51839, zoom = 13) %>%
+      addPolygons(data = nyko, fill = TRUE, fillOpacity = 0.1, fillColor = "blue", stroke = TRUE, weight = 1, color = "black", group = "nyko")
+  })
+  
+  # Define color palette
+  colorpal <- reactive({
+    colorNumeric(
+      palette = input$colors,
+      domain = c(0, 14),
+      na.color = "gray"
+    )
+  })
+  
+  # Add color legend to map
+  observe({
+    leafletProxy(mapId = "map") %>%
+      clearControls() %>%
+      addLegend(
+        position = "bottomleft",
+        pal = colorpal(),
+        values = c(0:14),
+        labels = c("Red", "Yellow", "Green")
+      )
+  })
   
   # NULL checks
   null_checks_1 <- reactive({
@@ -418,9 +450,9 @@ shinyServer(function(input, output, session) {
     return(null_check(2, ui_names_bg))
   })
   
-  # run a NULL check on all the input values of a given list of keys
+  # Run a NULL check on all the input values of a given list of keys
   null_check <- function(input_group_number, ui_names_bg) {
-    if (is.null(input$alt)) {
+    if (is.null(input[["alt"]])) {
       return(NULL)
     }
     for (i in seq_along(ui_names_bg)) { # ui_names_bg <- c("area", "gender", "age", "occupation", "education", "years")
@@ -432,7 +464,7 @@ shinyServer(function(input, output, session) {
     return(TRUE)
   }
   
-  # add polygons
+  # Add polygons to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearGroup(group = "group1Polygons") %>%
@@ -443,7 +475,7 @@ shinyServer(function(input, output, session) {
           data = group_1_filter_1(),
           fill = TRUE,
           fillColor = ~ colorpal()(group_1_mean()),
-          fillOpacity = 0.8,
+          fillOpacity = 0.7,
           stroke = TRUE,
           weight = 1,
           color = "red",
@@ -457,7 +489,7 @@ shinyServer(function(input, output, session) {
           data = group_2_filter_1(),
           fill = TRUE,
           fillColor = ~ colorpal()(group_2_mean()),
-          fillOpacity = 0.8,
+          fillOpacity = 0.7,
           stroke = TRUE,
           weight = 1,
           color = "blue",
@@ -467,28 +499,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # add color palette
-  colorpal <- reactive({
-    colorNumeric(
-      palette = input[["colors"]],
-      domain = c(0, 14),
-      na.color = "gray"
-    )
-  })
-  
-  # add color legend to map
-  observe({
-    leafletProxy(mapId = "map") %>%
-      clearControls() %>%
-      addLegend(
-        position = "bottomleft",
-        pal = colorpal(),
-        values = c(0:14),
-        labels = c("Red", "Yellow", "Green")
-      )
-  })
-  
-  # add popups to map
+  # Add popups to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearPopups()
@@ -518,7 +529,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # add markers to map
+  # Add markers to map
   observe({
     if (!is.null(null_checks_1())) {
       leafletProxy(mapId = "map") %>%
@@ -551,8 +562,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # add info boxes
-  # info box 1
+  # Info box 1
   output$group_1_mean <- renderInfoBox({
     if (!is.null(null_checks_1())) {
       x <- group_1_mean()
@@ -561,27 +571,13 @@ shinyServer(function(input, output, session) {
       } else {
         thumb <- "thumbs-o-down"
       }
-      infoBox(
-        title = "Group 1",
-        value = x, 
-        subtitle = "Mean Value", 
-        icon = icon(name = thumb), 
-        color = "light-blue",
-        fill = FALSE
-      )
+      infoBox(title = "Group 1", value = x, subtitle = "Mean Value", icon = icon(name = thumb), color = "light-blue", fill = FALSE)
     } else {
-    infoBox(
-      title = "Group 1",
-      value = "-", 
-      subtitle = "Mean Value", 
-      icon = icon(name = ""),
-      color = "light-blue",
-      fill = FALSE
-    )
-  }
+      infoBox(title = "Group 1", value = "-", subtitle = "Mean Value", icon = icon(name = ""), color = "light-blue", fill = FALSE)
+    }
   })
   
-  # info box 2
+  # Info box 2
   output$group_2_mean <- renderInfoBox({
     if (!is.null(null_checks_2())) {
       x <- group_2_mean()
@@ -590,27 +586,13 @@ shinyServer(function(input, output, session) {
       } else {
         thumb <- "thumbs-o-down"
       }
-      infoBox(
-        title = "Group 2",
-        value = x, 
-        subtitle = "Mean Value", 
-        icon = icon(name = thumb), 
-        color = "light-blue",
-        fill = FALSE
-      )
+      infoBox(title = "Group 2", value = x, subtitle = "Mean Value", icon = icon(name = thumb), color = "light-blue", fill = FALSE)
     } else {
-    infoBox(
-      title = "Group 2",
-      value = "-", 
-      subtitle = "Mean Value",
-      icon = icon(name = ""),
-      color = "light-blue",
-      fill = FALSE
-    )
-  }
+      infoBox(title = "Group 2", value = "-", subtitle = "Mean Value", icon = icon(name = ""), color = "light-blue", fill = FALSE)
+    }
   })
-
-  # info box 3    
+  
+  # Info box 3    
   output$disagreement <- renderInfoBox({
     if (!is.null(null_checks_1()) & !is.null(null_checks_2())) {
       x <- 0.4
@@ -619,79 +601,54 @@ shinyServer(function(input, output, session) {
       } else {
         thumb <- "balance-scale"
       }
-      infoBox(
-        title = "Overall",
-        value = x, 
-        subtitle = "Disagreement", 
-        icon = icon(name = thumb),  
-        color = "light-blue",
-        fill = FALSE
-      )
+      infoBox(title = "Overall", value = x, subtitle = "Disagreement", icon = icon(name = thumb), color = "light-blue", fill = FALSE)
     } else {
-      infoBox(
-        title = "Overall",
-        value = "-", 
-        subtitle = "Disagreement", 
-        color = "light-blue",
-        fill = FALSE
-      )
+      infoBox(title = "Overall", value = "-", subtitle = "Disagreement", color = "light-blue", fill = FALSE)
     }
   })
   
-  ### DATA TABLE ##############################################
+  ####################################################################################################################
   
-  # subset background variables
+  ### DATA TABLE #####################################################################################################
+  
+  ####################################################################################################################
+  
   table_filter <- reactive({
-    
-    if (!identical(input$"area3", "All")) {
-      for (o in seq_along(input[["area3"]])) {
-        results_df <- head(results_df[results_df[["Area"]] %in% input[["area3"]], ], n = 1040, drop = FALSE)
+    if (!identical(input$area3, "All")) {
+      for (o in seq_along(input$area3)) {
+        results_df <- head(results_df[results_df$Area %in% input$area3, ], n = 1040, drop = FALSE)
       }
     }
-    if (!identical(input$"gender3", "All")) {
-      for (p in seq_along(input[["gender3"]])) {
-        results_df <- head(results_df[results_df[["Gender"]] %in% input[["gender3"]], ], n = 1040, drop = FALSE)
+    if (!identical(input$gender3, "All")) {
+      for (p in seq_along(input$gender3)) {
+        results_df <- head(results_df[results_df$Gender %in% input$gender3, ], n = 1040, drop = FALSE)
       }
     }
-    if (!identical(input$"age3", "All")) {
-      for (q in seq_along(input[["age3"]])) {
-        results_df <- head(results_df[results_df[["Age"]] %in% input[["age3"]], ], n = 1040, drop = FALSE)
+    if (!identical(input$age3, "All")) {
+      for (q in seq_along(input$age3)) {
+        results_df <- head(results_df[results_df$Age %in% input$age3, ], n = 1040, drop = FALSE)
       }
     }
-    if (!identical(input$"occupation3", "All")) {
-      for (r in seq_along(input[["occupation3"]])) {
-        results_df <- head(results_df[results_df[["Occupation"]] %in% input[["occupation3"]], ], n = 1040, drop = FALSE)
+    if (!identical(input$occupation3, "All")) {
+      for (r in seq_along(input$occupation3)) {
+        results_df <- head(results_df[results_df$Occupation %in% input$occupation3, ], n = 1040, drop = FALSE)
       }
     }
-    if (!identical(input$"education3", "All")) {
-      for (s in seq_along(input[["education3"]])) {
-        results_df <- head(results_df[results_df[["Education.level"]] %in% input[["education3"]], ], n = 1040, drop = FALSE)
+    if (!identical(input$education3, "All")) {
+      for (s in seq_along(input$education3)) {
+        results_df <- head(results_df[results_df$Education.level %in% input$education3, ], n = 1040, drop = FALSE)
       }
     }
-    if (!identical(input$"years3", "All")) {
-      for (t in seq_along(input[["years3"]])) {
-        results_df <- head(results_df[results_df[["Year"]] %in% input[["years3"]], ], n = 1040, drop = FALSE)
+    if (!identical(input$years3, "All")) {
+      for (t in seq_along(input$years3)) {
+        results_df <- head(results_df[results_df$Year %in% input$years3, ], n = 1040, drop = FALSE)
       }
     }
     results_df
   })
   
-  output[["table"]] <- DT::renderDataTable({
+  output$table <- DT::renderDataTable({
     table_filter()
   }, server = TRUE)
-  
-  # Returns the name of the column in results_df where the data value exists
-  # Currently not used
-  # get_category_unique <- function(entry_value) {
-  #  a <- which(sapply(results_df, function(x)
-  #    any(x == entry_value)))
-  #  a <- names(a)
-  #  # Null handling
-  #  noVal <- character(0)
-  #  if (identical(a, character(0))) {
-  #    return("404")
-  #  }
-  #  return(a)
-  # }
   
 })
