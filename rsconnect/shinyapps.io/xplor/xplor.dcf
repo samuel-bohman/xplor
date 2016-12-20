@@ -3,9 +3,9 @@ title: xplor
 account: xplor
 server: shinyapps.io
 appId: 106337
-bundleId: 649970
+bundleId: 655690
 url: https://xplor.shinyapps.io/xplor/
-when: 1481732403.2604
+when: 1482218168.41252
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: data/.Rapp.history
+ignoredFiles: disagreement_data.R|optimization.R|tabset_module.R|ui_old.R|ui_shinydashboard.R|data/.Rapp.history|questionnaire/index.html|questionnaire/stylesheet.css|questionnaire/widget/rankedChoiceInput.js|questionnaire/widget/raphael.min.js|questionnaire/widget/widget.html

@@ -4,6 +4,8 @@ library(leaflet)
 library(sp)
 library(RColorBrewer)
 
+source("tabset_module.R")
+
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("data/nyko.rds") 
 
@@ -25,7 +27,7 @@ vars_education <- c("", "All", sort(unique(as.character(results_df[["Education.l
 vars_years <- c("", "All", "0-4 years", "5-9 years", "10 years or more")
 
 # Needed for dynamic form generation (group forms)
-background_choices <- list(vars_area, vars_gender, vars_age, vars_occupation, vars_education, vars_years)
+background_variables <- list(vars_area, vars_gender, vars_age, vars_occupation, vars_education, vars_years)
 
 # Use these for input matching - TODO: Generate dynamically / From file
 # Names to be used as basis for group input dropdown ids
