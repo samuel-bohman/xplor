@@ -1,62 +1,55 @@
 shinyUI(
-  navbarPage("Xplor Beta", id = "nav", position = "static-top", collapsible = TRUE, fluid = FALSE, 
+  navbarPage("xplor beta", id = "nav", position = "static-top", collapsible = TRUE, fluid = FALSE,
     tabPanel(title = "Map", icon = icon("map-o"),
-      fixedRow(
-        div(
-          class = "outer",
-          tags[["head"]](includeCSS("styles.css")),
-          leafletOutput("map", width = "100%", height = "100%"),
-          
-          # panel 1
-          absolutePanel(
-            id = "panel1", class = "panel panel-default", draggable = TRUE, top = 20, left = 420, right = "auto", bottom = "auto", width = 350, height = "auto", h3("Themes"),
-            selectInput(inputId = "theme", label = "Theme", choices = theme, selected = theme[1]),
-            uiOutput("alternatives"),
-            selectInput(inputId = "colors", label = "Palette", choices = rownames(subset(brewer.pal.info, category %in% "div")), selected = "RdYlGn")
-          ),
-          
-          # panel 2  
-          absolutePanel(
-            id = "panel2", class = "panel panel-default", draggable = TRUE, top = 20, left = 60, right = "auto", bottom = "auto", width = 350, height = "auto", h3("Group 1"),
-            lapply(seq_along(background_choices), function(j) {
-              if (j == 1) {
-                to_select <- rnd[[1]]
-              } else {
-                to_select <- background_choices[[1]][2]
-              }
-              selectInput(
-                inputId = paste(ui_names_bg[j], 1, sep = ""),
-                label = paste(dropdown_names_bg[j]),
-                choices = background_choices[[j]],
-                selected = to_select,
-                multiple = TRUE
-              )
-            }),
-            checkboxInput(inputId = "pop1", label = "Add popups", value = FALSE),
-            checkboxInput(inputId = "markers1", label = "Add markers", value = TRUE)
-          ),
-          
-          # panel 3
-          absolutePanel(
-            id = "panel3", class = "panel panel-default", draggable = TRUE, top = 20, left = "auto", right = 20, bottom = "auto", width = 350, height = "auto", h3("Group 2"),
-            lapply(seq_along(background_choices), function(j) {
-              if (j == 1) {
-                to_select <- rnd[[2]]
-              } else {
-                to_select <- background_choices[[1]][2]
-              }
-              selectInput(
-                inputId = paste(ui_names_bg[j], 2, sep = ""),
-                label = paste(dropdown_names_bg[j]),
-                choices = background_choices[[j]],
-                selected = to_select,
-                multiple = TRUE
-              )
-            }),
-            checkboxInput(inputId = "pop2", label = "Add popups", value = FALSE),
-            checkboxInput(inputId = "markers2", label = "Add markers", value = TRUE)
+      sidebarLayout(fluid = FALSE,
+        sidebarPanel(width = 4,
+          tabsetPanel(
+            type = "tabs",
+            tabPanel("Theme",
+              selectInput(inputId = "theme", label = "Theme", choices = theme, selected = theme[1]),
+              uiOutput("alternatives"),
+              selectInput(inputId = "colors", label = "Palette", choices = rownames(subset(brewer.pal.info, category %in% "div")), selected = "RdYlGn")
+            ),
+            tabPanel("Group 1",
+              lapply(seq_along(background_choices), function(j) {
+                if (j == 1) {
+                  to_select <- rnd[[1]]
+                } else {
+                  to_select <- background_choices[[1]][2]
+                }
+                selectInput(
+                  inputId = paste(ui_names_bg[j], 1, sep = ""),
+                  label = paste(dropdown_names_bg[j]),
+                  choices = background_choices[[j]],
+                  selected = to_select,
+                  multiple = TRUE
+                )
+              }),
+              checkboxInput(inputId = "pop1", label = "Add popups", value = FALSE),
+              checkboxInput(inputId = "markers1", label = "Add markers", value = TRUE)
+            ),
+            tabPanel("Group 2",
+              lapply(seq_along(background_choices), function(j) {
+                if (j == 1) {
+                  to_select <- rnd[[2]]
+                } else {
+                  to_select <- background_choices[[1]][2]
+                }
+                selectInput(
+                  inputId = paste(ui_names_bg[j], 2, sep = ""),
+                  label = paste(dropdown_names_bg[j]),
+                  choices = background_choices[[j]],
+                  selected = to_select,
+                  multiple = TRUE
+                )
+              }),
+              checkboxInput(inputId = "pop2", label = "Add popups", value = FALSE),
+              checkboxInput(inputId = "markers2", label = "Add markers", value = TRUE)
+            )
           )
-          
+        ),
+        mainPanel(width = 8,
+          leafletOutput(outputId = "map", height = 615)
         )
       )
     ),

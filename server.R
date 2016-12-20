@@ -416,7 +416,7 @@ shinyServer(function(input, output, session) {
   output$map <- renderLeaflet({
     leaflet() %>%
       addTiles() %>%
-      setView(lng = 17.91128, lat = 59.51839, zoom = 13) %>%
+      setView(lng = 17.91128, lat = 59.51839, zoom = 11) %>%
       addPolygons(data = nyko, fill = TRUE, fillOpacity = 0.1, fillColor = "blue", stroke = TRUE, weight = 1, color = "black", group = "nyko")
   })
   
