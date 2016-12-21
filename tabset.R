@@ -1,5 +1,5 @@
 # Module UI
-tabset_module_UI <- function(id) {
+tabset_UI <- function(id) {
   ns <- NS(id)
   rnd <- sample(x = vars_area[3:45], size = 10) %>% split(f = c(1, 2))
   tagList(
@@ -26,7 +26,7 @@ tabset_module_UI <- function(id) {
               multiple = TRUE
             )
           }),
-          checkboxInput(ns("pop1"), label = "Add popups", value = FALSE),
+          checkboxInput(ns("pop1"), label = "Add popups", value = TRUE),
           checkboxInput(ns("markers1"), label = "Add markers", value = TRUE)
         ),
         tabPanel("Group 2",
@@ -44,7 +44,7 @@ tabset_module_UI <- function(id) {
               multiple = TRUE
             )
           }),
-          checkboxInput(ns("pop2"), label = "Add popups", value = FALSE),
+          checkboxInput(ns("pop2"), label = "Add popups", value = TRUE),
           checkboxInput(ns("markers2"), label = "Add markers", value = TRUE)
         )
       )
@@ -53,7 +53,7 @@ tabset_module_UI <- function(id) {
 }
 
 # Module server
-tabset_module <- function(input, output, session) {
+tabset <- function(input, output, session) {
   
   # Render the alternatives dropdown menu
   output$alternatives <- renderUI({
@@ -75,7 +75,7 @@ tabset_module <- function(input, output, session) {
   
   ####################################################################################################################
   
-  ### ALL FILTERS ####################################################################################################
+  ### FILTERS ########################################################################################################
   
   ####################################################################################################################
   
@@ -106,23 +106,11 @@ tabset_module <- function(input, output, session) {
     return(spdf)
   }
   
-  ### CALCULATE MEANS ################################################
-  
-  # calculate mean
-  group_1_mean <- reactive({
-    group_1_mean <- round(mean(group_1_filter_2()), digits = 2)
-  })
-  
-  # calculate mean
-  group_2_mean <- reactive({
-    group_2_mean <- round(mean(group_2_filter_2()), digits = 2)
-  })
-  
   ### GROUP 1 FILTERS ################################################
   
   # subset background variables
   group_1_filter_1 <- reactive({
-    group_1_filter_1 <- bg_filter(1, results_spdf1)
+    bg_filter(1, results_spdf1)
   })
   
   # subset theme alternatives
@@ -289,10 +277,15 @@ tabset_module <- function(input, output, session) {
     }
   })
   
+  # calculate mean
+  group_1_mean <- reactive({
+    round(mean(group_1_filter_2()), digits = 2)
+  })
+  
   ### GROUP 2 FILTERS ################################################
   
   group_2_filter_1 <- reactive({
-    group_2_filter_1 <- bg_filter(2, results_spdf2)
+    bg_filter(2, results_spdf2)
   })
   
   # subset theme alternatives
@@ -458,4 +451,44 @@ tabset_module <- function(input, output, session) {
       return(as.matrix(group_2_filter_1()@data[, 59]))
     }
   })
+  
+  # calculate mean
+  group_2_mean <- reactive({
+    round(mean(group_2_filter_2()), digits = 2)
+  })
+  
+  # Return list of reactive expression
+  return(
+    list(
+      area1 = reactive(input$area1),
+      gender1 = reactive(input$gender1), # 2
+      age1 = reactive(input$age1),
+      occupation1 = reactive(input$occupation1), # 4
+      education1 = reactive(input$education1),
+      years1 = reactive(input$years1), # 6
+      pop1 = reactive(input$pop1),
+      markers1 = reactive(input$markers1), # 8
+      
+      area2 = reactive(input$area2),
+      gender2 = reactive(input$gender2), # 10
+      age2 = reactive(input$age2), 
+      occupation2 = reactive(input$occupation2), # 12
+      education2 = reactive(input$education2),
+      years2 = reactive(input$years2), # 14
+      pop2 = reactive(input$pop2),
+      markers2 = reactive(input$markers2), # 16
+      
+      alt = reactive(input$alt), 
+      
+      group_1_filter_1 = group_1_filter_1, # 18
+      group_1_filter_2 = group_1_filter_2,
+      group_1_mean = group_1_mean, # 20
+      
+      group_2_filter_1 = group_2_filter_1,
+      group_2_filter_2 = group_2_filter_2, # 22
+      group_2_mean = group_2_mean
+      
+    )
+  )
+  
 }

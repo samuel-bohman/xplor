@@ -4,7 +4,7 @@ library(leaflet)
 library(sp)
 library(RColorBrewer)
 
-source("tabset_module.R")
+source("tabset.R")
 
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("data/nyko.rds") 
