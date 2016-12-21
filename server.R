@@ -193,5 +193,3 @@ shinyServer(function(input, output, session) {
   }, server = TRUE)
   
 })
-
-runApp("App", display.mode = "showcase")
