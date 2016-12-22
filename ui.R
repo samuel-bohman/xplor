@@ -1,5 +1,5 @@
 shinyUI(
-  navbarPage("xplor beta", id = "nav", position = "static-top", collapsible = TRUE, fluid = FALSE,
+  navbarPage("Xplor", id = "nav", position = "static-top", collapsible = TRUE, fluid = FALSE,
     tabPanel(title = "Map", icon = icon("map-o"),
       sidebarLayout(fluid = FALSE,
         tabset_UI(id = "one"),
