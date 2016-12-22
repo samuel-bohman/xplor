@@ -24,20 +24,20 @@ shinyServer(function(input, output, session) {
   
   # NULL checks
   null_checks_1 <- reactive({
-    return(null_check(1, ui_names_bg))
+    return(null_check(1, b_names))
   })
 
   null_checks_2 <- reactive({
-    return(null_check(2, ui_names_bg))
+    return(null_check(2, b_names))
   })
 
   # Run a NULL check on all the input values of a given list of keys
-  null_check <- function(input_group_number, ui_names_bg) {
+  null_check <- function(group_no, b_names) {
     if (is.null(tdata$alt())) {
       return(NULL)
     }
-    for (i in seq_along(ui_names_bg)) { # ui_names_bg <- c("area", "gender", "age", "occupation", "education", "years")
-      input_key <- paste(ui_names_bg[[i]], input_group_number, sep = "") # Add group number to key
+    for (i in seq_along(b_names)) { 
+      input_key <- paste(b_names[[i]], group_no, sep = "") # Add group number to key
       if (is.null(input[[input_key]])) {
         return(NULL)
       }

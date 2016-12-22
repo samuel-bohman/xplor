@@ -1,7 +1,6 @@
 # Module UI
 tabset_UI <- function(id) {
   ns <- NS(id)
-  rnd <- sample(x = vars_area[3:45], size = 10) %>% split(f = c(1, 2))
   tagList(
     sidebarPanel(width = 4,
       tabsetPanel(
@@ -11,16 +10,16 @@ tabset_UI <- function(id) {
           uiOutput(ns("alternatives"))
         ),
         tabPanel("Group 1",
-          lapply(seq_along(background_variables), function(j) {
+          lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[1]]
             } else {
-              to_select <- background_variables[[1]][2]
+              to_select <- b_variables[[1]][2]
             }
             selectInput(
-              ns(paste(ui_names_bg[j], 1, sep = "")),
-              label = paste(dropdown_names_bg[j]),
-              choices = background_variables[[j]],
+              ns(paste(b_names[j], 1, sep = "")),
+              label = paste(b_labels[j]),
+              choices = b_variables[[j]],
               selected = to_select,
               multiple = TRUE
             )
@@ -29,16 +28,16 @@ tabset_UI <- function(id) {
           checkboxInput(ns("markers1"), label = "Add markers", value = TRUE)
         ),
         tabPanel("Group 2",
-          lapply(seq_along(background_variables), function(j) {
+          lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[2]]
             } else {
-              to_select <- background_variables[[1]][2]
+              to_select <- b_variables[[1]][2]
             }
             selectInput(
-              ns(paste(ui_names_bg[j], 2, sep = "")),
-              label = paste(dropdown_names_bg[j]),
-              choices = background_variables[[j]],
+              ns(paste(b_names[j], 2, sep = "")),
+              label = paste(b_labels[j]),
+              choices = b_variables[[j]],
               selected = to_select,
               multiple = TRUE
             )
@@ -80,19 +79,19 @@ tabset <- function(input, output, session) {
   
   # return corresponding dataframe column name of an input column name
   get_input_category <- function(ui_col_name) {
-    if (!is.element(ui_col_name, names(df_names_bg))) {
+    if (!is.element(ui_col_name, b_col_names)) {
       return("404")
     }
-    if (identical(df_names_bg[[ui_col_name]], character(0))) {
+    if (identical(b_col_names[[ui_col_name]], character(0))) {
       return("404")
     }
-    return(df_names_bg[[ui_col_name]])
+    return(b_col_names[[ui_col_name]])
   }
   
   # filter given spdf by reading numbered group input ids
   bg_filter <- function(group_number, spdf) {
-    for (i in seq_along(ui_names_bg)) { # ui_names_bg <- c("area", "gender", "age", "occupation", "education", "years")
-      col <- paste(ui_names_bg[i], group_number, sep = "") # E.g. "area1"
+    for (i in seq_along(b_names)) { 
+      col <- paste(b_names[i], group_number, sep = "") # E.g. "area1"
       df_col <- get_input_category(substr(col, 1, nchar(col) - 1)) # E.g. "area1" -> "area" -> "Omrade"
       # Do not filter non-selection
       if (input[[col]] != "All") {
@@ -477,16 +476,15 @@ tabset <- function(input, output, session) {
       pop2 = reactive(input$pop2),
       markers2 = reactive(input$markers2), # 16
       
-      theme = reactive(input$theme), 
-      alt = reactive(input$alt), # 18
+      alt = reactive(input$alt), 
       
-      group_1_filter_1 = group_1_filter_1,
-      group_1_filter_2 = group_1_filter_2, # 20
-      group_1_mean = group_1_mean,
+      group_1_filter_1 = group_1_filter_1, # 18
+      group_1_filter_2 = group_1_filter_2,
+      group_1_mean = group_1_mean, # 20
       
-      group_2_filter_1 = group_2_filter_1, # 22
-      group_2_filter_2 = group_2_filter_2,
-      group_2_mean = group_2_mean # 24
+      group_2_filter_1 = group_2_filter_1,
+      group_2_filter_2 = group_2_filter_2, # 22
+      group_2_mean = group_2_mean
       
     )
   )
