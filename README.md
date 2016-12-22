@@ -1,3 +1,3 @@
-# Xplor
+# xplor
 
-Xplor is a Shiny app that visualizes questionnaire data on a map. 
+xplor is a Shiny app that visualizes questionnaire data on a map. 
