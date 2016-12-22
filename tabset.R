@@ -477,15 +477,16 @@ tabset <- function(input, output, session) {
       pop2 = reactive(input$pop2),
       markers2 = reactive(input$markers2), # 16
       
-      alt = reactive(input$alt), 
+      theme = reactive(input$theme), 
+      alt = reactive(input$alt), # 18
       
-      group_1_filter_1 = group_1_filter_1, # 18
-      group_1_filter_2 = group_1_filter_2,
-      group_1_mean = group_1_mean, # 20
+      group_1_filter_1 = group_1_filter_1,
+      group_1_filter_2 = group_1_filter_2, # 20
+      group_1_mean = group_1_mean,
       
-      group_2_filter_1 = group_2_filter_1,
-      group_2_filter_2 = group_2_filter_2, # 22
-      group_2_mean = group_2_mean
+      group_2_filter_1 = group_2_filter_1, # 22
+      group_2_filter_2 = group_2_filter_2,
+      group_2_mean = group_2_mean # 24
       
     )
   )
