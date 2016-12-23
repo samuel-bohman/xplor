@@ -1,8 +1,6 @@
 library(shiny)
-library(shinydashboard)
 library(leaflet)
 library(sp)
-library(RColorBrewer)
 
 source("tabset.R")
 

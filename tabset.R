@@ -24,8 +24,9 @@ tabset_UI <- function(id) {
               multiple = TRUE
             )
           }),
-          checkboxInput(ns("pop1"), label = "Add popups", value = TRUE),
-          checkboxInput(ns("markers1"), label = "Add markers", value = TRUE)
+          checkboxInput(ns("markers1"), label = "Add markers", value = TRUE),
+          checkboxInput(ns("pop1"), label = "Add popups", value = FALSE)
+          
         ),
         tabPanel("Group 2",
           lapply(seq_along(b_variables), function(j) {
@@ -42,8 +43,9 @@ tabset_UI <- function(id) {
               multiple = TRUE
             )
           }),
-          checkboxInput(ns("pop2"), label = "Add popups", value = TRUE),
-          checkboxInput(ns("markers2"), label = "Add markers", value = TRUE)
+          checkboxInput(ns("markers2"), label = "Add markers", value = TRUE),
+          checkboxInput(ns("pop2"), label = "Add popups", value = FALSE)
+          
         )
       )
     )
@@ -71,48 +73,50 @@ tabset <- function(input, output, session) {
       )
   })
   
-  ####################################################################################################################
-  
-  ### FILTERS ########################################################################################################
-  
-  ####################################################################################################################
-  
-  # return corresponding dataframe column name of an input column name
-  get_input_category <- function(ui_col_name) {
-    if (!is.element(ui_col_name, b_col_names)) {
-      return("404")
-    }
-    if (identical(b_col_names[[ui_col_name]], character(0))) {
-      return("404")
-    }
-    return(b_col_names[[ui_col_name]])
-  }
-  
-  # filter given spdf by reading numbered group input ids
-  bg_filter <- function(group_number, spdf) {
-    for (i in seq_along(b_names)) { 
-      col <- paste(b_names[i], group_number, sep = "") # E.g. "area1"
-      df_col <- get_input_category(substr(col, 1, nchar(col) - 1)) # E.g. "area1" -> "area" -> "Omrade"
-      # Do not filter non-selection
-      if (input[[col]] != "All") {
-        for (i in seq_along(input[[col]])) {
-          # Get rows in spdf where value matches input selection
-          spdf <- spdf[spdf[[df_col]] %in% input[[col]], ]
-        }
-      }
-    }
-    return(spdf)
-  }
-  
   ### GROUP 1 FILTERS ################################################
   
-  # subset background variables
+  # subset themes for group 1
   group_1_filter_1 <- reactive({
-    bg_filter(1, results_spdf1)
+    req(input$area1, input$gender1, input$age1, input$occupation1, input$education1, input$years1)
+    
+    if (input$area1 != "All") {
+      for (i in seq_along(input$area1)) { 
+        results_spdf1 <- results_spdf1[results_spdf1$Area %in% input$area1, ]
+      }
+    }
+    if (input$gender1 != "All") {
+      for (i in seq_along(input$gender1)) { 
+        results_spdf1 <- results_spdf1[results_spdf1$Gender %in% input$gender1, ]
+      }
+    }
+    if (input$age1 != "All") {
+      for (i in seq_along(input$age1)) { 
+        results_spdf1 <- results_spdf1[results_spdf1$Age %in% input$age1, ]
+      }
+    }
+    if (input$occupation1 != "All") {
+      for (i in seq_along(input$occupation1)) { 
+        results_spdf1 <- results_spdf1[results_spdf1$Occupation %in% input$occupation1, ]
+      }
+    }
+    if (input$education1 != "All") {
+      for (i in seq_along(input$education1)) { 
+        results_spdf1 <- results_spdf1[results_spdf1$Education.level %in% input$education1, ]
+      }
+    }
+    if (input$years1 != "All") {
+      for (i in seq_along(input$years1)) { 
+        results_spdf1 <- results_spdf1[results_spdf1$Year %in% input$years1, ]
+      }
+    }
+    results_spdf1
   })
   
-  # subset theme alternatives
+  # subset alternatives for group 1
   group_1_filter_2 <- reactive({
+    
+    req(input$alt)
+    
     # theme 1
     if (input$alt == alt_theme_1[1]) {
       return(as.matrix(group_1_filter_1()@data[, 10]))
@@ -275,19 +279,55 @@ tabset <- function(input, output, session) {
     }
   })
   
-  # calculate mean
+  # # Calculate mean for group 1
   group_1_mean <- reactive({
     round(mean(group_1_filter_2()), digits = 2)
   })
   
   ### GROUP 2 FILTERS ################################################
   
+  # Subset background variables for group 2
   group_2_filter_1 <- reactive({
-    bg_filter(2, results_spdf2)
+    req(input$area2, input$gender2, input$age2, input$occupation2, input$education2, input$years2)
+    
+    if (input$area2 != "All") {
+      for (i in seq_along(input$area2)) { 
+        results_spdf2 <- results_spdf2[results_spdf2$Area %in% input$area2, ]
+      }
+    }
+    if (input$gender2 != "All") {
+      for (i in seq_along(input$gender2)) { 
+        results_spdf2 <- results_spdf2[results_spdf2$Gender %in% input$gender2, ]
+      }
+    }
+    if (input$age2 != "All") {
+      for (i in seq_along(input$age2)) { 
+        results_spdf2 <- results_spdf2[results_spdf2$Age %in% input$age2, ]
+      }
+    }
+    if (input$occupation2 != "All") {
+      for (i in seq_along(input$occupation2)) { 
+        results_spdf2 <- results_spdf2[results_spdf2$Occupation %in% input$occupation2, ]
+      }
+    }
+    if (input$education2 != "All") {
+      for (i in seq_along(input$education2)) { 
+        results_spdf2 <- results_spdf2[results_spdf2$Education.level %in% input$education2, ]
+      }
+    }
+    if (input$years2 != "All") {
+      for (i in seq_along(input$years2)) { 
+        results_spdf2 <- results_spdf2[results_spdf2$Year %in% input$years2, ]
+      }
+    }
+    results_spdf2
   })
   
-  # subset theme alternatives
+  # # Subset alternatives for group 2
   group_2_filter_2 <- reactive({
+    
+    req(input$alt)
+    
     # theme 1
     if (input$alt == alt_theme_1[1]) {
       return(as.matrix(group_2_filter_1()@data[, 10]))
@@ -476,12 +516,12 @@ tabset <- function(input, output, session) {
       pop2 = reactive(input$pop2),
       markers2 = reactive(input$markers2), # 16
       
-      alt = reactive(input$alt), 
+      alt = reactive(input$alt),
       
       group_1_filter_1 = group_1_filter_1, # 18
       group_1_filter_2 = group_1_filter_2,
       group_1_mean = group_1_mean, # 20
-      
+
       group_2_filter_1 = group_2_filter_1,
       group_2_filter_2 = group_2_filter_2, # 22
       group_2_mean = group_2_mean

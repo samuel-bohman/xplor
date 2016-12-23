@@ -22,37 +22,14 @@ shinyServer(function(input, output, session) {
       addLegend(position = "bottomleft", pal = colorpal(), values = c(0:14), labels = c("Red", "Yellow", "Green"))
   })
   
-  # NULL checks
-  null_checks_1 <- reactive({
-    return(null_check(1, b_names))
-  })
-
-  null_checks_2 <- reactive({
-    return(null_check(2, b_names))
-  })
-
-  # Run a NULL check on all the input values of a given list of keys
-  null_check <- function(group_no, b_names) {
-    if (is.null(tdata$alt())) {
-      return(NULL)
-    }
-    for (i in seq_along(b_names)) { 
-      input_key <- paste(b_names[[i]], group_no, sep = "") # Add group number to key
-      if (is.null(input[[input_key]])) {
-        return(NULL)
-      }
-    }
-    return(TRUE)
-  }
-  
   # Add polygons to map
   observe({
     
     leafletProxy(mapId = "map") %>%
       clearGroup(group = "group1Polygons") %>%
       clearGroup(group = "group2Polygons")
-    if (!is.null(null_checks_1())) {
-      leafletProxy(mapId = "map") %>%
+    
+    leafletProxy(mapId = "map") %>%
         addPolygons(
           data = tdata$group_1_filter_1(),
           fill = TRUE,
@@ -61,92 +38,88 @@ shinyServer(function(input, output, session) {
           stroke = TRUE,
           weight = 1,
           color = "red",
-          layerId = tdata$group_1_filter_1()[["Area"]],
+          layerId = tdata$group_1_filter_1()$Area,
           group = "group1Polygons"
+        )
+    
+    leafletProxy(mapId = "map") %>%
+      addPolygons(
+        data = tdata$group_2_filter_1(),
+        fill = TRUE,
+        fillColor = ~ colorpal()(tdata$group_2_mean()),
+        fillOpacity = 0.7,
+        stroke = TRUE,
+        weight = 1,
+        color = "blue",
+        layerId = tdata$group_2_filter_1()$Area,
+        group = "group2Polygons"
+      )
+  })
+  
+  # Add markers to map
+  observe({
+    
+    leafletProxy(mapId = "map") %>%
+      clearMarkers()
+    
+    if (tdata$markers1() == TRUE) {
+      leafletProxy(mapId = "map") %>%
+        addMarkers(
+          data = tdata$group_1_filter_1(),
+          lng = ~ long,
+          lat = ~ lat,
+          popup = tdata$group_1_filter_1()$Area,
+          layerId = tdata$group_1_filter_1()$Area,
+          options = markerOptions(title = paste(tdata$group_1_filter_1()$Area, tdata$group_1_mean(), sep = ": "))
         )
     }
     
-    # if (!is.null(null_checks_2())) {
-      # leafletProxy(mapId = "map") %>%
-      #   addPolygons(
-      #     # data = group_2_filter_1(),
-      #     data = module_data$group_2_filter_1,
-      #     fill = TRUE,
-      #     # fillColor = ~ colorpal()(group_2_mean()),
-      #     fillColor = ~ colorpal()(module_data$group_2_mean),
-      #     fillOpacity = 0.7,
-      #     stroke = TRUE,
-      #     weight = 1,
-      #     color = "blue",
-      #     # layerId = group_2_filter_1()[["Area"]],
-      #     layerId = module_data$group_2_filter_1[["Area"]],
-      #     group = "group2Polygons"
-      #   )
-    # }
+    if (tdata$markers2() == TRUE) {
+      leafletProxy(mapId = "map") %>%
+        addMarkers(
+          data = tdata$group_2_filter_1(),
+          lng = ~ long,
+          lat = ~ lat,
+          popup = tdata$group_2_filter_1()$Area,
+          layerId = tdata$group_2_filter_1()$Area,
+          options = markerOptions(title = paste(tdata$group_2_filter_1()$Area, tdata$group_2_mean(), sep = ": ")),
+          icon = list(iconUrl = "marker-icon-red.png", iconWidth = 25, iconHeight = 41, iconAnchorX = 0, iconAnchorY = 0,  shadowUrl = "marker-shadow.png", shadowWidth = 41, shadowHeight = 41, shadowAnchorX = 12, shadowAnchorY = 22, popupAnchorX = 0, popupAnchorY = 0)
+        )
+    }
+    
   })
   
   # Add popups to map
-  # observe({
-  #   leafletProxy(mapId = "map") %>%
-  #     clearPopups()
-  #   if (!is.null(null_checks_1())) {
-  #     if (input[["pop1"]]) {
-  #       leafletProxy(mapId = "map") %>%
-  #         addPopups(
-  #           data = group_1_filter_1(),
-  #           lng = ~ long,
-  #           lat = ~ lat,
-  #           popup = group_1_filter_1()[["Area"]],
-  #           layerId = group_1_filter_1()[["Area"]]
-  #         )
-  #     }
-  #   }
-  #   if (!is.null(null_checks_2())) {
-  #     if (input[["pop2"]]) {
-  #       leafletProxy(mapId = "map") %>%
-  #         addPopups(
-  #           data = group_2_filter_1(),
-  #           lng = ~ long,
-  #           lat = ~ lat,
-  #           popup = group_2_filter_1()[["Area"]],
-  #           layerId = group_2_filter_1()[["Area"]]
-  #         )
-  #     }
-  #   }
-  # })
-  # 
-  # # Add markers to map
-  # observe({
-  #   if (!is.null(null_checks_1())) {
-  #     leafletProxy(mapId = "map") %>%
-  #       clearMarkers()
-  #     if (input[["markers1"]]) {
-  #       leafletProxy(mapId = "map") %>%
-  #         addMarkers(
-  #           data = group_1_filter_1(),
-  #           lng = ~ long,
-  #           lat = ~ lat,
-  #           popup = group_1_filter_1()[["Area"]],
-  #           layerId = group_1_filter_1()[["Area"]],
-  #           icon = list(iconUrl = "marker-icon-red.png", iconWidth = 25, iconHeight = 41, iconAnchorX = 0, iconAnchorY = 0,  shadowUrl = "marker-shadow.png", shadowWidth = 41, shadowHeight = 41, shadowAnchorX = 12, shadowAnchorY = 22, popupAnchorX = 0, popupAnchorY = 0),
-  #           options = markerOptions(title = paste(group_1_filter_1()[["Area"]], group_1_mean(), sep = ": "))
-  #         )
-  #     }
-  #   }
-  #   if (!is.null(null_checks_2())) {
-  #     if (input[["markers2"]]) {
-  #       leafletProxy(mapId = "map") %>%
-  #         addMarkers(
-  #           data = group_2_filter_1(),
-  #           lng = ~ long,
-  #           lat = ~ lat,
-  #           popup = group_2_filter_1()[["Area"]],
-  #           layerId = group_2_filter_1()[["Area"]],
-  #           options = markerOptions(title = paste(group_2_filter_1()[["Area"]], group_2_mean(), sep = ": "))
-  #         )
-  #     }
-  #   }
-  # })
+  observe({
+    leafletProxy(mapId = "map") %>%
+      clearPopups()
+
+    if (tdata$pop1() == TRUE) {  
+      leafletProxy(mapId = "map") %>%
+        addPopups(
+          data = tdata$group_1_filter_1(),
+          lng = ~ long,
+          lat = ~ lat,
+          popup = tdata$group_1_filter_1()$Area,
+          layerId = tdata$group_1_filter_1()$Area
+        )
+    }
+      
+    if (tdata$pop2() == TRUE) { 
+      leafletProxy(mapId = "map") %>%
+        addPopups(
+          data = tdata$group_2_filter_1(),
+          lng = ~ long,
+          lat = ~ lat,
+          popup = tdata$group_2_filter_1()$Area,
+          layerId = tdata$group_2_filter_1()$Area
+        )
+    }
+
+  })
+
+
+  
   
   ####################################################################################################################
   
