@@ -524,7 +524,9 @@ tabset <- function(input, output, session) {
 
       group_2_filter_1 = group_2_filter_1,
       group_2_filter_2 = group_2_filter_2, # 22
-      group_2_mean = group_2_mean
+      group_2_mean = group_2_mean,
+      
+      theme = reactive(input$theme)
       
     )
   )

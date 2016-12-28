@@ -8,7 +8,19 @@ shinyUI(
         )
       )
     ),
-    tabPanel(title = "Plots", icon = icon("bar-chart")),
+    # Disagreement/Value group 1
+    # Disagreement/Value group 2
+    # Disagreement/Value between group 1 and group 2
+    # Portfolio group 1
+    # Portfolio gorup 2
+    # Portfolio group 1 and 2
+    tabPanel(title = "Plots", icon = icon("bar-chart"),
+      sidebarLayout(fluid = FALSE,
+        tabset_UI(id = "two"),
+        mainPanel(width = 8
+        )
+      )
+    ),
     tabPanel(title = "Table", icon = icon("table"),
       fluidRow(
         column(width = 3, selectInput(inputId = "area3", label = "Area", choices = b_area, selected = "All", multiple = TRUE)),
