@@ -1,11 +1,10 @@
 library(shiny)
 library(leaflet)
 library(sp)
-
 source("tabset.R")
 source("helper.R")
 source("disagreement_data.R")
-
+#
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("data/nyko.rds") 
 
@@ -107,3 +106,8 @@ alt_theme_10 <- c(
   "10e. Reducing environmental toxins and hazardous chemicals in nature")
 
 alt_list <- list(alt_theme_1, alt_theme_2, alt_theme_3, alt_theme_4, alt_theme_5, alt_theme_6, alt_theme_7, alt_theme_8, alt_theme_9, alt_theme_10)
+
+# Dictionary of criteria and matching criterion number
+criterion_number <- vector(mode = "list", length = 10)
+names(criterion_number) <- c("1. Parks and green areas", "2. Diversity in housing supply", "3. Invest in public areas", "4. Communications", "5. Culture and leasure", "6. Education", "7. Care", "8. School", "9. Safety", "10. Ecological sustainability")
+criterion_number[[1]] <- 1; criterion_number[[2]] <- 2; criterion_number[[3]] <- 3; criterion_number[[4]] <- 4; criterion_number[[5]] <- 5; criterion_number[[6]] <- 6; criterion_number[[7]] <- 7; criterion_number[[8]] <- 8 ;criterion_number[[9]] <- 9; criterion_number[[10]] <- 10
