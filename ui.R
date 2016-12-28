@@ -17,7 +17,8 @@ shinyUI(
     tabPanel(title = "Plots", icon = icon("bar-chart"),
       sidebarLayout(fluid = FALSE,
         tabset_UI(id = "two"),
-        mainPanel(width = 8
+        mainPanel(width = 8, 
+          plotOutput(outputId = "plot1")
         )
       )
     ),

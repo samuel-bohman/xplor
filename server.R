@@ -218,28 +218,32 @@ shinyServer(function(input, output, session) {
       return(res)
     })
     
+    print("theme: ")
     print(tdata$theme())
+    print("dis1_2: ")
     print(unlist(dis1_2))
+    print("dis1: ")
     print(unlist(dis1))
+    print("dis2: ")
     print(unlist(dis2))
     
-    # Plot disagreements
-    output$plot1 <- renderPlot({
-      plotdf <- data.frame(Actions = frgLbls[[frgCho]], Disagreement = c(disagreements[1:5]))
-      suppressWarnings(
-        print(
-          ggplot(
-            data = plotdf, 
-            aes(x = Actions, y = Disagreement)
-          ) + 
-          labs(title = temLbls[frgCho]) + 
+  })
+  
+  # Plot disagreements
+  output$plot1 <- renderPlot({
+    plotdf <- data.frame(Actions = c("1", "2", "3", "4", "5"), Disagreement = "dis1")
+    suppressWarnings(
+      print(
+        ggplot(
+          data = plotdf, 
+          aes(x = Actions, y = Disagreement)
+        ) + 
+          labs(title = "Titel") + 
           geom_bar(stat = "identity") + 
           coord_cartesian(ylim = c(0, 1)) + 
           scale_x_discrete(labels = function(x) str_wrap(x, width = 23))
-        )
       )
-    })
-    
+    )
   })
 
   ####################################################################################################################
