@@ -135,9 +135,34 @@ shinyServer(function(input, output, session) {
   
   # Calculates BCAR for both groups
   observe({
+    a <-10
+    results.vec1 <- disagreement(tdata$theme(), results_spdf1)
+    results.vec2 <- disagreement(tdata$theme(), results_spdf2)
+    
+    # Calculate Disagreements
+    dis.lst <- lapply(seq(1, 25, by = 5), function(x){
+      cGroupWeight <- results.vec1[x+3] / (results.vec1[x+3]+results.vec1[x+4])
+      pGroupWeight <- results.vec1[x+4] / (results.vec1[x+3]+results.vec1[x+4])
+      conIdx = results.vec1[x]
+      proIdx = results.vec1[x+1]
+      if (pGroupWeight == 0 || cGroupWeight == 0){
+        conIdx <- 0
+        proIdx <- 0
+      }
+      dSij = conIdx + proIdx
+      res <- dSij
+      return(res)
+    })
+    disagreements <- unlist(dis.lst)
+    
+    # Calculate Values
+    lst <- lapply(seq(1, 25, by = 5), function(x){
+      return(results.vec1[x+2])
+    })
+    values <- unlist(lst)
+    
+    print(disagreements)
 
-    results.vec1 <- disagreement_data(tdata$theme(), results_spdf1)
-    results.vec2 <- disagreement_data(tdata$theme(), results_spdf2)
     
   })
   
