@@ -2,11 +2,13 @@ library(shiny)
 library(leaflet)
 library(sp)
 library(ggplot2)
+library(ggvis)
 library(stringr)
+library(RMySQL)
 
 source("tabset.R")
 source("helper.R")
-source("disagreement_data.R")
+source("disagreement.R")
 
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("data/nyko.rds")

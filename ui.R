@@ -18,7 +18,8 @@ shinyUI(
       sidebarLayout(fluid = FALSE,
         tabset_UI(id = "two"),
         mainPanel(width = 8, 
-          plotOutput(outputId = "plot1")
+          uiOutput("ggvis_ui"),
+          ggvisOutput("ggvis")
         )
       )
     ),

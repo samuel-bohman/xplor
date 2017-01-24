@@ -499,34 +499,34 @@ tabset <- function(input, output, session) {
   return(
     list(
       area1 = reactive(input$area1),
-      gender1 = reactive(input$gender1), # 2
+      gender1 = reactive(input$gender1),
       age1 = reactive(input$age1),
-      occupation1 = reactive(input$occupation1), # 4
+      occupation1 = reactive(input$occupation1),
       education1 = reactive(input$education1),
-      years1 = reactive(input$years1), # 6
+      years1 = reactive(input$years1),
       pop1 = reactive(input$pop1),
       markers1 = reactive(input$markers1), # 8
       
       area2 = reactive(input$area2),
-      gender2 = reactive(input$gender2), # 10
+      gender2 = reactive(input$gender2),
       age2 = reactive(input$age2), 
-      occupation2 = reactive(input$occupation2), # 12
+      occupation2 = reactive(input$occupation2),
       education2 = reactive(input$education2),
-      years2 = reactive(input$years2), # 14
+      years2 = reactive(input$years2),
       pop2 = reactive(input$pop2),
       markers2 = reactive(input$markers2), # 16
       
-      alt = reactive(input$alt),
+      alt = reactive(input$alt), # 17
       
-      group_1_filter_1 = group_1_filter_1, # 18
+      group_1_filter_1 = group_1_filter_1,
       group_1_filter_2 = group_1_filter_2,
       group_1_mean = group_1_mean, # 20
 
       group_2_filter_1 = group_2_filter_1,
-      group_2_filter_2 = group_2_filter_2, # 22
-      group_2_mean = group_2_mean,
+      group_2_filter_2 = group_2_filter_2, 
+      group_2_mean = group_2_mean, # 23
       
-      theme = reactive(input$theme)
+      theme = reactive(input$theme) # 24
       
     )
   )

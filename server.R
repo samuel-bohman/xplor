@@ -1,7 +1,7 @@
 shinyServer(function(input, output, session) {
   
   tdata <- callModule(module = tabset, id = "one")
-  callModule(module = tabset, id = "two")
+  tdata2 <- callModule(module = tabset, id = "two")
   
   ####################################################################################################################
   
@@ -103,7 +103,7 @@ shinyServer(function(input, output, session) {
       clearPopups()
     
     # Group 1
-    if (tdata$pop1() == TRUE) {  
+    if (tdata$pop1() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
           data = tdata$group_1_filter_1(),
@@ -115,7 +115,7 @@ shinyServer(function(input, output, session) {
     }
     
     # Group 2
-    if (tdata$pop2() == TRUE) { 
+    if (tdata$pop2() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
           data = tdata$group_2_filter_1(),
@@ -133,57 +133,38 @@ shinyServer(function(input, output, session) {
   
   ####################################################################################################################
   
-  # Calculates BCAR for both groups
+  # Calculate BCAR for both groups
   observe({
-    a <- 10
-    results.vec1 <- disagreement(tdata$theme(), results_spdf1)
-    results.vec2 <- disagreement(tdata$theme(), results_spdf2)
+    results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
+    results.vec2 <- disagreement(tdata$theme(), tdata$group_2_filter_1())
     
-    # Calculate disagreements
-    dis.lst <- lapply(seq(1, 25, by = 5), function(x){
-      cGroupWeight <- results.vec1[x+3] / (results.vec1[x+3]+results.vec1[x+4])
-      pGroupWeight <- results.vec1[x+4] / (results.vec1[x+3]+results.vec1[x+4])
-      conIdx = results.vec1[x]
-      proIdx = results.vec1[x+1]
-      if (pGroupWeight == 0 || cGroupWeight == 0){
-        conIdx <- 0
-        proIdx <- 0
-      }
-      dSij = conIdx + proIdx
-      res <- dSij
-      return(res)
+    # Calculate mean values for group 1
+    val_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
+      return(results.vec1[x + 2])
     })
-    disagreements <- unlist(dis.lst)
     
-    # Calculate values
-    lst <- lapply(seq(1, 25, by = 5), function(x){
-      return(results.vec1[x+2])
+    # Calculate mean values for group 2
+    val_group_2 <- lapply(seq(1, 25, by = 5), function(x) {
+      return(results.vec2[x + 2])
     })
-    values <- unlist(lst)
     
-    print(disagreements)
-
+    # Calculate mean values for group 1 and 2 combined
+    val_between_group_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
+      n_grp1 <- (results.vec1[x + 3] + results.vec1[x + 4])
+      n_grp2 <- (results.vec2[x + 3] + results.vec2[x + 4])
+      v_grp1 <- results.vec1[x + 2]
+      v_grp2 <- results.vec1[x + 2]
+      org_v_grp_1 <- v_grp1 / (1/n_grp1)
+      org_v_grp_2 <- v_grp2 / (1/n_grp2)
+      m_grp_1_2 <- (org_v_grp_1+org_v_grp_2)/(n_grp1+n_grp2)
+      return(m_grp_1_2)
+    })
     
-  })
-  
-  # Plot disagreements
-  output$plot1 <- renderPlot({
-    plotdf <- data.frame(Actions = c("1", "2", "3", "4", "5"), Disagreement = "dis1")
-    suppressWarnings(
-      print(
-        ggplot(
-          data = plotdf, 
-          aes(x = Actions, y = Disagreement)
-        ) + 
-          labs(title = "Titel") + 
-          geom_bar(stat = "identity") + 
-          coord_cartesian(ylim = c(0, 1)) + 
-          scale_x_discrete(labels = function(x) str_wrap(x, width = 23))
-      )
-    )
-
+    
+    print(val_between_group_1_2)
+    
     # Disagreement between group 1 and group 2
-    dis1_2 <- lapply(seq(1, 25, by = 5), function(x) {
+    dis_between_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
       c1GroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
       p1GroupWeight <- results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
       c2GroupWeight <- results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
@@ -202,9 +183,9 @@ shinyServer(function(input, output, session) {
       }
       dDEij <- abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2)
     })
-
+    
     # Disagreement within group 1
-    dis1 <- lapply(seq(1, 25, by = 5), function(x) {
+    dis_within_1 <- lapply(seq(1, 25, by = 5), function(x) {
       cGroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
       pGroupWeight <- results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
       conIdx = results.vec1[x]
@@ -217,9 +198,9 @@ shinyServer(function(input, output, session) {
       res <- dSij
       return(res)
     })
-
+    
     # Disagreement within group 2
-    dis2 <- lapply(seq(1, 25, by = 5), function(x) {
+    dis_within_2 <- lapply(seq(1, 25, by = 5), function(x) {
       cGroupWeight <- results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
       pGroupWeight <- results.vec2[x + 4] / (results.vec2[x + 3] + results.vec2[x + 4])
       conIdx = results.vec2[x]
@@ -232,35 +213,50 @@ shinyServer(function(input, output, session) {
       res <- dSij
       return(res)
     })
-
-    print("theme: ")
-    print(tdata$theme())
-    print("dis1_2: ")
-    print(unlist(dis1_2))
-    print("dis1: ")
-    print(unlist(dis1))
-    print("dis2: ")
-    print(unlist(dis2))
-
-    # Plot disagreements
-    output$plot1 <- renderPlot({
-      plotdf <- data.frame(Actions = frgLbls[[frgCho]], Disagreement = c(disagreements[1:5]))
-      suppressWarnings(
-        print(
-          ggplot(
-            data = plotdf,
-            aes(x = Actions, y = Disagreement)
-          ) +
-          labs(title = temLbls[frgCho]) +
-          geom_bar(stat = "identity") +
-          coord_cartesian(ylim = c(0, 1)) +
-          scale_x_discrete(labels = function(x) str_wrap(x, width = 23))
-        )
-      )
-    })
     
-  })
+    val_group_1 <- unlist(val_group_1)
+    val_group_2 <- unlist(val_group_2)
+    val_between_group_1_2 <- unlist(val_between_group_1_2)
+    dis_between_1_2 <- unlist(dis_between_1_2)
+    dis_within_1 <- unlist(dis_within_1)
+    dis_within_2 <- unlist(dis_within_2)
+    
+    cat("theme:", tdata$theme(), "\n")
+    print("val_group_1:")
+    print(val_group_1)
+    print("val_group_2:")
+    print(val_group_2)
+    print("val_between_group_1_2:")
+    print(val_between_group_1_2)
+    print("dis_between_1_2:")
+    print(dis_between_1_2)
+    print("dis_within_1:")
+    print(dis_within_1)
+    print(results.vec1)
+    print("dis_within_2:")
+    print(dis_within_2)
 
+  
+    # Plot disagreements
+    mtcars %>%
+      ggvis(~mpg, ~cyl) %>%
+      layer_points() %>%
+      bind_shiny("ggvis", "ggvis_ui")
+    
+  # End of observer
+  })
+  
+  # Plot disagreements
+  # output$plot1 <- renderPlot({
+  #   ggplot(
+  #     data = data.frame(Actions = c("1", "2", "3", "4", "5"), Disagreement = "dis1"), aes(x = Actions, y = Disagreement)) + 
+  #     labs(title = "Titel") +
+  #     geom_bar(stat = "identity") +
+  #     coord_cartesian(ylim = c(0, 1)) +
+  #     scale_x_discrete(labels = function(x) str_wrap(x, width = 23))
+  # })
+  
+  
   ####################################################################################################################
   
   ### TABLE ##########################################################################################################
