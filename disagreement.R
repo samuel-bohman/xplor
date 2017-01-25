@@ -11,17 +11,10 @@ get_alternatives <- function(criterion) {
 # }
 
 disagreement <- function(criterion, results) {
-  #results <- readRDS("data/results_spdf.rds")
   results <- results@data
-  #results$Alt.1a.value
-  # Remove all NaN 
-  
+
   number <- unlist(criterion_number[[criterion]])
-  
   results <- results[complete.cases(results[,paste("Alt.", number, "a.value", sep = "")]), ]
-  
-  print(nrow(results))
-  
   alternatives <- get_alternatives(criterion)
   alternatives_nr <- c(paste(alternatives, ".nr", sep = ""))
   alternatives_cop <- c(paste(alternatives, ".cop", sep = ""))
@@ -32,7 +25,6 @@ disagreement <- function(criterion, results) {
   alternatives_val <- c(paste(alternatives, ".val", sep = ""))
   resultNames.vec <- c()
   resultValues.vec <- c()
-
   tmpresults.vec <- c()
   tmpnames.vec <- c()
   
@@ -45,34 +37,22 @@ disagreement <- function(criterion, results) {
     tmpresults.vec <- c(tmpresults.vec, c(sum(results[, alternatives_cop[i]] == 1)))
     tmpnames.vec <- c(tmpnames.vec, c(alternatives_nr[i]))
     tmpresults.vec <- c(tmpresults.vec, c(sum(sum(results[, alternatives_cop[i]] == 0), sum(results[, alternatives_cop[i]] == 1))))
-
     names(tmpresults.vec) <- tmpnames.vec
-    # print(tmpresults.vec)
-    # Calculate the con and pro index for q1a1
-    # Lambda = stakeholder weight, 1/qXaY.nr
-    # Create the total nr and the nr of cons and pros for each alternative
- 
-    
-    # Add a column with weighted con values
   
     totNum <- tmpresults.vec[alternatives_nr[i]]
     lambda <- 1 / totNum
     
-    #lambda_con_sum <- lambda * tmpresults.vec[alternatives_nrcon[i]]
-    #lambda_pro_sum <- lambda * tmpresults.vec[alternatives_nrpro[i]]
-    
-    # Prepare return values
     # Con index
     resultNames.vec <- c(resultNames.vec, c(alternatives_cval[i]))
-    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_cval[i]])*lambda))
+    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_cval[i]]) * lambda))
     
     # Pro index
     resultNames.vec <- c(resultNames.vec, c(alternatives_pval[i]))
-    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_pval[i]])*lambda))
+    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_pval[i]]) * lambda))
     
     # Avg value
     resultNames.vec <- c(resultNames.vec, c(alternatives_val[i]))
-    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_val[i]])*lambda))
+    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_val[i]]) * lambda))
     
     # Number of members of the con group
     resultNames.vec <- c(resultNames.vec, c(alternatives_nrcon[i]))
@@ -83,8 +63,6 @@ disagreement <- function(criterion, results) {
     resultValues.vec <- c(resultValues.vec, c(tmpresults.vec[alternatives_nrpro[i]]))
     
   }
-  
-  # print(resultValues.vec)
   
   names(resultValues.vec) <- resultNames.vec
   return(resultValues.vec)

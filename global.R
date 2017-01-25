@@ -1,8 +1,11 @@
 library(shiny)
 library(leaflet)
 library(sp)
-library(ggplot2)
 library(ggvis)
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(purrr)
 library(stringr)
 library(RMySQL)
 

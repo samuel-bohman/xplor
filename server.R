@@ -1,6 +1,6 @@
 shinyServer(function(input, output, session) {
   
-  tdata <- callModule(module = tabset, id = "one")
+  tdata1 <- callModule(module = tabset, id = "one")
   tdata2 <- callModule(module = tabset, id = "two")
   
   ####################################################################################################################
@@ -38,28 +38,28 @@ shinyServer(function(input, output, session) {
     # Group 1
     leafletProxy(mapId = "map") %>%
         addPolygons(
-          data = tdata$group_1_filter_1(),
+          data = tdata1$group_1_filter_1(),
           fill = TRUE,
-          fillColor = ~ colorpal()(tdata$group_1_mean()),
+          fillColor = ~ colorpal()(tdata1$group_1_mean()),
           fillOpacity = 0.7,
           stroke = TRUE,
           weight = 1,
           color = "red",
-          layerId = tdata$group_1_filter_1()$Area,
+          layerId = tdata1$group_1_filter_1()$Area,
           group = "group1Polygons"
         )
     
     # Group 2
     leafletProxy(mapId = "map") %>%
       addPolygons(
-        data = tdata$group_2_filter_1(),
+        data = tdata1$group_2_filter_1(),
         fill = TRUE,
-        fillColor = ~ colorpal()(tdata$group_2_mean()),
+        fillColor = ~ colorpal()(tdata1$group_2_mean()),
         fillOpacity = 0.7,
         stroke = TRUE,
         weight = 1,
         color = "blue",
-        layerId = tdata$group_2_filter_1()$Area,
+        layerId = tdata1$group_2_filter_1()$Area,
         group = "group2Polygons"
       )
   })
@@ -70,28 +70,28 @@ shinyServer(function(input, output, session) {
       clearMarkers()
     
     # Group 1
-    if (tdata$markers1() == TRUE) {
+    if (tdata1$markers1() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
-          data = tdata$group_1_filter_1(),
+          data = tdata1$group_1_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata$group_1_filter_1()$Area,
-          layerId = tdata$group_1_filter_1()$Area,
-          options = markerOptions(title = paste(tdata$group_1_filter_1()$Area, tdata$group_1_mean(), sep = ": "))
+          popup = tdata1$group_1_filter_1()$Area,
+          layerId = tdata1$group_1_filter_1()$Area,
+          options = markerOptions(title = paste(tdata1$group_1_filter_1()$Area, tdata1$group_1_mean(), sep = ": "))
         )
     }
     
     # Group 2
-    if (tdata$markers2() == TRUE) {
+    if (tdata1$markers2() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
-          data = tdata$group_2_filter_1(),
+          data = tdata1$group_2_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata$group_2_filter_1()$Area,
-          layerId = tdata$group_2_filter_1()$Area,
-          options = markerOptions(title = paste(tdata$group_2_filter_1()$Area, tdata$group_2_mean(), sep = ": ")),
+          popup = tdata1$group_2_filter_1()$Area,
+          layerId = tdata1$group_2_filter_1()$Area,
+          options = markerOptions(title = paste(tdata1$group_2_filter_1()$Area, tdata1$group_2_mean(), sep = ": ")),
           icon = list(iconUrl = "marker-icon-red.png", iconWidth = 25, iconHeight = 41, iconAnchorX = 0, iconAnchorY = 0,  shadowUrl = "marker-shadow.png", shadowWidth = 41, shadowHeight = 41, shadowAnchorX = 12, shadowAnchorY = 22, popupAnchorX = 0, popupAnchorY = 0)
         )
     }
@@ -103,26 +103,26 @@ shinyServer(function(input, output, session) {
       clearPopups()
     
     # Group 1
-    if (tdata$pop1() == TRUE) {
+    if (tdata1$pop1() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
-          data = tdata$group_1_filter_1(),
+          data = tdata1$group_1_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata$group_1_filter_1()$Area,
-          layerId = tdata$group_1_filter_1()$Area
+          popup = tdata1$group_1_filter_1()$Area,
+          layerId = tdata1$group_1_filter_1()$Area
         )
     }
     
     # Group 2
-    if (tdata$pop2() == TRUE) {
+    if (tdata1$pop2() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
-          data = tdata$group_2_filter_1(),
+          data = tdata1$group_2_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata$group_2_filter_1()$Area,
-          layerId = tdata$group_2_filter_1()$Area
+          popup = tdata1$group_2_filter_1()$Area,
+          layerId = tdata1$group_2_filter_1()$Area
         )
     }
   })
@@ -135,8 +135,8 @@ shinyServer(function(input, output, session) {
   
   # Calculate BCAR for both groups
   observe({
-    results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
-    results.vec2 <- disagreement(tdata$theme(), tdata$group_2_filter_1())
+    results.vec1 <- disagreement(tdata2$theme(), tdata2$group_1_filter_1())
+    results.vec2 <- disagreement(tdata2$theme(), tdata2$group_2_filter_1())
     
     # Calculate mean values for group 1
     val_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
@@ -154,14 +154,11 @@ shinyServer(function(input, output, session) {
       n_grp2 <- (results.vec2[x + 3] + results.vec2[x + 4])
       v_grp1 <- results.vec1[x + 2]
       v_grp2 <- results.vec1[x + 2]
-      org_v_grp_1 <- v_grp1 / (1/n_grp1)
-      org_v_grp_2 <- v_grp2 / (1/n_grp2)
-      m_grp_1_2 <- (org_v_grp_1+org_v_grp_2)/(n_grp1+n_grp2)
+      org_v_grp_1 <- v_grp1 / (1 / n_grp1)
+      org_v_grp_2 <- v_grp2 / (1 / n_grp2)
+      m_grp_1_2 <- (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
       return(m_grp_1_2)
     })
-    
-    
-    print(val_between_group_1_2)
     
     # Disagreement between group 1 and group 2
     dis_between_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
@@ -214,33 +211,33 @@ shinyServer(function(input, output, session) {
       return(res)
     })
     
-    val_group_1 <- unlist(val_group_1)
-    val_group_2 <- unlist(val_group_2)
-    val_between_group_1_2 <- unlist(val_between_group_1_2)
-    dis_between_1_2 <- unlist(dis_between_1_2)
-    dis_within_1 <- unlist(dis_within_1)
-    dis_within_2 <- unlist(dis_within_2)
+    # Flatten lists and transform them into data tables
+    val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
+    val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
+    val_between_group_1_2 <- flatten_dbl(val_between_group_1_2) %>% data.frame()
+    dis_between_1_2 <- flatten_dbl(dis_between_1_2) %>% data.frame()
+    dis_within_1 <- flatten_dbl(dis_within_1) %>% data.frame()
+    dis_within_2 <- flatten_dbl(dis_within_2) %>% data.frame()
     
-    cat("theme:", tdata$theme(), "\n")
-    print("val_group_1:")
-    print(val_group_1)
-    print("val_group_2:")
-    print(val_group_2)
-    print("val_between_group_1_2:")
-    print(val_between_group_1_2)
-    print("dis_between_1_2:")
-    print(dis_between_1_2)
-    print("dis_within_1:")
-    print(dis_within_1)
-    print(results.vec1)
-    print("dis_within_2:")
-    print(dis_within_2)
-
-  
+    # Create row names
+    alternatives <- c("Alt 1", "Alt 2", "Alt 3", "Alt 4", "Alt 5") %>% data.frame() 
+    
+    # Add column names to data frames
+    colnames(val_group_1) <- "val_group_1"
+    colnames(val_group_2) <- "val_group_2"
+    colnames(val_between_group_1_2) <- "val_between_group_1_2"
+    colnames(dis_between_1_2) <- "dis_between_1_2"
+    colnames(dis_within_1) <- "dis_within_1"
+    colnames(dis_within_2) <- "dis_within_2"
+    colnames(alternatives) <- "Alternatives"
+    
+    # Bind data frames together
+    ddata <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
+    
     # Plot disagreements
-    mtcars %>%
-      ggvis(~mpg, ~cyl) %>%
-      layer_points() %>%
+    ddata %>%
+      ggvis(~Alternatives, ~val_group_1) %>%
+      layer_bars() %>%
       bind_shiny("ggvis", "ggvis_ui")
     
   # End of observer
