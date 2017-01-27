@@ -6,7 +6,11 @@ shinyUI(
         fluidRow(
           column(width = 3, tabset_UI(id = "one")),
           column(width = 6, leafletOutput(outputId = "map", height = 615)),
-          column(width = 3, uiOutput("ggvis_ui"), ggvisOutput("ggvis"))
+          column(width = 3, 
+            uiOutput("ggvis_ui_1"), ggvisOutput("ggvis_1"),
+            uiOutput("ggvis_ui_2"), ggvisOutput("ggvis_2"),
+            uiOutput("ggvis_ui_3"), ggvisOutput("ggvis_3")
+          )
         )
       )
       

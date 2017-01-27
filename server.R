@@ -274,11 +274,26 @@ shinyServer(function(input, output, session) {
     
   ### GGVIS ##########################################################################################################  
     
-    # Plot disagreements
+    # Plot values group 1
     ddata %>%
-      ggvis(~Alternatives, ~val_group_1) %>%
+      ggvis(~Alternatives, ~val_group_1 * 100) %>%
+      set_options(width = "auto", height = "210") %>%
       layer_bars() %>%
-      bind_shiny("ggvis", "ggvis_ui")
+      bind_shiny("ggvis_1", "ggvis_ui_1")
+    
+    # Plot values group 2
+    ddata %>%
+      ggvis(~Alternatives, ~val_group_2 * 100) %>%
+      set_options(width = "auto", height = "210") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_2", "ggvis_ui_2")
+    
+    # Plot values group 2
+    ddata %>%
+      ggvis(~Alternatives, ~dis_between_1_2 * 100) %>%
+      set_options(width = "auto", height = "210") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_3", "ggvis_ui_3")
     
   # End of observer
   })
