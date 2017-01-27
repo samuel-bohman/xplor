@@ -2,7 +2,7 @@
 tabset_UI <- function(id) {
   ns <- NS(id)
   tagList(
-    sidebarPanel(width = 4,
+    sidebarPanel(width = 0,
       tabsetPanel(
         type = "tabs",
         tabPanel("Theme",
@@ -45,7 +45,6 @@ tabset_UI <- function(id) {
           }),
           checkboxInput(ns("markers2"), label = "Add markers", value = TRUE),
           checkboxInput(ns("pop2"), label = "Add popups", value = FALSE)
-          
         )
       )
     )
@@ -118,163 +117,163 @@ tabset <- function(input, output, session) {
     req(input$alt)
     
     # theme 1
-    if (input$alt == alt_theme_1[1]) {
+    if (input$alt == alt_list[[1]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 10]))
     }
-    if (input$alt == alt_theme_1[2]) {
+    if (input$alt == alt_list[[1]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 11]))
     }
-    if (input$alt == alt_theme_1[3]) {
+    if (input$alt == alt_list[[1]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 12]))
     }
-    if (input$alt == alt_theme_1[4]) {
+    if (input$alt == alt_list[[1]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 13]))
     }
-    if (input$alt == alt_theme_1[5]) {
+    if (input$alt == alt_list[[1]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 14]))
     }
     # theme 2
-    if (input$alt == alt_theme_2[1]) {
+    if (input$alt == alt_list[[2]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 15]))
     }
-    if (input$alt == alt_theme_2[2]) {
+    if (input$alt == alt_list[[2]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 16]))
     }
-    if (input$alt == alt_theme_2[3]) {
+    if (input$alt == alt_list[[2]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 17]))
     }
-    if (input$alt == alt_theme_2[4]) {
+    if (input$alt == alt_list[[2]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 18]))
     }
-    if (input$alt == alt_theme_2[5]) {
+    if (input$alt == alt_list[[2]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 19]))
     }
     # theme 3
-    if (input$alt == alt_theme_3[1]) {
+    if (input$alt == alt_list[[3]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 20]))
     }
-    if (input$alt == alt_theme_3[2]) {
+    if (input$alt == alt_list[[3]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 21]))
     }
-    if (input$alt == alt_theme_3[3]) {
+    if (input$alt == alt_list[[3]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 22]))
     }
-    if (input$alt == alt_theme_3[4]) {
+    if (input$alt == alt_list[[3]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 23]))
     }
-    if (input$alt == alt_theme_3[5]) {
+    if (input$alt == alt_list[[3]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 24]))
     }
     # theme 4
-    if (input$alt == alt_theme_4[1]) {
+    if (input$alt == alt_list[[4]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 25]))
     }
-    if (input$alt == alt_theme_4[2]) {
+    if (input$alt == alt_list[[4]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 26]))
     }
-    if (input$alt == alt_theme_4[3]) {
+    if (input$alt == alt_list[[4]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 27]))
     }
-    if (input$alt == alt_theme_4[4]) {
+    if (input$alt == alt_list[[4]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 28]))
     }
-    if (input$alt == alt_theme_4[5]) {
+    if (input$alt == alt_list[[4]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 29]))
     }
     # theme 5
-    if (input$alt == alt_theme_5[1]) {
+    if (input$alt == alt_list[[5]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 30]))
     }
-    if (input$alt == alt_theme_5[2]) {
+    if (input$alt == alt_list[[5]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 31]))
     }
-    if (input$alt == alt_theme_5[3]) {
+    if (input$alt == alt_list[[5]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 32]))
     }
-    if (input$alt == alt_theme_5[4]) {
+    if (input$alt == alt_list[[5]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 33]))
     }
-    if (input$alt == alt_theme_5[5]) {
+    if (input$alt == alt_list[[5]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 34]))
     }
     # theme 6
-    if (input$alt == alt_theme_6[1]) {
+    if (input$alt == alt_list[[6]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 35]))
     }
-    if (input$alt == alt_theme_6[2]) {
+    if (input$alt == alt_list[[6]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 36]))
     }
-    if (input$alt == alt_theme_6[3]) {
+    if (input$alt == alt_list[[6]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 37]))
     }
-    if (input$alt == alt_theme_6[4]) {
+    if (input$alt == alt_list[[6]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 38]))
     }
-    if (input$alt == alt_theme_6[5]) {
+    if (input$alt == alt_list[[6]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 39]))
     }
     # theme 7
-    if (input$alt == alt_theme_7[1]) {
+    if (input$alt == alt_list[[7]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 40]))
     }
-    if (input$alt == alt_theme_7[2]) {
+    if (input$alt == alt_list[[7]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 41]))
     }
-    if (input$alt == alt_theme_7[3]) {
+    if (input$alt == alt_list[[7]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 42]))
     }
-    if (input$alt == alt_theme_7[4]) {
+    if (input$alt == alt_list[[7]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 43]))
     }
-    if (input$alt == alt_theme_7[5]) {
+    if (input$alt == alt_list[[7]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 44]))
     }
     # theme 8
-    if (input$alt == alt_theme_8[1]) {
+    if (input$alt == alt_list[[8]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 45]))
     }
-    if (input$alt == alt_theme_8[2]) {
+    if (input$alt == alt_list[[8]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 46]))
     }
-    if (input$alt == alt_theme_8[3]) {
+    if (input$alt == alt_list[[8]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 47]))
     }
-    if (input$alt == alt_theme_8[4]) {
+    if (input$alt == alt_list[[8]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 48]))
     }
-    if (input$alt == alt_theme_8[5]) {
+    if (input$alt == alt_list[[8]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 49]))
     }
     # theme 9
-    if (input$alt == alt_theme_9[1]) {
+    if (input$alt == alt_list[[9]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 50]))
     }
-    if (input$alt == alt_theme_9[2]) {
+    if (input$alt == alt_list[[9]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 51]))
     }
-    if (input$alt == alt_theme_9[3]) {
+    if (input$alt == alt_list[[9]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 52]))
     }
-    if (input$alt == alt_theme_9[4]) {
+    if (input$alt == alt_list[[9]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 53]))
     }
-    if (input$alt == alt_theme_9[5]) {
+    if (input$alt == alt_list[[9]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 54]))
     }
     # theme 10
-    if (input$alt == alt_theme_10[1]) {
+    if (input$alt == alt_list[[10]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 55]))
     }
-    if (input$alt == alt_theme_10[2]) {
+    if (input$alt == alt_list[[10]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 56]))
     }
-    if (input$alt == alt_theme_10[3]) {
+    if (input$alt == alt_list[[10]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 57]))
     }
-    if (input$alt == alt_theme_10[4]) {
+    if (input$alt == alt_list[[10]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 58]))
     }
-    if (input$alt == alt_theme_10[5]) {
+    if (input$alt == alt_list[[10]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 59]))
     }
   })
@@ -329,163 +328,163 @@ tabset <- function(input, output, session) {
     req(input$alt)
     
     # theme 1
-    if (input$alt == alt_theme_1[1]) {
+    if (input$alt == alt_list[[1]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 10]))
     }
-    if (input$alt == alt_theme_1[2]) {
+    if (input$alt == alt_list[[1]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 11]))
     }
-    if (input$alt == alt_theme_1[3]) {
+    if (input$alt == alt_list[[1]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 12]))
     }
-    if (input$alt == alt_theme_1[4]) {
+    if (input$alt == alt_list[[1]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 13]))
     }
-    if (input$alt == alt_theme_1[5]) {
+    if (input$alt == alt_list[[1]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 14]))
     }
     # theme 2
-    if (input$alt == alt_theme_2[1]) {
+    if (input$alt == alt_list[[2]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 15]))
     }
-    if (input$alt == alt_theme_2[2]) {
+    if (input$alt == alt_list[[2]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 16]))
     }
-    if (input$alt == alt_theme_2[3]) {
+    if (input$alt == alt_list[[2]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 17]))
     }
-    if (input$alt == alt_theme_2[4]) {
+    if (input$alt == alt_list[[2]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 18]))
     }
-    if (input$alt == alt_theme_2[5]) {
+    if (input$alt == alt_list[[2]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 19]))
     }
     # theme 3
-    if (input$alt == alt_theme_3[1]) {
+    if (input$alt == alt_list[[3]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 20]))
     }
-    if (input$alt == alt_theme_3[2]) {
+    if (input$alt == alt_list[[3]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 21]))
     }
-    if (input$alt == alt_theme_3[3]) {
+    if (input$alt == alt_list[[3]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 22]))
     }
-    if (input$alt == alt_theme_3[4]) {
+    if (input$alt == alt_list[[3]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 23]))
     }
-    if (input$alt == alt_theme_3[5]) {
+    if (input$alt == alt_list[[3]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 24]))
     }
     # theme 4
-    if (input$alt == alt_theme_4[1]) {
+    if (input$alt == alt_list[[4]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 25]))
     }
-    if (input$alt == alt_theme_4[2]) {
+    if (input$alt == alt_list[[4]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 26]))
     }
-    if (input$alt == alt_theme_4[3]) {
+    if (input$alt == alt_list[[4]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 27]))
     }
-    if (input$alt == alt_theme_4[4]) {
+    if (input$alt == alt_list[[4]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 28]))
     }
-    if (input$alt == alt_theme_4[5]) {
+    if (input$alt == alt_list[[4]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 29]))
     }
     # theme 5
-    if (input$alt == alt_theme_5[1]) {
+    if (input$alt == alt_list[[5]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 30]))
     }
-    if (input$alt == alt_theme_5[2]) {
+    if (input$alt == alt_list[[5]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 31]))
     }
-    if (input$alt == alt_theme_5[3]) {
+    if (input$alt == alt_list[[5]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 32]))
     }
-    if (input$alt == alt_theme_5[4]) {
+    if (input$alt == alt_list[[5]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 33]))
     }
-    if (input$alt == alt_theme_5[5]) {
+    if (input$alt == alt_list[[5]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 34]))
     }
     # theme 6
-    if (input$alt == alt_theme_6[1]) {
+    if (input$alt == alt_list[[6]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 35]))
     }
-    if (input$alt == alt_theme_6[2]) {
+    if (input$alt == alt_list[[6]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 36]))
     }
-    if (input$alt == alt_theme_6[3]) {
+    if (input$alt == alt_list[[6]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 37]))
     }
-    if (input$alt == alt_theme_6[4]) {
+    if (input$alt == alt_list[[6]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 38]))
     }
-    if (input$alt == alt_theme_6[5]) {
+    if (input$alt == alt_list[[6]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 39]))
     }
     # theme 7
-    if (input$alt == alt_theme_7[1]) {
+    if (input$alt == alt_list[[7]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 40]))
     }
-    if (input$alt == alt_theme_7[2]) {
+    if (input$alt == alt_list[[7]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 41]))
     }
-    if (input$alt == alt_theme_7[3]) {
+    if (input$alt == alt_list[[7]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 42]))
     }
-    if (input$alt == alt_theme_7[4]) {
+    if (input$alt == alt_list[[7]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 43]))
     }
-    if (input$alt == alt_theme_7[5]) {
+    if (input$alt == alt_list[[7]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 44]))
     }
     # theme 8
-    if (input$alt == alt_theme_8[1]) {
+    if (input$alt == alt_list[[8]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 45]))
     }
-    if (input$alt == alt_theme_8[2]) {
+    if (input$alt == alt_list[[8]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 46]))
     }
-    if (input$alt == alt_theme_8[3]) {
+    if (input$alt == alt_list[[8]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 47]))
     }
-    if (input$alt == alt_theme_8[4]) {
+    if (input$alt == alt_list[[8]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 48]))
     }
-    if (input$alt == alt_theme_8[5]) {
+    if (input$alt == alt_list[[8]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 49]))
     }
     # theme 9
-    if (input$alt == alt_theme_9[1]) {
+    if (input$alt == alt_list[[9]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 50]))
     }
-    if (input$alt == alt_theme_9[2]) {
+    if (input$alt == alt_list[[9]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 51]))
     }
-    if (input$alt == alt_theme_9[3]) {
+    if (input$alt == alt_list[[9]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 52]))
     }
-    if (input$alt == alt_theme_9[4]) {
+    if (input$alt == alt_list[[9]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 53]))
     }
-    if (input$alt == alt_theme_9[5]) {
+    if (input$alt == alt_list[[9]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 54]))
     }
     # theme 10
-    if (input$alt == alt_theme_10[1]) {
+    if (input$alt == alt_list[[10]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 55]))
     }
-    if (input$alt == alt_theme_10[2]) {
+    if (input$alt == alt_list[[10]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 56]))
     }
-    if (input$alt == alt_theme_10[3]) {
+    if (input$alt == alt_list[[10]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 57]))
     }
-    if (input$alt == alt_theme_10[4]) {
+    if (input$alt == alt_list[[10]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 58]))
     }
-    if (input$alt == alt_theme_10[5]) {
+    if (input$alt == alt_list[[10]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 59]))
     }
   })
@@ -495,7 +494,7 @@ tabset <- function(input, output, session) {
     round(mean(group_2_filter_2()), digits = 2)
   })
   
-  # Return list of reactive expression
+  # Return list of reactive expressions
   return(
     list(
       area1 = reactive(input$area1),

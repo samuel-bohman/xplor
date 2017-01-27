@@ -1,7 +1,6 @@
 shinyServer(function(input, output, session) {
   
-  tdata1 <- callModule(module = tabset, id = "one")
-  tdata2 <- callModule(module = tabset, id = "two")
+  tdata <- callModule(module = tabset, id = "one")
   
   ####################################################################################################################
   
@@ -15,7 +14,7 @@ shinyServer(function(input, output, session) {
       addTiles() %>%
       setView(lng = 17.91128, lat = 59.51839, zoom = 12) %>%
       addPolygons(data = nyko, fill = TRUE, fillOpacity = 0.1, fillColor = "blue", stroke = TRUE, weight = 1, color = "black", group = "nyko")
-  })
+    })
   
   # Define color palette
   colorpal <- reactive({
@@ -38,28 +37,28 @@ shinyServer(function(input, output, session) {
     # Group 1
     leafletProxy(mapId = "map") %>%
         addPolygons(
-          data = tdata1$group_1_filter_1(),
+          data = tdata$group_1_filter_1(),
           fill = TRUE,
-          fillColor = ~ colorpal()(tdata1$group_1_mean()),
+          fillColor = ~ colorpal()(tdata$group_1_mean()),
           fillOpacity = 0.7,
           stroke = TRUE,
           weight = 1,
           color = "red",
-          layerId = tdata1$group_1_filter_1()$Area,
+          layerId = tdata$group_1_filter_1()$Area,
           group = "group1Polygons"
         )
     
     # Group 2
     leafletProxy(mapId = "map") %>%
       addPolygons(
-        data = tdata1$group_2_filter_1(),
+        data = tdata$group_2_filter_1(),
         fill = TRUE,
-        fillColor = ~ colorpal()(tdata1$group_2_mean()),
+        fillColor = ~ colorpal()(tdata$group_2_mean()),
         fillOpacity = 0.7,
         stroke = TRUE,
         weight = 1,
         color = "blue",
-        layerId = tdata1$group_2_filter_1()$Area,
+        layerId = tdata$group_2_filter_1()$Area,
         group = "group2Polygons"
       )
   })
@@ -70,28 +69,28 @@ shinyServer(function(input, output, session) {
       clearMarkers()
     
     # Group 1
-    if (tdata1$markers1() == TRUE) {
+    if (tdata$markers1() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
-          data = tdata1$group_1_filter_1(),
+          data = tdata$group_1_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata1$group_1_filter_1()$Area,
-          layerId = tdata1$group_1_filter_1()$Area,
-          options = markerOptions(title = paste(tdata1$group_1_filter_1()$Area, tdata1$group_1_mean(), sep = ": "))
+          popup = tdata$group_1_filter_1()$Area,
+          layerId = tdata$group_1_filter_1()$Area,
+          options = markerOptions(title = paste(tdata$group_1_filter_1()$Area, tdata$group_1_mean(), sep = ": "))
         )
     }
     
     # Group 2
-    if (tdata1$markers2() == TRUE) {
+    if (tdata$markers2() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
-          data = tdata1$group_2_filter_1(),
+          data = tdata$group_2_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata1$group_2_filter_1()$Area,
-          layerId = tdata1$group_2_filter_1()$Area,
-          options = markerOptions(title = paste(tdata1$group_2_filter_1()$Area, tdata1$group_2_mean(), sep = ": ")),
+          popup = tdata$group_2_filter_1()$Area,
+          layerId = tdata$group_2_filter_1()$Area,
+          options = markerOptions(title = paste(tdata$group_2_filter_1()$Area, tdata$group_2_mean(), sep = ": ")),
           icon = list(iconUrl = "marker-icon-red.png", iconWidth = 25, iconHeight = 41, iconAnchorX = 0, iconAnchorY = 0,  shadowUrl = "marker-shadow.png", shadowWidth = 41, shadowHeight = 41, shadowAnchorX = 12, shadowAnchorY = 22, popupAnchorX = 0, popupAnchorY = 0)
         )
     }
@@ -103,26 +102,26 @@ shinyServer(function(input, output, session) {
       clearPopups()
     
     # Group 1
-    if (tdata1$pop1() == TRUE) {
+    if (tdata$pop1() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
-          data = tdata1$group_1_filter_1(),
+          data = tdata$group_1_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata1$group_1_filter_1()$Area,
-          layerId = tdata1$group_1_filter_1()$Area
+          popup = tdata$group_1_filter_1()$Area,
+          layerId = tdata$group_1_filter_1()$Area
         )
     }
     
     # Group 2
-    if (tdata1$pop2() == TRUE) {
+    if (tdata$pop2() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
-          data = tdata1$group_2_filter_1(),
+          data = tdata$group_2_filter_1(),
           lng = ~ long,
           lat = ~ lat,
-          popup = tdata1$group_2_filter_1()$Area,
-          layerId = tdata1$group_2_filter_1()$Area
+          popup = tdata$group_2_filter_1()$Area,
+          layerId = tdata$group_2_filter_1()$Area
         )
     }
   })
@@ -135,8 +134,8 @@ shinyServer(function(input, output, session) {
   
   # Calculate BCAR for both groups
   observe({
-    results.vec1 <- disagreement(tdata2$theme(), tdata2$group_1_filter_1())
-    results.vec2 <- disagreement(tdata2$theme(), tdata2$group_2_filter_1())
+    results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
+    results.vec2 <- disagreement(tdata$theme(), tdata$group_2_filter_1())
     
     # Calculate mean values for group 1
     val_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
@@ -220,7 +219,7 @@ shinyServer(function(input, output, session) {
     dis_within_2 <- flatten_dbl(dis_within_2) %>% data.frame()
     
     # Create row names
-    alternatives <- c("Alt 1", "Alt 2", "Alt 3", "Alt 4", "Alt 5") %>% data.frame() 
+    alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
     
     # Add column names to data frames
     colnames(val_group_1) <- "val_group_1"
@@ -242,17 +241,6 @@ shinyServer(function(input, output, session) {
     
   # End of observer
   })
-  
-  # Plot disagreements
-  # output$plot1 <- renderPlot({
-  #   ggplot(
-  #     data = data.frame(Actions = c("1", "2", "3", "4", "5"), Disagreement = "dis1"), aes(x = Actions, y = Disagreement)) + 
-  #     labs(title = "Titel") +
-  #     geom_bar(stat = "identity") +
-  #     coord_cartesian(ylim = c(0, 1)) +
-  #     scale_x_discrete(labels = function(x) str_wrap(x, width = 23))
-  # })
-  
   
   ####################################################################################################################
   

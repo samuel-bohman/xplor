@@ -4,10 +4,11 @@ library(sp)
 library(ggvis)
 library(dplyr)
 library(tidyr)
+library(magrittr)
 library(tibble)
 library(purrr)
 library(stringr)
-library(RMySQL)
+# library(RMySQL)
 
 source("tabset.R")
 source("helper.R")
@@ -46,7 +47,7 @@ b_col_names <- c("Area", "Gender", "Age", "Occupation", "Education.level", "Year
 b_labels <- c("Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
 
 # randomization for polygons just for development purposes
-rnd <- sample(x = b_area[3:45], size = 10) %>% split(f = c(1, 2))
+rnd <- sample(x = b_area[3:45], size = 6) %>% split(f = c(1, 2))
 
 # Themes
 theme <- colnames(results_df)[57:66] %>% gsub(pattern = ".", replacement = " ", x = ., fixed = TRUE) %>% paste(c(1:10), ., sep = ". ")
@@ -114,6 +115,7 @@ alt_theme_10 <- c(
   "10e. Reducing environmental toxins and hazardous chemicals in nature")
 
 alt_list <- list(alt_theme_1, alt_theme_2, alt_theme_3, alt_theme_4, alt_theme_5, alt_theme_6, alt_theme_7, alt_theme_8, alt_theme_9, alt_theme_10)
+rm(alt_theme_1, alt_theme_2, alt_theme_3, alt_theme_4, alt_theme_5, alt_theme_6, alt_theme_7, alt_theme_8, alt_theme_9, alt_theme_10)
 
 # Dictionary of criteria and matching criterion number
 criterion_number <- vector(mode = "list", length = 10)

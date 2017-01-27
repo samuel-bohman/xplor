@@ -1,25 +1,26 @@
 shinyUI(
-  navbarPage("xplor", id = "nav", position = "static-top", collapsible = TRUE, fluid = FALSE,
+  navbarPage(title = "xplor", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     tabPanel(title = "Map", icon = icon("map-o"),
-      sidebarLayout(fluid = FALSE,
-        tabset_UI(id = "one"),
-        mainPanel(width = 8,
-          leafletOutput(outputId = "map", height = 615)
+      
+      fluidPage(
+        fluidRow(
+          column(width = 3, tabset_UI(id = "one")),
+          column(width = 6, leafletOutput(outputId = "map", height = 615)),
+          column(width = 3, uiOutput("ggvis_ui"), ggvisOutput("ggvis"))
         )
       )
+      
+      # sidebarLayout(fluid = TRUE,
+      #   tabset_UI(id = "one"),
+      #   mainPanel(width = 8,
+      #     leafletOutput(outputId = "map", height = 615)
+      #   )
+      # )
+      
     ),
-    # Disagreement/Value group 1
-    # Disagreement/Value group 2
-    # Disagreement/Value between group 1 and group 2
-    # Portfolio group 1
-    # Portfolio gorup 2
-    # Portfolio group 1 and 2
     tabPanel(title = "Plots", icon = icon("bar-chart"),
-      sidebarLayout(fluid = FALSE,
-        tabset_UI(id = "two"),
-        mainPanel(width = 8, 
-          uiOutput("ggvis_ui"),
-          ggvisOutput("ggvis")
+      fluidPage(
+        fluidRow(
         )
       )
     ),
