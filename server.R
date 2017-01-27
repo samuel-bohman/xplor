@@ -177,7 +177,7 @@ shinyServer(function(input, output, session) {
         conIdx2 <- 0
         proIdx2 <- 0
       }
-      dDEij <- abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2)
+      dDEij <- (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2))/2
     })
     
     # Disagreement within group 1
