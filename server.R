@@ -267,33 +267,54 @@ shinyServer(function(input, output, session) {
     colnames(dis_between_1_2) <- "dis_between_1_2"
     colnames(dis_within_1) <- "dis_within_1"
     colnames(dis_within_2) <- "dis_within_2"
-    colnames(alternatives) <- "Alternatives"
+    colnames(alternatives) <- "alternatives"
     
     # Bind data frames together
     ddata <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
+    
+    # print(ddata)
+    # print(str(ddata))
     
   ### GGVIS ##########################################################################################################  
     
     # Plot values group 1
     ddata %>%
-      ggvis(~Alternatives, ~val_group_1 * 100, fill := "steelblue", stroke := "") %>%
+      ggvis(x = ~alternatives, y = ~dis_within_1 * 100, fill := "steelblue", stroke := "") %>%
       set_options(width = "auto", height = "210") %>%
       layer_bars() %>%
-      bind_shiny("ggvis_1", "ggvis_ui_1")
+      bind_shiny("ggvis_1", "ggvis_1_ui")
     
     # Plot values group 2
     ddata %>%
-      ggvis(~Alternatives, ~val_group_2 * 100, fill := "firebrick", stroke := "") %>%
+      ggvis(x = ~alternatives, y = ~dis_within_2 * 100, fill := "firebrick", stroke := "") %>%
       set_options(width = "auto", height = "210") %>%
       layer_bars() %>%
-      bind_shiny("ggvis_2", "ggvis_ui_2")
+      bind_shiny("ggvis_2", "ggvis_2_ui")
     
-    # Plot disagreement between group 1 and group 2
     ddata %>%
-      ggvis(~Alternatives, ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
+      ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
       set_options(width = "auto", height = "210") %>%
       layer_bars() %>%
-      bind_shiny("ggvis_3", "ggvis_ui_3")
+      bind_shiny("ggvis_3", "ggvis_3_ui")
+    
+    # alt = c("Alt 1", "Alt 2", "Alt 3", "Alt 4", "Alt 5")
+    # v2 = c(1:5)
+    # v3 = c(6:10)
+    # v4 = c(11:15)
+    # v5 = c(16:20)
+    # v6 = c(21:25)
+    # v7 = c(26:30)
+    # 
+    # df = data.frame(alt, v2, v3, v4, v5, v6, v7)
+    # 
+    # df %>%
+    #   ggvis(x = ~alt, y = input_select(choices = names(df[2:7]), map = as.name)) %>%
+    #   set_options(width = "auto", height = "210") %>%
+    #   layer_bars() %>%
+    #   bind_shiny("ggvis_3", "ggvis_ui_3")
+    
+    
+    # mtcars %>% ggvis(x = ~c(1:32), input_select(names(mtcars), map = as.name)) %>% layer_bars()
     
   # End of observer
   })
