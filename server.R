@@ -250,15 +250,6 @@ shinyServer(function(input, output, session) {
     portfolios_grp_1_2_neg_rev <- portfolios_grp_1_2_neg[rev(rownames(portfolios_grp_1_2_neg)),]
     portfolios_grp_1_2 <- rbind(portfolios_grp_1_2_pos,portfolios_grp_1_2_neg_rev)
 
-    print("Portfolios GRP1")    
-    print(portfolios_grp1)
-
-    print("Portfolios GRP2")  
-    print(portfolios_grp2)
-    
-    print("Portfolios GRP1 and 2")  
-    print(portfolios_grp_1_2)
-    
     # Flatten lists and transform them into data tables
     val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
     val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
