@@ -272,6 +272,8 @@ shinyServer(function(input, output, session) {
     # Bind data frames together
     ddata <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
     
+  ### GGVIS ##########################################################################################################  
+    
     # Plot disagreements
     ddata %>%
       ggvis(~Alternatives, ~val_group_1) %>%
