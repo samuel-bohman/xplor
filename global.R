@@ -8,10 +8,15 @@ library(tibble)
 library(purrr)
 library(stringr)
 library(RMySQL)
+library(lpSolveAPI)
+#library(ggplot2)
+#library(plyr)
+#library(reshape2)
 
 source("tabset.R")
 source("helper.R")
 source("disagreement.R")
+source("optimization.R")
 
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("data/nyko.rds")

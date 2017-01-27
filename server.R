@@ -211,6 +211,54 @@ shinyServer(function(input, output, session) {
       return(res)
     })
     
+    ## Generate portfolios of actions
+    # Prepare data for optimisation.
+    # Unlist values and disagreements
+    val_group_1_lst <- unlist(val_group_1)
+    val_group_2_lst <- unlist(val_group_2)
+    val_between_group_1_2_lst <- unlist(val_between_group_1_2)
+    dis_within_1_lst <- unlist(dis_within_1)
+    dis_within_2_lst <- unlist(dis_within_2)
+    dis_between_1_2_lst <- unlist(dis_between_1_2)
+    actions <- c("A1","A2","A3","A4","A5") # TODO! Change to the real names of the actions!
+    
+    # Set initial budget constraint
+    budget_grp1 = sum(dis_within_1_lst)
+    budget_grp2 = sum(dis_within_2_lst)
+    budget_grp1_2 = sum(dis_between_1_2_lst)
+  
+    ## Generate portfolios
+    # Group 1
+    portfolios_grp1_pos <- getAllPortfolios(actions = actions, values = val_group_1_lst, disagreements = dis_within_1_lst, initialBudgetConstraint = budget_grp1, direction = "max")
+    portfolios_grp1_neg <- getAllPortfolios(actions = actions, values = val_group_1_lst, disagreements = dis_within_1_lst, initialBudgetConstraint = budget_grp1, direction = "min")
+    
+    # Group 2
+    portfolios_grp2_pos <- getAllPortfolios(actions = actions, values = val_group_2_lst, disagreements = dis_within_2_lst, initialBudgetConstraint = budget_grp2, direction = "max")
+    portfolios_grp2_neg <- getAllPortfolios(actions = actions, values = val_group_2_lst, disagreements = dis_within_2_lst, initialBudgetConstraint = budget_grp2, direction = "min")
+    
+    # Group 1 and 2
+    portfolios_grp_1_2_pos <- getAllPortfolios(actions = actions, values = val_between_group_1_2_lst, disagreements = dis_between_1_2_lst, initialBudgetConstraint = budget_grp1_2, direction = "max")
+    portfolios_grp_1_2_neg <- getAllPortfolios(actions = actions, values = val_between_group_1_2_lst, disagreements = dis_between_1_2_lst, initialBudgetConstraint = budget_grp1_2, direction = "min")
+    
+    # Create a combined list of positive and negative portfolios
+    portfolios_grp1_neg_rev <- portfolios_grp1_neg[rev(rownames(portfolios_grp1_neg)),]
+    portfolios_grp1 <- rbind(portfolios_grp1_pos,portfolios_grp1_neg_rev)
+    
+    portfolios_grp2_neg_rev <- portfolios_grp2_neg[rev(rownames(portfolios_grp2_neg)),]
+    portfolios_grp2 <- rbind(portfolios_grp2_pos,portfolios_grp2_neg_rev)
+    
+    portfolios_grp_1_2_neg_rev <- portfolios_grp_1_2_neg[rev(rownames(portfolios_grp_1_2_neg)),]
+    portfolios_grp_1_2 <- rbind(portfolios_grp_1_2_pos,portfolios_grp_1_2_neg_rev)
+
+    print("Portfolios GRP1")    
+    print(portfolios_grp1)
+
+    print("Portfolios GRP2")  
+    print(portfolios_grp2)
+    
+    print("Portfolios GRP1 and 2")  
+    print(portfolios_grp_1_2)
+    
     # Flatten lists and transform them into data tables
     val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
     val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
