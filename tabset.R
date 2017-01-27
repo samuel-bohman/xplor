@@ -59,16 +59,16 @@ tabset <- function(input, output, session) {
     ns <- session$ns
     switch(
         input$theme,
-        "1. Parks and green areas" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[1]]),
-        "2. Diversity in housing supply" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[2]]),
-        "3. Invest in public areas" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[3]]),
-        "4. Communications" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[4]]),
-        "5. Culture and leasure" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[5]]),
-        "6. Education" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[6]]),
-        "7. Care" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[7]]),
-        "8. School" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[8]]),
-        "9. Safety" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[9]]),
-        "10. Ecological sustainability" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[10]])
+        "1. Parks and green areas" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[1]], selectize = FALSE, size = 5),
+        "2. Diversity in housing supply" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[2]], selectize = FALSE, size = 5),
+        "3. Invest in public areas" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[3]], selectize = FALSE, size = 5),
+        "4. Communications" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[4]], selectize = FALSE, size = 5),
+        "5. Culture and leasure" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[5]], selectize = FALSE, size = 5),
+        "6. Education" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[6]], selectize = FALSE, size = 5),
+        "7. Care" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[7]], selectize = FALSE, size = 5),
+        "8. School" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[8]], selectize = FALSE, size = 5),
+        "9. Safety" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[9]], selectize = FALSE, size = 5),
+        "10. Ecological sustainability" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[10]], selectize = FALSE, size = 5)
       )
   })
   

@@ -18,7 +18,7 @@ shinyServer(function(input, output, session) {
   
   # Define color palette
   colorpal <- reactive({
-    colorNumeric(palette = "RdYlGn", domain = c(0, 14), na.color = "gray")
+    colorNumeric(palette = "RdYlGn", domain = c(0, 14), na.color = "darkgray")
   })
   
   # Add color legend to map
@@ -39,11 +39,11 @@ shinyServer(function(input, output, session) {
         addPolygons(
           data = tdata$group_1_filter_1(),
           fill = TRUE,
-          fillColor = ~ colorpal()(tdata$group_1_mean()),
+          fillColor = ~colorpal()(tdata$group_1_mean()),
           fillOpacity = 0.7,
           stroke = TRUE,
           weight = 1,
-          color = "red",
+          color = "steelblue",
           layerId = tdata$group_1_filter_1()$Area,
           group = "group1Polygons"
         )
@@ -53,11 +53,11 @@ shinyServer(function(input, output, session) {
       addPolygons(
         data = tdata$group_2_filter_1(),
         fill = TRUE,
-        fillColor = ~ colorpal()(tdata$group_2_mean()),
+        fillColor = ~colorpal()(tdata$group_2_mean()),
         fillOpacity = 0.7,
         stroke = TRUE,
         weight = 1,
-        color = "blue",
+        color = "firebrick",
         layerId = tdata$group_2_filter_1()$Area,
         group = "group2Polygons"
       )
@@ -73,8 +73,8 @@ shinyServer(function(input, output, session) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
           data = tdata$group_1_filter_1(),
-          lng = ~ long,
-          lat = ~ lat,
+          lng = ~long,
+          lat = ~lat,
           popup = tdata$group_1_filter_1()$Area,
           layerId = tdata$group_1_filter_1()$Area,
           options = markerOptions(title = paste(tdata$group_1_filter_1()$Area, tdata$group_1_mean(), sep = ": "))
@@ -86,8 +86,8 @@ shinyServer(function(input, output, session) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
           data = tdata$group_2_filter_1(),
-          lng = ~ long,
-          lat = ~ lat,
+          lng = ~long,
+          lat = ~lat,
           popup = tdata$group_2_filter_1()$Area,
           layerId = tdata$group_2_filter_1()$Area,
           options = markerOptions(title = paste(tdata$group_2_filter_1()$Area, tdata$group_2_mean(), sep = ": ")),
@@ -106,8 +106,8 @@ shinyServer(function(input, output, session) {
       leafletProxy(mapId = "map") %>%
         addPopups(
           data = tdata$group_1_filter_1(),
-          lng = ~ long,
-          lat = ~ lat,
+          lng = ~long,
+          lat = ~lat,
           popup = tdata$group_1_filter_1()$Area,
           layerId = tdata$group_1_filter_1()$Area
         )
@@ -118,8 +118,8 @@ shinyServer(function(input, output, session) {
       leafletProxy(mapId = "map") %>%
         addPopups(
           data = tdata$group_2_filter_1(),
-          lng = ~ long,
-          lat = ~ lat,
+          lng = ~long,
+          lat = ~lat,
           popup = tdata$group_2_filter_1()$Area,
           layerId = tdata$group_2_filter_1()$Area
         )
@@ -276,21 +276,21 @@ shinyServer(function(input, output, session) {
     
     # Plot values group 1
     ddata %>%
-      ggvis(~Alternatives, ~val_group_1 * 100) %>%
+      ggvis(~Alternatives, ~val_group_1 * 100, fill := "steelblue", stroke := "") %>%
       set_options(width = "auto", height = "210") %>%
       layer_bars() %>%
       bind_shiny("ggvis_1", "ggvis_ui_1")
     
     # Plot values group 2
     ddata %>%
-      ggvis(~Alternatives, ~val_group_2 * 100) %>%
+      ggvis(~Alternatives, ~val_group_2 * 100, fill := "firebrick", stroke := "") %>%
       set_options(width = "auto", height = "210") %>%
       layer_bars() %>%
       bind_shiny("ggvis_2", "ggvis_ui_2")
     
-    # Plot values group 2
+    # Plot disagreement between group 1 and group 2
     ddata %>%
-      ggvis(~Alternatives, ~dis_between_1_2 * 100) %>%
+      ggvis(~Alternatives, ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
       set_options(width = "auto", height = "210") %>%
       layer_bars() %>%
       bind_shiny("ggvis_3", "ggvis_ui_3")
