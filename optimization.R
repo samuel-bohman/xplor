@@ -1,10 +1,4 @@
-library(lpSolveAPI)
-library(ggplot2)
-library(plyr)
-library('reshape2')
-
-source("calculations.R")
-source("helper.R")
+## Functions related to optimisation.
 
 # get all efficient portfolios
 getAllPortfolios <- function(actions, values, disagreements, initialBudgetConstraint, direction) {
