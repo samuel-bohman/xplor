@@ -5,36 +5,29 @@ shinyUI(
       fluidPage(
         fluidRow(
           column(width = 3, tabset_UI(id = "one")),
-          column(width = 6, leafletOutput(outputId = "map", height = 615)),
+          column(width = 6, leafletOutput(outputId = "map", height = 740)),
           column(width = 3, 
             sidebarPanel(width = 0,
               tabsetPanel(
                 tabPanel(title = "Disagreements",
-                  "Disagreements within group 1",
+                  "Within group 1",
                   ggvisOutput("ggvis_1"),
-                  "Disagreements within group 2",
+                  "Within group 2",
                   ggvisOutput("ggvis_2"),
-                  "Disagreements between group 1 and 2",
+                  "Between group 1 and 2",
                   ggvisOutput("ggvis_3")
                 ),
                 tabPanel(title = "Portfolios",
-                  "Portfolios for group 1",
+                  "Group 1",
                   ggvisOutput("ggvis_4"),
-                  "Portfolios for group 2",
+                  "Group 2",
                   ggvisOutput("ggvis_5"),
-                  "Portfolios for group 1 and 2",
+                  "Group 1 and 2",
                   ggvisOutput("ggvis_6")
                 )
               )
             )
           )
-        )
-      )
-    ),
-    
-    tabPanel(title = "Plots", icon = icon("bar-chart"),
-      fluidPage(
-        fluidRow(
         )
       )
     ),

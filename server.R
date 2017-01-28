@@ -242,7 +242,7 @@ shinyServer(function(input, output, session) {
       ggvis(x = ~alternatives, y = ~dis_within_1 * 100, fill := "steelblue", stroke := "") %>%
       add_axis(type = "x", title = "", grid = FALSE) %>%
       add_axis(type = "y", title = "", grid = FALSE) %>%
-      set_options(width = "auto", height = "210") %>%
+      set_options(width = "auto", height = "200") %>%
       layer_bars() %>%
       bind_shiny("ggvis_1")
     
@@ -251,7 +251,7 @@ shinyServer(function(input, output, session) {
       ggvis(x = ~alternatives, y = ~dis_within_2 * 100, fill := "firebrick", stroke := "") %>%
       add_axis(type = "x", title = "", grid = FALSE) %>%
       add_axis(type = "y", title = "", grid = FALSE) %>%
-      set_options(width = "auto", height = "210") %>%
+      set_options(width = "auto", height = "200") %>%
       layer_bars() %>%
       bind_shiny("ggvis_2")
     
@@ -260,7 +260,7 @@ shinyServer(function(input, output, session) {
       ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
       add_axis(type = "x", title = "", grid = FALSE) %>%
       add_axis(type = "y", title = "", grid = FALSE) %>%
-      set_options(width = "auto", height = "210") %>%
+      set_options(width = "auto", height = "200") %>%
       layer_bars() %>%
       bind_shiny("ggvis_3")
     
@@ -319,7 +319,7 @@ shinyServer(function(input, output, session) {
       ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
       add_axis(type = "x", title = "", grid = FALSE) %>%
       add_axis(type = "y", title = "", grid = FALSE) %>%
-      set_options(width = "auto", height = "210") %>%
+      set_options(width = "auto", height = "200") %>%
       layer_points() %>%
       bind_shiny("ggvis_4")
 
@@ -328,7 +328,7 @@ shinyServer(function(input, output, session) {
       ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
       add_axis(type = "x", title = "", grid = FALSE) %>%
       add_axis(type = "y", title = "", grid = FALSE) %>%
-      set_options(width = "auto", height = "210") %>%
+      set_options(width = "auto", height = "200") %>%
       layer_points() %>%
       bind_shiny("ggvis_5")
 
@@ -337,7 +337,7 @@ shinyServer(function(input, output, session) {
       ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
       add_axis(type = "x", title = "", grid = FALSE) %>%
       add_axis(type = "y", title = "", grid = FALSE) %>%
-      set_options(width = "auto", height = "210") %>%
+      set_options(width = "auto", height = "200") %>%
       layer_points() %>%
       bind_shiny("ggvis_6")
     
