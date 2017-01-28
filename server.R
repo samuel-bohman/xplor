@@ -132,6 +132,10 @@ shinyServer(function(input, output, session) {
   
   ####################################################################################################################
   
+  
+  
+  ### DISAGREEMENTS ##################################################################################################
+  
   # Calculate BCAR for both groups
   observe({
     results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
@@ -157,27 +161,6 @@ shinyServer(function(input, output, session) {
       org_v_grp_2 <- v_grp2 / (1 / n_grp2)
       m_grp_1_2 <- (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
       return(m_grp_1_2)
-    })
-    
-    # Disagreement between group 1 and group 2
-    dis_between_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
-      c1GroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
-      p1GroupWeight <- results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
-      c2GroupWeight <- results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
-      p2GroupWeight <- results.vec2[x + 4] / (results.vec2[x + 3] + results.vec2[x + 4])
-      conIdx1 <- results.vec1[x]
-      conIdx2 <- results.vec2[x]
-      proIdx1 <- results.vec1[x + 1]
-      proIdx2 <- results.vec2[x + 1]
-      if ((c1GroupWeight == 0 || p1GroupWeight == 0) ) {
-        conIdx1 <- 0
-        proIdx1 <- 0
-      }
-      if ((c2GroupWeight == 0 || p2GroupWeight == 0)) {
-        conIdx2 <- 0
-        proIdx2 <- 0
-      }
-      dDEij <- (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2))/2
     })
     
     # Disagreement within group 1
@@ -210,8 +193,81 @@ shinyServer(function(input, output, session) {
       return(res)
     })
     
+    # Disagreement between group 1 and group 2
+    dis_between_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
+      c1GroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
+      p1GroupWeight <- results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
+      c2GroupWeight <- results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
+      p2GroupWeight <- results.vec2[x + 4] / (results.vec2[x + 3] + results.vec2[x + 4])
+      conIdx1 <- results.vec1[x]
+      conIdx2 <- results.vec2[x]
+      proIdx1 <- results.vec1[x + 1]
+      proIdx2 <- results.vec2[x + 1]
+      if ((c1GroupWeight == 0 || p1GroupWeight == 0) ) {
+        conIdx1 <- 0
+        proIdx1 <- 0
+      }
+      if ((c2GroupWeight == 0 || p2GroupWeight == 0)) {
+        conIdx2 <- 0
+        proIdx2 <- 0
+      }
+      dDEij <- (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2))/2
+    })
+    
+    # Flatten lists and transform them into data tables
+    val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
+    val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
+    val_between_group_1_2 <- flatten_dbl(val_between_group_1_2) %>% data.frame()
+    dis_between_1_2 <- flatten_dbl(dis_between_1_2) %>% data.frame()
+    dis_within_1 <- flatten_dbl(dis_within_1) %>% data.frame()
+    dis_within_2 <- flatten_dbl(dis_within_2) %>% data.frame()
+    
+    # Create row names
+    alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
+    
+    # Add column names to data frames
+    colnames(val_group_1) <- "val_group_1"
+    colnames(val_group_2) <- "val_group_2"
+    colnames(val_between_group_1_2) <- "val_between_group_1_2"
+    colnames(dis_between_1_2) <- "dis_between_1_2"
+    colnames(dis_within_1) <- "dis_within_1"
+    colnames(dis_within_2) <- "dis_within_2"
+    colnames(alternatives) <- "alternatives"
+    
+    # Bind data frames together
+    ddata <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
+    
+    # Plot disagreements within group 1
+    ddata %>%
+      ggvis(x = ~alternatives, y = ~dis_within_1 * 100, fill := "steelblue", stroke := "") %>%
+      add_axis(type = "x", title = "", grid = FALSE) %>%
+      add_axis(type = "y", title = "", grid = FALSE) %>%
+      set_options(width = "auto", height = "210") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_1")
+    
+    # Plot disagreements within group 2
+    ddata %>%
+      ggvis(x = ~alternatives, y = ~dis_within_2 * 100, fill := "firebrick", stroke := "") %>%
+      add_axis(type = "x", title = "", grid = FALSE) %>%
+      add_axis(type = "y", title = "", grid = FALSE) %>%
+      set_options(width = "auto", height = "210") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_2")
+    
+    # Plot disagreements between group 1 and group 2
+    ddata %>%
+      ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
+      add_axis(type = "x", title = "", grid = FALSE) %>%
+      add_axis(type = "y", title = "", grid = FALSE) %>%
+      set_options(width = "auto", height = "210") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_3")
+    
+    ### PORTFOLIOS ##################################################################################################
+    
     ## Generate portfolios of actions
-    # Prepare data for optimisation.
+    # Prepare data for optimization
     # Unlist values and disagreements
     val_group_1_lst <- unlist(val_group_1)
     val_group_2_lst <- unlist(val_group_2)
@@ -243,78 +299,47 @@ shinyServer(function(input, output, session) {
     portfolios_grp1_neg_rev <- portfolios_grp1_neg[rev(rownames(portfolios_grp1_neg)),]
     portfolios_grp1 <- rbind(portfolios_grp1_pos,portfolios_grp1_neg_rev)
     
+    print(portfolios_grp1)
+    str(portfolios_grp1)
+    
     portfolios_grp2_neg_rev <- portfolios_grp2_neg[rev(rownames(portfolios_grp2_neg)),]
     portfolios_grp2 <- rbind(portfolios_grp2_pos,portfolios_grp2_neg_rev)
     
+    print(portfolios_grp2)
+    str(portfolios_grp2)
+    
     portfolios_grp_1_2_neg_rev <- portfolios_grp_1_2_neg[rev(rownames(portfolios_grp_1_2_neg)),]
     portfolios_grp_1_2 <- rbind(portfolios_grp_1_2_pos,portfolios_grp_1_2_neg_rev)
+    
+    print(portfolios_grp_1_2)
+    str(portfolios_grp_1_2)
+    
+    # Plot portfolios for group 1
+    portfolios_grp1 %>%
+      ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
+      add_axis(type = "x", title = "", grid = FALSE) %>%
+      add_axis(type = "y", title = "", grid = FALSE) %>%
+      set_options(width = "auto", height = "210") %>%
+      layer_points() %>%
+      bind_shiny("ggvis_4")
 
-    # Flatten lists and transform them into data tables
-    val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
-    val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
-    val_between_group_1_2 <- flatten_dbl(val_between_group_1_2) %>% data.frame()
-    dis_between_1_2 <- flatten_dbl(dis_between_1_2) %>% data.frame()
-    dis_within_1 <- flatten_dbl(dis_within_1) %>% data.frame()
-    dis_within_2 <- flatten_dbl(dis_within_2) %>% data.frame()
-    
-    # Create row names
-    alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
-    
-    # Add column names to data frames
-    colnames(val_group_1) <- "val_group_1"
-    colnames(val_group_2) <- "val_group_2"
-    colnames(val_between_group_1_2) <- "val_between_group_1_2"
-    colnames(dis_between_1_2) <- "dis_between_1_2"
-    colnames(dis_within_1) <- "dis_within_1"
-    colnames(dis_within_2) <- "dis_within_2"
-    colnames(alternatives) <- "alternatives"
-    
-    # Bind data frames together
-    ddata <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
-    
-    # print(ddata)
-    # print(str(ddata))
-    
-  ### GGVIS ##########################################################################################################  
-    
-    # Plot values group 1
-    ddata %>%
-      ggvis(x = ~alternatives, y = ~dis_within_1 * 100, fill := "steelblue", stroke := "") %>%
+    # Plot portfolios for group 2
+    portfolios_grp2 %>%
+      ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
+      add_axis(type = "x", title = "", grid = FALSE) %>%
+      add_axis(type = "y", title = "", grid = FALSE) %>%
       set_options(width = "auto", height = "210") %>%
-      layer_bars() %>%
-      bind_shiny("ggvis_1", "ggvis_1_ui")
-    
-    # Plot values group 2
-    ddata %>%
-      ggvis(x = ~alternatives, y = ~dis_within_2 * 100, fill := "firebrick", stroke := "") %>%
+      layer_points() %>%
+      bind_shiny("ggvis_5")
+
+    # Plot portfolios for group 1 and group 2
+    portfolios_grp_1_2 %>%
+      ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
+      add_axis(type = "x", title = "", grid = FALSE) %>%
+      add_axis(type = "y", title = "", grid = FALSE) %>%
       set_options(width = "auto", height = "210") %>%
-      layer_bars() %>%
-      bind_shiny("ggvis_2", "ggvis_2_ui")
-    
-    ddata %>%
-      ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
-      set_options(width = "auto", height = "210") %>%
-      layer_bars() %>%
-      bind_shiny("ggvis_3", "ggvis_3_ui")
-    
-    # alt = c("Alt 1", "Alt 2", "Alt 3", "Alt 4", "Alt 5")
-    # v2 = c(1:5)
-    # v3 = c(6:10)
-    # v4 = c(11:15)
-    # v5 = c(16:20)
-    # v6 = c(21:25)
-    # v7 = c(26:30)
-    # 
-    # df = data.frame(alt, v2, v3, v4, v5, v6, v7)
-    # 
-    # df %>%
-    #   ggvis(x = ~alt, y = input_select(choices = names(df[2:7]), map = as.name)) %>%
-    #   set_options(width = "auto", height = "210") %>%
-    #   layer_bars() %>%
-    #   bind_shiny("ggvis_3", "ggvis_ui_3")
-    
-    
-    # mtcars %>% ggvis(x = ~c(1:32), input_select(names(mtcars), map = as.name)) %>% layer_bars()
+      layer_points() %>%
+      bind_shiny("ggvis_6")
     
   # End of observer
   })

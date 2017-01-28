@@ -5,11 +5,11 @@ tabset_UI <- function(id) {
     sidebarPanel(width = 0,
       tabsetPanel(
         type = "tabs",
-        tabPanel("Theme",
+        tabPanel(title = "Theme",
           selectInput(ns("theme"), label = "Theme", choices = theme, selected = theme[1]),
           uiOutput(ns("alternatives"))
         ),
-        tabPanel("Group 1",
+        tabPanel(title = "Group 1",
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[1]]
@@ -28,7 +28,7 @@ tabset_UI <- function(id) {
           checkboxInput(ns("pop1"), label = "Add popups", value = FALSE)
           
         ),
-        tabPanel("Group 2",
+        tabPanel(title = "Group 2",
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[2]]
