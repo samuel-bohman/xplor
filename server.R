@@ -311,9 +311,6 @@ shinyServer(function(input, output, session) {
     portfolios_grp_1_2_neg_rev <- portfolios_grp_1_2_neg[rev(rownames(portfolios_grp_1_2_neg)),]
     portfolios_grp_1_2 <- rbind(portfolios_grp_1_2_pos,portfolios_grp_1_2_neg_rev)
     
-    print(portfolios_grp_1_2)
-    str(portfolios_grp_1_2)
-    
     # Plot portfolios for group 1
     portfolios_grp1 %>%
       ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
@@ -325,7 +322,7 @@ shinyServer(function(input, output, session) {
 
     # Plot portfolios for group 2
     portfolios_grp2 %>%
-      ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
+      ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "firebrick", stroke := "") %>%
       add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
       add_axis(type = "y", title = "Value", grid = FALSE) %>%
       set_options(width = "auto", height = "200") %>%
@@ -334,7 +331,7 @@ shinyServer(function(input, output, session) {
 
     # Plot portfolios for group 1 and group 2
     portfolios_grp_1_2 %>%
-      ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
+      ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "darkgray", stroke := "") %>%
       add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
       add_axis(type = "y", title = "Value", grid = FALSE) %>%
       set_options(width = "auto", height = "200") %>%
