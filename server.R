@@ -299,14 +299,8 @@ shinyServer(function(input, output, session) {
     portfolios_grp1_neg_rev <- portfolios_grp1_neg[rev(rownames(portfolios_grp1_neg)),]
     portfolios_grp1 <- rbind(portfolios_grp1_pos,portfolios_grp1_neg_rev)
     
-    print(portfolios_grp1)
-    str(portfolios_grp1)
-    
     portfolios_grp2_neg_rev <- portfolios_grp2_neg[rev(rownames(portfolios_grp2_neg)),]
     portfolios_grp2 <- rbind(portfolios_grp2_pos,portfolios_grp2_neg_rev)
-    
-    print(portfolios_grp2)
-    str(portfolios_grp2)
     
     portfolios_grp_1_2_neg_rev <- portfolios_grp_1_2_neg[rev(rownames(portfolios_grp_1_2_neg)),]
     portfolios_grp_1_2 <- rbind(portfolios_grp_1_2_pos,portfolios_grp_1_2_neg_rev)

@@ -1,7 +1,7 @@
 shinyUI(
   navbarPage(title = "xplor", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     
-    tabPanel(title = "Map", icon = icon("map-o"),
+    tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
           column(width = 3, tabset_UI(id = "one")),
@@ -32,7 +32,7 @@ shinyUI(
       )
     ),
     
-    tabPanel(title = "Table", icon = icon("table"),
+    tabPanel(title = "Table", icon = icon(name = "table"),
       fluidRow(
         column(width = 3, selectInput(inputId = "area3", label = "Area", choices = b_area, selected = "All", multiple = TRUE)),
         column(width = 3, selectInput(inputId = "gender3", label = "Gender", choices = b_gender, selected = "All", multiple = TRUE)),
@@ -45,8 +45,8 @@ shinyUI(
         DT::dataTableOutput(outputId = "table")
       )
     ),
-    tabPanel(title = "Report", icon = icon("file-o")),
-    tabPanel(title = "Help", icon = icon("question")),
-    tabPanel(title = "Code", icon = icon("github"))
+    tabPanel(title = "Report", icon = icon(name = "file-o")),
+    tabPanel(title = "Help", icon = icon(name = "question")),
+    tabPanel(title = "Code", icon = icon(name = "github"))
   )
 )
