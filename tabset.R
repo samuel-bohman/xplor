@@ -74,7 +74,7 @@ tabset <- function(input, output, session) {
   
   ### GROUP 1 FILTERS ################################################
   
-  # subset themes for group 1
+  # Subset themes for group 1
   group_1_filter_1 <- reactive({
     req(input$area1, input$gender1, input$age1, input$occupation1, input$education1, input$years1)
     
@@ -111,12 +111,12 @@ tabset <- function(input, output, session) {
     results_spdf1
   })
   
-  # subset alternatives for group 1
+  # Subset alternatives for group 1
   group_1_filter_2 <- reactive({
     
     req(input$alt)
     
-    # theme 1
+    # Theme 1
     if (input$alt == alt_list[[1]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 10]))
     }
@@ -132,7 +132,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[1]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 14]))
     }
-    # theme 2
+    # Theme 2
     if (input$alt == alt_list[[2]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 15]))
     }
@@ -148,7 +148,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[2]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 19]))
     }
-    # theme 3
+    # Theme 3
     if (input$alt == alt_list[[3]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 20]))
     }
@@ -164,8 +164,8 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[3]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 24]))
     }
-    # theme 4
-    if (input$alt == alt_list[[4]][1]) {
+    # Theme 4
+    if (input$alt == alt_list[[4]][1]) {print(class(tdata$group_1_filter_2()))
       return(as.matrix(group_1_filter_1()@data[, 25]))
     }
     if (input$alt == alt_list[[4]][2]) {
@@ -180,7 +180,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[4]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 29]))
     }
-    # theme 5
+    # Theme 5
     if (input$alt == alt_list[[5]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 30]))
     }
@@ -196,7 +196,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[5]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 34]))
     }
-    # theme 6
+    # Theme 6
     if (input$alt == alt_list[[6]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 35]))
     }
@@ -212,7 +212,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[6]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 39]))
     }
-    # theme 7
+    # Theme 7
     if (input$alt == alt_list[[7]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 40]))
     }
@@ -228,7 +228,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[7]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 44]))
     }
-    # theme 8
+    # Theme 8
     if (input$alt == alt_list[[8]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 45]))
     }
@@ -244,7 +244,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[8]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 49]))
     }
-    # theme 9
+    # Theme 9
     if (input$alt == alt_list[[9]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 50]))
     }
@@ -260,7 +260,7 @@ tabset <- function(input, output, session) {
     if (input$alt == alt_list[[9]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 54]))
     }
-    # theme 10
+    # Theme 10
     if (input$alt == alt_list[[10]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 55]))
     }
@@ -526,7 +526,6 @@ tabset <- function(input, output, session) {
       group_2_mean = group_2_mean, # 23
       
       theme = reactive(input$theme) # 24
-      
     )
   )
   

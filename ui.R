@@ -9,10 +9,18 @@ shinyUI(
           column(width = 3, 
             sidebarPanel(width = 0,
               tabsetPanel(
-                tabPanel(title = "Disagreements",
-                  "Within group 1",
+                tabPanel(title = "Desc.",
+                  "Group 1",
+                  ggvisOutput("ggvis_7"),
+                  "Group 2",
+                  ggvisOutput("ggvis_8"),
+                  "Group 1 and 2",
+                  ggvisOutput("ggvis_9")
+                ),
+                tabPanel(title = "Disagr.",
+                  "Group 1",
                   ggvisOutput("ggvis_1"),
-                  "Within group 2",
+                  "Group 2",
                   ggvisOutput("ggvis_2"),
                   "Between group 1 and 2",
                   ggvisOutput("ggvis_3")

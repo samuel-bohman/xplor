@@ -132,7 +132,49 @@ shinyServer(function(input, output, session) {
   
   ####################################################################################################################
   
+
   
+  ### DESCRIPTIVES ###################################################################################################
+  
+  observe({
+    
+    # Transform inte data frames
+    des_group_1 <- tdata$group_1_filter_2() %>% data.frame()
+    des_group_2 <- tdata$group_2_filter_2() %>% data.frame()
+
+    # Plot descriptives for group 1
+    des_group_1 %>%
+      ggvis(x = ~., fill := "steelblue", stroke := "") %>%
+      scale_numeric(property = "x", domain = c(0L, 14L)) %>%
+      scale_numeric(property = "y", domain = c(0L, NA)) %>%
+      add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
+      add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
+      set_options(width = "auto", height = "200") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_7")
+    
+    # Plot descriptives for group 2
+    des_group_2 %>%
+      ggvis(x = ~., fill := "firebrick", stroke := "") %>%
+      scale_numeric(property = "x", domain = c(0L, 14L)) %>%
+      scale_numeric(property = "y", domain = c(0L, NA)) %>%
+      add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
+      add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
+      set_options(width = "auto", height = "200") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_8")
+    
+    # Plot descriptives for group 1 and group 2
+    # des_group_1_2 %>%
+    #   ggvis(~tdata$group_2_filter_2(), fill := "darkgray", stroke := "") %>%
+    #   scale_numeric(property = "x", domain = c(0L, 14L)) %>%
+    #   scale_numeric(property = "y", domain = c(0L, NA)) %>%
+    #   add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
+    #   add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
+    #   set_options(width = "auto", height = "200") %>%
+    #   layer_bars() %>%
+    #   bind_shiny("ggvis_9")
+  })
   
   ### DISAGREEMENTS ##################################################################################################
   
@@ -214,7 +256,7 @@ shinyServer(function(input, output, session) {
       dDEij <- (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2))/2
     })
     
-    # Flatten lists and transform them into data tables
+    # Flatten lists and transform them into data frames
     val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
     val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
     val_between_group_1_2 <- flatten_dbl(val_between_group_1_2) %>% data.frame()
@@ -235,31 +277,31 @@ shinyServer(function(input, output, session) {
     colnames(alternatives) <- "alternatives"
     
     # Bind data frames together
-    ddata <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
+    dis_data <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
     
     # Plot disagreements within group 1
-    ddata %>%
+    dis_data %>%
       ggvis(x = ~alternatives, y = ~dis_within_1 * 100, fill := "steelblue", stroke := "") %>%
       add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
-      add_axis(type = "y", title = "Disagreement", grid = FALSE) %>%
+      add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, title_offset = 40) %>%
       set_options(width = "auto", height = "200") %>%
       layer_bars() %>%
       bind_shiny("ggvis_1")
     
     # Plot disagreements within group 2
-    ddata %>%
+    dis_data %>%
       ggvis(x = ~alternatives, y = ~dis_within_2 * 100, fill := "firebrick", stroke := "") %>%
       add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
-      add_axis(type = "y", title = "Disagreement", grid = FALSE) %>%
+      add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, title_offset = 40) %>%
       set_options(width = "auto", height = "200") %>%
       layer_bars() %>%
       bind_shiny("ggvis_2")
     
     # Plot disagreements between group 1 and group 2
-    ddata %>%
+    dis_data %>%
       ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
       add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
-      add_axis(type = "y", title = "Disagreement", grid = FALSE) %>%
+      add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, title_offset = 40) %>%
       set_options(width = "auto", height = "200") %>%
       layer_bars() %>%
       bind_shiny("ggvis_3")
