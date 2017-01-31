@@ -132,7 +132,7 @@ shinyServer(function(input, output, session) {
   
   ####################################################################################################################
   
-
+  
   
   ### DESCRIPTIVES ###################################################################################################
   
@@ -157,8 +157,8 @@ shinyServer(function(input, output, session) {
       add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
       add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
       set_options(width = "auto", height = "200") %>%
-      layer_bars() %>%
-      bind_shiny("ggvis_7")
+      layer_histograms(width = 1) %>%
+      bind_shiny("ggvis_7", "ggvis_7_ui")
     
     # Plot descriptives for group 2
     des_group_2 %>%
@@ -168,7 +168,7 @@ shinyServer(function(input, output, session) {
       add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
       add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
       set_options(width = "auto", height = "200") %>%
-      layer_bars() %>%
+      layer_histograms(width = 1) %>%
       bind_shiny("ggvis_8")
     
     # Plot descriptives for group 1 and group 2
@@ -179,29 +179,27 @@ shinyServer(function(input, output, session) {
       add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
       add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
       set_options(width = "auto", height = "200") %>%
-      layer_bars() %>%
+      layer_histograms(width = 1) %>%
       bind_shiny("ggvis_9")
-  })
   
-  ### DISAGREEMENTS ##################################################################################################
-  
-  # Calculate BCAR for both groups
-  observe({
+    ### MEAN WEIGHTED VALUES ###########################################################################################
+    
+    # Comment needed here
     results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
     results.vec2 <- disagreement(tdata$theme(), tdata$group_2_filter_1())
     
-    # Calculate mean values for group 1
+    # Calculate mean weighted values for group 1
     val_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
       return(results.vec1[x + 2])
     })
     
-    # Calculate mean values for group 2
+    # Calculate mean weighted values for group 2
     val_group_2 <- lapply(seq(1, 25, by = 5), function(x) {
       return(results.vec2[x + 2])
     })
     
-    # Calculate mean values for group 1 and 2 combined
-    val_between_group_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
+    # Calculate mean weighted values for group 1 and 2 combined
+    val_group_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
       n_grp1 <- (results.vec1[x + 3] + results.vec1[x + 4])
       n_grp2 <- (results.vec2[x + 3] + results.vec2[x + 4])
       v_grp1 <- results.vec1[x + 2]
@@ -212,6 +210,52 @@ shinyServer(function(input, output, session) {
       return(m_grp_1_2)
     })
     
+    # Flatten lists and transform them into data frames
+    val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
+    val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
+    val_group_1_2 <- flatten_dbl(val_group_1_2) %>% data.frame()
+    
+    # Create row names
+    alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
+    
+    # Add column names to data frames
+    colnames(alternatives) <- "alternatives"
+    colnames(val_group_1) <- "val_group_1"
+    colnames(val_group_2) <- "val_group_2"
+    colnames(val_group_1_2) <- "val_group_1_2"
+    
+    # Bind data frames together
+    val_data <- bind_cols(alternatives, val_group_1, val_group_2, val_group_1_2)
+    
+    # Plot mean weighted values for group 1
+    val_data %>%
+      ggvis(x = ~alternatives, y = ~val_group_1 * 100, fill := "steelblue", stroke := "") %>%
+      add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
+      add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
+      set_options(width = "auto", height = "200") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_10")
+    
+    # Plot mean weighted values for group 2
+    val_data %>%
+      ggvis(x = ~alternatives, y = ~val_group_2 * 100, fill := "firebrick", stroke := "") %>%
+      add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
+      add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
+      set_options(width = "auto", height = "200") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_11")
+    
+    # Plot mean weighted values for group 1 and 2 combined
+    val_data %>%
+      ggvis(x = ~alternatives, y = ~val_group_1_2 * 100, fill := "darkgray", stroke := "") %>%
+      add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
+      add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
+      set_options(width = "auto", height = "200") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_12")
+  
+    ### DISAGREEMENTS ##################################################################################################
+  
     # Disagreement within group 1
     dis_within_1 <- lapply(seq(1, 25, by = 5), function(x) {
       cGroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
@@ -264,27 +308,18 @@ shinyServer(function(input, output, session) {
     })
     
     # Flatten lists and transform them into data frames
-    val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
-    val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
-    val_between_group_1_2 <- flatten_dbl(val_between_group_1_2) %>% data.frame()
-    dis_between_1_2 <- flatten_dbl(dis_between_1_2) %>% data.frame()
     dis_within_1 <- flatten_dbl(dis_within_1) %>% data.frame()
     dis_within_2 <- flatten_dbl(dis_within_2) %>% data.frame()
-    
-    # Create row names
-    alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
+    dis_between_1_2 <- flatten_dbl(dis_between_1_2) %>% data.frame()
     
     # Add column names to data frames
-    colnames(val_group_1) <- "val_group_1"
-    colnames(val_group_2) <- "val_group_2"
-    colnames(val_between_group_1_2) <- "val_between_group_1_2"
-    colnames(dis_between_1_2) <- "dis_between_1_2"
+    colnames(alternatives) <- "alternatives"
     colnames(dis_within_1) <- "dis_within_1"
     colnames(dis_within_2) <- "dis_within_2"
-    colnames(alternatives) <- "alternatives"
+    colnames(dis_between_1_2) <- "dis_between_1_2"
     
     # Bind data frames together
-    dis_data <- bind_cols(alternatives, val_group_1, val_group_2, val_between_group_1_2, dis_between_1_2, dis_within_1, dis_within_2)
+    dis_data <- bind_cols(alternatives, dis_within_1, dis_within_2, dis_between_1_2)
     
     # Plot disagreements within group 1
     dis_data %>%
@@ -320,7 +355,7 @@ shinyServer(function(input, output, session) {
     # Unlist values and disagreements
     val_group_1_lst <- unlist(val_group_1)
     val_group_2_lst <- unlist(val_group_2)
-    val_between_group_1_2_lst <- unlist(val_between_group_1_2)
+    val_group_1_2_lst <- unlist(val_group_1_2)
     dis_within_1_lst <- unlist(dis_within_1)
     dis_within_2_lst <- unlist(dis_within_2)
     dis_between_1_2_lst <- unlist(dis_between_1_2)
@@ -341,8 +376,8 @@ shinyServer(function(input, output, session) {
     portfolios_grp2_neg <- getAllPortfolios(actions = actions, values = val_group_2_lst, disagreements = dis_within_2_lst, initialBudgetConstraint = budget_grp2, direction = "min")
     
     # Group 1 and 2
-    portfolios_grp_1_2_pos <- getAllPortfolios(actions = actions, values = val_between_group_1_2_lst, disagreements = dis_between_1_2_lst, initialBudgetConstraint = budget_grp1_2, direction = "max")
-    portfolios_grp_1_2_neg <- getAllPortfolios(actions = actions, values = val_between_group_1_2_lst, disagreements = dis_between_1_2_lst, initialBudgetConstraint = budget_grp1_2, direction = "min")
+    portfolios_grp_1_2_pos <- getAllPortfolios(actions = actions, values = val_group_1_2_lst, disagreements = dis_between_1_2_lst, initialBudgetConstraint = budget_grp1_2, direction = "max")
+    portfolios_grp_1_2_neg <- getAllPortfolios(actions = actions, values = val_group_1_2_lst, disagreements = dis_between_1_2_lst, initialBudgetConstraint = budget_grp1_2, direction = "min")
     
     # Create a combined list of positive and negative portfolios
     portfolios_grp1_neg_rev <- portfolios_grp1_neg[rev(rownames(portfolios_grp1_neg)),]

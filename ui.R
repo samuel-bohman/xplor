@@ -17,7 +17,15 @@ shinyUI(
                   "Group 1 and 2",
                   ggvisOutput("ggvis_9")
                 ),
-                tabPanel(title = "Disagr.",
+                tabPanel(title = "MWV",
+                  "Group 1",
+                  ggvisOutput("ggvis_10"),
+                  "Group 2",
+                  ggvisOutput("ggvis_11"),
+                  "Group 1 and 2",
+                  ggvisOutput("ggvis_12")
+                ),
+                tabPanel(title = "Dis.",
                   "Group 1",
                   ggvisOutput("ggvis_1"),
                   "Group 2",
@@ -25,7 +33,7 @@ shinyUI(
                   "Between group 1 and 2",
                   ggvisOutput("ggvis_3")
                 ),
-                tabPanel(title = "Portfolios",
+                tabPanel(title = "Port.",
                   "Group 1",
                   ggvisOutput("ggvis_4"),
                   "Group 2",
