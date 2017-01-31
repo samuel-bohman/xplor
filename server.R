@@ -138,13 +138,18 @@ shinyServer(function(input, output, session) {
   
   observe({
     
-    # Transform inte data frames
-    des_group_1 <- tdata$group_1_filter_2() %>% data.frame()
-    des_group_2 <- tdata$group_2_filter_2() %>% data.frame()
-
+    # Extract tdata and coerce matrix as vector
+    des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
+    des_group_2 <- tdata$group_2_filter_2() %>% as.vector()
+    
+    des_group_1_2 <- c(des_group_1, des_group_2) %>% data.frame()
+    
+    des_group_1 <- data.frame(des_group_1)
+    des_group_2 <- data.frame(des_group_2)
+    
     # Plot descriptives for group 1
     des_group_1 %>%
-      ggvis(x = ~., fill := "steelblue", stroke := "") %>%
+      ggvis(x = ~des_group_1, fill := "steelblue", stroke := "") %>%
       scale_numeric(property = "x", domain = c(0L, 14L)) %>%
       scale_numeric(property = "y", domain = c(0L, NA)) %>%
       add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
@@ -155,7 +160,7 @@ shinyServer(function(input, output, session) {
     
     # Plot descriptives for group 2
     des_group_2 %>%
-      ggvis(x = ~., fill := "firebrick", stroke := "") %>%
+      ggvis(x = ~des_group_2, fill := "firebrick", stroke := "") %>%
       scale_numeric(property = "x", domain = c(0L, 14L)) %>%
       scale_numeric(property = "y", domain = c(0L, NA)) %>%
       add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
@@ -165,15 +170,15 @@ shinyServer(function(input, output, session) {
       bind_shiny("ggvis_8")
     
     # Plot descriptives for group 1 and group 2
-    # des_group_1_2 %>%
-    #   ggvis(~tdata$group_2_filter_2(), fill := "darkgray", stroke := "") %>%
-    #   scale_numeric(property = "x", domain = c(0L, 14L)) %>%
-    #   scale_numeric(property = "y", domain = c(0L, NA)) %>%
-    #   add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
-    #   add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
-    #   set_options(width = "auto", height = "200") %>%
-    #   layer_bars() %>%
-    #   bind_shiny("ggvis_9")
+    des_group_1_2 %>%
+      ggvis(~., fill := "darkgray", stroke := "") %>%
+      scale_numeric(property = "x", domain = c(0L, 14L)) %>%
+      scale_numeric(property = "y", domain = c(0L, NA)) %>%
+      add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
+      add_axis(type = "y", title = "Count", format = "d",  grid = FALSE, title_offset = 40) %>%
+      set_options(width = "auto", height = "200") %>%
+      layer_bars() %>%
+      bind_shiny("ggvis_9")
   })
   
   ### DISAGREEMENTS ##################################################################################################
