@@ -138,12 +138,14 @@ shinyServer(function(input, output, session) {
   
   observe({
     
-    # Extract tdata and coerce matrix as vector
+    # Get data for group 1 and group 2
     des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
     des_group_2 <- tdata$group_2_filter_2() %>% as.vector()
     
+    # Concatenate group 1 and group 2 and coerce into data frame
     des_group_1_2 <- c(des_group_1, des_group_2) %>% data.frame()
     
+    # Coerce into data frame
     des_group_1 <- data.frame(des_group_1)
     des_group_2 <- data.frame(des_group_2)
     
