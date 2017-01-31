@@ -165,7 +165,7 @@ tabset <- function(input, output, session) {
       return(as.matrix(group_1_filter_1()@data[, 24]))
     }
     # Theme 4
-    if (input$alt == alt_list[[4]][1]) {print(class(tdata$group_1_filter_2()))
+    if (input$alt == alt_list[[4]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 25]))
     }
     if (input$alt == alt_list[[4]][2]) {
