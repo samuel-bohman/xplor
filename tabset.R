@@ -7,7 +7,8 @@ tabset_UI <- function(id) {
         type = "tabs",
         tabPanel(title = "Theme",
           selectInput(ns("theme"), label = "Theme", choices = theme, selected = theme[1]),
-          uiOutput(ns("alternatives"))
+          uiOutput(ns("alternatives")),
+          selectInput(ns("colorpal"), label = "Palette", choices = rownames(brewer.pal.info[1:9, ]), selected = "RdYlGn")
         ),
         tabPanel(title = "Group 1",
           lapply(seq_along(b_variables), function(j) {
@@ -504,7 +505,7 @@ tabset <- function(input, output, session) {
       education1 = reactive(input$education1),
       years1 = reactive(input$years1),
       pop1 = reactive(input$pop1),
-      markers1 = reactive(input$markers1), # 8
+      markers1 = reactive(input$markers1),
       
       area2 = reactive(input$area2),
       gender2 = reactive(input$gender2),
@@ -513,19 +514,21 @@ tabset <- function(input, output, session) {
       education2 = reactive(input$education2),
       years2 = reactive(input$years2),
       pop2 = reactive(input$pop2),
-      markers2 = reactive(input$markers2), # 16
+      markers2 = reactive(input$markers2),
       
-      alt = reactive(input$alt), # 17
+      colorpal = reactive(input$colorpal),
+      
+      alt = reactive(input$alt),
       
       group_1_filter_1 = group_1_filter_1,
       group_1_filter_2 = group_1_filter_2,
-      group_1_mean = group_1_mean, # 20
+      group_1_mean = group_1_mean,
 
       group_2_filter_1 = group_2_filter_1,
       group_2_filter_2 = group_2_filter_2, 
-      group_2_mean = group_2_mean, # 23
+      group_2_mean = group_2_mean,
       
-      theme = reactive(input$theme) # 24
+      theme = reactive(input$theme)
     )
   )
   

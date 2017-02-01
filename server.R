@@ -18,14 +18,14 @@ shinyServer(function(input, output, session) {
   
   # Define color palette
   colorpal <- reactive({
-    colorNumeric(palette = "RdYlGn", domain = c(0, 14), na.color = "darkgray")
+    colorNumeric(palette = tdata$colorpal(), domain = c(0, 14), na.color = "gray")
   })
   
   # Add color legend to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearControls() %>%
-      addLegend(position = "bottomleft", pal = colorpal(), values = c(0:14), labels = c("Red", "Yellow", "Green"))
+      addLegend(position = "bottomleft", pal = colorpal(), values = c(0:14), labels = c("Min", "Mean", "Max"))
   })
   
   # Add polygons to map
@@ -149,8 +149,6 @@ shinyServer(function(input, output, session) {
     withProgress(message = "Making plots", value = 0, expr = {
   
       ### DESCRIPTIVES ###################################################################################################
-        
-      incProgress(amount = 0, detail = "")
       
       # Get data for group 1 and group 2
       des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
@@ -185,7 +183,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_histograms(width = 1) %>%
         bind_shiny("ggvis_2")
-      incProgress(amount = 2/12, detail = "Plot 2")
+      incProgress(amount = 1/12, detail = "Plot 2")
       
       # Plot histogram of group 1 and 2
       des_group_1_2 %>%
@@ -197,7 +195,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_histograms(width = 1) %>%
         bind_shiny("ggvis_3")
-      incProgress(amount = 3/12, detail = "Plot 3")
+      incProgress(amount = 1/12, detail = "Plot 3")
     
       ### MEAN WEIGHTED VALUES ###########################################################################################
         
@@ -252,7 +250,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_4")
-      incProgress(amount = 4/12, detail = "Plot 4")
+      incProgress(amount = 1/12, detail = "Plot 4")
       
       # Plot bar chart for group 2
       val_data %>%
@@ -262,7 +260,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_5")
-      incProgress(amount = 5/12, detail = "Plot 5")
+      incProgress(amount = 1/12, detail = "Plot 5")
       
       # Plot bar chart for group 1 and 2 
       val_data %>%
@@ -272,7 +270,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_6")
-      incProgress(amount = 6/12, detail = "Plot 6")
+      incProgress(amount = 1/12, detail = "Plot 6")
     
       ### DISAGREEMENTS ##################################################################################################
       
@@ -352,7 +350,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_7")
-      incProgress(amount = 7/12, detail = "Plot 7")
+      incProgress(amount = 1/12, detail = "Plot 7")
       
       # Plot bar chart for group 2
       dis_data %>%
@@ -362,7 +360,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_8")
-      incProgress(amount = 8/12, detail = "Plot 8")
+      incProgress(amount = 1/12, detail = "Plot 8")
       
       # Plot bar chart for group 1 and 2
       dis_data %>%
@@ -372,7 +370,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_9")
-      incProgress(amount = 9/12, detail = "Plot 9")
+      incProgress(amount = 1/12, detail = "Plot 9")
       
       ### PORTFOLIOS ##################################################################################################
       
@@ -460,7 +458,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_points() %>%
         bind_shiny("ggvis_10")
-      incProgress(amount = 10/12, detail = "Plot 10")
+      incProgress(amount = 1/12, detail = "Plot 10")
       
       # Plot portfolios for group 2
       portfolios_grp2 %>%
@@ -470,7 +468,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_points() %>%
         bind_shiny("ggvis_11")
-      incProgress(amount = 11/12, detail = "Plot 11")
+      incProgress(amount = 1/12, detail = "Plot 11")
   
       # Plot portfolios for group 1 and 2
       portfolios_grp_1_2 %>%
@@ -480,7 +478,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_points() %>%
         bind_shiny("ggvis_12")
-      incProgress(amount = 12/12, detail = "Plot 12")
+      incProgress(amount = 1/12, detail = "Plot 12")
       
     })
   })

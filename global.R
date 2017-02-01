@@ -1,6 +1,7 @@
 library(shiny)
 library(leaflet)
 library(sp)
+library(RColorBrewer)
 library(ggvis)
 library(dplyr)
 library(tidyr)
