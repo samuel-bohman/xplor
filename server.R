@@ -455,7 +455,7 @@ shinyServer(function(input, output, session) {
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_grp1), fill := "steelblue", fontSize := 7, dx := -10, dy := -5) %>%
+        layer_text(text := ~rownames(portfolios_grp1), fill := "steelblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "steelblue") %>%
         bind_shiny("ggvis_10")
       incProgress(amount = 1/12, detail = "Plot 10")
@@ -466,7 +466,7 @@ shinyServer(function(input, output, session) {
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_grp2), fill := "firebrick", fontSize := 7, dx := -10, dy := -5) %>%
+        layer_text(text := ~rownames(portfolios_grp2), fill := "firebrick", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "firebrick") %>%
         bind_shiny("ggvis_11")
       incProgress(amount = 1/12, detail = "Plot 11")
@@ -477,7 +477,7 @@ shinyServer(function(input, output, session) {
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_grp_1_2), fill := "darkslateblue", fontSize := 7, dx := -10, dy := -5) %>%
+        layer_text(text := ~rownames(portfolios_grp_1_2), fill := "darkslateblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
         bind_shiny("ggvis_12")
       incProgress(amount = 1/12, detail = "Plot 12")
