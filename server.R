@@ -187,7 +187,7 @@ shinyServer(function(input, output, session) {
       
       # Plot histogram of group 1 and 2
       des_group_1_2 %>%
-        ggvis(~., fill := "darkgray", stroke := "") %>%
+        ggvis(~., fill := "darkslateblue", stroke := "") %>%
         scale_numeric(property = "x", domain = c(0, 14)) %>%
         scale_numeric(property = "y", domain = c(0, NA)) %>%
         add_axis(type = "x", title = "Value", ticks = 14, grid = FALSE) %>%
@@ -213,7 +213,7 @@ shinyServer(function(input, output, session) {
         return(results.vec2[x + 2])
       })
       
-      # Calculate mean weighted values for group 1 and 2 combined
+      # Calculate mean weighted values for group 1 and 2
       val_group_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
         n_grp1 <- (results.vec1[x + 3] + results.vec1[x + 4])
         n_grp2 <- (results.vec2[x + 3] + results.vec2[x + 4])
@@ -264,7 +264,7 @@ shinyServer(function(input, output, session) {
       
       # Plot bar chart for group 1 and 2 
       val_data %>%
-        ggvis(x = ~alternatives, y = ~val_group_1_2 * 100, fill := "darkgray", stroke := "") %>%
+        ggvis(x = ~alternatives, y = ~val_group_1_2 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
@@ -364,7 +364,7 @@ shinyServer(function(input, output, session) {
       
       # Plot bar chart for group 1 and 2
       dis_data %>%
-        ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkgray", stroke := "") %>%
+        ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
@@ -442,41 +442,43 @@ shinyServer(function(input, output, session) {
       
       # Create a combined list of positive and negative portfolios
       portfolios_grp1_neg_rev <- portfolios_grp1_neg[rev(rownames(portfolios_grp1_neg)),]
-      portfolios_grp1 <- rbind(portfolios_grp1_pos, portfolios_grp1_neg_rev)
-      
       portfolios_grp2_neg_rev <- portfolios_grp2_neg[rev(rownames(portfolios_grp2_neg)),]
-      portfolios_grp2 <- rbind(portfolios_grp2_pos, portfolios_grp2_neg_rev)
-      
       portfolios_grp_1_2_neg_rev <- portfolios_grp_1_2_neg[rev(rownames(portfolios_grp_1_2_neg)),]
+      
+      portfolios_grp1 <- rbind(portfolios_grp1_pos, portfolios_grp1_neg_rev)
+      portfolios_grp2 <- rbind(portfolios_grp2_pos, portfolios_grp2_neg_rev)
       portfolios_grp_1_2 <- rbind(portfolios_grp_1_2_pos, portfolios_grp_1_2_neg_rev)
       
       # Plot portfolios for group 1
       portfolios_grp1 %>%
-        ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "steelblue", stroke := "") %>%
+        ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_points() %>%
+        layer_text(text := ~rownames(portfolios_grp1), fill := "steelblue", fontSize := 7, dx := -10, dy := -5) %>%
+        layer_points(fillOpacity := 0, stroke := "steelblue") %>%
         bind_shiny("ggvis_10")
       incProgress(amount = 1/12, detail = "Plot 10")
       
       # Plot portfolios for group 2
       portfolios_grp2 %>%
-        ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "firebrick", stroke := "") %>%
+        ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_points() %>%
+        layer_text(text := ~rownames(portfolios_grp2), fill := "firebrick", fontSize := 7, dx := -10, dy := -5) %>%
+        layer_points(fillOpacity := 0, stroke := "firebrick") %>%
         bind_shiny("ggvis_11")
       incProgress(amount = 1/12, detail = "Plot 11")
   
       # Plot portfolios for group 1 and 2
       portfolios_grp_1_2 %>%
-        ggvis(x = ~disagreement * 100, y = ~value * 100, fill := "darkgray", stroke := "") %>%
+        ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_points() %>%
+        layer_text(text := ~rownames(portfolios_grp_1_2), fill := "darkslateblue", fontSize := 7, dx := -10, dy := -5) %>%
+        layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
         bind_shiny("ggvis_12")
       incProgress(amount = 1/12, detail = "Plot 12")
       
