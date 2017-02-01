@@ -4,12 +4,6 @@ get_alternatives <- function(criterion) {
   c(paste("Alt.", number, letters[1:5], sep = ""), paste("Alt.", number, "p", sep = ""))
 }
 
-# Description of function
-# get_criterion <- function(criterion) {
-#   number <- unlist(criterion_number[[criterion]])
-#   paste("wc", number, ".car", sep = "")
-# }
-
 disagreement <- function(criterion, results) {
   results <- results@data
 
@@ -18,52 +12,52 @@ disagreement <- function(criterion, results) {
   alternatives <- get_alternatives(criterion)
   alternatives_nr <- c(paste(alternatives, ".nr", sep = ""))
   alternatives_cop <- c(paste(alternatives, ".cop", sep = ""))
-  alternatives_nrcon <- c(paste(alternatives, ".nrcon", sep = ""))
-  alternatives_nrpro <- c(paste(alternatives, ".nrpro", sep = ""))
+  alternatives_nr_con <- c(paste(alternatives, ".nrcon", sep = ""))
+  alternatives_nr_pro <- c(paste(alternatives, ".nrpro", sep = ""))
   alternatives_cval <- c(paste(alternatives, ".cval", sep = ""))
   alternatives_pval <- c(paste(alternatives, ".pval", sep = ""))
   alternatives_val <- c(paste(alternatives, ".val", sep = ""))
-  resultNames.vec <- c()
-  resultValues.vec <- c()
-  tmpresults.vec <- c()
-  tmpnames.vec <- c()
+  result_names <- c()
+  result_values <- c()
+  tmp_results <- c()
+  tmp_names <- c()
   
   for (i in 1:(length(alternatives) - 1)) {
     
     # Summarize nr, con, and pro 
-    tmpnames.vec <- c(tmpnames.vec, c(alternatives_nrcon[i]))
-    tmpresults.vec <- c(tmpresults.vec, c(sum(results[, alternatives_cop[i]] == 0)))
-    tmpnames.vec <- c(tmpnames.vec, c(alternatives_nrpro[i]))
-    tmpresults.vec <- c(tmpresults.vec, c(sum(results[, alternatives_cop[i]] == 1)))
-    tmpnames.vec <- c(tmpnames.vec, c(alternatives_nr[i]))
-    tmpresults.vec <- c(tmpresults.vec, c(sum(sum(results[, alternatives_cop[i]] == 0), sum(results[, alternatives_cop[i]] == 1))))
-    names(tmpresults.vec) <- tmpnames.vec
+    tmp_names <- c(tmp_names, c(alternatives_nr_con[i]))
+    tmp_results <- c(tmp_results, c(sum(results[, alternatives_cop[i]] == 0)))
+    tmp_names <- c(tmp_names, c(alternatives_nr_pro[i]))
+    tmp_results <- c(tmp_results, c(sum(results[, alternatives_cop[i]] == 1)))
+    tmp_names <- c(tmp_names, c(alternatives_nr[i]))
+    tmp_results <- c(tmp_results, c(sum(sum(results[, alternatives_cop[i]] == 0), sum(results[, alternatives_cop[i]] == 1))))
+    names(tmp_results) <- tmp_names
   
-    totNum <- tmpresults.vec[alternatives_nr[i]]
-    lambda <- 1 / totNum
+    tot_num <- tmp_results[alternatives_nr[i]]
+    lambda <- 1 / tot_num
     
     # Con index
-    resultNames.vec <- c(resultNames.vec, c(alternatives_cval[i]))
-    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_cval[i]]) * lambda))
+    result_names <- c(result_names, c(alternatives_cval[i]))
+    result_values <- c(result_values, c(sum(results[, alternatives_cval[i]]) * lambda))
     
     # Pro index
-    resultNames.vec <- c(resultNames.vec, c(alternatives_pval[i]))
-    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_pval[i]]) * lambda))
+    result_names <- c(result_names, c(alternatives_pval[i]))
+    result_values <- c(result_values, c(sum(results[, alternatives_pval[i]]) * lambda))
     
     # Avg value
-    resultNames.vec <- c(resultNames.vec, c(alternatives_val[i]))
-    resultValues.vec <- c(resultValues.vec, c(sum(results[, alternatives_val[i]]) * lambda))
+    result_names <- c(result_names, c(alternatives_val[i]))
+    result_values <- c(result_values, c(sum(results[, alternatives_val[i]]) * lambda))
     
     # Number of members of the con group
-    resultNames.vec <- c(resultNames.vec, c(alternatives_nrcon[i]))
-    resultValues.vec <- c(resultValues.vec, c(tmpresults.vec[alternatives_nrcon[i]]))
+    result_names <- c(result_names, c(alternatives_nr_con[i]))
+    result_values <- c(result_values, c(tmp_results[alternatives_nr_con[i]]))
     
     # Number of members of the pro group
-    resultNames.vec <- c(resultNames.vec, c(alternatives_nrpro[i]))
-    resultValues.vec <- c(resultValues.vec, c(tmpresults.vec[alternatives_nrpro[i]]))
+    result_names <- c(result_names, c(alternatives_nr_pro[i]))
+    result_values <- c(result_values, c(tmp_results[alternatives_nr_pro[i]]))
     
   }
   
-  names(resultValues.vec) <- resultNames.vec
-  return(resultValues.vec)
+  names(result_values) <- result_names
+  return(result_values)
 }

@@ -161,7 +161,7 @@ shinyServer(function(input, output, session) {
       des_group_1 <- data.frame(des_group_1)
       des_group_2 <- data.frame(des_group_2)
       
-      # Plot histogram of group 1
+      # Plot values group 1
       des_group_1 %>%
         ggvis(x = ~des_group_1, fill := "steelblue", stroke := "") %>%
         scale_numeric(property = "x", domain = c(0, 14)) %>%
@@ -173,7 +173,7 @@ shinyServer(function(input, output, session) {
         bind_shiny("ggvis_1")
       incProgress(amount = 1/12, detail = "Plot 1")
       
-      # Plot histogram of group 2
+      # Plot values group 2
       des_group_2 %>%
         ggvis(x = ~des_group_2, fill := "firebrick", stroke := "") %>%
         scale_numeric(property = "x", domain = c(0, 14)) %>%
@@ -185,7 +185,7 @@ shinyServer(function(input, output, session) {
         bind_shiny("ggvis_2")
       incProgress(amount = 1/12, detail = "Plot 2")
       
-      # Plot histogram of group 1 and 2
+      # Plot total values
       des_group_1_2 %>%
         ggvis(~., fill := "darkslateblue", stroke := "") %>%
         scale_numeric(property = "x", domain = c(0, 14)) %>%
@@ -203,17 +203,17 @@ shinyServer(function(input, output, session) {
       results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
       results.vec2 <- disagreement(tdata$theme(), tdata$group_2_filter_1())
       
-      # Calculate mean weighted values for group 1
+      # Calculate group 1 mean weighted values
       val_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
         return(results.vec1[x + 2])
       })
       
-      # Calculate mean weighted values for group 2
+      # Calculate group 2 mean weighted values 
       val_group_2 <- lapply(seq(1, 25, by = 5), function(x) {
         return(results.vec2[x + 2])
       })
       
-      # Calculate mean weighted values for group 1 and 2
+      # Calculate total mean weighted values
       val_group_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
         n_grp1 <- (results.vec1[x + 3] + results.vec1[x + 4])
         n_grp2 <- (results.vec2[x + 3] + results.vec2[x + 4])
@@ -242,7 +242,7 @@ shinyServer(function(input, output, session) {
       # Bind data frames together
       val_data <- bind_cols(alternatives, val_group_1, val_group_2, val_group_1_2)
       
-      # Plot bar chart for group 1
+      # Plot group 1 mean weighted values
       val_data %>%
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
@@ -252,7 +252,7 @@ shinyServer(function(input, output, session) {
         bind_shiny("ggvis_4")
       incProgress(amount = 1/12, detail = "Plot 4")
       
-      # Plot bar chart for group 2
+      # Plot group 2 mean weighted values 
       val_data %>%
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
@@ -262,7 +262,7 @@ shinyServer(function(input, output, session) {
         bind_shiny("ggvis_5")
       incProgress(amount = 1/12, detail = "Plot 5")
       
-      # Plot bar chart for group 1 and 2 
+      # Plot total mean weighted values 
       val_data %>%
         ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
@@ -274,7 +274,7 @@ shinyServer(function(input, output, session) {
     
       ### DISAGREEMENTS ##################################################################################################
       
-      # Disagreement within group 1
+      # Calculate disagreement within group 1
       dis_within_1 <- lapply(seq(1, 25, by = 5), function(x) {
         cGroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
         pGroupWeight <- results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
@@ -289,7 +289,7 @@ shinyServer(function(input, output, session) {
         return(res)
       })
       
-      # Disagreement within group 2
+      # Calculate disagreement within group 2
       dis_within_2 <- lapply(seq(1, 25, by = 5), function(x) {
         cGroupWeight <- results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
         pGroupWeight <- results.vec2[x + 4] / (results.vec2[x + 3] + results.vec2[x + 4])
@@ -304,8 +304,8 @@ shinyServer(function(input, output, session) {
         return(res)
       })
       
-      # Disagreement between group 1 and group 2
-      dis_between_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
+      # Calculate total disagreement
+      dis_total <- lapply(seq(1, 25, by = 5), function(x) {
         c1GroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
         p1GroupWeight <- results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
         c2GroupWeight <- results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
@@ -325,10 +325,10 @@ shinyServer(function(input, output, session) {
         dDEij <- (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2))/2
       })
       
-      # Flatten lists and transform them into data frames
+      # Flatten list and coerce to data frame
       dis_within_1 <- flatten_dbl(dis_within_1) %>% data.frame()
       dis_within_2 <- flatten_dbl(dis_within_2) %>% data.frame()
-      dis_between_1_2 <- flatten_dbl(dis_between_1_2) %>% data.frame()
+      dis_total <- flatten_dbl(dis_total) %>% data.frame()
       
       # Create row names
       alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
@@ -337,12 +337,12 @@ shinyServer(function(input, output, session) {
       colnames(alternatives) <- "x"
       colnames(dis_within_1) <- "y1"
       colnames(dis_within_2) <- "y2"
-      colnames(dis_between_1_2) <- "y3"
+      colnames(dis_total) <- "y3"
       
       # Bind data frames together
-      dis_data <- bind_cols(alternatives, dis_within_1, dis_within_2, dis_between_1_2)
+      dis_data <- bind_cols(alternatives, dis_within_1, dis_within_2, dis_total)
       
-      # Plot bar chart for group 1
+      # Plot group 1 disagreement 
       dis_data %>%
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
@@ -352,7 +352,7 @@ shinyServer(function(input, output, session) {
         bind_shiny("ggvis_7")
       incProgress(amount = 1/12, detail = "Plot 7")
       
-      # Plot bar chart for group 2
+      # Plot group 2 disagreement 
       dis_data %>%
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
@@ -362,7 +362,7 @@ shinyServer(function(input, output, session) {
         bind_shiny("ggvis_8")
       incProgress(amount = 1/12, detail = "Plot 8")
       
-      # Plot bar chart for group 1 and 2
+      # Plot total disagreement
       dis_data %>%
         ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
@@ -377,107 +377,107 @@ shinyServer(function(input, output, session) {
       # Generate portfolios of actions
       # Prepare data for optimization
       # Unlist values and disagreements
-      val_group_1_lst <- unlist(val_group_1)
-      val_group_2_lst <- unlist(val_group_2)
-      val_group_1_2_lst <- unlist(val_group_1_2)
-      dis_within_1_lst <- unlist(dis_within_1)
-      dis_within_2_lst <- unlist(dis_within_2)
-      dis_between_1_2_lst <- unlist(dis_between_1_2)
+      val_group_1 <- unlist(val_group_1)
+      val_group_2 <- unlist(val_group_2)
+      val_group_1_2 <- unlist(val_group_1_2)
+      dis_group_1 <- unlist(dis_within_1)
+      dis_group_2 <- unlist(dis_within_2)
+      dis_total <- unlist(dis_total)
       actions <- c("A1","A2","A3","A4","A5") # TODO! Change to the real names of the actions!
       
       # Set initial budget constraint
-      budget_grp1 = sum(dis_within_1_lst)
-      budget_grp2 = sum(dis_within_2_lst)
-      budget_grp1_2 = sum(dis_between_1_2_lst)
+      budget_group_1 = sum(dis_group_1)
+      budget_group_2 = sum(dis_group_2)
+      budget_total = sum(dis_total)
     
       # Generate portfolios
       
       # Group 1 positive
-      portfolios_grp1_pos <- getAllPortfolios(
+      portfolios_group_1_pos <- get_all_portfolios(
         actions = actions, 
-        values = val_group_1_lst, 
-        disagreements = dis_within_1_lst, 
-        initialBudgetConstraint = budget_grp1, 
+        values = val_group_1, 
+        disagreements = dis_group_1, 
+        initial_budget_constraint = budget_group_1, 
         direction = "max")
       
       # Group 1 negative
-      portfolios_grp1_neg <- getAllPortfolios(
+      portfolios_group_1_neg <- get_all_portfolios(
         actions = actions, 
-        values = val_group_1_lst, 
-        disagreements = dis_within_1_lst, 
-        initialBudgetConstraint = budget_grp1, 
+        values = val_group_1, 
+        disagreements = dis_group_1, 
+        initial_budget_constraint = budget_group_1, 
         direction = "min")
       
       # Group 2 positive
-      portfolios_grp2_pos <- getAllPortfolios(
+      portfolios_group_2_pos <- get_all_portfolios(
         actions = actions, 
-        values = val_group_2_lst, 
-        disagreements = dis_within_2_lst, 
-        initialBudgetConstraint = budget_grp2, 
+        values = val_group_2, 
+        disagreements = dis_group_2, 
+        initial_budget_constraint = budget_group_2, 
         direction = "max")
       
       # Group 2 negative
-      portfolios_grp2_neg <- getAllPortfolios(
+      portfolios_group_2_neg <- get_all_portfolios(
         actions = actions, 
-        values = val_group_2_lst, 
-        disagreements = dis_within_2_lst, 
-        initialBudgetConstraint = budget_grp2, 
+        values = val_group_2, 
+        disagreements = dis_group_2, 
+        initial_budget_constraint = budget_group_2, 
         direction = "min")
       
       # Group 1 and 2 positive
-      portfolios_grp_1_2_pos <- getAllPortfolios(
+      portfolios_total_pos <- get_all_portfolios(
         actions = actions, 
-        values = val_group_1_2_lst, 
-        disagreements = dis_between_1_2_lst, 
-        initialBudgetConstraint = budget_grp1_2, 
+        values = val_group_1_2, 
+        disagreements = dis_total, 
+        initial_budget_constraint = budget_total, 
         direction = "max")
       
       # Group 1 and 2 negative
-      portfolios_grp_1_2_neg <- getAllPortfolios(
+      portfolios_total_neg <- get_all_portfolios(
         actions = actions, 
-        values = val_group_1_2_lst, 
-        disagreements = dis_between_1_2_lst, 
-        initialBudgetConstraint = budget_grp1_2, 
+        values = val_group_1_2, 
+        disagreements = dis_total, 
+        initial_budget_constraint = budget_total, 
         direction = "min")
       
       # Create a combined list of positive and negative portfolios
-      portfolios_grp1_neg_rev <- portfolios_grp1_neg[rev(rownames(portfolios_grp1_neg)),]
-      portfolios_grp2_neg_rev <- portfolios_grp2_neg[rev(rownames(portfolios_grp2_neg)),]
-      portfolios_grp_1_2_neg_rev <- portfolios_grp_1_2_neg[rev(rownames(portfolios_grp_1_2_neg)),]
+      portfolios_group_1_neg_rev <- portfolios_group_1_neg[rev(rownames(portfolios_group_1_neg)),]
+      portfolios_group_2_neg_rev <- portfolios_group_2_neg[rev(rownames(portfolios_group_2_neg)),]
+      portfolios_total_neg_rev <- portfolios_total_neg[rev(rownames(portfolios_total_neg)),]
       
-      portfolios_grp1 <- rbind(portfolios_grp1_pos, portfolios_grp1_neg_rev)
-      portfolios_grp2 <- rbind(portfolios_grp2_pos, portfolios_grp2_neg_rev)
-      portfolios_grp_1_2 <- rbind(portfolios_grp_1_2_pos, portfolios_grp_1_2_neg_rev)
+      portfolios_group_1 <- rbind(portfolios_group_1_pos, portfolios_group_1_neg_rev)
+      portfolios_group_2 <- rbind(portfolios_group_2_pos, portfolios_group_2_neg_rev)
+      portfolios_total <- rbind(portfolios_total_pos, portfolios_total_neg_rev)
       
-      # Plot portfolios for group 1
-      portfolios_grp1 %>%
+      # Plot group 1 portfolios
+      portfolios_group_1 %>%
         ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_grp1), fill := "steelblue", fontSize := 8, dx := -10, dy := -5) %>%
+        layer_text(text := ~rownames(portfolios_group_1), fill := "steelblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "steelblue") %>%
         bind_shiny("ggvis_10")
       incProgress(amount = 1/12, detail = "Plot 10")
       
-      # Plot portfolios for group 2
-      portfolios_grp2 %>%
+      # Plot group 2 portfolios
+      portfolios_group_2 %>%
         ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_grp2), fill := "firebrick", fontSize := 8, dx := -10, dy := -5) %>%
+        layer_text(text := ~rownames(portfolios_group_2), fill := "firebrick", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "firebrick") %>%
         bind_shiny("ggvis_11")
       incProgress(amount = 1/12, detail = "Plot 11")
   
-      # Plot portfolios for group 1 and 2
-      portfolios_grp_1_2 %>%
+      # Plot total portfolios
+      portfolios_total %>%
         ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_grp_1_2), fill := "darkslateblue", fontSize := 8, dx := -10, dy := -5) %>%
+        layer_text(text := ~rownames(portfolios_total), fill := "darkslateblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
         bind_shiny("ggvis_12")
       incProgress(amount = 1/12, detail = "Plot 12")
