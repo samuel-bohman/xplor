@@ -234,17 +234,17 @@ shinyServer(function(input, output, session) {
       alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
       
       # Add column names to data frames
-      colnames(alternatives) <- "alternatives"
-      colnames(val_group_1) <- "val_group_1"
-      colnames(val_group_2) <- "val_group_2"
-      colnames(val_group_1_2) <- "val_group_1_2"
+      colnames(alternatives) <- "x"
+      colnames(val_group_1) <- "y1"
+      colnames(val_group_2) <- "y2"
+      colnames(val_group_1_2) <- "y3"
       
       # Bind data frames together
       val_data <- bind_cols(alternatives, val_group_1, val_group_2, val_group_1_2)
       
       # Plot bar chart for group 1
       val_data %>%
-        ggvis(x = ~alternatives, y = ~val_group_1 * 100, fill := "steelblue", stroke := "") %>%
+        ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
@@ -254,7 +254,7 @@ shinyServer(function(input, output, session) {
       
       # Plot bar chart for group 2
       val_data %>%
-        ggvis(x = ~alternatives, y = ~val_group_2 * 100, fill := "firebrick", stroke := "") %>%
+        ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
@@ -264,7 +264,7 @@ shinyServer(function(input, output, session) {
       
       # Plot bar chart for group 1 and 2 
       val_data %>%
-        ggvis(x = ~alternatives, y = ~val_group_1_2 * 100, fill := "darkslateblue", stroke := "") %>%
+        ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
@@ -334,17 +334,17 @@ shinyServer(function(input, output, session) {
       alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
       
       # Add column names to data frames
-      colnames(alternatives) <- "alternatives"
-      colnames(dis_within_1) <- "dis_within_1"
-      colnames(dis_within_2) <- "dis_within_2"
-      colnames(dis_between_1_2) <- "dis_between_1_2"
+      colnames(alternatives) <- "x"
+      colnames(dis_within_1) <- "y1"
+      colnames(dis_within_2) <- "y2"
+      colnames(dis_between_1_2) <- "y3"
       
       # Bind data frames together
       dis_data <- bind_cols(alternatives, dis_within_1, dis_within_2, dis_between_1_2)
       
       # Plot bar chart for group 1
       dis_data %>%
-        ggvis(x = ~alternatives, y = ~dis_within_1 * 100, fill := "steelblue", stroke := "") %>%
+        ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
@@ -354,7 +354,7 @@ shinyServer(function(input, output, session) {
       
       # Plot bar chart for group 2
       dis_data %>%
-        ggvis(x = ~alternatives, y = ~dis_within_2 * 100, fill := "firebrick", stroke := "") %>%
+        ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
@@ -364,7 +364,7 @@ shinyServer(function(input, output, session) {
       
       # Plot bar chart for group 1 and 2
       dis_data %>%
-        ggvis(x = ~alternatives, y = ~dis_between_1_2 * 100, fill := "darkslateblue", stroke := "") %>%
+        ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
