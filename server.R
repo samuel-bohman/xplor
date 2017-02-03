@@ -449,6 +449,12 @@ shinyServer(function(input, output, session) {
       portfolios_group_2 <- rbind(portfolios_group_2_pos, portfolios_group_2_neg_rev)
       portfolios_total <- rbind(portfolios_total_pos, portfolios_total_neg_rev)
       
+      tooltip_port <- function(x) {
+        if (is.null(x)) return(NULL)
+        x <- x[1:2]
+        paste0(c("Disagreement", "Value"), ": ", format(x = x, digits = 2), collapse = "<br />")
+      }
+      
       # Plot group 1 portfolios
       portfolios_group_1 %>%
         ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
@@ -457,6 +463,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_text(text := ~rownames(portfolios_group_1), fill := "steelblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "steelblue") %>%
+        add_tooltip(html = tooltip_port, on = "hover") %>%
         bind_shiny("ggvis_10")
       incProgress(amount = 1/12, detail = "Plot 10")
       
@@ -468,6 +475,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_text(text := ~rownames(portfolios_group_2), fill := "firebrick", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "firebrick") %>%
+        add_tooltip(html = tooltip_port, on = "hover") %>%
         bind_shiny("ggvis_11")
       incProgress(amount = 1/12, detail = "Plot 11")
   
@@ -479,6 +487,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_text(text := ~rownames(portfolios_total), fill := "darkslateblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
+        add_tooltip(html = tooltip_port, on = "hover") %>%
         bind_shiny("ggvis_12")
       incProgress(amount = 1/12, detail = "Plot 12")
       
