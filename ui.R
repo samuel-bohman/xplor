@@ -14,7 +14,7 @@ shinyUI(
                   ggvisOutput("ggvis_1"),
                   "Group 2",
                   ggvisOutput("ggvis_2"),
-                  "Group 1 and 2",
+                  "Total",
                   ggvisOutput("ggvis_3")
                 ),
                 tabPanel(title = "Value",
@@ -22,7 +22,7 @@ shinyUI(
                   ggvisOutput("ggvis_4"),
                   "Group 2",
                   ggvisOutput("ggvis_5"),
-                  "Group 1 and 2",
+                  "Total",
                   ggvisOutput("ggvis_6")
                 ),
                 tabPanel(title = "Dis.",
@@ -38,7 +38,7 @@ shinyUI(
                   ggvisOutput("ggvis_10"),
                   "Group 2",
                   ggvisOutput("ggvis_11"),
-                  "Group 1 and 2",
+                  "Total",
                   ggvisOutput("ggvis_12")
                 )
               )
