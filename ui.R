@@ -17,7 +17,7 @@ shinyUI(
                   "Group 1 and 2",
                   ggvisOutput("ggvis_3")
                 ),
-                tabPanel(title = "MWV",
+                tabPanel(title = "Value",
                   "Group 1",
                   ggvisOutput("ggvis_4"),
                   "Group 2",

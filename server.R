@@ -246,7 +246,7 @@ shinyServer(function(input, output, session) {
       val_data %>%
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
-        add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
+        add_axis(type = "y", title = "Value", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_4")
@@ -256,7 +256,7 @@ shinyServer(function(input, output, session) {
       val_data %>%
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
-        add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
+        add_axis(type = "y", title = "Value", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_5")
@@ -266,7 +266,7 @@ shinyServer(function(input, output, session) {
       val_data %>%
         ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE) %>%
-        add_axis(type = "y", title = "Mean Weighted Value", format = "d", grid = FALSE, title_offset = 40) %>%
+        add_axis(type = "y", title = "Value", format = "d", grid = FALSE, title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny("ggvis_6")
@@ -374,16 +374,14 @@ shinyServer(function(input, output, session) {
       
       ### PORTFOLIOS ##################################################################################################
       
-      # Generate portfolios of actions
-      # Prepare data for optimization
-      # Unlist values and disagreements
+      # Unlist values
       val_group_1 <- unlist(val_group_1)
       val_group_2 <- unlist(val_group_2)
       val_group_1_2 <- unlist(val_group_1_2)
       dis_group_1 <- unlist(dis_within_1)
       dis_group_2 <- unlist(dis_within_2)
       dis_total <- unlist(dis_total)
-      actions <- c("A1","A2","A3","A4","A5") # TODO! Change to the real names of the actions!
+      actions <- c("A1","A2","A3","A4","A5")
       
       # Set initial budget constraint
       budget_group_1 = sum(dis_group_1)
@@ -424,7 +422,7 @@ shinyServer(function(input, output, session) {
         initial_budget_constraint = budget_group_2, 
         direction = "min")
       
-      # Group 1 and 2 positive
+      # Group total positive
       portfolios_total_pos <- get_all_portfolios(
         actions = actions, 
         values = val_group_1_2, 
@@ -432,7 +430,7 @@ shinyServer(function(input, output, session) {
         initial_budget_constraint = budget_total, 
         direction = "max")
       
-      # Group 1 and 2 negative
+      # Group total negative
       portfolios_total_neg <- get_all_portfolios(
         actions = actions, 
         values = val_group_1_2, 
@@ -440,54 +438,78 @@ shinyServer(function(input, output, session) {
         initial_budget_constraint = budget_total, 
         direction = "min")
       
-      # Create a combined list of positive and negative portfolios
+      # Combine and prepare data frames
       portfolios_group_1_neg_rev <- portfolios_group_1_neg[rev(rownames(portfolios_group_1_neg)),]
       portfolios_group_2_neg_rev <- portfolios_group_2_neg[rev(rownames(portfolios_group_2_neg)),]
       portfolios_total_neg_rev <- portfolios_total_neg[rev(rownames(portfolios_total_neg)),]
       
       portfolios_group_1 <- rbind(portfolios_group_1_pos, portfolios_group_1_neg_rev)
-      portfolios_group_2 <- rbind(portfolios_group_2_pos, portfolios_group_2_neg_rev)
-      portfolios_total <- rbind(portfolios_total_pos, portfolios_total_neg_rev)
+      portfolios_group_1 <- head(portfolios_group_1, -1)
+      portfolios_group_1$id <- 1:nrow(portfolios_group_1)
       
-      tooltip_port <- function(x) {
+      portfolios_group_2 <- rbind(portfolios_group_2_pos, portfolios_group_2_neg_rev)
+      portfolios_group_2 <- head(portfolios_group_2, -1)
+      portfolios_group_2$id <- 1:nrow(portfolios_group_2)
+      
+      portfolios_total <- rbind(portfolios_total_pos, portfolios_total_neg_rev)
+      portfolios_total <- head(portfolios_total, -1)
+      portfolios_total$id <- 1:nrow(portfolios_total)
+      
+      # Functions for tooltips
+      tooltip_1 <- function(x) {
         if (is.null(x)) return(NULL)
-        x <- x[1:2]
-        paste0(c("Disagreement", "Value"), ": ", format(x = x, digits = 2), collapse = "<br />")
+        row <- portfolios_group_1[portfolios_group_1$id == x$id, ]
+        paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
+      }
+      
+      tooltip_2 <- function(x) {
+        if (is.null(x)) return(NULL)
+        row <- portfolios_group_2[portfolios_group_2$id == x$id, ]
+        paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
+      }
+      
+      tooltip_total <- function(x) {
+        if (is.null(x)) return(NULL)
+        row <- portfolios_total[portfolios_total$id == x$id, ]
+        paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
       }
       
       # Plot group 1 portfolios
       portfolios_group_1 %>%
-        ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
+        ggvis(x = ~disagreement * 100, y = ~value * 100, key := ~id) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
         layer_text(text := ~rownames(portfolios_group_1), fill := "steelblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "steelblue") %>%
-        add_tooltip(html = tooltip_port, on = "hover") %>%
+        layer_lines(stroke := "steelblue") %>%
+        add_tooltip(html = tooltip_1, on = "hover") %>%
         bind_shiny("ggvis_10")
       incProgress(amount = 1/12, detail = "Plot 10")
       
       # Plot group 2 portfolios
       portfolios_group_2 %>%
-        ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
+        ggvis(x = ~disagreement * 100, y = ~value * 100, key := ~id) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
         layer_text(text := ~rownames(portfolios_group_2), fill := "firebrick", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "firebrick") %>%
-        add_tooltip(html = tooltip_port, on = "hover") %>%
+        layer_lines(stroke := "firebrick") %>%
+        add_tooltip(html = tooltip_2, on = "hover") %>%
         bind_shiny("ggvis_11")
       incProgress(amount = 1/12, detail = "Plot 11")
   
       # Plot total portfolios
       portfolios_total %>%
-        ggvis(x = ~disagreement * 100, y = ~value * 100) %>%
+        ggvis(x = ~disagreement * 100, y = ~value * 100, key := ~id) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
         layer_text(text := ~rownames(portfolios_total), fill := "darkslateblue", fontSize := 8, dx := -10, dy := -5) %>%
         layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
-        add_tooltip(html = tooltip_port, on = "hover") %>%
+        layer_lines(stroke := "darkslateblue") %>%
+        add_tooltip(html = tooltip_total, on = "hover") %>%
         bind_shiny("ggvis_12")
       incProgress(amount = 1/12, detail = "Plot 12")
       
