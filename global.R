@@ -11,6 +11,7 @@ library(purrr)
 library(stringr)
 library(RMySQL)
 library(lpSolveAPI)
+library(DBI)
 
 source("tabset.R")
 source("helper.R")
