@@ -444,22 +444,25 @@ shinyServer(function(input, output, session) {
       portfolios_total_neg_rev <- portfolios_total_neg[rev(rownames(portfolios_total_neg)),]
       
       portfolios_group_1 <- rbind(portfolios_group_1_pos, portfolios_group_1_neg_rev)
-      portfolios_group_1 <- head(portfolios_group_1, -1)
+      # portfolios_group_1 <- head(portfolios_group_1, -1)
       portfolios_group_1$id <- 1:nrow(portfolios_group_1)
       portfolios_group_1$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_group_1))
       portfolios_group_1$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_group_1))
+      print(portfolios_group_1)
 
       portfolios_group_2 <- rbind(portfolios_group_2_pos, portfolios_group_2_neg_rev)
-      portfolios_group_2 <- head(portfolios_group_2, -1)
+      # portfolios_group_2 <- head(portfolios_group_2, -1)
       portfolios_group_2$id <- 1:nrow(portfolios_group_2)
       portfolios_group_2$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_group_2))
       portfolios_group_2$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_group_2))
+      print(portfolios_group_2)
       
       portfolios_total <- rbind(portfolios_total_pos, portfolios_total_neg_rev)
-      portfolios_total <- head(portfolios_total, -1)
+      # portfolios_total <- head(portfolios_total, -1)
       portfolios_total$id <- 1:nrow(portfolios_total)
       portfolios_total$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_total))
       portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_total))
+      print(portfolios_total)
       
       # Functions for tooltips
       tooltip_1 <- function(x) {
@@ -486,9 +489,9 @@ shinyServer(function(input, output, session) {
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_group_1), fill := "steelblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
+        layer_text(text := ~id, fill := "steelblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         layer_points(fillOpacity := 0, stroke := "steelblue") %>%
-        layer_lines(stroke := "steelblue") %>%
+        layer_paths(stroke := "steelblue") %>%
         add_tooltip(html = tooltip_1, on = "hover") %>%
         bind_shiny("ggvis_10")
       incProgress(amount = 1/12, detail = "Plot 10")
@@ -499,9 +502,9 @@ shinyServer(function(input, output, session) {
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_group_2), fill := "firebrick", fontSize := 8, dx := ~dx, dy := ~dy) %>%
+        layer_text(text := ~id, fill := "firebrick", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         layer_points(fillOpacity := 0, stroke := "firebrick") %>%
-        layer_lines(stroke := "firebrick") %>%
+        layer_paths(stroke := "firebrick") %>%
         add_tooltip(html = tooltip_2, on = "hover") %>%
         bind_shiny("ggvis_11")
       incProgress(amount = 1/12, detail = "Plot 11")
@@ -512,9 +515,9 @@ shinyServer(function(input, output, session) {
         add_axis(type = "x", title = "Disagreement", grid = FALSE) %>%
         add_axis(type = "y", title = "Value", grid = FALSE) %>%
         set_options(width = "auto", height = "200") %>%
-        layer_text(text := ~rownames(portfolios_total), fill := "darkslateblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
+        layer_text(text := ~id, fill := "darkslateblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
-        layer_lines(stroke := "darkslateblue") %>%
+        layer_paths(stroke := "darkslateblue") %>%
         add_tooltip(html = tooltip_total, on = "hover") %>%
         bind_shiny("ggvis_12")
       incProgress(amount = 1/12, detail = "Plot 12")

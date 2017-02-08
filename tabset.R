@@ -6,7 +6,7 @@ tabset_UI <- function(id) {
       tabsetPanel(
         type = "tabs",
         tabPanel(title = "Theme",
-          selectInput(ns("theme"), label = "Theme", choices = theme, selected = theme[1]),
+          selectInput(ns("theme"), label = "Theme", choices = theme, selected = theme[2]), 
           uiOutput(ns("alternatives")),
           selectInput(ns("colorpal"), label = "Palette", choices = rownames(brewer.pal.info[1:9, ]), selected = "RdYlGn")
         ),
