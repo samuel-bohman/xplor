@@ -1,5 +1,5 @@
 shinyUI(
-  navbarPage(title = "xplor", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
+  navbarPage(title = "Upplands Väsby Explorer", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
@@ -11,38 +11,46 @@ shinyUI(
               tabsetPanel(
                 tabPanel(title = "Desc.",
                   "Group 1",
-                  ggvisOutput("ggvis_1"),
+                  ggvisOutput(plot_id = "ggvis_1"),
                   "Group 2",
-                  ggvisOutput("ggvis_2"),
+                  ggvisOutput(plot_id = "ggvis_2"),
                   "Total",
-                  ggvisOutput("ggvis_3")
+                  ggvisOutput(plot_id = "ggvis_3")
                 ),
                 tabPanel(title = "Value",
                   "Group 1",
-                  ggvisOutput("ggvis_4"),
+                  ggvisOutput(plot_id = "ggvis_4"),
                   "Group 2",
-                  ggvisOutput("ggvis_5"),
+                  ggvisOutput(plot_id = "ggvis_5"),
                   "Total",
-                  ggvisOutput("ggvis_6")
+                  ggvisOutput(plot_id = "ggvis_6")
                 ),
                 tabPanel(title = "Dis.",
                   "Group 1",
-                  ggvisOutput("ggvis_7"),
+                  ggvisOutput(plot_id = "ggvis_7"),
                   "Group 2",
-                  ggvisOutput("ggvis_8"),
+                  ggvisOutput(plot_id = "ggvis_8"),
                   "Between group 1 and 2",
-                  ggvisOutput("ggvis_9")
+                  ggvisOutput(plot_id = "ggvis_9")
                 ),
                 tabPanel(title = "Port.",
                   "Group 1",
-                  ggvisOutput("ggvis_10"),
+                  ggvisOutput(plot_id = "ggvis_10"),
                   "Group 2",
-                  ggvisOutput("ggvis_11"),
+                  ggvisOutput(plot_id = "ggvis_11"),
                   "Total",
-                  ggvisOutput("ggvis_12")
+                  ggvisOutput(plot_id = "ggvis_12")
                 )
               )
             )
+          )
+        ),
+        wellPanel(
+          fluidRow(
+            column(width = 3, ggvisOutput(plot_id = "mtcars")),
+            column(width = 3, ggvisOutput(plot_id = "mtcars2")),
+            column(width = 3, ggvisOutput(plot_id = "mtcars3")),
+            column(width = 3, ggvisOutput(plot_id = "mtcars4"))
           )
         )
       )
