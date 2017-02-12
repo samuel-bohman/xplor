@@ -1,0 +1,25 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 13
+    ID Integer ;
+    Klass Integer ;
+    Klass_förklaring Char (30) ;
+    Z1 Float ;
+    Z2 Float ;
+    Text Char (30) ;
+    om_1 Char (30) ;
+    om_2 Char (30) ;
+    om_3 Char (30) ;
+    om_4 Char (30) ;
+    Socken Char (100) ;
+    Ursprungsdatum Char (100) ;
+    Namn Char (100) ;
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\MapInfo" = ""
+"\MapInfo\TableID" = "1ec4bfd2-94b4-4a81-b968-2789a6cf0345"
+end_metadata
