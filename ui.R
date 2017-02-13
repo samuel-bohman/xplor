@@ -1,5 +1,5 @@
 shinyUI(
-  navbarPage(title = "Upplands Väsby Explorer", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
+  navbarPage(title = "Upplands Väsby Data Explorer", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
@@ -9,7 +9,7 @@ shinyUI(
           column(width = 3, 
             sidebarPanel(width = 0,
               tabsetPanel(
-                tabPanel(title = "Desc.",
+                tabPanel(title = "Des.",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_1"),
                   "Group 2",
@@ -17,7 +17,7 @@ shinyUI(
                   "Total",
                   ggvisOutput(plot_id = "ggvis_3")
                 ),
-                tabPanel(title = "Value",
+                tabPanel(title = "Val.",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_4"),
                   "Group 2",
@@ -33,7 +33,7 @@ shinyUI(
                   "Between group 1 and 2",
                   ggvisOutput(plot_id = "ggvis_9")
                 ),
-                tabPanel(title = "Port.",
+                tabPanel(title = "Por.",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_10"),
                   "Group 2",
@@ -47,10 +47,11 @@ shinyUI(
         ),
         wellPanel(
           fluidRow(
-            column(width = 3, ggvisOutput(plot_id = "mtcars")),
-            column(width = 3, ggvisOutput(plot_id = "mtcars2")),
-            column(width = 3, ggvisOutput(plot_id = "mtcars3")),
-            column(width = 3, ggvisOutput(plot_id = "mtcars4"))
+            # column(width = 3, plotOutput(outputId = "pyramid_plot")),
+            column(width = 3, ggvisOutput(plot_id = "gender")),
+            column(width = 3, ggvisOutput(plot_id = "age")),
+            column(width = 3, ggvisOutput(plot_id = "occupation"))
+            # column(width = 3, ggvisOutput(plot_id = "education"))
           )
         )
       )
@@ -70,7 +71,7 @@ shinyUI(
       )
     ),
     tabPanel(title = "Report", icon = icon(name = "file-o")),
-    tabPanel(title = "Help", icon = icon(name = "question")),
+    tabPanel(title = "About", icon = icon(name = "question")),
     tabPanel(title = "Code", icon = icon(name = "github"))
   )
 )

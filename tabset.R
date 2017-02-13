@@ -10,7 +10,7 @@ tabset_UI <- function(id) {
           uiOutput(ns("alternatives")),
           selectInput(ns("colorpal"), label = "Palette", choices = rownames(brewer.pal.info[1:9, ]), selected = "RdYlGn")
         ),
-        tabPanel(title = "Group 1",
+        tabPanel(title = "Grp 1",
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[1]]
@@ -29,7 +29,7 @@ tabset_UI <- function(id) {
           checkboxInput(ns("pop1"), label = "Add popups", value = FALSE)
           
         ),
-        tabPanel(title = "Group 2",
+        tabPanel(title = "Grp 2",
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[2]]
