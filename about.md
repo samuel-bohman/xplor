@@ -1,6 +1,10 @@
 # About
 
-Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. Upplands Väsby municipality is a municipality in Stockholm County in east central Sweden, with a population of approximately 40,000. 
+Upplands Väsby Data Explorer is an application for data exploration and visualization built using R.  
+
+## Code
+
+Upplands Väsby Data Explorer is an open source research project. All code and data is available in a public repository on GitHub: https://github.com/samuel-bohman/xplor
 
 ## Credits
 
@@ -37,7 +41,3 @@ Additional R packages used for data manipulation:
   https://CRAN.R-project.org/package=magrittr
 * markdown: JJ Allaire, Jeffrey Horner, Vicent Marti and Natacha Porte (2015). markdown: 'Markdown' Rendering for R. R
   package version 0.7.7. https://CRAN.R-project.org/package=markdown
-  
-## Code
-
-Upplands Väsby Data Explorer is an open source research project. All code and data is available in a public repository on GitHub: https://github.com/samuel-bohman/xplor 
