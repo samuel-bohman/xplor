@@ -71,7 +71,7 @@ shinyUI(
       )
     ),
     tabPanel(title = "Report", icon = icon(name = "file-o")),
-    tabPanel(title = "About", icon = icon(name = "question")),
-    tabPanel(title = "Code", icon = icon(name = "github"))
+    tabPanel(title = "About", icon = icon(name = "question"),
+      includeMarkdown("about.md"))
   )
 )

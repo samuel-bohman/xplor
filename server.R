@@ -226,9 +226,9 @@ shinyServer(function(input, output, session) {
       })
       
       # Flatten lists and transform into data frames
-      val_group_1_df <- flatten_dbl(val_group_1) %>% data.frame()
-      val_group_2_df <- flatten_dbl(val_group_2) %>% data.frame()
-      val_group_1_2_df <- flatten_dbl(val_group_1_2) %>% data.frame()
+      val_group_1_df <- val_group_1 %>% flatten_dbl() %>% data.frame()
+      val_group_2_df <- val_group_2 %>% flatten_dbl() %>% data.frame()
+      val_group_1_2_df <- val_group_1_2 %>% flatten_dbl() %>% data.frame()
       
       # Create row names
       alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
