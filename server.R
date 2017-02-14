@@ -225,28 +225,29 @@ shinyServer(function(input, output, session) {
         return(m_grp_1_2)
       })
       
-      # Flatten lists and transform them into data frames
-      val_group_1 <- flatten_dbl(val_group_1) %>% data.frame()
-      val_group_2 <- flatten_dbl(val_group_2) %>% data.frame()
-      val_group_1_2 <- flatten_dbl(val_group_1_2) %>% data.frame()
+      # Flatten lists and transform into data frames
+      val_group_1_df <- flatten_dbl(val_group_1) %>% data.frame()
+      val_group_2_df <- flatten_dbl(val_group_2) %>% data.frame()
+      val_group_1_2_df <- flatten_dbl(val_group_1_2) %>% data.frame()
       
       # Create row names
       alternatives <- c("a", "b", "c", "d", "e") %>% data.frame() 
       
       # Add column names to data frames
       colnames(alternatives) <- "x"
-      colnames(val_group_1) <- "y1"
-      colnames(val_group_2) <- "y2"
-      colnames(val_group_1_2) <- "y3"
+      colnames(val_group_1_df) <- "y1"
+      colnames(val_group_2_df) <- "y2"
+      colnames(val_group_1_2_df) <- "y3"
       
       # Bind data frames together
-      val_data <- bind_cols(alternatives, val_group_1, val_group_2, val_group_1_2)
+      val_data <- bind_cols(alternatives, val_group_1_df, val_group_2_df, val_group_1_2_df)
       
       # Plot group 1 mean weighted values
       val_data %>%
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
+        scale_numeric(property = "y", domain = c(NA, 10)) %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "Value", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_4")
@@ -275,7 +276,7 @@ shinyServer(function(input, output, session) {
       ### DISAGREEMENTS ##################################################################################################
       
       # Calculate disagreement within group 1
-      dis_within_1 <- lapply(seq(1, 25, by = 5), function(x) {
+      dis_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
         cGroupWeight <- results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
         pGroupWeight <- results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
         conIdx = results.vec1[x]
@@ -290,7 +291,7 @@ shinyServer(function(input, output, session) {
       })
       
       # Calculate disagreement within group 2
-      dis_within_2 <- lapply(seq(1, 25, by = 5), function(x) {
+      dis_group_2 <- lapply(seq(1, 25, by = 5), function(x) {
         cGroupWeight <- results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
         pGroupWeight <- results.vec2[x + 4] / (results.vec2[x + 3] + results.vec2[x + 4])
         conIdx = results.vec2[x]
@@ -326,8 +327,8 @@ shinyServer(function(input, output, session) {
       })
       
       # Flatten list and coerce to data frame
-      dis_within_1 <- flatten_dbl(dis_within_1) %>% data.frame()
-      dis_within_2 <- flatten_dbl(dis_within_2) %>% data.frame()
+      dis_group_1 <- flatten_dbl(dis_group_1) %>% data.frame()
+      dis_group_2 <- flatten_dbl(dis_group_2) %>% data.frame()
       dis_total <- flatten_dbl(dis_total) %>% data.frame()
       
       # Create row names
@@ -335,12 +336,12 @@ shinyServer(function(input, output, session) {
       
       # Add column names to data frames
       colnames(alternatives) <- "x"
-      colnames(dis_within_1) <- "y1"
-      colnames(dis_within_2) <- "y2"
+      colnames(dis_group_1) <- "y1"
+      colnames(dis_group_2) <- "y2"
       colnames(dis_total) <- "y3"
       
       # Bind data frames together
-      dis_data <- bind_cols(alternatives, dis_within_1, dis_within_2, dis_total)
+      dis_data <- bind_cols(alternatives, dis_group_1, dis_group_2, dis_total)
       
       # Plot group 1 disagreement 
       dis_data %>%
@@ -378,8 +379,8 @@ shinyServer(function(input, output, session) {
       val_group_1 <- unlist(val_group_1)
       val_group_2 <- unlist(val_group_2)
       val_group_1_2 <- unlist(val_group_1_2)
-      dis_group_1 <- unlist(dis_within_1)
-      dis_group_2 <- unlist(dis_within_2)
+      dis_group_1 <- unlist(dis_group_1)
+      dis_group_2 <- unlist(dis_group_2)
       dis_total <- unlist(dis_total)
       actions <- c("A1","A2","A3","A4","A5")
       
