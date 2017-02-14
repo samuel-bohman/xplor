@@ -26,6 +26,8 @@ R packages used for web interface and data visualization:
   package version 1.0.1. https://CRAN.R-project.org/package=leaflet
 * ggvis: Winston Chang and Hadley Wickham (2016). ggvis: Interactive Grammar of Graphics. R package version 0.4.3.
   https://CRAN.R-project.org/package=ggvis
+* RColorBrewer: Erich Neuwirth (2014). RColorBrewer: ColorBrewer Palettes. R package version 1.1-2.
+  https://CRAN.R-project.org/package=RColorBrewer
 
 Additional R packages used for data manipulation:
 
