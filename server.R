@@ -440,24 +440,24 @@ shinyServer(function(input, output, session) {
         direction = "min")
       
       # Combine and prepare data frames
-      portfolios_group_1_neg_rev <- portfolios_group_1_neg[rev(rownames(portfolios_group_1_neg)),]
-      portfolios_group_2_neg_rev <- portfolios_group_2_neg[rev(rownames(portfolios_group_2_neg)),]
-      portfolios_total_neg_rev <- portfolios_total_neg[rev(rownames(portfolios_total_neg)),]
+      portfolios_group_1_pos_rev <- portfolios_group_1_pos[rev(rownames(portfolios_group_1_pos)),]
+      portfolios_group_2_pos_rev <- portfolios_group_2_pos[rev(rownames(portfolios_group_2_pos)),]
+      portfolios_total_pos_rev <- portfolios_total_pos[rev(rownames(portfolios_total_pos)),]
       
       # Prepare portfolios for group 1
-      portfolios_group_1 <- rbind(portfolios_group_1_pos, portfolios_group_1_neg_rev)
+      portfolios_group_1 <- rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1,])
       portfolios_group_1$id <- 1:nrow(portfolios_group_1)
       portfolios_group_1$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_group_1))
       portfolios_group_1$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_group_1))
 
       # Prepare portfolios for group 2
-      portfolios_group_2 <- rbind(portfolios_group_2_pos, portfolios_group_2_neg_rev)
+      portfolios_group_2 <- rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1,])
       portfolios_group_2$id <- 1:nrow(portfolios_group_2)
       portfolios_group_2$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_group_2))
       portfolios_group_2$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_group_2))
       
       # Prepare portfolios for total
-      portfolios_total <- rbind(portfolios_total_pos, portfolios_total_neg_rev)
+      portfolios_total <- rbind(portfolios_total_pos_rev, portfolios_total_neg[-1,])
       portfolios_total$id <- 1:nrow(portfolios_total)
       portfolios_total$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_total))
       portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_total))
