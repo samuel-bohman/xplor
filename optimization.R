@@ -1,3 +1,5 @@
+
+
 # Get all efficient portfolios
 get_all_portfolios <- function(actions, values, disagreements, initial_budget_constraint, direction) {
   portfolios <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
@@ -23,7 +25,7 @@ find_all_solutions <- function(actions, values, disagreements, budget_constraint
     lp_model <- create_model(actions, values, disagreements, budget_constraint, direction)
     solutions <- find_solutions(lp_model, actions, disagreements, direction)
     colnames(solutions) <- c(actions, "value", "disagreement")
-    df <- rbind(df, solutions)
+    df <- rbind(solutions, df)
     if (length(unique(as.list(solutions[, 1:length(actions)]))) == 1) {break}
   }
   df
@@ -49,7 +51,6 @@ find_solutions <- function(lp_model, actions, disagreements, direction) {
   rc <- solve(lp_model)
   sols <- list()
   obj0 <- get.objective(lp_model)
-  
   # Find more solutions
   while (TRUE) {
     sol <- round(get.variables(lp_model))
