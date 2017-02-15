@@ -635,6 +635,7 @@ shinyServer(function(input, output, session) {
       age %>%
         ggvis(y = ~Age, x = ~n, fill = ~Group, stroke := "") %>%
         scale_ordinal(property = "fill", range = c("steelblue", "firebrick")) %>%
+        scale_ordinal(property = "y", reverse = TRUE) %>%
         add_axis(type = "x", title = "Count", ticks = 5, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Age", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 45) %>%
         compute_stack(stack_var = ~n, group_var = ~Age) %>%

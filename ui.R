@@ -17,14 +17,14 @@ shinyUI(
                   "Total",
                   ggvisOutput(plot_id = "ggvis_3")
                 ),
-                tabPanel(title = "Val.",
-                  "Group 1",
-                  ggvisOutput(plot_id = "ggvis_4"),
-                  "Group 2",
-                  ggvisOutput(plot_id = "ggvis_5"),
-                  "Total",
-                  ggvisOutput(plot_id = "ggvis_6")
-                ),
+                # tabPanel(title = "Val."
+                # "Group 1",
+                # ggvisOutput(plot_id = "ggvis_4"),
+                # "Group 2",
+                # ggvisOutput(plot_id = "ggvis_5"),
+                # "Total",
+                # ggvisOutput(plot_id = "ggvis_6")
+                # ),
                 tabPanel(title = "Dis.",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_7"),
