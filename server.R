@@ -650,7 +650,7 @@ shinyServer(function(input, output, session) {
         scale_nominal(property = "fill", range = c("steelblue", "firebrick")) %>%
         scale_nominal(property = "y", reverse = TRUE) %>%
         add_axis(type = "x", title = "Count", ticks = 5, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "Occupation", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 80) %>%
+        add_axis(type = "y", title = "Occupation", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 90) %>%
         compute_stack(stack_var = ~n, group_var = ~Occupation) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
