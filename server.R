@@ -611,7 +611,6 @@ shinyServer(function(input, output, session) {
         mutate(Occupation = reorder(Occupation, n)) %>%
         top_n(n = 10, wt = n) %>%
         droplevels()
-      print(occupation)
       
       education <- bind_rows(education_group_1, education_group_2, .id = "Group") %>%
         mutate(Education = reorder(Education.level, n)) %>%
