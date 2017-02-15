@@ -559,21 +559,43 @@ shinyServer(function(input, output, session) {
         count()
       
       occupation_group_1 <- dem_group_1 %>%
+        mutate(Occupation = fct_recode(f = Occupation, 
+          "Long-term sick leave"  = "Long-term sick leave (more than 3 months)",
+          "Sickness benefit"      = "Sickness or activity benefit"
+        )) %>%
         select(Occupation) %>%
         group_by(Occupation) %>%
         count()
       
       occupation_group_2 <- dem_group_2 %>%
+        mutate(Occupation = fct_recode(f = Occupation, 
+          "Long-term sick leave"  = "Long-term sick leave (more than 3 months)",
+          "Sickness benefit"      = "Sickness or activity benefit"
+        )) %>%
         select(Occupation) %>%
         group_by(Occupation) %>%
         count()
       
       education_group_1 <- dem_group_1 %>%
+        mutate(Education.level = fct_recode(f = Education.level, 
+          "University"            = "College/University",
+          "Elem. school"     = "Elementary school or equivalent compulsory school",
+          "High school"           = "High school, Nordic folk high school, or equivalent",
+          "No elem. school"  = "No elementary or equivalent compulsary school",
+          "Other"                 = "Other post-secondary education"
+        )) %>%
         select(Education.level) %>%
         group_by(Education.level) %>%
         count()
       
       education_group_2 <- dem_group_2 %>%
+        mutate(Education.level = fct_recode(f = Education.level, 
+          "University"            = "College/University",
+          "Elem. school"     = "Elementary school or equivalent compulsory school",
+          "High school"           = "High school, Nordic folk high school, or equivalent",
+          "No elem. school"  = "No elementary or equivalent compulsary school",
+          "Other"                 = "Other post-secondary education"
+        )) %>%
         select(Education.level) %>%
         group_by(Education.level) %>%
         count()
@@ -587,14 +609,15 @@ shinyServer(function(input, output, session) {
       
       occupation <- bind_rows(occupation_group_1, occupation_group_2, .id = "Group") %>% 
         mutate(Occupation = reorder(Occupation, n)) %>%
-        top_n(n = 8, wt = n) %>%
+        top_n(n = 10, wt = n) %>%
         droplevels()
+      print(occupation)
       
-      education <- bind_rows(education_group_1, education_group_2, .id = "Group") %>% 
+      education <- bind_rows(education_group_1, education_group_2, .id = "Group") %>%
         mutate(Education = reorder(Education.level, n)) %>%
-        top_n(n = 8, wt = n) %>%
+        select(Group, Education, n) %>%
+        top_n(n = 10, wt = n) %>%
         droplevels()
-      # print(education)
       
       # Plot Gender
       gender %>%
@@ -642,7 +665,7 @@ shinyServer(function(input, output, session) {
         scale_nominal(property = "fill", range = c("steelblue", "firebrick")) %>%
         scale_nominal(property = "y", reverse = TRUE) %>%
         add_axis(type = "x", title = "Count", ticks = 5, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Education", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 80) %>%
         compute_stack(stack_var = ~n, group_var = ~Education) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
