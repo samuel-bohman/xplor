@@ -4,7 +4,7 @@ Upplands Väsby Data Explorer is an application for data exploration and visuali
 
 ### Code
 
-Upplands Väsby Data Explorer is an open source research project. All code and data is available in a public repository on GitHub: https://github.com/samuel-bohman/xplor
+Upplands Väsby Data Explorer is an open source research project. All code behind the analysis and the full data set is available in a public repository on GitHub: https://github.com/samuel-bohman/xplor
 
 ### Credits
 
