@@ -15,9 +15,9 @@ shinyServer(function(input, output, session) {
       setView(lng = 17.91128, lat = 59.51839, zoom = 12) %>%
       addPolygons(data = nyko, fill = TRUE, fillOpacity = 0.1, fillColor = "blue", stroke = TRUE, weight = 0.7, color = "black", group = "nyko") %>%
       addMeasure() %>%
-      addGraticule(interval = 1, group = "Graticule") %>%
-      addTerminator(group = "Daylight") %>%
-      addLayersControl(overlayGroups = c("Graticule", "Daylight"), options = layersControlOptions(collapsed = FALSE)) %>%
+      # addGraticule(interval = 1, group = "Graticule") %>%
+      # addTerminator(group = "Daylight") %>%
+      # addLayersControl(overlayGroups = c("Graticule", "Daylight"), options = layersControlOptions(collapsed = FALSE)) %>%
       addMiniMap(toggleDisplay = TRUE)
   })
   
