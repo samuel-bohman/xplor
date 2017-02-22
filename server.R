@@ -17,8 +17,8 @@ shinyServer(function(input, output, session) {
       addMeasure() %>%
       addGraticule(interval = 1, group = "Graticule") %>%
       addTerminator(group = "Daylight") %>%
-      addMiniMap(toggleDisplay = TRUE) %>%
-      addLayersControl(overlayGroups = c("Graticule", "Daylight"), options = layersControlOptions(collapsed = FALSE))
+      addLayersControl(overlayGroups = c("Graticule", "Daylight"), options = layersControlOptions(collapsed = FALSE)) %>%
+      addMiniMap(toggleDisplay = TRUE)
   })
   
   # Define color palette
