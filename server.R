@@ -17,7 +17,7 @@ shinyServer(function(input, output, session) {
       addMeasure() %>%
       addGraticule(interval = 1, group = "Graticule") %>%
       addTerminator(group = "Daylight") %>%
-      addMiniMap() %>%
+      addMiniMap(toggleDisplay = TRUE) %>%
       addLayersControl(overlayGroups = c("Graticule", "Daylight"), options = layersControlOptions(collapsed = FALSE))
   })
   
