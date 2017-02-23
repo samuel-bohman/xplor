@@ -563,7 +563,8 @@ shinyServer(function(input, output, session) {
       age_group_2 <- dem_group_2 %>%
         select(Age) %>%
         group_by(Age) %>%
-        count()
+        count() 
+        # %>% mutate(n = n * (-1))
       
       occupation_group_1 <- dem_group_1 %>%
         mutate(Occupation = fct_recode(f = Occupation, 
@@ -586,9 +587,9 @@ shinyServer(function(input, output, session) {
       education_group_1 <- dem_group_1 %>%
         mutate(Education.level = fct_recode(f = Education.level, 
           "University"            = "College/University",
-          "Elem. school"     = "Elementary school or equivalent compulsory school",
+          "Elem. school"          = "Elementary school or equivalent compulsory school",
           "High school"           = "High school, Nordic folk high school, or equivalent",
-          "No elem. school"  = "No elementary or equivalent compulsary school",
+          "No elem. school"       = "No elementary or equivalent compulsary school",
           "Other"                 = "Other post-secondary education"
         )) %>%
         select(Education.level) %>%
@@ -598,9 +599,9 @@ shinyServer(function(input, output, session) {
       education_group_2 <- dem_group_2 %>%
         mutate(Education.level = fct_recode(f = Education.level, 
           "University"            = "College/University",
-          "Elem. school"     = "Elementary school or equivalent compulsory school",
+          "Elem. school"          = "Elementary school or equivalent compulsory school",
           "High school"           = "High school, Nordic folk high school, or equivalent",
-          "No elem. school"  = "No elementary or equivalent compulsary school",
+          "No elem. school"       = "No elementary or equivalent compulsary school",
           "Other"                 = "Other post-secondary education"
         )) %>%
         select(Education.level) %>%
@@ -643,10 +644,10 @@ shinyServer(function(input, output, session) {
         ggvis(y = ~Age, x = ~n, fill = ~Group, stroke := "") %>%
         scale_ordinal(property = "fill", range = c("steelblue", "firebrick")) %>%
         scale_ordinal(property = "y", reverse = TRUE) %>%
-        add_axis(type = "x", title = "Count", ticks = 5, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "x", title = "Count", ticks = 8, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Age", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 45) %>%
         compute_stack(stack_var = ~n, group_var = ~Age) %>%
-        layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>% 
+        layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
         set_options(width = "auto", height = "200") %>%
         bind_shiny(plot_id = "age")
