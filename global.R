@@ -10,6 +10,7 @@ library(purrr)
 library(stringr)
 library(lpSolveAPI)
 library(forcats)
+library(DT)
 
 library(DBI)
 library(tidyr)

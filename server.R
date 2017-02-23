@@ -724,8 +724,16 @@ shinyServer(function(input, output, session) {
     results_df
   })
   
+  # color <- colorRampPalette(brewer.pal(n = 11, name = "RdYlGn"))(15)
+  # barplot(height = 0:14, beside = TRUE, names = "RdYlGn", col = color)
+  # display.brewer.pal(11, "RdYlGn")
+  
   output$table <- DT::renderDataTable({
-    table_filter()
-  }, server = TRUE)
+    table_filter() %>%
+      datatable(filter = "top", options = list(pageLength = 25)) %>%
+      formatStyle(columns = c(7:56, 67:69), backgroundColor = styleInterval(cuts = c(0:13), 
+        values = colorRampPalette(brewer.pal(n = 11, name = tdata$colorpal()))(15))) %>%
+      formatStyle(columns = 57:66, background = styleColorBar(data = 0:15, color = "lightblue", angle = -90))
+  })
   
 })
