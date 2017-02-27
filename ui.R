@@ -47,11 +47,11 @@ shinyUI(
         ),
         wellPanel(
           fluidRow(
-            # column(width = 3, plotOutput(outputId = "pyramid_plot")),
             column(width = 3, ggvisOutput(plot_id = "gender")),
             column(width = 3, ggvisOutput(plot_id = "age")),
             column(width = 3, ggvisOutput(plot_id = "occupation")),
-            column(width = 3, ggvisOutput(plot_id = "education"))
+            column(width = 3, ggvisOutput(plot_id = "education")),
+            column(width = 3, ggvisOutput(plot_id = "year"))
           )
         )
       )

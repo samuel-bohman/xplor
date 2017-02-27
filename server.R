@@ -563,8 +563,7 @@ shinyServer(function(input, output, session) {
       age_group_2 <- dem_group_2 %>%
         select(Age) %>%
         group_by(Age) %>%
-        count() 
-        # %>% mutate(n = n * (-1))
+        count()
       
       occupation_group_1 <- dem_group_1 %>%
         mutate(Occupation = fct_recode(f = Occupation, 
@@ -608,6 +607,16 @@ shinyServer(function(input, output, session) {
         group_by(Education.level) %>%
         count()
       
+      year_group_1 <- dem_group_1 %>%
+        select(Year) %>%
+        group_by(Year) %>%
+        count()
+      
+      year_group_2 <- dem_group_2 %>%
+        select(Year) %>%
+        group_by(Year) %>%
+        count()
+      
       gender <- bind_rows(gender_group_1, gender_group_2, .id = "Group") %>%
         mutate(Gender = reorder(Gender, n)) %>%
         top_n(n = 4, wt = n) %>%
@@ -626,12 +635,17 @@ shinyServer(function(input, output, session) {
         top_n(n = 10, wt = n) %>%
         droplevels()
       
+      year <- bind_rows(year_group_1, year_group_2, .id = "Group") %>%
+        mutate(Year = fct_recode(f = Year, "10+ years" = "10 or more years")) %>%
+        mutate(Year = fct_relevel(f = Year, "0-4 years", "5-9 years", "10+ years")) %>%
+        droplevels()
+      
       # Plot Gender
       gender %>%
         ggvis(y = ~Gender, x = ~n, fill = ~Group, stroke := "") %>%
         scale_nominal(property = "fill", range = c("steelblue", "firebrick")) %>%
         add_axis(type = "x", title = "Count", ticks = 5, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "Gender", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 50) %>%
+        add_axis(type = "y", title = "Gender", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 60) %>%
         compute_stack(stack_var = ~n, group_var = ~Gender) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
@@ -680,6 +694,20 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         bind_shiny(plot_id = "education")
       incProgress(amount = 1/16, detail = "Plot 16")
+      
+      # Plot Years
+      year %>%
+        ggvis(y = ~Year, x = ~n, fill = ~Group, stroke := "") %>%
+        scale_nominal(property = "fill", range = c("steelblue", "firebrick")) %>%
+        scale_nominal(property = "y", reverse = TRUE) %>%
+        add_axis(type = "x", title = "Count", ticks = 5, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Length of residency", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 60) %>%
+        compute_stack(stack_var = ~n, group_var = ~Year) %>%
+        layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
+        hide_legend(scales = "fill") %>%
+        set_options(width = "auto", height = "200") %>%
+        bind_shiny(plot_id = "year")
+      incProgress(amount = 1/16, detail = "Plot 17")
       
     })
   })
@@ -730,7 +758,7 @@ shinyServer(function(input, output, session) {
   
   output$table <- DT::renderDataTable({
     table_filter() %>%
-      datatable(filter = "top", options = list(pageLength = 25)) %>%
+      datatable(filter = "top", options = list(pageLength = 10)) %>%
       formatStyle(columns = c(7:56, 67:69), backgroundColor = styleInterval(cuts = c(0:13), 
         values = colorRampPalette(brewer.pal(n = 11, name = tdata$colorpal()))(15))) %>%
       formatStyle(columns = 57:66, background = styleColorBar(data = 0:15, color = "lightblue", angle = -90))
