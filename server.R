@@ -389,7 +389,7 @@ shinyServer(function(input, output, session) {
       dis_group_1 <- unlist(dis_group_1)
       dis_group_2 <- unlist(dis_group_2)
       dis_total <- unlist(dis_total)
-      actions <- c("A1","A2","A3","A4","A5")
+      actions <- c("Alt.a","Alt.b","Alt.c","Alt.d","Alt.e")
       
       # Set initial budget constraint
       budget_group_1 = sum(dis_group_1)
@@ -532,21 +532,21 @@ shinyServer(function(input, output, session) {
       ### PORTFOLIO SUMS ###################################################################################################
       
       portfolios_group_1_sum <- portfolios_group_1 %>%
-        select(A1:A5) %>%
+        select(Alt.a:Alt.e) %>%
         summarize_at(.cols = 1:5, .funs = sum) %>%
         t() %>%
         as_tibble() %>%
         rename(y1 = V1)
       
       portfolios_group_2_sum <- portfolios_group_2 %>%
-        select(A1:A5) %>%
+        select(Alt.a:Alt.e) %>%
         summarize_at(.cols = 1:5, .funs = sum) %>%
         t() %>%
         as_tibble() %>%
         rename(y2 = V1)
       
       portfolios_total_sum <- portfolios_total %>%
-        select(A1:A5) %>%
+        select(Alt.a:Alt.e) %>%
         summarize_at(.cols = 1:5, .funs = sum) %>%
         t() %>%
         as_tibble() %>%
