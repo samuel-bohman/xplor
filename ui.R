@@ -40,6 +40,14 @@ shinyUI(
                   ggvisOutput(plot_id = "ggvis_11"),
                   "Total",
                   ggvisOutput(plot_id = "ggvis_12")
+                ),
+                tabPanel(title = "Por-Sum",
+                  "Group 1",
+                  ggvisOutput(plot_id = "ggvis_13"),
+                  "Group 2",
+                  ggvisOutput(plot_id = "ggvis_14"),
+                  "Total",
+                  ggvisOutput(plot_id = "ggvis_15")
                 )
               )
             )
@@ -47,11 +55,11 @@ shinyUI(
         ),
         wellPanel(
           fluidRow(
-            column(width = 3, ggvisOutput(plot_id = "gender")),
-            column(width = 3, ggvisOutput(plot_id = "age")),
-            column(width = 3, ggvisOutput(plot_id = "occupation")),
-            column(width = 3, ggvisOutput(plot_id = "education")),
-            column(width = 3, ggvisOutput(plot_id = "year"))
+            column(width = 3, ggvisOutput(plot_id = "ggvis_16")),
+            column(width = 3, ggvisOutput(plot_id = "ggvis_17")),
+            column(width = 3, ggvisOutput(plot_id = "ggvis_18")),
+            column(width = 3, ggvisOutput(plot_id = "ggvis_19")),
+            column(width = 3, ggvisOutput(plot_id = "ggvis_20"))
           )
         )
       )

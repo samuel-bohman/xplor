@@ -178,7 +178,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_1")
-      incProgress(amount = 1/16, detail = "Plot 1")
+      incProgress(amount = 1/20, detail = "Plot 1")
       
       # Plot values group 2
       des_group_2 %>%
@@ -190,7 +190,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_2")
-      incProgress(amount = 1/16, detail = "Plot 2")
+      incProgress(amount = 1/20, detail = "Plot 2")
       
       # Plot total values
       des_total %>%
@@ -202,7 +202,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_3")
-      incProgress(amount = 1/16, detail = "Plot 3")
+      incProgress(amount = 1/20, detail = "Plot 3")
     
       ### MEAN WEIGHTED VALUES ###########################################################################################
         
@@ -258,7 +258,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_4")
-      incProgress(amount = 1/16, detail = "Plot 4")
+      incProgress(amount = 1/20, detail = "Plot 4")
       
       # Plot group 2 mean weighted values 
       val_data %>%
@@ -268,7 +268,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_5")
-      incProgress(amount = 1/16, detail = "Plot 5")
+      incProgress(amount = 1/20, detail = "Plot 5")
       
       # Plot total mean weighted values 
       val_data %>%
@@ -278,7 +278,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_6")
-      incProgress(amount = 1/16, detail = "Plot 6")
+      incProgress(amount = 1/20, detail = "Plot 6")
     
       ### DISAGREEMENTS ##################################################################################################
       
@@ -358,7 +358,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_7")
-      incProgress(amount = 1/16, detail = "Plot 7")
+      incProgress(amount = 1/20, detail = "Plot 7")
       
       # Plot group 2 disagreement 
       dis_data %>%
@@ -368,17 +368,17 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_8")
-      incProgress(amount = 1/16, detail = "Plot 8")
+      incProgress(amount = 1/20, detail = "Plot 8")
       
       # Plot total disagreement
       dis_data %>%
-        ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
+        ggvis(x = ~x, y = ~y3 * 1000, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = "200") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_9")
-      incProgress(amount = 1/16, detail = "Plot 9")
+      incProgress(amount = 1/20, detail = "Plot 9")
       
       ### PORTFOLIOS ##################################################################################################
       
@@ -452,19 +452,19 @@ shinyServer(function(input, output, session) {
       portfolios_total_pos_rev <- portfolios_total_pos[rev(rownames(portfolios_total_pos)),]
       
       # Prepare portfolios for group 1
-      portfolios_group_1 <- rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1,])
+      portfolios_group_1 <- rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
       portfolios_group_1$id <- 1:nrow(portfolios_group_1)
       portfolios_group_1$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_group_1))
       portfolios_group_1$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_group_1))
-
+      
       # Prepare portfolios for group 2
-      portfolios_group_2 <- rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1,])
+      portfolios_group_2 <- rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1, ])
       portfolios_group_2$id <- 1:nrow(portfolios_group_2)
       portfolios_group_2$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_group_2))
       portfolios_group_2$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_group_2))
       
       # Prepare portfolios for total
-      portfolios_total <- rbind(portfolios_total_pos_rev, portfolios_total_neg[-1,])
+      portfolios_total <- rbind(portfolios_total_pos_rev, portfolios_total_neg[-1, ])
       portfolios_total$id <- 1:nrow(portfolios_total)
       portfolios_total$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_total))
       portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_total))
@@ -500,7 +500,7 @@ shinyServer(function(input, output, session) {
         layer_paths(stroke := "steelblue") %>%
         add_tooltip(html = tooltip_1, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_10")
-      incProgress(amount = 1/16, detail = "Plot 10")
+      incProgress(amount = 1/20, detail = "Plot 10")
       
       # Plot group 2 portfolios
       portfolios_group_2 %>%
@@ -513,7 +513,7 @@ shinyServer(function(input, output, session) {
         layer_paths(stroke := "firebrick") %>%
         add_tooltip(html = tooltip_2, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_11")
-      incProgress(amount = 1/16, detail = "Plot 11")
+      incProgress(amount = 1/20, detail = "Plot 11")
   
       # Plot total portfolios
       portfolios_total %>%
@@ -526,7 +526,60 @@ shinyServer(function(input, output, session) {
         layer_paths(stroke := "darkslateblue") %>%
         add_tooltip(html = tooltip_total, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_12")
-      incProgress(amount = 1/16, detail = "Plot 12")
+      incProgress(amount = 1/20, detail = "Plot 12")
+      
+      
+      ### PORTFOLIO SUMS ###################################################################################################
+      
+      portfolios_group_1_sum <- portfolios_group_1 %>%
+        select(A1:A5) %>%
+        summarize_at(.cols = 1:5, .funs = sum) %>%
+        t() %>%
+        as_tibble() %>%
+        rename(y1 = V1)
+      
+      portfolios_group_2_sum <- portfolios_group_2 %>%
+        select(A1:A5) %>%
+        summarize_at(.cols = 1:5, .funs = sum) %>%
+        t() %>%
+        as_tibble() %>%
+        rename(y2 = V1)
+      
+      portfolios_total_sum <- portfolios_total %>%
+        select(A1:A5) %>%
+        summarize_at(.cols = 1:5, .funs = sum) %>%
+        t() %>%
+        as_tibble() %>%
+        rename(y3 = V1)
+      
+      portfolios_sums <- bind_cols(alternatives, portfolios_group_1_sum, portfolios_group_2_sum, portfolios_total_sum)
+      
+      portfolios_sums %>%
+        ggvis(x = ~x, y = ~y1, fill := "steelblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Count", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = "200") %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_13")
+      incProgress(amount = 1/20, detail = "Plot 13")
+      
+      portfolios_sums %>%
+        ggvis(x = ~x, y = ~y2, fill := "firebrick", stroke := "") %>%
+        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Count", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = "200") %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_14")
+      incProgress(amount = 1/20, detail = "Plot 14")
+      
+      portfolios_sums %>%
+        ggvis(x = ~x, y = ~y3, fill := "darkslateblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Count", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = "200") %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_15")
+      incProgress(amount = 1/20, detail = "Plot 15")
       
       ### DEMOGRAPHICS ###################################################################################################
       
@@ -650,8 +703,8 @@ shinyServer(function(input, output, session) {
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
         set_options(width = "auto", height = "200") %>%
-        bind_shiny(plot_id = "gender")
-      incProgress(amount = 1/16, detail = "Plot 13")
+        bind_shiny(plot_id = "ggvis_16")
+      incProgress(amount = 1/20, detail = "Plot 16")
       
       # Plot Age
       age %>%
@@ -664,8 +717,8 @@ shinyServer(function(input, output, session) {
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
         set_options(width = "auto", height = "200") %>%
-        bind_shiny(plot_id = "age")
-      incProgress(amount = 1/16, detail = "Plot 14")
+        bind_shiny(plot_id = "ggvis_17")
+      incProgress(amount = 1/20, detail = "Plot 17")
       
       # Plot Occupation
       occupation %>%
@@ -678,8 +731,8 @@ shinyServer(function(input, output, session) {
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
         set_options(width = "auto", height = "200") %>%
-        bind_shiny(plot_id = "occupation")
-      incProgress(amount = 1/16, detail = "Plot 15")
+        bind_shiny(plot_id = "ggvis_18")
+      incProgress(amount = 1/20, detail = "Plot 18")
       
       # Plot Education
       education %>%
@@ -692,8 +745,8 @@ shinyServer(function(input, output, session) {
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
         set_options(width = "auto", height = "200") %>%
-        bind_shiny(plot_id = "education")
-      incProgress(amount = 1/16, detail = "Plot 16")
+        bind_shiny(plot_id = "ggvis_19")
+      incProgress(amount = 1/20, detail = "Plot 19")
       
       # Plot Years
       year %>%
@@ -706,8 +759,8 @@ shinyServer(function(input, output, session) {
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
         set_options(width = "auto", height = "200") %>%
-        bind_shiny(plot_id = "year")
-      incProgress(amount = 1/16, detail = "Plot 17")
+        bind_shiny(plot_id = "ggvis_20")
+      incProgress(amount = 1/20, detail = "Plot 20")
       
     })
   })
