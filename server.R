@@ -175,7 +175,7 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(0, NA)) %>%
         add_axis(type = "x", title = "Value", ticks = 7, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", ticks = 6, format = "d",  grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_1")
       incProgress(amount = 1/20, detail = "Plot 1")
@@ -187,7 +187,7 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(0, NA)) %>%
         add_axis(type = "x", title = "Value", ticks = 7, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", ticks = 6, format = "d",  grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_2")
       incProgress(amount = 1/20, detail = "Plot 2")
@@ -199,7 +199,7 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(0, NA)) %>%
         add_axis(type = "x", title = "Value", ticks = 7, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", ticks = 6, format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_3")
       incProgress(amount = 1/20, detail = "Plot 3")
@@ -255,7 +255,7 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(NA, 10)) %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_4")
       incProgress(amount = 1/20, detail = "Plot 4")
@@ -265,7 +265,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_5")
       incProgress(amount = 1/20, detail = "Plot 5")
@@ -275,7 +275,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_6")
       incProgress(amount = 1/20, detail = "Plot 6")
@@ -355,7 +355,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_7")
       incProgress(amount = 1/20, detail = "Plot 7")
@@ -365,7 +365,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_8")
       incProgress(amount = 1/20, detail = "Plot 8")
@@ -375,7 +375,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y3 * 1000, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_9")
       incProgress(amount = 1/20, detail = "Plot 9")
@@ -494,7 +494,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~disagreement * 100, y = ~value * 100, key := ~id) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_text(text := ~id, fill := "steelblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         layer_points(fillOpacity := 0, stroke := "steelblue") %>%
         layer_paths(stroke := "steelblue") %>%
@@ -507,7 +507,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~disagreement * 100, y = ~value * 100, key := ~id) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_text(text := ~id, fill := "firebrick", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         layer_points(fillOpacity := 0, stroke := "firebrick") %>%
         layer_paths(stroke := "firebrick") %>%
@@ -520,7 +520,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~disagreement * 100, y = ~value * 100, key := ~id) %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_text(text := ~id, fill := "darkslateblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
         layer_paths(stroke := "darkslateblue") %>%
@@ -558,7 +558,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y1, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_13")
       incProgress(amount = 1/20, detail = "Plot 13")
@@ -567,7 +567,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y2, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_14")
       incProgress(amount = 1/20, detail = "Plot 14")
@@ -576,7 +576,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y3, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_15")
       incProgress(amount = 1/20, detail = "Plot 15")
@@ -702,7 +702,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Gender) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         bind_shiny(plot_id = "ggvis_16")
       incProgress(amount = 1/20, detail = "Plot 16")
       
@@ -716,7 +716,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Age) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         bind_shiny(plot_id = "ggvis_17")
       incProgress(amount = 1/20, detail = "Plot 17")
       
@@ -730,7 +730,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Occupation) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         bind_shiny(plot_id = "ggvis_18")
       incProgress(amount = 1/20, detail = "Plot 18")
       
@@ -744,7 +744,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Education) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         bind_shiny(plot_id = "ggvis_19")
       incProgress(amount = 1/20, detail = "Plot 19")
       
@@ -758,7 +758,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Year) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = "auto", height = "200") %>%
+        set_options(width = "auto", height = "180") %>%
         bind_shiny(plot_id = "ggvis_20")
       incProgress(amount = 1/20, detail = "Plot 20")
       
@@ -770,6 +770,62 @@ shinyServer(function(input, output, session) {
   ### TABLE ##########################################################################################################
   
   ####################################################################################################################
+  
+  results_df <- results_df %>%
+    mutate(Education.level = 
+      fct_recode(f = Education.level, 
+        "University"              = "College/University",
+        "Elem. school"            = "Elementary school or equivalent compulsory school",
+        "High school"             = "High school, Nordic folk high school, or equivalent",
+        "No elem. school"         = "No elementary or equivalent compulsary school",
+        "Other"                   = "Other post-secondary education"
+      )
+    ) %>%
+    mutate(Year = 
+      fct_recode(f = Year, 
+        "10- yrs" = "10 or more years",
+        "5-9 yrs" = "5-9 years",
+        "0-4 yrs" = "0-4 years"     
+      )
+    ) %>%
+    mutate(Area =
+      fct_recode(f = Area,
+        "Kavallerigatan"          = "Kavallerigatan/Vilundaparken",
+        "Länk/Klock/Kedjev"       = "Länk-/Klock-/Kedje-/Bygelvägen",
+        "N Nordanv"               = "Norra Nordanvägen",
+        "Lövsta"                  = "Runby Backar/Lövsta",
+        "S Bollstanäs"            = "Södra Bollstanäs",
+        "N Bollstanäs"            = "Norra Bollstanäs",
+        "Carlslund"               = "Carlslund/Brunnby Park",
+        "Glädjen"                 = "Glädjen/Skälbys arbetsområde",
+        "Sigma"                   = "Sigma/Apoteksskogen",
+        "Vilunda"                 = "Vilunda/Korpkulla",
+        "Väsby villastad"         = "Väsby villastad/Tegelbruket",
+        "S Prästgård"             = "Södra Prästgårdsmarken",
+        "S Wäsby gård"            = "Stora Wäsby gård",
+        "Messingen"               = "Messingen/Optimus"
+      )
+    ) %>%
+    mutate(Gender = 
+      fct_recode(f = Gender,
+        "-" = "Prefer not to disclose"
+      )
+    ) %>%
+    mutate(Occupation =
+      fct_recode(f = Occupation,
+        "LOA"                     = "Leave of absence",
+        "LTSL"                    = "Long-term sick leave (more than 3 months)",
+        "SB"                      = "Sickness or activity benefit",
+        "Senior"                  = "Senior citizen"
+      )
+    ) %>%
+    mutate(Gender = 
+      fct_recode(f = Gender,
+        "F"                       = "Woman",
+        "M"                       = "Man",
+        "Other"                   = "Other/No gender"
+      )
+    )
   
   table_filter <- reactive({
     if (!identical(input$area3, "All")) {
@@ -811,7 +867,12 @@ shinyServer(function(input, output, session) {
   
   output$table <- DT::renderDataTable({
     table_filter() %>%
-      datatable(filter = "top", options = list(pageLength = 10)) %>%
+      datatable(rownames = FALSE,
+        options = list(
+          pageLength = 10,
+          autoWidth = TRUE
+        )
+      ) %>%
       formatStyle(columns = c(7:56, 67:69), backgroundColor = styleInterval(cuts = c(0:13), 
         values = colorRampPalette(brewer.pal(n = 11, name = tdata$colorpal()))(15))) %>%
       formatStyle(columns = 57:66, background = styleColorBar(data = 0:15, color = "lightblue", angle = -90))

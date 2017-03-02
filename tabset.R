@@ -14,7 +14,6 @@ tabset_UI <- function(id) {
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[1]]
-              # to_select <- "Ekeby/Sköldnora"
             } else {
               to_select <- b_variables[[1]][2]
             }
@@ -34,7 +33,6 @@ tabset_UI <- function(id) {
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[2]]
-              # to_select <- "Ekeby/Sköldnora"
             } else {
               to_select <- b_variables[[1]][2]
             }

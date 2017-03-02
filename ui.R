@@ -4,9 +4,9 @@ shinyUI(
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
-          column(width = 3, tabset_UI(id = "one")),
-          column(width = 6, leafletOutput(outputId = "map", height = 740)),
-          column(width = 3, 
+          column(width = 2, tabset_UI(id = "one")),
+          column(width = 6, leafletOutput(outputId = "map", height = 680)),
+          column(width = 2,
             sidebarPanel(width = 0,
               tabsetPanel(
                 tabPanel(title = "Des.",
@@ -17,14 +17,14 @@ shinyUI(
                   "Total",
                   ggvisOutput(plot_id = "ggvis_3")
                 ),
-                # tabPanel(title = "Val."
-                # "Group 1",
-                # ggvisOutput(plot_id = "ggvis_4"),
-                # "Group 2",
-                # ggvisOutput(plot_id = "ggvis_5"),
-                # "Total",
-                # ggvisOutput(plot_id = "ggvis_6")
-                # ),
+                tabPanel(title = "Val.",
+                  "Group 1",
+                  ggvisOutput(plot_id = "ggvis_4"),
+                  "Group 2",
+                  ggvisOutput(plot_id = "ggvis_5"),
+                  "Total",
+                  ggvisOutput(plot_id = "ggvis_6")
+                ),
                 tabPanel(title = "Dis.",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_7"),
@@ -32,8 +32,14 @@ shinyUI(
                   ggvisOutput(plot_id = "ggvis_8"),
                   "Between group 1 and 2",
                   ggvisOutput(plot_id = "ggvis_9")
-                ),
-                tabPanel(title = "Por.",
+                )
+              )
+            )
+          ),
+          column(width = 2,
+            sidebarPanel(width = 0,
+              tabsetPanel(
+                tabPanel(title = "Portfolios",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_10"),
                   "Group 2",
@@ -41,7 +47,7 @@ shinyUI(
                   "Total",
                   ggvisOutput(plot_id = "ggvis_12")
                 ),
-                tabPanel(title = "Por-Sum",
+                tabPanel(title = "Portfolios-S",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_13"),
                   "Group 2",
@@ -53,18 +59,22 @@ shinyUI(
             )
           )
         ),
-        wellPanel(
-          fluidRow(
-            column(width = 3, ggvisOutput(plot_id = "ggvis_16")),
-            column(width = 3, ggvisOutput(plot_id = "ggvis_17")),
-            column(width = 3, ggvisOutput(plot_id = "ggvis_18")),
-            column(width = 3, ggvisOutput(plot_id = "ggvis_19")),
-            column(width = 3, ggvisOutput(plot_id = "ggvis_20"))
+        fluidRow(
+          column(width = 2),
+          column(width = 2,
+            ggvisOutput(plot_id = "ggvis_16"),
+            ggvisOutput(plot_id = "ggvis_18")
+          ),
+          column(width = 2,
+            ggvisOutput(plot_id = "ggvis_17"),
+            ggvisOutput(plot_id = "ggvis_20")
+          ),
+          column(width = 2,
+            ggvisOutput(plot_id = "ggvis_19")
           )
         )
       )
     ),
-    
     tabPanel(title = "Table", icon = icon(name = "table"),
       fluidRow(
         column(width = 3, selectInput(inputId = "area3", label = "Area", choices = b_area, selected = "All", multiple = TRUE)),

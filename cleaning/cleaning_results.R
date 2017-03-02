@@ -10,16 +10,16 @@ results[c(
 )] <- list(NULL)
 
 # Rename columns with shorter names
-names(results)[1] <- "Alt.1a"
-names(results)[2] <- "Alt.1b"
-names(results)[3] <- "Alt.1c"
-names(results)[4] <- "Alt.1d"
-names(results)[5] <- "Alt.1e"
+names(results)[1]  <- "Alt.1a"
+names(results)[2]  <- "Alt.1b"
+names(results)[3]  <- "Alt.1c"
+names(results)[4]  <- "Alt.1d"
+names(results)[5]  <- "Alt.1e"
 
-names(results)[6] <- "Alt.2a"
-names(results)[7] <- "Alt.2b"
-names(results)[8] <- "Alt.2c"
-names(results)[9] <- "Alt.2d"
+names(results)[6]  <- "Alt.2a"
+names(results)[7]  <- "Alt.2b"
+names(results)[8]  <- "Alt.2c"
+names(results)[9]  <- "Alt.2d"
 names(results)[10] <- "Alt.2e"
 
 names(results)[11] <- "Alt.3a"
