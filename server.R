@@ -733,7 +733,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Gender) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 290, height = 200) %>%
+        set_options(width = 280, height = 200) %>%
         bind_shiny(plot_id = "ggvis_16")
       incProgress(amount = 1/23, detail = "Plot 16")
       
@@ -747,7 +747,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Age) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 290, height = 200) %>%
+        set_options(width = 280, height = 200) %>%
         bind_shiny(plot_id = "ggvis_17")
       incProgress(amount = 1/23, detail = "Plot 17")
       
@@ -761,7 +761,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Occupation) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 290, height = 200) %>%
+        set_options(width = 280, height = 200) %>%
         bind_shiny(plot_id = "ggvis_18")
       incProgress(amount = 1/23, detail = "Plot 18")
       
@@ -775,7 +775,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Education) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 290, height = 200) %>%
+        set_options(width = 280, height = 200) %>%
         bind_shiny(plot_id = "ggvis_19")
       incProgress(amount = 1/23, detail = "Plot 19")
       
@@ -789,7 +789,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Year) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 290, height = 200) %>%
+        set_options(width = 280, height = 200) %>%
         bind_shiny(plot_id = "ggvis_20")
       incProgress(amount = 1/23, detail = "Plot 20")
       
