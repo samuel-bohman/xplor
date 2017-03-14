@@ -532,8 +532,8 @@ shinyServer(function(input, output, session) {
       output$portfolios_group_1_table <- DT::renderDataTable({
         portfolios_group_1 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(value = value * 100, disagreement = disagreement * 100) %>%
-          select(id, a, b, c, d, e, value, disagreement) %>%
+          mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
+          select(id, a, b, c, d, e, Value, Disagreement) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
       })
@@ -542,8 +542,8 @@ shinyServer(function(input, output, session) {
       output$portfolios_group_2_table <- DT::renderDataTable({
         portfolios_group_2 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(value = value * 100, disagreement = disagreement * 100) %>%
-          select(id, a, b, c, d, e, value, disagreement) %>%
+          mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
+          select(id, a, b, c, d, e, Value, Disagreement) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
       })
@@ -552,8 +552,8 @@ shinyServer(function(input, output, session) {
       output$portfolios_total_table <- DT::renderDataTable({
         portfolios_total %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(value = value * 100, disagreement = disagreement * 100) %>%
-          select(id, a, b, c, d, e, value, disagreement) %>%
+          mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
+          select(id, a, b, c, d, e, Value, Disagreement) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
       })
@@ -733,7 +733,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Gender) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 280, height = 200) %>%
+        set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_16")
       incProgress(amount = 1/23, detail = "Plot 16")
       
@@ -747,7 +747,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Age) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 280, height = 200) %>%
+        set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_17")
       incProgress(amount = 1/23, detail = "Plot 17")
       
@@ -761,7 +761,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Occupation) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 280, height = 200) %>%
+        set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_18")
       incProgress(amount = 1/23, detail = "Plot 18")
       
@@ -775,7 +775,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Education) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 280, height = 200) %>%
+        set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_19")
       incProgress(amount = 1/23, detail = "Plot 19")
       
@@ -789,7 +789,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Year) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 280, height = 200) %>%
+        set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_20")
       incProgress(amount = 1/23, detail = "Plot 20")
       
