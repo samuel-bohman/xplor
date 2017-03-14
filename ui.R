@@ -61,16 +61,14 @@ shinyUI(
         ),
         fluidRow(
           column(width = 2),
-          column(width = 2,
-            ggvisOutput(plot_id = "ggvis_16"),
-            ggvisOutput(plot_id = "ggvis_18")
-          ),
-          column(width = 2,
-            ggvisOutput(plot_id = "ggvis_17"),
-            ggvisOutput(plot_id = "ggvis_20")
-          ),
-          column(width = 2,
-            ggvisOutput(plot_id = "ggvis_19")
+          column(width = 6,
+            sidebarPanel(width = 0,
+              tabsetPanel(
+                tabPanel(title = "Demographics",
+                  htmlOutput(outputId = "grid_ggvis")
+                )
+              )
+            )
           ),
           column(width = 4,
             sidebarPanel(width = 0,

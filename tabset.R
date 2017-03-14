@@ -4,13 +4,12 @@ tabset_UI <- function(id) {
   tagList(
     sidebarPanel(width = 0,
       tabsetPanel(
-        type = "tabs",
         tabPanel(title = "Theme",
           selectInput(ns("theme"), label = "Theme", choices = theme, selected = theme[2]), 
           uiOutput(ns("alternatives")),
           selectInput(ns("colorpal"), label = "Palette", choices = c(rownames(brewer.pal.info[1:9, ]), "viridis", "magma", "inferno", "plasma"), selected = "RdYlGn")
         ),
-        tabPanel(title = "Grp 1",
+        tabPanel(title = "G1",
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[1]]
@@ -29,7 +28,7 @@ tabset_UI <- function(id) {
           checkboxInput(ns("pop1"), label = "Add popups", value = FALSE)
           
         ),
-        tabPanel(title = "Grp 2",
+        tabPanel(title = "G2",
           lapply(seq_along(b_variables), function(j) {
             if (j == 1) {
               to_select <- rnd[[2]]
