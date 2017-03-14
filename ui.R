@@ -71,6 +71,21 @@ shinyUI(
           ),
           column(width = 2,
             ggvisOutput(plot_id = "ggvis_19")
+          ),
+          column(width = 4,
+            sidebarPanel(width = 0,
+              tabsetPanel(
+                tabPanel(title = "Group 1",
+                  DT::dataTableOutput(outputId = "portfolios_group_1_table")
+                ),
+                tabPanel(title = "Group 2",
+                  DT::dataTableOutput(outputId = "portfolios_group_2_table")
+                ),
+                tabPanel(title = "Total",
+                  DT::dataTableOutput(outputId = "portfolios_total_table")
+                )
+              )
+            )
           )
         )
       )

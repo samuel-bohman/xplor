@@ -469,6 +469,30 @@ shinyServer(function(input, output, session) {
       portfolios_total$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_total))
       portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_total))
       
+      output$portfolios_group_1_table <- DT::renderDataTable({
+      portfolios_group_1 %>%
+          rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
+          select(id, a, b, c, d, e, value, disagreement) %>%
+          round(digits = 2) %>% 
+          datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
+      })
+      
+      output$portfolios_group_2_table <- DT::renderDataTable({
+        portfolios_group_2 %>%
+          rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
+          select(id, a, b, c, d, e, value, disagreement) %>%
+          round(digits = 2) %>% 
+          datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
+      })
+      
+      output$portfolios_total_table <- DT::renderDataTable({
+        portfolios_total %>%
+          rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
+          select(id, a, b, c, d, e, value, disagreement) %>%
+          round(digits = 2) %>% 
+          datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
+      })
+      
       # Functions for tooltips
       tooltip_1 <- function(x) {
         if (is.null(x)) return(NULL)
