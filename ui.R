@@ -17,7 +17,7 @@ shinyUI(
                   "Total",
                   ggvisOutput(plot_id = "ggvis_3")
                 ),
-                tabPanel(title = "Val.",
+                tabPanel(title = "V",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_4"),
                   "Group 2",
@@ -25,7 +25,7 @@ shinyUI(
                   "Total",
                   ggvisOutput(plot_id = "ggvis_6")
                 ),
-                tabPanel(title = "Dis.",
+                tabPanel(title = "D",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_7"),
                   "Group 2",
