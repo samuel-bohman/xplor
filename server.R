@@ -384,7 +384,6 @@ shinyServer(function(input, output, session) {
       
       val_dis_data <- val_data[2:4] / dis_data[2:4]
       val_dis_data <- add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
-      print(val_dis_data)
       
       # Plot group 1 value / disagreement 
       val_dis_data %>%
@@ -577,7 +576,7 @@ shinyServer(function(input, output, session) {
           mutate(VtD = Val. / Dis.) %>%
           select(id, a, b, c, d, e, Val., Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
-          round(digits = 2) %>%
+          round(digits = 1) %>%
           datatable(
             rownames = FALSE, options = 
               list(dom = "t", 
@@ -604,7 +603,7 @@ shinyServer(function(input, output, session) {
       incProgress(amount = 1/26, detail = "Table 1")
       
       output$portfolios_group_2_table <- DT::renderDataTable({
-        a <- sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100
+        a <- round(sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100, digits = 1)
         b <- sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2) * 100
         c <- sum(portfolios_group_2$Alt.c) / nrow(portfolios_group_2) * 100
         d <- sum(portfolios_group_2$Alt.d) / nrow(portfolios_group_2) * 100
@@ -615,7 +614,7 @@ shinyServer(function(input, output, session) {
           mutate(VtD = Val. / Dis.) %>%
           select(id, a, b, c, d, e, Val., Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
-          round(digits = 2) %>%
+          round(digits = 1) %>%
           datatable(
             rownames = FALSE, options = 
               list(dom = "t", 
@@ -653,7 +652,7 @@ shinyServer(function(input, output, session) {
           mutate(VtD = Val. / Dis.) %>%
           select(id, a, b, c, d, e, Val., Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
-          round(digits = 2) %>%
+          round(digits = 1) %>%
           datatable(
             rownames = FALSE, options = 
               list(dom = "t", 
