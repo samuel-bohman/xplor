@@ -530,30 +530,51 @@ shinyServer(function(input, output, session) {
       
       # Portfolios tables
       output$portfolios_group_1_table <- DT::renderDataTable({
+        a <- sum(portfolios_group_1$Alt.a)
+        b <- sum(portfolios_group_1$Alt.b)
+        c <- sum(portfolios_group_1$Alt.c)
+        d <- sum(portfolios_group_1$Alt.d)
+        e <- sum(portfolios_group_1$Alt.e)
         portfolios_group_1 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
           mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
-          select(id, a, b, c, d, e, Value, Disagreement) %>%
+          mutate(DVratio = Disagreement / Value) %>%
+          select(id, a, b, c, d, e, Disagreement, Value, DVratio) %>%
+          add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
       })
       incProgress(amount = 1/23, detail = "Table 1")
       
       output$portfolios_group_2_table <- DT::renderDataTable({
+        a <- sum(portfolios_group_2$Alt.a)
+        b <- sum(portfolios_group_2$Alt.b)
+        c <- sum(portfolios_group_2$Alt.c)
+        d <- sum(portfolios_group_2$Alt.d)
+        e <- sum(portfolios_group_2$Alt.e)
         portfolios_group_2 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
           mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
-          select(id, a, b, c, d, e, Value, Disagreement) %>%
+          mutate(DVratio = Disagreement / Value) %>%
+          select(id, a, b, c, d, e, Disagreement, Value, DVratio) %>%
+          add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
       })
       incProgress(amount = 1/23, detail = "Table 2")
       
       output$portfolios_total_table <- DT::renderDataTable({
+        a <- sum(portfolios_total$Alt.a)
+        b <- sum(portfolios_total$Alt.b)
+        c <- sum(portfolios_total$Alt.c)
+        d <- sum(portfolios_total$Alt.d)
+        e <- sum(portfolios_total$Alt.e)
         portfolios_total %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
           mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
-          select(id, a, b, c, d, e, Value, Disagreement) %>%
+          mutate(DVratio = Disagreement / Value) %>%
+          select(id, a, b, c, d, e, Disagreement, Value, DVratio) %>%
+          add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
       })
