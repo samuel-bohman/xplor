@@ -178,7 +178,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_1")
-      incProgress(amount = 1/23, detail = "Plot 1")
+      incProgress(amount = 1/26, detail = "Plot 1")
       
       # Plot values group 2
       des_group_2 %>%
@@ -190,7 +190,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_2")
-      incProgress(amount = 1/23, detail = "Plot 2")
+      incProgress(amount = 1/26, detail = "Plot 2")
       
       # Plot total values
       des_total %>%
@@ -202,7 +202,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_3")
-      incProgress(amount = 1/23, detail = "Plot 3")
+      incProgress(amount = 1/26, detail = "Plot 3")
     
       ### MEAN WEIGHTED VALUES ###########################################################################################
         
@@ -258,7 +258,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_4")
-      incProgress(amount = 1/23, detail = "Plot 4")
+      incProgress(amount = 1/26, detail = "Plot 4")
       
       # Plot group 2 mean weighted values 
       val_data %>%
@@ -268,7 +268,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_5")
-      incProgress(amount = 1/23, detail = "Plot 5")
+      incProgress(amount = 1/26, detail = "Plot 5")
       
       # Plot total mean weighted values 
       val_data %>%
@@ -278,7 +278,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_6")
-      incProgress(amount = 1/23, detail = "Plot 6")
+      incProgress(amount = 1/26, detail = "Plot 6")
     
       ### DISAGREEMENTS ##################################################################################################
       
@@ -358,7 +358,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_7")
-      incProgress(amount = 1/23, detail = "Plot 7")
+      incProgress(amount = 1/26, detail = "Plot 7")
       
       # Plot group 2 disagreement 
       dis_data %>%
@@ -368,7 +368,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_8")
-      incProgress(amount = 1/23, detail = "Plot 8")
+      incProgress(amount = 1/26, detail = "Plot 8")
       
       # Plot total disagreement
       dis_data %>%
@@ -378,7 +378,43 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_9")
-      incProgress(amount = 1/23, detail = "Plot 9")
+      incProgress(amount = 1/26, detail = "Plot 9")
+      
+      ### VALUE / DISAGREEMENT ########################################################################################
+      
+      val_dis_data <- val_data[2:4] / dis_data[2:4]
+      val_dis_data <- add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
+      print(val_dis_data)
+      
+      # Plot group 1 value / disagreement 
+      val_dis_data %>%
+        ggvis(x = ~x, y = ~y1, fill := "steelblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Val. / Dis.", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = 180) %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_21")
+      incProgress(amount = 1/26, detail = "Plot 21")
+      
+      # Plot group 2 value / disagreement 
+      val_dis_data %>%
+        ggvis(x = ~x, y = ~y2, fill := "steelblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Val. / Dis.", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = 180) %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_22")
+      incProgress(amount = 1/26, detail = "Plot 22")
+      
+      # Plot total value / disagreement 
+      val_dis_data %>%
+        ggvis(x = ~x, y = ~y3, fill := "steelblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "Val. / Dis.", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = 180) %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_23")
+      incProgress(amount = 1/26, detail = "Plot 23")
       
       ### PORTFOLIOS ##################################################################################################
       
@@ -500,7 +536,7 @@ shinyServer(function(input, output, session) {
         layer_paths(stroke := "steelblue") %>%
         add_tooltip(html = tooltip_1, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_10")
-      incProgress(amount = 1/23, detail = "Plot 10")
+      incProgress(amount = 1/26, detail = "Plot 10")
       
       # Plot group 2 portfolios
       portfolios_group_2 %>%
@@ -513,7 +549,7 @@ shinyServer(function(input, output, session) {
         layer_paths(stroke := "firebrick") %>%
         add_tooltip(html = tooltip_2, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_11")
-      incProgress(amount = 1/23, detail = "Plot 11")
+      incProgress(amount = 1/26, detail = "Plot 11")
   
       # Plot total portfolios
       portfolios_total %>%
@@ -526,59 +562,122 @@ shinyServer(function(input, output, session) {
         layer_paths(stroke := "darkslateblue") %>%
         add_tooltip(html = tooltip_total, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_12")
-      incProgress(amount = 1/23, detail = "Plot 12")
+      incProgress(amount = 1/26, detail = "Plot 12")
       
       # Portfolios tables
       output$portfolios_group_1_table <- DT::renderDataTable({
-        a <- sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1)
-        b <- sum(portfolios_group_1$Alt.b) / nrow(portfolios_group_1)
-        c <- sum(portfolios_group_1$Alt.c) / nrow(portfolios_group_1)
-        d <- sum(portfolios_group_1$Alt.d) / nrow(portfolios_group_1)
-        e <- sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1)
+        a <- sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1) * 100
+        b <- sum(portfolios_group_1$Alt.b) / nrow(portfolios_group_1) * 100
+        c <- sum(portfolios_group_1$Alt.c) / nrow(portfolios_group_1) * 100
+        d <- sum(portfolios_group_1$Alt.d) / nrow(portfolios_group_1) * 100
+        e <- sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1) * 100
         portfolios_group_1 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Value = value * 100, Dis. = disagreement * 100) %>%
-          mutate(VtD = Value / Dis.) %>%
-          select(id, a, b, c, d, e, Value, Dis., VtD) %>%
+          mutate(Val. = value * 100, Dis. = disagreement * 100) %>%
+          mutate(VtD = Val. / Dis.) %>%
+          select(id, a, b, c, d, e, Val., Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
-          round(digits = 2) %>% 
-          datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
+          round(digits = 2) %>%
+          datatable(
+            rownames = FALSE, options = 
+              list(dom = "t", 
+                pageLength = 100,
+                rowCallback = JS(
+                  "function(row, data) {",
+                  "if(data[0] == null){",
+                  "console.log(data)",
+                  "var num = data[1].toString() + '%';",
+                  "$('td:eq(1)', row).html(num);",
+                  "var num2 = data[2].toString() + '%';",
+                  "$('td:eq(2)', row).html(num2);",
+                  "var num3 = data[3].toString() + '%';",
+                  "$('td:eq(3)', row).html(num3);",
+                  "var num4 = data[4].toString() + '%';",
+                  "$('td:eq(4)', row).html(num4);",
+                  "var num5 = data[5].toString() + '%';",
+                  "$('td:eq(5)', row).html(num5);",
+                  "}}"
+                )
+              )
+          )
       })
-      incProgress(amount = 1/23, detail = "Table 1")
+      incProgress(amount = 1/26, detail = "Table 1")
       
       output$portfolios_group_2_table <- DT::renderDataTable({
-        a <- sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2)
-        b <- sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2)
-        c <- sum(portfolios_group_2$Alt.c) / nrow(portfolios_group_2)
-        d <- sum(portfolios_group_2$Alt.d) / nrow(portfolios_group_2)
-        e <- sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2)
+        a <- sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100
+        b <- sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2) * 100
+        c <- sum(portfolios_group_2$Alt.c) / nrow(portfolios_group_2) * 100
+        d <- sum(portfolios_group_2$Alt.d) / nrow(portfolios_group_2) * 100
+        e <- sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2) * 100
         portfolios_group_2 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Value = value * 100, Dis. = disagreement * 100) %>%
-          mutate(VtD = Value / Dis.) %>%
-          select(id, a, b, c, d, e, Value, Dis., VtD) %>%
+          mutate(Val. = value * 100, Dis. = disagreement * 100) %>%
+          mutate(VtD = Val. / Dis.) %>%
+          select(id, a, b, c, d, e, Val., Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
-          round(digits = 2) %>% 
-          datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
+          round(digits = 2) %>%
+          datatable(
+            rownames = FALSE, options = 
+              list(dom = "t", 
+                pageLength = 100,
+                rowCallback = JS(
+                  "function(row, data) {",
+                  "if(data[0] == null){",
+                  "console.log(data)",
+                  "var num = data[1].toString() + '%';",
+                  "$('td:eq(1)', row).html(num);",
+                  "var num2 = data[2].toString() + '%';",
+                  "$('td:eq(2)', row).html(num2);",
+                  "var num3 = data[3].toString() + '%';",
+                  "$('td:eq(3)', row).html(num3);",
+                  "var num4 = data[4].toString() + '%';",
+                  "$('td:eq(4)', row).html(num4);",
+                  "var num5 = data[5].toString() + '%';",
+                  "$('td:eq(5)', row).html(num5);",
+                  "}}"
+                )
+              )
+          )
       })
-      incProgress(amount = 1/23, detail = "Table 2")
+      incProgress(amount = 1/26, detail = "Table 2")
       
       output$portfolios_total_table <- DT::renderDataTable({
-        a <- sum(portfolios_total$Alt.a) / nrow(portfolios_total)
-        b <- sum(portfolios_total$Alt.b) / nrow(portfolios_total)
-        c <- sum(portfolios_total$Alt.c) / nrow(portfolios_total)
-        d <- sum(portfolios_total$Alt.d) / nrow(portfolios_total)
-        e <- sum(portfolios_total$Alt.e) / nrow(portfolios_total)
+        a <- sum(portfolios_total$Alt.a) / nrow(portfolios_total) * 100
+        b <- sum(portfolios_total$Alt.b) / nrow(portfolios_total) * 100
+        c <- sum(portfolios_total$Alt.c) / nrow(portfolios_total) * 100
+        d <- sum(portfolios_total$Alt.d) / nrow(portfolios_total) * 100
+        e <- sum(portfolios_total$Alt.e) / nrow(portfolios_total) * 100
         portfolios_total %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Value = value * 100, Dis. = disagreement * 100) %>%
-          mutate(VtD = Value / Dis.) %>%
-          select(id, a, b, c, d, e, Value, Dis., VtD) %>%
+          mutate(Val. = value * 100, Dis. = disagreement * 100) %>%
+          mutate(VtD = Val. / Dis.) %>%
+          select(id, a, b, c, d, e, Val., Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
-          round(digits = 2) %>% 
-          datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
+          round(digits = 2) %>%
+          datatable(
+            rownames = FALSE, options = 
+              list(dom = "t", 
+                pageLength = 100,
+                rowCallback = JS(
+                  "function(row, data) {",
+                  "if(data[0] == null){",
+                  "console.log(data)",
+                  "var num = data[1].toString() + '%';",
+                  "$('td:eq(1)', row).html(num);",
+                  "var num2 = data[2].toString() + '%';",
+                  "$('td:eq(2)', row).html(num2);",
+                  "var num3 = data[3].toString() + '%';",
+                  "$('td:eq(3)', row).html(num3);",
+                  "var num4 = data[4].toString() + '%';",
+                  "$('td:eq(4)', row).html(num4);",
+                  "var num5 = data[5].toString() + '%';",
+                  "$('td:eq(5)', row).html(num5);",
+                  "}}"
+                )
+              )
+          )
       })
-      incProgress(amount = 1/23, detail = "Table 3")
+      incProgress(amount = 1/26, detail = "Table 3")
       
       
       ### PORTFOLIO SUMS ###################################################################################################
@@ -613,7 +712,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_13")
-      incProgress(amount = 1/23, detail = "Plot 13")
+      incProgress(amount = 1/26, detail = "Plot 13")
       
       portfolios_sums %>%
         ggvis(x = ~x, y = ~y2, fill := "firebrick", stroke := "") %>%
@@ -622,7 +721,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_14")
-      incProgress(amount = 1/23, detail = "Plot 14")
+      incProgress(amount = 1/26, detail = "Plot 14")
       
       portfolios_sums %>%
         ggvis(x = ~x, y = ~y3, fill := "darkslateblue", stroke := "") %>%
@@ -631,7 +730,7 @@ shinyServer(function(input, output, session) {
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_15")
-      incProgress(amount = 1/23, detail = "Plot 15")
+      incProgress(amount = 1/26, detail = "Plot 15")
       
       ### DEMOGRAPHICS ###################################################################################################
       
@@ -756,7 +855,7 @@ shinyServer(function(input, output, session) {
         hide_legend(scales = "fill") %>%
         set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_16")
-      incProgress(amount = 1/23, detail = "Plot 16")
+      incProgress(amount = 1/26, detail = "Plot 16")
       
       # Plot Age
       age %>%
@@ -770,7 +869,7 @@ shinyServer(function(input, output, session) {
         hide_legend(scales = "fill") %>%
         set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_17")
-      incProgress(amount = 1/23, detail = "Plot 17")
+      incProgress(amount = 1/26, detail = "Plot 17")
       
       # Plot Occupation
       occupation %>%
@@ -784,7 +883,7 @@ shinyServer(function(input, output, session) {
         hide_legend(scales = "fill") %>%
         set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_18")
-      incProgress(amount = 1/23, detail = "Plot 18")
+      incProgress(amount = 1/26, detail = "Plot 18")
       
       # Plot Education
       education %>%
@@ -798,7 +897,7 @@ shinyServer(function(input, output, session) {
         hide_legend(scales = "fill") %>%
         set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_19")
-      incProgress(amount = 1/23, detail = "Plot 19")
+      incProgress(amount = 1/26, detail = "Plot 19")
       
       # Plot Years
       year %>%
@@ -812,7 +911,7 @@ shinyServer(function(input, output, session) {
         hide_legend(scales = "fill") %>%
         set_options(width = 270, height = 200) %>%
         bind_shiny(plot_id = "ggvis_20")
-      incProgress(amount = 1/23, detail = "Plot 20")
+      incProgress(amount = 1/26, detail = "Plot 20")
       
     })
   })
