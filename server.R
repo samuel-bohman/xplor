@@ -530,16 +530,16 @@ shinyServer(function(input, output, session) {
       
       # Portfolios tables
       output$portfolios_group_1_table <- DT::renderDataTable({
-        a <- sum(portfolios_group_1$Alt.a)
-        b <- sum(portfolios_group_1$Alt.b)
-        c <- sum(portfolios_group_1$Alt.c)
-        d <- sum(portfolios_group_1$Alt.d)
-        e <- sum(portfolios_group_1$Alt.e)
+        a <- sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1)
+        b <- sum(portfolios_group_1$Alt.b) / nrow(portfolios_group_1)
+        c <- sum(portfolios_group_1$Alt.c) / nrow(portfolios_group_1)
+        d <- sum(portfolios_group_1$Alt.d) / nrow(portfolios_group_1)
+        e <- sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1)
         portfolios_group_1 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
           mutate(Value = value * 100, Dis. = disagreement * 100) %>%
-          mutate(DVratio = Dis. / Value) %>%
-          select(id, a, b, c, d, e, Dis., Value, DVratio) %>%
+          mutate(VtD = Value / Dis.) %>%
+          select(id, a, b, c, d, e, Value, Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
@@ -547,16 +547,16 @@ shinyServer(function(input, output, session) {
       incProgress(amount = 1/23, detail = "Table 1")
       
       output$portfolios_group_2_table <- DT::renderDataTable({
-        a <- sum(portfolios_group_2$Alt.a)
-        b <- sum(portfolios_group_2$Alt.b)
-        c <- sum(portfolios_group_2$Alt.c)
-        d <- sum(portfolios_group_2$Alt.d)
-        e <- sum(portfolios_group_2$Alt.e)
+        a <- sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2)
+        b <- sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2)
+        c <- sum(portfolios_group_2$Alt.c) / nrow(portfolios_group_2)
+        d <- sum(portfolios_group_2$Alt.d) / nrow(portfolios_group_2)
+        e <- sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2)
         portfolios_group_2 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
           mutate(Value = value * 100, Dis. = disagreement * 100) %>%
-          mutate(DVratio = Dis. / Value) %>%
-          select(id, a, b, c, d, e, Dis., Value, DVratio) %>%
+          mutate(VtD = Value / Dis.) %>%
+          select(id, a, b, c, d, e, Value, Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
@@ -564,16 +564,16 @@ shinyServer(function(input, output, session) {
       incProgress(amount = 1/23, detail = "Table 2")
       
       output$portfolios_total_table <- DT::renderDataTable({
-        a <- sum(portfolios_total$Alt.a)
-        b <- sum(portfolios_total$Alt.b)
-        c <- sum(portfolios_total$Alt.c)
-        d <- sum(portfolios_total$Alt.d)
-        e <- sum(portfolios_total$Alt.e)
+        a <- sum(portfolios_total$Alt.a) / nrow(portfolios_total)
+        b <- sum(portfolios_total$Alt.b) / nrow(portfolios_total)
+        c <- sum(portfolios_total$Alt.c) / nrow(portfolios_total)
+        d <- sum(portfolios_total$Alt.d) / nrow(portfolios_total)
+        e <- sum(portfolios_total$Alt.e) / nrow(portfolios_total)
         portfolios_total %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
           mutate(Value = value * 100, Dis. = disagreement * 100) %>%
-          mutate(DVratio = Dis. / Value) %>%
-          select(id, a, b, c, d, e, Dis., Value, DVratio) %>%
+          mutate(VtD = Value / Dis.) %>%
+          select(id, a, b, c, d, e, Value, Dis., VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
