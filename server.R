@@ -537,9 +537,9 @@ shinyServer(function(input, output, session) {
         e <- sum(portfolios_group_1$Alt.e)
         portfolios_group_1 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
-          mutate(DVratio = Disagreement / Value) %>%
-          select(id, a, b, c, d, e, Disagreement, Value, DVratio) %>%
+          mutate(Value = value * 100, Dis. = disagreement * 100) %>%
+          mutate(DVratio = Dis. / Value) %>%
+          select(id, a, b, c, d, e, Dis., Value, DVratio) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
@@ -554,9 +554,9 @@ shinyServer(function(input, output, session) {
         e <- sum(portfolios_group_2$Alt.e)
         portfolios_group_2 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
-          mutate(DVratio = Disagreement / Value) %>%
-          select(id, a, b, c, d, e, Disagreement, Value, DVratio) %>%
+          mutate(Value = value * 100, Dis. = disagreement * 100) %>%
+          mutate(DVratio = Dis. / Value) %>%
+          select(id, a, b, c, d, e, Dis., Value, DVratio) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
@@ -571,9 +571,9 @@ shinyServer(function(input, output, session) {
         e <- sum(portfolios_total$Alt.e)
         portfolios_total %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Value = value * 100, Disagreement = disagreement * 100) %>%
-          mutate(DVratio = Disagreement / Value) %>%
-          select(id, a, b, c, d, e, Disagreement, Value, DVratio) %>%
+          mutate(Value = value * 100, Dis. = disagreement * 100) %>%
+          mutate(DVratio = Dis. / Value) %>%
+          select(id, a, b, c, d, e, Dis., Value, DVratio) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 2) %>% 
           datatable(rownames = FALSE, options = list(dom = "t", pageLength = 100))
