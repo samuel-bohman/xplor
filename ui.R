@@ -33,7 +33,7 @@ shinyUI(
                   "Between group 1 and 2",
                   ggvisOutput(plot_id = "ggvis_9")
                 ),
-                tabPanel(title = "V/D",
+                tabPanel(title = "VtD",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_21"),
                   "Group 2",
