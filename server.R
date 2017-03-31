@@ -1034,12 +1034,7 @@ shinyServer(function(input, output, session) {
   
   output$table <- DT::renderDataTable({
     table_filter() %>%
-      datatable(rownames = FALSE,
-        options = list(
-          pageLength = 10,
-          autoWidth = TRUE
-        )
-      ) %>%
+      datatable(rownames = FALSE, options = list(pageLength = 10, autoWidth = TRUE)) %>%
       formatStyle(columns = c(7:56, 67:69), backgroundColor = styleInterval(cuts = c(0:13), 
         values = colorRampPalette(brewer.pal(n = 11, name = tdata$colorpal()))(15))) %>%
       formatStyle(columns = 57:66, background = styleColorBar(data = 0:15, color = "lightblue", angle = -90))
