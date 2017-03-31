@@ -109,7 +109,6 @@ shinyUI(
         DT::dataTableOutput(outputId = "table")
       )
     ),
-    # tabPanel(title = "Report", icon = icon(name = "file-o")),
     tabPanel(title = "About", icon = icon(name = "question"),
       includeMarkdown("about.md"))
   )
