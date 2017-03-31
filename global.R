@@ -35,6 +35,62 @@ results_spdf2 <- readRDS("data/results_spdf.rds")
 # Data frame for tabPanel "Table"
 results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
+results_df <- results_df %>%
+  mutate(Education.level = 
+      fct_recode(f = Education.level, 
+        "University"              = "College/University",
+        "Elem. school"            = "Elementary school or equivalent compulsory school",
+        "High school"             = "High school, Nordic folk high school, or equivalent",
+        "No elem. school"         = "No elementary or equivalent compulsary school",
+        "Other"                   = "Other post-secondary education"
+      )
+  ) %>%
+  mutate(Year = 
+      fct_recode(f = Year, 
+        "10- yrs" = "10 or more years",
+        "5-9 yrs" = "5-9 years",
+        "0-4 yrs" = "0-4 years"     
+      )
+  ) %>%
+  mutate(Area =
+      fct_recode(f = Area,
+        "Kavallerigatan"          = "Kavallerigatan/Vilundaparken",
+        "Länk/Klock/Kedjev"       = "Länk-/Klock-/Kedje-/Bygelvägen",
+        "N Nordanv"               = "Norra Nordanvägen",
+        "Lövsta"                  = "Runby Backar/Lövsta",
+        "S Bollstanäs"            = "Södra Bollstanäs",
+        "N Bollstanäs"            = "Norra Bollstanäs",
+        "Carlslund"               = "Carlslund/Brunnby Park",
+        "Glädjen"                 = "Glädjen/Skälbys arbetsområde",
+        "Sigma"                   = "Sigma/Apoteksskogen",
+        "Vilunda"                 = "Vilunda/Korpkulla",
+        "Väsby villastad"         = "Väsby villastad/Tegelbruket",
+        "S Prästgård"             = "Södra Prästgårdsmarken",
+        "S Wäsby gård"            = "Stora Wäsby gård",
+        "Messingen"               = "Messingen/Optimus"
+      )
+  ) %>%
+  mutate(Gender = 
+      fct_recode(f = Gender,
+        "-" = "Prefer not to disclose"
+      )
+  ) %>%
+  mutate(Occupation =
+      fct_recode(f = Occupation,
+        "LOA"                     = "Leave of absence",
+        "LTSL"                    = "Long-term sick leave (more than 3 months)",
+        "SB"                      = "Sickness or activity benefit",
+        "Senior"                  = "Senior citizen"
+      )
+  ) %>%
+  mutate(Gender = 
+      fct_recode(f = Gender,
+        "F"                       = "Woman",
+        "M"                       = "Man",
+        "Other"                   = "Other/No gender"
+      )
+  )
+
 # Background variables ----
 b_area <- c("", "All", sort(unique(as.character(results_df[["Area"]]))))
 b_gender <- c("", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
