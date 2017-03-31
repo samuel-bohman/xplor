@@ -24,16 +24,16 @@ source("disagreement.R")
 source("optimization.R")
 
 # SpatialPolygonsDataFrame for map polygons
-nyko <- readRDS("data/nyko.rds")
+nyko <- readRDS("cleaning/data/nyko/nyko84b.rds")
 
 # SpatialPolygonsDataFrame for group 1
-results_spdf1 <- readRDS("data/results_spdf.rds")
+results_spdf1 <- readRDS("cleaning/data/merged/results_spdf.rds")
 
 # SpatialPolygonsDataFrame for group 2
-results_spdf2 <- readRDS("data/results_spdf.rds")
+results_spdf2 <- readRDS("cleaning/data/merged/results_spdf.rds")
 
 # Data frame for tabPanel "Table"
-results_df <- read.table("data/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
+results_df <- read.table("cleaning/data/results/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
 results_df <- results_df %>%
   mutate(Education.level = 
