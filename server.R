@@ -938,6 +938,110 @@ shinyServer(function(input, output, session) {
   
   ####################################################################################################################
   
+  results_df <- results_df %>%
+    mutate(Education.level = 
+        fct_recode(f = Education.level, 
+          "University"              = "College/University",
+          "Elem. school"            = "Elementary school or equivalent compulsory school",
+          "High school"             = "High school, Nordic folk high school, or equivalent",
+          "No elem. school"         = "No elementary or equivalent compulsary school",
+          "Other"                   = "Other post-secondary education"
+        )
+    ) %>%
+    mutate(Year = 
+        fct_recode(f = Year, 
+          "10- yrs" = "10 or more years",
+          "5-9 yrs" = "5-9 years",
+          "0-4 yrs" = "0-4 years"     
+        )
+    ) %>%
+    mutate(Area =
+        fct_recode(f = Area,
+          "Kavallerigatan"          = "Kavallerigatan/Vilundaparken",
+          "Länk/Klock/Kedjev"       = "Länk-/Klock-/Kedje-/Bygelvägen",
+          "N Nordanv"               = "Norra Nordanvägen",
+          "Lövsta"                  = "Runby Backar/Lövsta",
+          "S Bollstanäs"            = "Södra Bollstanäs",
+          "N Bollstanäs"            = "Norra Bollstanäs",
+          "Carlslund"               = "Carlslund/Brunnby Park",
+          "Glädjen"                 = "Glädjen/Skälbys arbetsområde",
+          "Sigma"                   = "Sigma/Apoteksskogen",
+          "Vilunda"                 = "Vilunda/Korpkulla",
+          "Väsby villastad"         = "Väsby villastad/Tegelbruket",
+          "S Prästgård"             = "Södra Prästgårdsmarken",
+          "S Wäsby gård"            = "Stora Wäsby gård",
+          "Messingen"               = "Messingen/Optimus"
+        )
+    ) %>%
+    mutate(Occupation =
+        fct_recode(f = Occupation,
+          "LOA"                     = "Leave of absence",
+          "LTSL"                    = "Long-term sick leave (more than 3 months)",
+          "SB"                      = "Sickness or activity benefit",
+          "Senior"                  = "Senior citizen"
+        )
+    ) %>%
+    mutate(Gender = 
+        fct_recode(f = Gender,
+          "F"                       = "Woman",
+          "M"                       = "Man",
+          "Other"                   = "Other/No gender",
+          "-"                       = "Prefer not to disclose"
+        )
+    ) %>% 
+    rename(
+      "1a" = Alt.1a, 
+      "1b" = Alt.1b,
+      "1c" = Alt.1c,
+      "1d" = Alt.1d,
+      "1e" = Alt.1e,
+      "2a" = Alt.2a, 
+      "2b" = Alt.2b,
+      "2c" = Alt.2c,
+      "2d" = Alt.2d,
+      "2e" = Alt.2e,
+      "3a" = Alt.3a, 
+      "3b" = Alt.3b,
+      "3c" = Alt.3c,
+      "3d" = Alt.3d,
+      "3e" = Alt.3e,
+      "4a" = Alt.4a, 
+      "4b" = Alt.4b,
+      "4c" = Alt.4c,
+      "4d" = Alt.4d,
+      "4e" = Alt.4e,
+      "5a" = Alt.5a, 
+      "5b" = Alt.5b,
+      "5c" = Alt.5c,
+      "5d" = Alt.5d,
+      "5e" = Alt.5e,
+      "6a" = Alt.6a, 
+      "6b" = Alt.6b,
+      "6c" = Alt.6c,
+      "6d" = Alt.6d,
+      "6e" = Alt.6e,
+      "7a" = Alt.7a, 
+      "7b" = Alt.7b,
+      "7c" = Alt.7c,
+      "7d" = Alt.7d,
+      "7e" = Alt.7e,
+      "8a" = Alt.8a, 
+      "8b" = Alt.8b,
+      "8c" = Alt.8c,
+      "8d" = Alt.8d,
+      "8e" = Alt.8e,
+      "9a" = Alt.9a, 
+      "9b" = Alt.9b,
+      "9c" = Alt.9c,
+      "9d" = Alt.9d,
+      "9e" = Alt.9e,
+      "10a" = Alt.10a, 
+      "10b" = Alt.10b,
+      "10c" = Alt.10c,
+      "10d" = Alt.10d,
+      "10e" = Alt.10e
+    )
+  
   table_filter <- reactive({
     if (!identical(input$area3, "All")) {
       for (o in seq_along(input$area3)) {
