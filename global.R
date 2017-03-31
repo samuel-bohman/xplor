@@ -35,13 +35,19 @@ results_spdf2 <- readRDS("cleaning/data/merged/results_spdf.rds")
 # Data frame for tabPanel "Table"
 results_df <- read.table("cleaning/data/results/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
-# Background variables ----
+# Background variables for map
 b_area <- c("", "All", sort(unique(as.character(results_df[["Area"]]))))
 b_gender <- c("", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
 b_age <- c("", "All", sort(unique(as.character(results_df[["Age"]]))))
 b_occupation <- c("", "All", sort(unique(as.character(results_df[["Occupation"]]))))
 b_education <- c("", "All", sort(unique(as.character(results_df[["Education.level"]]))))
 b_years <- c("", "All", "0-4 years", "5-9 years", "10 years or more")
+
+# Background variables for data table
+b_gender_t <- c("", "All", "Female", "Male", "Other", "-")
+b_occupation_t <- c("", "All", "Employee", "Job-seeker", "LOA", "LTSL", "Self-employed", "Senior", "SB", "Student", "Other")
+b_education_t <- c("", "All", "Doctorate", "University", "High school", "Elem. school", "No elem. school", "Other")
+b_years_t <- c("", "All", "0-4 years", "5-9 years", "10+ years")
 
 # Used for dynamically generating tabPanels for Group 1 and Group 2 (tabset.R)
 b_variables <- list(area = b_area, gender = b_gender, age = b_age, occupation = b_occupation, education = b_education, years = b_years)

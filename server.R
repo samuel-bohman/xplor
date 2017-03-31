@@ -950,27 +950,9 @@ shinyServer(function(input, output, session) {
     ) %>%
     mutate(Year = 
         fct_recode(f = Year, 
-          "10- yrs" = "10 or more years",
-          "5-9 yrs" = "5-9 years",
-          "0-4 yrs" = "0-4 years"     
-        )
-    ) %>%
-    mutate(Area =
-        fct_recode(f = Area,
-          "Kavallerigatan"          = "Kavallerigatan/Vilundaparken",
-          "Länk/Klock/Kedjev"       = "Länk-/Klock-/Kedje-/Bygelvägen",
-          "N Nordanv"               = "Norra Nordanvägen",
-          "Lövsta"                  = "Runby Backar/Lövsta",
-          "S Bollstanäs"            = "Södra Bollstanäs",
-          "N Bollstanäs"            = "Norra Bollstanäs",
-          "Carlslund"               = "Carlslund/Brunnby Park",
-          "Glädjen"                 = "Glädjen/Skälbys arbetsområde",
-          "Sigma"                   = "Sigma/Apoteksskogen",
-          "Vilunda"                 = "Vilunda/Korpkulla",
-          "Väsby villastad"         = "Väsby villastad/Tegelbruket",
-          "S Prästgård"             = "Södra Prästgårdsmarken",
-          "S Wäsby gård"            = "Stora Wäsby gård",
-          "Messingen"               = "Messingen/Optimus"
+          "10+ years"               = "10 or more years",
+          "5-9 years"               = "5-9 years",
+          "0-4 years"               = "0-4 years"     
         )
     ) %>%
     mutate(Occupation =
@@ -983,8 +965,8 @@ shinyServer(function(input, output, session) {
     ) %>%
     mutate(Gender = 
         fct_recode(f = Gender,
-          "F"                       = "Woman",
-          "M"                       = "Man",
+          "Female"                  = "Woman",
+          "Male"                    = "Man",
           "Other"                   = "Other/No gender",
           "-"                       = "Prefer not to disclose"
         )
@@ -1082,7 +1064,15 @@ shinyServer(function(input, output, session) {
   
   output$table <- DT::renderDataTable({
     table_filter() %>%
-      datatable(rownames = FALSE, options = list(pageLength = 10, autoWidth = TRUE)) %>%
+      datatable(rownames = FALSE, options = list(
+        pageLength = 10, 
+        autoWidth = TRUE,
+        scrollX = TRUE,
+        columnDefs = list(
+          list(width = '200px', targets = 0), 
+          list(width = '50px', targets = 5)
+        )
+      )) %>%
       formatStyle(columns = c(7:56, 67:69), backgroundColor = styleInterval(cuts = c(0:13), 
         values = colorRampPalette(brewer.pal(n = 11, name = tdata$colorpal()))(15))) %>%
       formatStyle(columns = 57:66, background = styleColorBar(data = 0:15, color = "lightblue", angle = -90))
