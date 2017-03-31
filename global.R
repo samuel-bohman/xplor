@@ -139,4 +139,14 @@ rm(alt_theme_1, alt_theme_2, alt_theme_3, alt_theme_4, alt_theme_5, alt_theme_6,
 # Dictionary of criteria and matching criterion number
 criterion_number <- vector(mode = "list", length = 10)
 names(criterion_number) <- theme
-criterion_number[[1]] <- 1; criterion_number[[2]] <- 2; criterion_number[[3]] <- 3; criterion_number[[4]] <- 4; criterion_number[[5]] <- 5; criterion_number[[6]] <- 6; criterion_number[[7]] <- 7; criterion_number[[8]] <- 8 ;criterion_number[[9]] <- 9; criterion_number[[10]] <- 10
+criterion_number[[1]] <- 1
+criterion_number[[2]] <- 2
+criterion_number[[3]] <- 3
+criterion_number[[4]] <- 4
+criterion_number[[5]] <- 5
+criterion_number[[6]] <- 6
+criterion_number[[7]] <- 7
+criterion_number[[8]] <- 8
+criterion_number[[9]] <- 9
+criterion_number[[10]] <- 10
+
