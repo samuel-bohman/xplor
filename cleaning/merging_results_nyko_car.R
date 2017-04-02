@@ -1,6 +1,6 @@
 # Load libraries
 library(rgdal)
-library(rgeos)
+# library(rgeos)
 
 # Source functions
 source("car.R")
