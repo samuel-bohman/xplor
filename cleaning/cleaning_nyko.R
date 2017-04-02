@@ -1,6 +1,6 @@
 # Load libraries
 library(rgdal)
-library(rgeos)
+# library(rgeos)
 
 # Read MapInfo TAB format (MapInfo Professional)
 # "TAB" refers to a set of files with extensions .TAB, .DAT, .MAP, .ID, .IND
