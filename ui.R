@@ -35,11 +35,11 @@ shinyUI(
                 ),
                 tabPanel(title = "VtD",
                   "Group 1",
-                  ggvisOutput(plot_id = "ggvis_21"),
+                  ggvisOutput(plot_id = "ggvis_10"),
                   "Group 2",
-                  ggvisOutput(plot_id = "ggvis_22"),
+                  ggvisOutput(plot_id = "ggvis_11"),
                   "Total",
-                  ggvisOutput(plot_id = "ggvis_23")
+                  ggvisOutput(plot_id = "ggvis_12")
                 )
               )
             )
@@ -48,14 +48,6 @@ shinyUI(
             sidebarPanel(width = 0,
               tabsetPanel(
                 tabPanel(title = "Portfolios",
-                  "Group 1",
-                  ggvisOutput(plot_id = "ggvis_10"),
-                  "Group 2",
-                  ggvisOutput(plot_id = "ggvis_11"),
-                  "Total",
-                  ggvisOutput(plot_id = "ggvis_12")
-                ),
-                tabPanel(title = "Portfolios-S",
                   "Group 1",
                   ggvisOutput(plot_id = "ggvis_13"),
                   "Group 2",
