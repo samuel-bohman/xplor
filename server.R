@@ -1,6 +1,6 @@
 shinyServer(function(input, output, session) {
   
-  tdata <- callModule(module = tabset, id = "one")
+  tdata <- callModule(module = menu, id = "one")
   
   ### MAP ############################################################################################################
   

@@ -1,5 +1,5 @@
 # Module UI
-tabset_UI <- function(id) {
+menu_UI <- function(id) {
   ns <- NS(id)
   tagList(
     sidebarPanel(width = 0,
@@ -52,7 +52,7 @@ tabset_UI <- function(id) {
 }
 
 # Module server
-tabset <- function(input, output, session) {
+menu <- function(input, output, session) {
   
   # Render the alternatives dropdown menu
   output$alternatives <- renderUI({

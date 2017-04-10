@@ -4,7 +4,7 @@ shinyUI(
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
-          column(width = 2, tabset_UI(id = "one")),
+          column(width = 2, menu_UI(id = "one")),
           column(width = 6, leafletOutput(outputId = "map", height = 680)),
           column(width = 2,
             sidebarPanel(width = 0,
