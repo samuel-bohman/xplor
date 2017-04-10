@@ -3,4 +3,4 @@
 .RData
 .DS_Store
 *.dcf
-rsconnect/shinyapps.io/xplor/xplor.dcf
+.gitignore

@@ -3,9 +3,9 @@ title: xplor
 account: xplor
 server: shinyapps.io
 appId: 106337
-bundleId: 655690
+bundleId: 778169
 url: https://xplor.shinyapps.io/xplor/
-when: 1482218168.41252
+when: 1491411619.88385
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: disagreement_data.R|optimization.R|tabset_module.R|ui_old.R|ui_shinydashboard.R|data/.Rapp.history|questionnaire/index.html|questionnaire/stylesheet.css|questionnaire/widget/rankedChoiceInput.js|questionnaire/widget/raphael.min.js|questionnaire/widget/widget.html
+ignoredFiles: cleaning/bcar.R|cleaning/car.R|cleaning/cleaning_nyko.R|cleaning/cleaning_results.R|cleaning/merging_results_nyko_car.R|cleaning/data/nyko/Nycklekodsomr_3siffr.DAT|cleaning/data/nyko/Nycklekodsomr_3siffr.ID|cleaning/data/nyko/Nycklekodsomr_3siffr.MAP|cleaning/data/nyko/Nycklekodsomr_3siffr.TAB|cleaning/data/nyko/GIS/doc.kml|cleaning/data/nyko/GIS/Nyckelkodsområde 3.xlsx|cleaning/data/nyko/GIS/NYKO3.kmz|cleaning/data/nyko/GIS/NYKO3.xyz|cleaning/data/results/uv_original.csv|cleaning/data/results/vad_ska_upplands_vasby_satsa_pa_i_framtiden.csv|old/help.Rmd|old/ui_old.R|old/ui_shinydashboard.R
