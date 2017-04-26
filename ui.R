@@ -32,14 +32,6 @@ shinyUI(
                   ggvisOutput(plot_id = "ggvis_8"),
                   "Between group 1 and 2",
                   ggvisOutput(plot_id = "ggvis_9")
-                ),
-                tabPanel(title = "VtD",
-                  "Group 1",
-                  ggvisOutput(plot_id = "ggvis_10"),
-                  "Group 2",
-                  ggvisOutput(plot_id = "ggvis_11"),
-                  "Total",
-                  ggvisOutput(plot_id = "ggvis_12")
                 )
               )
             )
@@ -54,6 +46,14 @@ shinyUI(
                   ggvisOutput(plot_id = "ggvis_14"),
                   "Total",
                   ggvisOutput(plot_id = "ggvis_15")
+                ),
+                tabPanel(title = "VtD",
+                         "Group 1",
+                         ggvisOutput(plot_id = "ggvis_10"),
+                         "Group 2",
+                         ggvisOutput(plot_id = "ggvis_11"),
+                         "Total",
+                         ggvisOutput(plot_id = "ggvis_12")
                 )
               )
             )
