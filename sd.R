@@ -26,7 +26,7 @@
       results_sd_con <- sd(unlist(results_con[alternatives_val[i]]))
       results_sd_pro <- sd(unlist(results_pro[alternatives_val[i]]))
       results_sd <- sd(unlist(results[alternatives_val[i]]))
-      result_values <- c(result_values, c(respults_sd_con, results_sd_pro, results_sd))
+      result_values <- c(result_values, c(results_sd_con, results_sd_pro, results_sd))
     }
     
     names(result_values) <- result_names
