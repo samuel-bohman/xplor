@@ -22,7 +22,7 @@ source("menu.R")
 source("helper.R")
 source("disagreement.R")
 source("optimization.R")
-
+source("sd.R")
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("cleaning/data/nyko/nyko84b.rds")
 
