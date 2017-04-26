@@ -1,4 +1,5 @@
-  # Return a vector with the alternatives names
+## Standard deviation of alternative values.
+
   get_alternatives_sd <- function(criterion) {
     number <- unlist(criterion_number[[criterion]])
     c(paste("Alt.", number, letters[1:5], sep = ""))
