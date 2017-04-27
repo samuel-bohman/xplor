@@ -10,6 +10,7 @@ library(tibble)
 library(DT)
 library(RColorBrewer)
 library(lpSolveAPI)
+library(sp)
 
 # library(stringr)
 # library(magrittr)
