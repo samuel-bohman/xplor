@@ -2,6 +2,21 @@ shinyServer(function(input, output, session) {
   
   tdata <- callModule(module = menu, id = "one")
   
+  ### INTRO JS ################################################################
+  
+  # start introjs when button is pressed with custom options and events
+  observeEvent(input$help,
+    introjs(
+      session,
+      options = list(
+        "nextLabel" = "Next",
+        "prevLabel" = "Previous",
+        "skipLabel" = "Close"
+      ),
+      events = list("oncomplete" = 'alert("Finish")')
+    )
+  )
+  
   ### MAP #####################################################################
   
   # Create static map and polygon wireframes
@@ -796,7 +811,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Gender) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 270, height = 200) %>%
+        set_options(width = 320, height = 180) %>%
         bind_shiny(plot_id = "ggvis_16")
       incProgress(amount = 1/23, detail = "Plot 16")
       
@@ -810,7 +825,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Age) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 270, height = 200) %>%
+        set_options(width = 320, height = 180) %>%
         bind_shiny(plot_id = "ggvis_17")
       incProgress(amount = 1/23, detail = "Plot 17")
       
@@ -824,7 +839,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Occupation) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 270, height = 200) %>%
+        set_options(width = 320, height = 180) %>%
         bind_shiny(plot_id = "ggvis_18")
       incProgress(amount = 1/23, detail = "Plot 18")
       
@@ -838,7 +853,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Education) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 270, height = 200) %>%
+        set_options(width = 320, height = 180) %>%
         bind_shiny(plot_id = "ggvis_19")
       incProgress(amount = 1/23, detail = "Plot 19")
       
@@ -852,7 +867,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Year) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 270, height = 200) %>%
+        set_options(width = 320, height = 180) %>%
         bind_shiny(plot_id = "ggvis_20")
       incProgress(amount = 1/23, detail = "Plot 20")
       
@@ -866,7 +881,7 @@ shinyServer(function(input, output, session) {
     ggvis_18 <- ggvisOutput("ggvis_18")
     ggvis_19 <- ggvisOutput("ggvis_19")
     ggvis_20 <- ggvisOutput("ggvis_20")
-    
+
     html_1 <- HTML("<table><tr><td>")
     html_2 <- HTML("</td><td>")
     html_3 <- HTML("</td><td>")

@@ -1,88 +1,111 @@
 shinyUI(
   navbarPage(title = "Upplands Väsby Data Explorer", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
-    
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
           column(width = 2, menu_UI(id = "one")),
-          column(width = 6, leafletOutput(outputId = "map", height = 680)),
-          column(width = 2,
-            sidebarPanel(width = 0,
-              tabsetPanel(
-                tabPanel(title = "Des.",
-                  "Group 1",
-                  ggvisOutput(plot_id = "ggvis_1"),
-                  "Group 2",
-                  ggvisOutput(plot_id = "ggvis_2"),
-                  "Total",
-                  ggvisOutput(plot_id = "ggvis_3")
-                ),
-                tabPanel(title = "V",
-                  "Group 1",
-                  ggvisOutput(plot_id = "ggvis_4"),
-                  "Group 2",
-                  ggvisOutput(plot_id = "ggvis_5"),
-                  "Total",
-                  ggvisOutput(plot_id = "ggvis_6")
-                ),
-                tabPanel(title = "D",
-                  "Group 1",
-                  ggvisOutput(plot_id = "ggvis_7"),
-                  "Group 2",
-                  ggvisOutput(plot_id = "ggvis_8"),
-                  "Between group 1 and 2",
-                  ggvisOutput(plot_id = "ggvis_9")
-                )
+          column(width = 6,
+            introjsUI(),  # Call introjsUI() to use rintrojs 
+            introBox(
+              leafletOutput(outputId = "map", height = 680),
+              data.step = 1,
+              data.intro = "This is the map where the data is plotted."
               )
+            ),
+          column(width = 2,
+            introBox(
+              sidebarPanel(width = 0,
+                tabsetPanel(
+                  tabPanel(title = "H",
+                    "G1",
+                    ggvisOutput(plot_id = "ggvis_1"),
+                    "G2",
+                    ggvisOutput(plot_id = "ggvis_2"),
+                    "T",
+                    ggvisOutput(plot_id = "ggvis_3")
+                  ),
+                  tabPanel(title = "V",
+                    "G1",
+                    ggvisOutput(plot_id = "ggvis_4"),
+                    "G2",
+                    ggvisOutput(plot_id = "ggvis_5"),
+                    "T",
+                    ggvisOutput(plot_id = "ggvis_6")
+                  ),
+                  tabPanel(title = "D",
+                    "G1",
+                    ggvisOutput(plot_id = "ggvis_7"),
+                    "G2",
+                    ggvisOutput(plot_id = "ggvis_8"),
+                    "Diff",
+                    ggvisOutput(plot_id = "ggvis_9")
+                  )
+                )
+              ),
+              data.step = 2,
+              data.intro = "This is the descriptive panel. It has 3 tabs: 'H' displays histograms over the value distributions, 'V' displays bar plots over mean values for each alternative, and 'D' displays bar plots over mean disagreements for each alternative."
             )
           ),
           column(width = 2,
-            sidebarPanel(width = 0,
-              tabsetPanel(
-                tabPanel(title = "Portfolios",
-                  "Group 1",
-                  ggvisOutput(plot_id = "ggvis_13"),
-                  "Group 2",
-                  ggvisOutput(plot_id = "ggvis_14"),
-                  "Total",
-                  ggvisOutput(plot_id = "ggvis_15")
-                ),
-                tabPanel(title = "VtD",
-                         "Group 1",
-                         ggvisOutput(plot_id = "ggvis_10"),
-                         "Group 2",
-                         ggvisOutput(plot_id = "ggvis_11"),
-                         "Total",
-                         ggvisOutput(plot_id = "ggvis_12")
+            introBox(
+              sidebarPanel(width = 0,
+                tabsetPanel(
+                  tabPanel(title = "P",
+                    "G1",
+                    ggvisOutput(plot_id = "ggvis_13"),
+                    "G2",
+                    ggvisOutput(plot_id = "ggvis_14"),
+                    "T",
+                    ggvisOutput(plot_id = "ggvis_15")
+                  ),
+                  tabPanel(title = "VtD",
+                    "G1",
+                    ggvisOutput(plot_id = "ggvis_10"),
+                    "G2",
+                    ggvisOutput(plot_id = "ggvis_11"),
+                    "T",
+                    ggvisOutput(plot_id = "ggvis_12")
+                  )
                 )
-              )
+              ),
+              data.step = 3,
+              data.intro = "This is the portfolio panel. It has three tabs: 'P' displays optimized portfolios. 'VtD' displays Value-to-Disagreement bar plots for each alternative."
             )
           )
         ),
         fluidRow(
           column(width = 2),
           column(width = 6,
-            sidebarPanel(width = 0,
-              tabsetPanel(
-                tabPanel(title = "Demographics",
-                  htmlOutput(outputId = "grid_ggvis")
+            introBox(
+              sidebarPanel(width = 0,
+                tabsetPanel(
+                  tabPanel(title = "Demographics",
+                    htmlOutput(outputId = "grid_ggvis")
+                  )
                 )
-              )
+              ),
+              data.step = 4,
+              data.intro = "This is the demographics panel. It displays five plots: gender, age, occupation, education level, and length of residency."
             )
           ),
           column(width = 4,
-            sidebarPanel(width = 0,
-              tabsetPanel(
-                tabPanel(title = "Group 1",
-                  DT::dataTableOutput(outputId = "portfolios_group_1_table")
-                ),
-                tabPanel(title = "Group 2",
-                  DT::dataTableOutput(outputId = "portfolios_group_2_table")
-                ),
-                tabPanel(title = "Total",
-                  DT::dataTableOutput(outputId = "portfolios_total_table")
+            
+            introBox(
+              sidebarPanel(width = 0,
+                tabsetPanel(
+                  tabPanel(title = "G1",
+                    DT::dataTableOutput(outputId = "portfolios_group_1_table")
+                  ),
+                  tabPanel(title = "G2",
+                    DT::dataTableOutput(outputId = "portfolios_group_2_table")
+                  ),
+                  tabPanel(title = "T",
+                    DT::dataTableOutput(outputId = "portfolios_total_table")
+                  )
                 )
-              )
+              ),
+              data.step = 5,
+              data.intro = "This is the portfolio table. It has three tabs: 'G1' displays porfolio details for group 1, 'G2' displays portfolio details for group 2, and 'T' displays total portfolio details. All three tables display essentially the same information as the portfolio (P) plots."
             )
           )
         )

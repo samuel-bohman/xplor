@@ -1,111 +1,202 @@
 # Module UI
 menu_UI <- function(id) {
   ns <- NS(id)
-  tagList(
-    sidebarPanel(width = 0,
-      tabsetPanel(
-        tabPanel(title = "Theme",
-          selectInput(ns("theme"), label = "Theme", choices = theme, selected = theme[2]), 
-          uiOutput(ns("alternatives")),
-          selectInput(ns("colorpal"), label = "Palette", choices = c(rownames(brewer.pal.info[1:9, ]), "viridis", "magma", "inferno", "plasma"), selected = "RdYlGn")
+  tagList(sidebarPanel(width = 0,
+    tabsetPanel(
+      tabPanel(
+        title = "Start",
+        selectInput(
+          ns("theme"),
+          label = "Theme",
+          choices = theme,
+          selected = theme[2]
         ),
-        tabPanel(title = "G1",
-          lapply(seq_along(b_variables), function(j) {
-            if (j == 1) {
-              to_select <- rnd[[1]]
-            } else {
-              to_select <- b_variables[[1]][2]
-            }
-            selectInput(
-              ns(paste(b_names[j], 1, sep = "")),
-              label = paste(b_labels[j]),
-              choices = b_variables[[j]],
-              selected = to_select,
-              multiple = TRUE
-            )
-          }),
-          checkboxInput(ns("markers1"), label = "Add markers", value = TRUE),
-          checkboxInput(ns("pop1"), label = "Add popups", value = FALSE)
-          
+        uiOutput(ns("alternatives")),
+        selectInput(
+          ns("colorpal"),
+          label = "Palette",
+          choices = c(
+            rownames(brewer.pal.info[1:9,]),
+            "viridis",
+            "magma",
+            "inferno",
+            "plasma"
+          ),
+          selected = "RdYlGn"
         ),
-        tabPanel(title = "G2",
-          lapply(seq_along(b_variables), function(j) {
-            if (j == 1) {
-              to_select <- rnd[[2]]
-            } else {
-              to_select <- b_variables[[1]][2]
-            }
-            selectInput(
-              ns(paste(b_names[j], 2, sep = "")),
-              label = paste(b_labels[j]),
-              choices = b_variables[[j]],
-              selected = to_select,
-              multiple = TRUE
-            )
-          }),
-          checkboxInput(ns("markers2"), label = "Add markers", value = TRUE),
-          checkboxInput(ns("pop2"), label = "Add popups", value = FALSE)
-        )
+        
+        # Help button
+        actionButton(inputId = "help", label = "Help")
+        
+      ),
+      tabPanel(
+        title = "G1",
+        lapply(seq_along(b_variables), function(j) {
+          if (j == 1) {
+            to_select <- rnd[[1]]
+          } else {
+            to_select <- b_variables[[1]][2]
+          }
+          selectInput(
+            ns(paste(b_names[j], 1, sep = "")),
+            label = paste(b_labels[j]),
+            choices = b_variables[[j]],
+            selected = to_select,
+            multiple = TRUE
+          )
+        }),
+        checkboxInput(ns("markers1"), label = "Add markers", value = TRUE),
+        checkboxInput(ns("pop1"), label = "Add popups", value = FALSE)
+        
+      ),
+      tabPanel(
+        title = "G2",
+        lapply(seq_along(b_variables), function(j) {
+          if (j == 1) {
+            to_select <- rnd[[2]]
+          } else {
+            to_select <- b_variables[[1]][2]
+          }
+          selectInput(
+            ns(paste(b_names[j], 2, sep = "")),
+            label = paste(b_labels[j]),
+            choices = b_variables[[j]],
+            selected = to_select,
+            multiple = TRUE
+          )
+        }),
+        checkboxInput(ns("markers2"), label = "Add markers", value = TRUE),
+        checkboxInput(ns("pop2"), label = "Add popups", value = FALSE)
       )
-    )
-  )
+    )))
 }
 
 # Module server
 menu <- function(input, output, session) {
-  
   # Render the alternatives dropdown menu
   output$alternatives <- renderUI({
     ns <- session$ns
     switch(
-        input$theme,
-        "1. Parks and green areas" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[1]], selectize = FALSE, size = 5),
-        "2. Diversity in housing supply" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[2]], selectize = FALSE, size = 5),
-        "3. Invest in public areas" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[3]], selectize = FALSE, size = 5),
-        "4. Communications" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[4]], selectize = FALSE, size = 5),
-        "5. Culture and leasure" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[5]], selectize = FALSE, size = 5),
-        "6. Education" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[6]], selectize = FALSE, size = 5),
-        "7. Care" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[7]], selectize = FALSE, size = 5),
-        "8. School" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[8]], selectize = FALSE, size = 5),
-        "9. Safety" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[9]], selectize = FALSE, size = 5),
-        "10. Ecological sustainability" = selectInput(ns("alt"), label = "Alternatives", choices = alt_list[[10]], selectize = FALSE, size = 5)
+      input$theme,
+      "1. Parks and green areas" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[1]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "2. Diversity in housing supply" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[2]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "3. Invest in public areas" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[3]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "4. Communications" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[4]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "5. Culture and leasure" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[5]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "6. Education" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[6]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "7. Care" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[7]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "8. School" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[8]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "9. Safety" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[9]],
+        selectize = FALSE,
+        size = 5
+      ),
+      "10. Ecological sustainability" = selectInput(
+        ns("alt"),
+        label = "Alternatives",
+        choices = alt_list[[10]],
+        selectize = FALSE,
+        size = 5
       )
+    )
   })
   
   ### GROUP 1 FILTERS ################################################
   
   # Subset themes for group 1
   group_1_filter_1 <- reactive({
-    req(input$area1, input$gender1, input$age1, input$occupation1, input$education1, input$years1)
+    req(
+      input$area1,
+      input$gender1,
+      input$age1,
+      input$occupation1,
+      input$education1,
+      input$years1
+    )
     
     if (input$area1 != "All") {
-      for (i in seq_along(input$area1)) { 
-        results_spdf1 <- results_spdf1[results_spdf1$Area %in% input$area1, ]
+      for (i in seq_along(input$area1)) {
+        results_spdf1 <-
+          results_spdf1[results_spdf1$Area %in% input$area1,]
       }
     }
     if (input$gender1 != "All") {
-      for (i in seq_along(input$gender1)) { 
-        results_spdf1 <- results_spdf1[results_spdf1$Gender %in% input$gender1, ]
+      for (i in seq_along(input$gender1)) {
+        results_spdf1 <-
+          results_spdf1[results_spdf1$Gender %in% input$gender1,]
       }
     }
     if (input$age1 != "All") {
-      for (i in seq_along(input$age1)) { 
-        results_spdf1 <- results_spdf1[results_spdf1$Age %in% input$age1, ]
+      for (i in seq_along(input$age1)) {
+        results_spdf1 <- results_spdf1[results_spdf1$Age %in% input$age1,]
       }
     }
     if (input$occupation1 != "All") {
-      for (i in seq_along(input$occupation1)) { 
-        results_spdf1 <- results_spdf1[results_spdf1$Occupation %in% input$occupation1, ]
+      for (i in seq_along(input$occupation1)) {
+        results_spdf1 <-
+          results_spdf1[results_spdf1$Occupation %in% input$occupation1,]
       }
     }
     if (input$education1 != "All") {
-      for (i in seq_along(input$education1)) { 
-        results_spdf1 <- results_spdf1[results_spdf1$Education.level %in% input$education1, ]
+      for (i in seq_along(input$education1)) {
+        results_spdf1 <-
+          results_spdf1[results_spdf1$Education.level %in% input$education1,]
       }
     }
     if (input$years1 != "All") {
-      for (i in seq_along(input$years1)) { 
-        results_spdf1 <- results_spdf1[results_spdf1$Year %in% input$years1, ]
+      for (i in seq_along(input$years1)) {
+        results_spdf1 <-
+          results_spdf1[results_spdf1$Year %in% input$years1,]
       }
     }
     results_spdf1
@@ -113,7 +204,6 @@ menu <- function(input, output, session) {
   
   # Subset alternatives for group 1
   group_1_filter_2 <- reactive({
-    
     req(input$alt)
     
     # Theme 1
@@ -287,36 +377,48 @@ menu <- function(input, output, session) {
   
   # Subset background variables for group 2
   group_2_filter_1 <- reactive({
-    req(input$area2, input$gender2, input$age2, input$occupation2, input$education2, input$years2)
+    req(
+      input$area2,
+      input$gender2,
+      input$age2,
+      input$occupation2,
+      input$education2,
+      input$years2
+    )
     
     if (input$area2 != "All") {
-      for (i in seq_along(input$area2)) { 
-        results_spdf2 <- results_spdf2[results_spdf2$Area %in% input$area2, ]
+      for (i in seq_along(input$area2)) {
+        results_spdf2 <-
+          results_spdf2[results_spdf2$Area %in% input$area2,]
       }
     }
     if (input$gender2 != "All") {
-      for (i in seq_along(input$gender2)) { 
-        results_spdf2 <- results_spdf2[results_spdf2$Gender %in% input$gender2, ]
+      for (i in seq_along(input$gender2)) {
+        results_spdf2 <-
+          results_spdf2[results_spdf2$Gender %in% input$gender2,]
       }
     }
     if (input$age2 != "All") {
-      for (i in seq_along(input$age2)) { 
-        results_spdf2 <- results_spdf2[results_spdf2$Age %in% input$age2, ]
+      for (i in seq_along(input$age2)) {
+        results_spdf2 <- results_spdf2[results_spdf2$Age %in% input$age2,]
       }
     }
     if (input$occupation2 != "All") {
-      for (i in seq_along(input$occupation2)) { 
-        results_spdf2 <- results_spdf2[results_spdf2$Occupation %in% input$occupation2, ]
+      for (i in seq_along(input$occupation2)) {
+        results_spdf2 <-
+          results_spdf2[results_spdf2$Occupation %in% input$occupation2,]
       }
     }
     if (input$education2 != "All") {
-      for (i in seq_along(input$education2)) { 
-        results_spdf2 <- results_spdf2[results_spdf2$Education.level %in% input$education2, ]
+      for (i in seq_along(input$education2)) {
+        results_spdf2 <-
+          results_spdf2[results_spdf2$Education.level %in% input$education2,]
       }
     }
     if (input$years2 != "All") {
-      for (i in seq_along(input$years2)) { 
-        results_spdf2 <- results_spdf2[results_spdf2$Year %in% input$years2, ]
+      for (i in seq_along(input$years2)) {
+        results_spdf2 <-
+          results_spdf2[results_spdf2$Year %in% input$years2,]
       }
     }
     results_spdf2
@@ -324,7 +426,6 @@ menu <- function(input, output, session) {
   
   # # Subset alternatives for group 2
   group_2_filter_2 <- reactive({
-    
     req(input$alt)
     
     # theme 1
@@ -508,7 +609,7 @@ menu <- function(input, output, session) {
       
       area2 = reactive(input$area2),
       gender2 = reactive(input$gender2),
-      age2 = reactive(input$age2), 
+      age2 = reactive(input$age2),
       occupation2 = reactive(input$occupation2),
       education2 = reactive(input$education2),
       years2 = reactive(input$years2),
@@ -522,9 +623,9 @@ menu <- function(input, output, session) {
       group_1_filter_1 = group_1_filter_1,
       group_1_filter_2 = group_1_filter_2,
       group_1_mean = group_1_mean,
-
+      
       group_2_filter_1 = group_2_filter_1,
-      group_2_filter_2 = group_2_filter_2, 
+      group_2_filter_2 = group_2_filter_2,
       group_2_mean = group_2_mean,
       
       theme = reactive(input$theme)
