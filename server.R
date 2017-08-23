@@ -760,24 +760,28 @@ shinyServer(function(input, output, session) {
         count()
       
       gender <- bind_rows(gender_group_1, gender_group_2, .id = "Group") %>%
-        mutate(Gender = reorder(Gender, n)) %>%
+        ungroup() %>%
+        mutate(Gender = fct_reorder(Gender, n)) %>%
         top_n(n = 4, wt = n) %>%
         droplevels()
       
       age <- bind_rows(age_group_1, age_group_2, .id = "Group")
       
       occupation <- bind_rows(occupation_group_1, occupation_group_2, .id = "Group") %>% 
-        mutate(Occupation = reorder(Occupation, n)) %>%
+        ungroup() %>%
+        mutate(Occupation = fct_reorder(Occupation, n)) %>%
         top_n(n = 10, wt = n) %>%
         droplevels()
       
       education <- bind_rows(education_group_1, education_group_2, .id = "Group") %>%
-        mutate(Education = reorder(Education.level, n)) %>%
+        ungroup() %>%
+        mutate(Education = fct_reorder(Education.level, n)) %>%
         select(Group, Education, n) %>%
         top_n(n = 10, wt = n) %>%
         droplevels()
       
       year <- bind_rows(year_group_1, year_group_2, .id = "Group") %>%
+        ungroup() %>%
         mutate(Year = fct_recode(f = Year, "10+ years" = "10 or more years")) %>%
         mutate(Year = fct_relevel(f = Year, "0-4 years", "5-9 years", "10+ years")) %>%
         droplevels()
