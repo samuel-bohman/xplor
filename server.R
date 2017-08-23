@@ -2,7 +2,7 @@ shinyServer(function(input, output, session) {
   
   tdata <- callModule(module = menu, id = "one")
   
-  ### MAP ############################################################################################################
+  ### MAP #####################################################################
   
   # Create static map and polygon wireframes
   output$map <- renderLeaflet({
@@ -142,13 +142,12 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  ### PLOTS ##########################################################################################################
+  ### PLOTS ###################################################################
   
   observe({
     withProgress(message = "Making plots", value = 0, expr = {
   
-      ### DESCRIPTIVES ###################################################################################################
-      
+      ### DESCRIPTIVES ########################################################
       # Get data for group 1 and group 2
       des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
       des_group_2 <- tdata$group_2_filter_2() %>% as.vector()
@@ -196,7 +195,7 @@ shinyServer(function(input, output, session) {
         bind_shiny(plot_id = "ggvis_3")
       incProgress(amount = 1/23, detail = "Plot 3")
     
-      ### MEAN WEIGHTED VALUES ###########################################################################################
+      ### MEAN WEIGHTED VALUES ################################################
         
       # Comment needed here
       results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
@@ -274,7 +273,7 @@ shinyServer(function(input, output, session) {
         bind_shiny(plot_id = "ggvis_6")
       incProgress(amount = 1/23, detail = "Plot 6")
     
-      ### DISAGREEMENTS ##################################################################################################
+      ### DISAGREEMENTS #######################################################
       
       # Calculate disagreement within group 1
       dis_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
@@ -374,7 +373,7 @@ shinyServer(function(input, output, session) {
         bind_shiny(plot_id = "ggvis_9")
       incProgress(amount = 1/23, detail = "Plot 9")
       
-      ### VALUE / DISAGREEMENT ########################################################################################
+      ### VALUE / DISAGREEMENT ################################################
       
       val_dis_data <- val_data[2:4] / dis_data[2:4]
       val_dis_data <- add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
@@ -409,7 +408,7 @@ shinyServer(function(input, output, session) {
         bind_shiny(plot_id = "ggvis_12")
       incProgress(amount = 1/23, detail = "Plot 12")
       
-      ### PORTFOLIOS ##################################################################################################
+      ### PORTFOLIOS ##########################################################
       
       # Unlist values
       val_group_1 <- unlist(val_group_1)
@@ -672,7 +671,7 @@ shinyServer(function(input, output, session) {
       })
       incProgress(amount = 1/23, detail = "Table 3")
       
-      ### DEMOGRAPHICS ###################################################################################################
+      ### DEMOGRAPHICS ########################################################
       
       # output$pyramid_plot <- renderPlot({
       #   ggplot(data = gender_age, aes(x = Age, y = n, fill = Gender)) +
@@ -877,7 +876,7 @@ shinyServer(function(input, output, session) {
     list(html_1, ggvis_16, html_2, ggvis_17, html_3, ggvis_18, html_4, ggvis_19, html_5, ggvis_20, html_6)
   })
   
-  ### TABLE ##########################################################################################################
+  ### TABLE ###################################################################
   
   results_df <- results_df %>%
     mutate(Education.level = 
