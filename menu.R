@@ -24,10 +24,7 @@ menu_UI <- function(id) {
           ),
           selected = "RdYlGn"
         ),
-        
-        # Help button
         actionButton(inputId = "help", label = "Help")
-
       ),
       tabPanel(
         title = "G1",

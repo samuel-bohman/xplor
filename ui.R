@@ -1,10 +1,12 @@
+library(rintrojs)
+
 shinyUI(
   navbarPage(title = "Upplands Väsby Data Explorer", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
           column(width = 2,
-            introjsUI(),  # Call introjsUI() to use rintrojs 
+            introjsUI(), 
             introBox(
               menu_UI(id = "one"),
               data.step = 1,
