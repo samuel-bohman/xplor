@@ -201,6 +201,8 @@ shinyServer(function(input, output, session) {
       # Comment needed here
       results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
       results.vec2 <- disagreement(tdata$theme(), tdata$group_2_filter_1())
+      results.vec1.sd <- calculateSD(tdata$theme(), tdata$group_1_filter_1())
+      results.vec2.sd <- calculateSD(tdata$theme(), tdata$group_2_filter_1())
       
       # Calculate group 1 mean weighted values
       val_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
