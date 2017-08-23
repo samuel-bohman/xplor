@@ -3,13 +3,19 @@ shinyUI(
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
-          column(width = 2, menu_UI(id = "one")),
-          column(width = 6,
+          column(width = 2,
             introjsUI(),  # Call introjsUI() to use rintrojs 
             introBox(
-              leafletOutput(outputId = "map", height = 680),
+              menu_UI(id = "one"),
               data.step = 1,
-              data.intro = "This is the map where the data is plotted."
+              data.intro = "This is the main menu. It has three tabs: 'Start' is where you select a theme (1-10). Under each theme, there are five alternatives (a-e). With the palette drop-down you can select a color scheme for the map. Under the 'G1' and 'G2' tabs you select area(s) of interest for each respective group as well as five demographic variables: gender, age, occupation, education, and length of residency. Finally, you can decide if you want the map to display markers and/or popups for the selected area(s)."
+            )
+          ),
+          column(width = 6,
+            introBox(
+              leafletOutput(outputId = "map", height = 680),
+              data.step = 2,
+              data.intro = "This is the map. Each area (polygon) is filled with a color according to a specified color scheme shown in the legend in the bottom left corner of the map. You can change color scheme in the main menu to the left."
               )
             ),
           column(width = 2,
@@ -42,7 +48,7 @@ shinyUI(
                   )
                 )
               ),
-              data.step = 2,
+              data.step = 3,
               data.intro = "This is the descriptive panel. It has 3 tabs: 'H' displays histograms over the value distributions, 'V' displays bar plots over mean values for each alternative, and 'D' displays bar plots over mean disagreements for each alternative."
             )
           ),
@@ -68,8 +74,8 @@ shinyUI(
                   )
                 )
               ),
-              data.step = 3,
-              data.intro = "This is the portfolio panel. It has three tabs: 'P' displays optimized portfolios. 'VtD' displays Value-to-Disagreement bar plots for each alternative."
+              data.step = 4,
+              data.intro = "This is the portfolio panel. It has two tabs: 'P' displays optimized portfolios. 'VtD' displays Value-to-Disagreement bar plots for each alternative."
             )
           )
         ),
@@ -84,7 +90,7 @@ shinyUI(
                   )
                 )
               ),
-              data.step = 4,
+              data.step = 5,
               data.intro = "This is the demographics panel. It displays five plots: gender, age, occupation, education level, and length of residency."
             )
           ),
@@ -104,7 +110,7 @@ shinyUI(
                   )
                 )
               ),
-              data.step = 5,
+              data.step = 6,
               data.intro = "This is the portfolio table. It has three tabs: 'G1' displays porfolio details for group 1, 'G2' displays portfolio details for group 2, and 'T' displays total portfolio details. All three tables display essentially the same information as the portfolio (P) plots."
             )
           )

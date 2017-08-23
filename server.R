@@ -11,8 +11,7 @@ shinyServer(function(input, output, session) {
       options = list(
         "nextLabel" = "Next",
         "prevLabel" = "Previous",
-        "skipLabel" = "Close"
-      ),
+        "skipLabel" = "Close"),
       events = list("oncomplete" = 'alert("Finish")')
     )
   )
