@@ -22,7 +22,7 @@ shinyUI(
             introBox(
               leafletOutput(outputId = "map", height = 680),
               data.step = 2,
-              data.intro = paste0("This is the map. Each selected area (polygon) is filled with a color representing the mean value of the selected alternative for ", G1, " and ", G2, ", respectively. <br><br> A color legend is available in the bottom left corner of the map. The '+' and '-' signs in the top left corner enables you to zoom in or zoom out of the map. <br><br> In the top right corner there is a tool for measuring distances and areas. In the bottom right corner there is a minimap that provides a geographical context relative to the map.")
+              data.intro = paste0("This is the map. Each selected area (polygon) is filled with a color representing the mean value of the selected alternative for ", G1, " and ", G2, ", respectively. <br><br> A color legend is available in the bottom left corner. The '+' and '-' sign in the top left corner enables you to zoom in or zoom out, respectively. <br><br> In the top right corner there is a tool for measuring distances and areas. In the bottom right corner there is a minimap that provides a geographical context relative to the map.")
               )
             ),
           column(width = 2,
@@ -56,7 +56,7 @@ shinyUI(
                 )
               ),
               data.step = 3,
-              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
+              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
             )
           ),
           column(width = 2,
