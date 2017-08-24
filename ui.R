@@ -82,7 +82,7 @@ shinyUI(
                 )
               ),
               data.step = 4,
-              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). The Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e).")
+              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e).")
             )
           )
         ),
@@ -118,7 +118,7 @@ shinyUI(
                 )
               ),
               data.step = 6,
-              data.intro = paste0("This is the portfolio table panel. It has three tabs: ", G1, ", ", G2, ", and ", T, " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the disagreement in the portfolio, respectively. Column 'VtD' displays the value-to-disagreement ratio of the portfolio.")
+              data.intro = paste0("This is the portfolio details panel. It has three tabs: ", G1, ", ", G2, ", and ", T, " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the disagreement in the portfolio, respectively. Column 'VtD' displays the value-to-disagreement ratio of the portfolio.")
             )
           )
         )
