@@ -82,7 +82,7 @@ shinyUI(
                 )
               ),
               data.step = 4,
-              data.intro = paste0("This is the portfolio tables panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays line graphs of efficient portfolios of alternatives for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
+              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays line graphs of efficient portfolios of alternatives for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
             )
           )
         ),
