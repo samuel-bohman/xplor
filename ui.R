@@ -56,7 +56,7 @@ shinyUI(
                 )
               ),
               data.step = 3,
-              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> Click a gear icon <i class='fa fa-gear'></i> to download a plot in SVG or PNG format.")
+              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> To download a plot, click the gear icon <i class='fa fa-gear'></i>.")
             )
           ),
           column(width = 2,
@@ -82,7 +82,7 @@ shinyUI(
                 )
               ),
               data.step = 4,
-              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e).")
+              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the gear icon <i class='fa fa-gear'></i>.")
             )
           )
         ),
@@ -98,7 +98,7 @@ shinyUI(
                 )
               ),
               data.step = 5,
-              data.intro = paste0("This is the demographics panel. It displays bar plots of five background variables for ", G1, " and ", G2, ": Gender, Age, Occupation, Education level, and Length of residency.")
+              data.intro = paste0("This is the demographics panel. It displays bar plots of five background variables for ", G1, " and ", G2, ": Gender, Age, Occupation, Education level, and Length of residency. <br><br> To download a plot, click the gear icon <i class='fa fa-gear'></i>.")
             )
           ),
           column(width = 4,
