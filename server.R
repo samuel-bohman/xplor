@@ -260,7 +260,7 @@ shinyServer(function(input, output, session) {
       val_data %>%
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         scale_numeric(property = "y", domain = c(NA, 10)) %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
@@ -270,7 +270,7 @@ shinyServer(function(input, output, session) {
       # Plot group 2 mean weighted values 
       val_data %>%
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
@@ -280,7 +280,7 @@ shinyServer(function(input, output, session) {
       # Plot total mean weighted values 
       val_data %>%
         ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
@@ -360,7 +360,7 @@ shinyServer(function(input, output, session) {
       # Plot group 1 disagreement 
       dis_data %>%
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
@@ -370,7 +370,7 @@ shinyServer(function(input, output, session) {
       # Plot group 2 disagreement 
       dis_data %>%
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
@@ -380,7 +380,7 @@ shinyServer(function(input, output, session) {
       # Plot total disagreement
       dis_data %>%
         ggvis(x = ~x, y = ~y3 * 1000, fill := "darkslateblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
@@ -395,8 +395,8 @@ shinyServer(function(input, output, session) {
       # Plot group 1 value / disagreement 
       val_dis_data %>%
         ggvis(x = ~x, y = ~y1, fill := "steelblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "V / D", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_10")
@@ -405,8 +405,8 @@ shinyServer(function(input, output, session) {
       # Plot group 2 value / disagreement 
       val_dis_data %>%
         ggvis(x = ~x, y = ~y2, fill := "steelblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "V / D", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_11")
@@ -415,8 +415,8 @@ shinyServer(function(input, output, session) {
       # Plot total value / disagreement 
       val_dis_data %>%
         ggvis(x = ~x, y = ~y3, fill := "steelblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "V / D", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_12")
