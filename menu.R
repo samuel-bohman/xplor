@@ -1,4 +1,8 @@
 # Module UI
+
+G1 <- "<font color='steelblue'><b>G1</b></font>"
+G2 <- "<font color='firebrick'><b>G2</b></font>"
+
 menu_UI <- function(id) {
   ns <- NS(id)
   tagList(sidebarPanel(width = 0,
@@ -27,7 +31,7 @@ menu_UI <- function(id) {
         actionButton(inputId = "help", label = "Help")
       ),
       tabPanel(
-        title = G1,
+        title = HTML(G1),
         lapply(seq_along(b_variables), function(j) {
           if (j == 1) {
             to_select <- rnd[[1]]
@@ -47,7 +51,7 @@ menu_UI <- function(id) {
         
       ),
       tabPanel(
-        title = G2,
+        title = HTML(G2),
         lapply(seq_along(b_variables), function(j) {
           if (j == 1) {
             to_select <- rnd[[2]]

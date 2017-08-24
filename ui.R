@@ -6,7 +6,7 @@ T <- "<font color='darkslateblue'><b>T</b></font>"
 Diff <- "<font color='darkslateblue'><b>Diff</b></font>"
 
 shinyUI(
-  navbarPage(title = "Upplands Väsby Data Explorer", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
+  navbarPage(title = HTML("<font color='#4080bf'><b>Upplands Väsby Data Explorer</b></font>"), id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
