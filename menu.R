@@ -14,7 +14,7 @@ menu_UI <- function(id) {
         uiOutput(ns("alternatives")),
         selectInput(
           ns("colorpal"),
-          label = "Palette",
+          label = "Color Scheme",
           choices = c(
             rownames(brewer.pal.info[1:9,]),
             "viridis",
@@ -27,7 +27,7 @@ menu_UI <- function(id) {
         actionButton(inputId = "help", label = "Help")
       ),
       tabPanel(
-        title = "G1",
+        title = G1,
         lapply(seq_along(b_variables), function(j) {
           if (j == 1) {
             to_select <- rnd[[1]]
@@ -42,12 +42,12 @@ menu_UI <- function(id) {
             multiple = TRUE
           )
         }),
-        checkboxInput(ns("markers1"), label = "Add markers", value = TRUE),
-        checkboxInput(ns("pop1"), label = "Add popups", value = FALSE)
+        checkboxInput(ns("markers1"), label = "Display markers", value = TRUE),
+        checkboxInput(ns("pop1"), label = "Display popups", value = FALSE)
         
       ),
       tabPanel(
-        title = "G2",
+        title = G2,
         lapply(seq_along(b_variables), function(j) {
           if (j == 1) {
             to_select <- rnd[[2]]
@@ -62,8 +62,8 @@ menu_UI <- function(id) {
             multiple = TRUE
           )
         }),
-        checkboxInput(ns("markers2"), label = "Add markers", value = TRUE),
-        checkboxInput(ns("pop2"), label = "Add popups", value = FALSE)
+        checkboxInput(ns("markers2"), label = "Display markers", value = TRUE),
+        checkboxInput(ns("pop2"), label = "Display popups", value = FALSE)
       )
     )))
 }
@@ -77,70 +77,70 @@ menu <- function(input, output, session) {
       input$theme,
       "1. Parks and green areas" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[1]],
         selectize = FALSE,
         size = 5
       ),
       "2. Diversity in housing supply" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[2]],
         selectize = FALSE,
         size = 5
       ),
       "3. Invest in public areas" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[3]],
         selectize = FALSE,
         size = 5
       ),
       "4. Communications" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[4]],
         selectize = FALSE,
         size = 5
       ),
       "5. Culture and leasure" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[5]],
         selectize = FALSE,
         size = 5
       ),
       "6. Education" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[6]],
         selectize = FALSE,
         size = 5
       ),
       "7. Care" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[7]],
         selectize = FALSE,
         size = 5
       ),
       "8. School" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[8]],
         selectize = FALSE,
         size = 5
       ),
       "9. Safety" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[9]],
         selectize = FALSE,
         size = 5
       ),
       "10. Ecological sustainability" = selectInput(
         ns("alt"),
-        label = "Alternatives",
+        label = "Alternative",
         choices = alt_list[[10]],
         selectize = FALSE,
         size = 5

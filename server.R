@@ -4,7 +4,7 @@ shinyServer(function(input, output, session) {
   
   ### INTRO JS ################################################################
   
-  # start introjs when button is pressed with custom options and events
+  # Start introjs when help button is clicked
   observeEvent(input$help,
     introjs(
       session,
@@ -28,7 +28,7 @@ shinyServer(function(input, output, session) {
       # addGraticule(interval = 1, group = "Graticule") %>%
       # addTerminator(group = "Daylight") %>%
       # addLayersControl(overlayGroups = c("Graticule", "Daylight"), options = layersControlOptions(collapsed = FALSE)) %>%
-      addMiniMap(toggleDisplay = TRUE)
+      addMiniMap(toggleDisplay = TRUE, width = 200, height = 200)
   })
   
   # Define color palette
@@ -396,7 +396,7 @@ shinyServer(function(input, output, session) {
       val_dis_data %>%
         ggvis(x = ~x, y = ~y1, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "Val. / Dis.", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "y", title = "V / D", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_10")
@@ -406,7 +406,7 @@ shinyServer(function(input, output, session) {
       val_dis_data %>%
         ggvis(x = ~x, y = ~y2, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "Val. / Dis.", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "y", title = "V / D", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_11")
@@ -416,7 +416,7 @@ shinyServer(function(input, output, session) {
       val_dis_data %>%
         ggvis(x = ~x, y = ~y3, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternatives", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "Val. / Dis.", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        add_axis(type = "y", title = "V / D", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
         set_options(width = "auto", height = 180) %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_12")
@@ -579,9 +579,9 @@ shinyServer(function(input, output, session) {
         e <- round(sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1) * 100, digits = 0)
         portfolios_group_1 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Val. = value * 100, Dis. = disagreement * 100) %>%
-          mutate(VtD = Val. / Dis.) %>%
-          select(id, a, b, c, d, e, Val., Dis., VtD) %>%
+          mutate(V = value * 100, D = disagreement * 100) %>%
+          mutate(VtD = V / D) %>%
+          select(id, a, b, c, d, e, V, D, VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 1) %>%
           datatable(
@@ -617,9 +617,9 @@ shinyServer(function(input, output, session) {
         e <- round(sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2) * 100, digits = 0)
         portfolios_group_2 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Val. = value * 100, Dis. = disagreement * 100) %>%
-          mutate(VtD = Val. / Dis.) %>%
-          select(id, a, b, c, d, e, Val., Dis., VtD) %>%
+          mutate(V = value * 100, D = disagreement * 100) %>%
+          mutate(VtD = V / D) %>%
+          select(id, a, b, c, d, e, V, D, VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 1) %>%
           datatable(
@@ -655,9 +655,9 @@ shinyServer(function(input, output, session) {
         e <- round(sum(portfolios_total$Alt.e) / nrow(portfolios_total) * 100, digits = 0)
         portfolios_total %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(Val. = value * 100, Dis. = disagreement * 100) %>%
-          mutate(VtD = Val. / Dis.) %>%
-          select(id, a, b, c, d, e, Val., Dis., VtD) %>%
+          mutate(V = value * 100, D = disagreement * 100) %>%
+          mutate(VtD = V / D) %>%
+          select(id, a, b, c, d, e, V, D, VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
           round(digits = 1) %>%
           datatable(

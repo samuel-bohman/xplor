@@ -1,5 +1,10 @@
 library(rintrojs)
 
+G1 <- "<font color='steelblue'><b>G1</b></font>"
+G2 <- "<font color='firebrick'><b>G2</b></font>"
+T <- "<font color='darkslateblue'><b>T</b></font>"
+Diff <- "<font color='darkslateblue'><b>Diff</b></font>"
+
 shinyUI(
   navbarPage(title = "Upplands Väsby Data Explorer", id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     tabPanel(title = "Map", icon = icon(name = "map-o"),
@@ -10,21 +15,21 @@ shinyUI(
             introBox(
               menu_UI(id = "one"),
               data.step = 1,
-              data.intro = "This is the main menu. It has three tabs: 'Start' is where you select a theme (1-10). Under each theme, there are five alternatives (a-e). With the palette drop-down you can select a color scheme for the map. Under the 'G1' and 'G2' tabs you select area(s) of interest for each respective group as well as five demographic variables: gender, age, occupation, education, and length of residency. Finally, you can decide if you want the map to display markers and/or popups for the selected area(s)."
+              data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis by selecting a 'Theme' (1-10) and then one 'Alternative' (a-e) associated with that theme. From the 'Start' tab you can also customize the map color scheme. A click on the 'Help' button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas from the dropdown list 'Area'. By adjusting the five demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) you can 'slice and dice' the data to see it from different viewpoints. Finally, you can enable or disable map markers and popups.")
             )
           ),
           column(width = 6,
             introBox(
               leafletOutput(outputId = "map", height = 680),
               data.step = 2,
-              data.intro = "This is the map. Each area (polygon) is filled with a color according to a specified color scheme shown in the legend in the bottom left corner of the map. You can change color scheme in the main menu to the left."
+              data.intro = paste0("This is the map. Each selected area (polygon) is filled with a color representing the mean value of the selected alternative for ", G1, " and ", G2, ", respectively. <br><br> A color legend is available in the bottom left corner of the map. The '+' and '-' signs in the top left corner enables you to zoom in or zoom out of the map. In the top right corner there is a tool for measuring distances and areas. The minimap in the bottom right corner provides an overview.")
               )
             ),
           column(width = 2,
             introBox(
               sidebarPanel(width = 0,
                 tabsetPanel(
-                  tabPanel(title = "H",
+                  tabPanel(title = "F",
                     "G1",
                     ggvisOutput(plot_id = "ggvis_1"),
                     "G2",
@@ -51,7 +56,7 @@ shinyUI(
                 )
               ),
               data.step = 3,
-              data.intro = "This is the descriptive panel. It has 3 tabs: 'H' displays histograms over the value distributions, 'V' displays bar plots over mean values for each alternative, and 'D' displays bar plots over mean disagreements for each alternative."
+              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
             )
           ),
           column(width = 2,
@@ -77,7 +82,7 @@ shinyUI(
                 )
               ),
               data.step = 4,
-              data.intro = "This is the portfolio panel. It has two tabs: 'P' displays optimized portfolios. 'VtD' displays Value-to-Disagreement bar plots for each alternative."
+              data.intro = paste0("This is the portfolio tables panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays line graphs of efficient portfolios of alternatives for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
             )
           )
         ),
@@ -93,7 +98,7 @@ shinyUI(
                 )
               ),
               data.step = 5,
-              data.intro = "This is the demographics panel. It displays five plots: gender, age, occupation, education level, and length of residency."
+              data.intro = paste0("This is the demographics panel. It displays bar plots of five background variables for ", G1, " and ", G2, ": Gender, Age, Occupation, Education level, and Length of residency. <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
             )
           ),
           column(width = 4,
@@ -101,19 +106,19 @@ shinyUI(
             introBox(
               sidebarPanel(width = 0,
                 tabsetPanel(
-                  tabPanel(title = "G1",
+                  tabPanel(title = HTML(G1),
                     DT::dataTableOutput(outputId = "portfolios_group_1_table")
                   ),
-                  tabPanel(title = "G2",
+                  tabPanel(title = HTML(G2),
                     DT::dataTableOutput(outputId = "portfolios_group_2_table")
                   ),
-                  tabPanel(title = "T",
+                  tabPanel(title = HTML(T),
                     DT::dataTableOutput(outputId = "portfolios_total_table")
                   )
                 )
               ),
               data.step = 6,
-              data.intro = "This is the portfolio table. It has three tabs: 'G1' displays porfolio details for group 1, 'G2' displays portfolio details for group 2, and 'T' displays total portfolio details. All three tables display essentially the same information as the portfolio (P) plots."
+              data.intro = paste0("This is the portfolio table panel. It has three tabs: ", G1, ", ", G2, ", and ", T, " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the disagreement in the portfolio, respectively. Column 'VtD' displays the value-to-disagreement ratio of the portfolio.")
             )
           )
         )
