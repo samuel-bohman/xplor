@@ -56,7 +56,7 @@ shinyUI(
                 )
               ),
               data.step = 3,
-              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> All plots can be downloaded in SVG or PNG format by clicking on the gear icon <i class='fa fa-gear'></i>.")
+              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> Click a gear icon <i class='fa fa-gear'></i> to download a plot in SVG or PNG format.")
             )
           ),
           column(width = 2,
