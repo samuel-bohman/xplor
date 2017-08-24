@@ -82,7 +82,7 @@ shinyUI(
                 )
               ),
               data.step = 4,
-              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays line graphs of efficient portfolios of alternatives for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e).")
+              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). The Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e).")
             )
           )
         ),

@@ -538,7 +538,7 @@ shinyServer(function(input, output, session) {
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         set_options(width = "auto", height = 180) %>%
         layer_text(text := ~id, fill := "steelblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
-        layer_points(fillOpacity := 0, stroke := "steelblue") %>%
+        layer_points(fillOpacity := 0.5, fill := "steelblue", stroke := "steelblue") %>%
         layer_paths(stroke := "steelblue") %>%
         add_tooltip(html = tooltip_1, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_13")
@@ -551,7 +551,7 @@ shinyServer(function(input, output, session) {
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         set_options(width = "auto", height = 180) %>%
         layer_text(text := ~id, fill := "firebrick", fontSize := 8, dx := ~dx, dy := ~dy) %>%
-        layer_points(fillOpacity := 0, stroke := "firebrick") %>%
+        layer_points(fillOpacity := 0.5, fill := "firebrick", stroke := "firebrick") %>%
         layer_paths(stroke := "firebrick") %>%
         add_tooltip(html = tooltip_2, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_14")
@@ -564,7 +564,7 @@ shinyServer(function(input, output, session) {
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         set_options(width = "auto", height = 180) %>%
         layer_text(text := ~id, fill := "darkslateblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
-        layer_points(fillOpacity := 0, stroke := "darkslateblue") %>%
+        layer_points(fillOpacity := 0.5, fill := "darkslateblue", stroke := "darkslateblue") %>%
         layer_paths(stroke := "darkslateblue") %>%
         add_tooltip(html = tooltip_total, on = "hover") %>%
         bind_shiny(plot_id = "ggvis_15")
