@@ -6,7 +6,7 @@ T    <- HTML("<font color='darkslateblue'><b>T</b></font>")
 Diff <- HTML("<font color='darkslateblue'><b>Diff</b></font>")
 
 shinyUI(
-  navbarPage(theme = shinytheme("sandstone"), title = HTML("<strong>Upplands Väsby Data Explorer</strong>"), id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
+  navbarPage(theme = shinytheme("yeti"), title = HTML("<strong>Upplands Väsby Data Explorer</strong>"), id = "nav", position = "static-top", collapsible = TRUE, fluid = TRUE, 
     tabPanel(title = "Map", icon = icon(name = "map-o"),
       fluidPage(
         fluidRow(
@@ -137,7 +137,7 @@ shinyUI(
         DT::dataTableOutput(outputId = "table")
       )
     ),
-    tabPanel(title = "About", icon = icon(name = "question"),
+    tabPanel(title = "About", icon = icon(name = "info-circle"),
       includeMarkdown("about.md"))
   )
 )

@@ -28,7 +28,7 @@ menu_UI <- function(id) {
           ),
           selected = "RdYlGn"
         ),
-        actionButton(inputId = "help", label = "Help")
+        actionButton(inputId = "help", label = "Help", icon("question-circle"), class = "btn btn-default btn-block")
       ),
       tabPanel(
         title = HTML(G1),
