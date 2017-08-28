@@ -500,8 +500,6 @@ shinyServer(function(input, output, session) {
       portfolios_group_2$value <- portfolios_group_2$value * 100
       portfolios_group_2$disagreement <- portfolios_group_2$disagreement * 100
       
-      print(portfolios_group_2)
-      
       # Portfolios group 2 for plotting #######################################
       all_portfolios_group_2 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
       names(all_portfolios_group_2) <- actions
