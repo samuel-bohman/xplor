@@ -1,6 +1,7 @@
 # Test Toulouse 2
 
 library(shiny)
+library(shinythemes)
 library(leaflet)
 library(ggvis)
 library(dplyr)
