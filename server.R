@@ -61,7 +61,7 @@ shinyServer(function(input, output, session) {
           color = "steelblue",
           layerId = tdata$group_1_filter_1()$Area,
           group = "group1Polygons", 
-          highlightOptions = highlightOptions(color = "blue", weight = 2, bringToFront = TRUE)
+          highlightOptions = highlightOptions(color = "blue", weight = 3, bringToFront = TRUE)
         )
     
     # Group 2
@@ -76,7 +76,7 @@ shinyServer(function(input, output, session) {
         color = "firebrick",
         layerId = tdata$group_2_filter_1()$Area,
         group = "group2Polygons", 
-        highlightOptions = highlightOptions(color = "red", weight = 2, bringToFront = TRUE)
+        highlightOptions = highlightOptions(color = "red", weight = 3, bringToFront = TRUE)
       )
   })
   
