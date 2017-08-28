@@ -460,8 +460,6 @@ shinyServer(function(input, output, session) {
       portfolios_group_1 <- rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
       portfolios_group_1$id <- 1:nrow(portfolios_group_1)
       
-      print(portfolios_group_1)
-      
       # Portfolios group 1 for plotting #######################################
       all_portfolios_group_1 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
       names(all_portfolios_group_1) <- actions
@@ -601,7 +599,7 @@ shinyServer(function(input, output, session) {
         add_tooltip(html = tooltip_2, on = "hover") %>%
         set_options(width = "auto", height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_14")
-      incProgress(amount = 1/24, detail = "Plot 14")
+      incProgress(amount = 1/23, detail = "Plot 14")
   
       # Plot total portfolios #################################################
       all_portfolios_total %>%
@@ -615,7 +613,7 @@ shinyServer(function(input, output, session) {
         add_tooltip(html = tooltip_total, on = "hover") %>%
         set_options(width = "auto", height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_15")
-      incProgress(amount = 1/25, detail = "Plot 15")
+      incProgress(amount = 1/23, detail = "Plot 15")
       
       # Portfolio group 1 table ###############################################
       output$portfolios_group_1_table <- DT::renderDataTable({
