@@ -15,7 +15,7 @@ shinyUI(
             introBox(
               menu_UI(id = "one"),
               data.step = 1,
-              data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis by selecting a 'Theme' (1-10) and then one 'Alternative' (a-e) associated with that theme. From the 'Start' tab you can also customize the map color scheme. A click on the 'Help' button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas from the dropdown list 'Area'. By adjusting the five demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) you can 'slice and dice' the data to see it from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups.")
+              data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a theme (1-10) and then one alternative (a-e) associated with that particular theme. From the 'Start' tab you can also customize the map color scheme. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups.")
             )
           ),
           column(width = 6,
@@ -56,7 +56,7 @@ shinyUI(
                 )
               ),
               data.step = 3,
-              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> To download a plot, click the gear icon <i class='fa fa-gear'></i>.")
+              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             )
           ),
           column(width = 2,
@@ -82,7 +82,7 @@ shinyUI(
                 )
               ),
               data.step = 4,
-              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the gear icon <i class='fa fa-gear'></i>.")
+              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             )
           )
         ),
@@ -98,7 +98,7 @@ shinyUI(
                 )
               ),
               data.step = 5,
-              data.intro = paste0("This is the demographics panel. It displays bar plots of five background variables for ", G1, " and ", G2, ": Gender, Age, Occupation, Education level, and Length of residency. <br><br> To download a plot, click the gear icon <i class='fa fa-gear'></i>.")
+              data.intro = paste0("This is the demographics panel. It displays bar plots of five background variables for ", G1, " and ", G2, ": Gender, Age, Occupation, Education level, and Length of residency. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             )
           ),
           column(width = 4,
