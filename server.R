@@ -459,6 +459,8 @@ shinyServer(function(input, output, session) {
       portfolios_group_1_pos_rev <- portfolios_group_1_pos[rev(rownames(portfolios_group_1_pos)), ]
       portfolios_group_1 <- rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
       portfolios_group_1$id <- 1:nrow(portfolios_group_1)
+      portfolios_group_1$value <- portfolios_group_1$value * 100
+      portfolios_group_1$disagreement <- portfolios_group_1$disagreement * 100
       
       # Portfolios group 1 for plotting #######################################
       all_portfolios_group_1 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
@@ -470,8 +472,8 @@ shinyServer(function(input, output, session) {
       all_portfolio_dis_group_1 <- apply(all_portfolios_group_1, 1, function(row) {
         dis <- sum(dis_group_1[which(row %in% 1)])
       })
-      all_portfolios_group_1$value <- all_portfolio_val_group_1
-      all_portfolios_group_1$disagreement <- all_portfolio_dis_group_1
+      all_portfolios_group_1$value <- all_portfolio_val_group_1 * 100
+      all_portfolios_group_1$disagreement <- all_portfolio_dis_group_1 * 100
       all_portfolios_group_1 <- full_join(portfolios_group_1, all_portfolios_group_1, by = actions)
       all_portfolios_group_1$dx <- rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_1))
       all_portfolios_group_1$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_1))
@@ -495,8 +497,8 @@ shinyServer(function(input, output, session) {
       portfolios_group_2_pos_rev <- portfolios_group_2_pos[rev(rownames(portfolios_group_2_pos)),]
       portfolios_group_2 <- rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1, ])
       portfolios_group_2$id <- 1:nrow(portfolios_group_2)
-      portfolios_group_2$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_group_2))
-      portfolios_group_2$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_group_2))
+      portfolios_group_2$value <- portfolios_group_2$value * 100
+      portfolios_group_2$disagreement <- portfolios_group_2$disagreement * 100
       
       # Portfolios group 2 for plotting #######################################
       all_portfolios_group_2 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
@@ -508,8 +510,8 @@ shinyServer(function(input, output, session) {
       all_portfolios_dis_group_2 <- apply(all_portfolios_group_2, 1, function(row) {
         dis <- sum(dis_group_2[which(row %in% 1)])
       })
-      all_portfolios_group_2$value <- all_portfolios_val_group_2
-      all_portfolios_group_2$disagreement <- all_portfolios_dis_group_2
+      all_portfolios_group_2$value <- all_portfolios_val_group_2 * 100
+      all_portfolios_group_2$disagreement <- all_portfolios_dis_group_2 * 100
       all_portfolios_group_2 <- full_join(portfolios_group_2, all_portfolios_group_2, by = actions)
       all_portfolios_group_2$dx <- rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_2))
       all_portfolios_group_2$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_2))
@@ -533,8 +535,8 @@ shinyServer(function(input, output, session) {
       portfolios_total_pos_rev <- portfolios_total_pos[rev(rownames(portfolios_total_pos)),]
       portfolios_total <- rbind(portfolios_total_pos_rev, portfolios_total_neg[-1, ])
       portfolios_total$id <- 1:nrow(portfolios_total)
-      portfolios_total$dx <- rep_len(c(-10, 5), length.out = nrow(portfolios_total))
-      portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(portfolios_total))
+      portfolios_total$value <- portfolios_total$value * 100
+      portfolios_total$disagreement <- portfolios_total$disagreement * 100
       
       # Portfolios total for plotting #########################################
       all_portfolios_total <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
@@ -546,8 +548,8 @@ shinyServer(function(input, output, session) {
       all_portfolios_dis_total <- apply(all_portfolios_total, 1, function(row) {
         dis <- sum(dis_total[which(row %in% 1)])
       })
-      all_portfolios_total$value <- all_portfolios_val_total
-      all_portfolios_total$disagreement <- all_portfolios_dis_total
+      all_portfolios_total$value <- all_portfolios_val_total * 100
+      all_portfolios_total$disagreement <- all_portfolios_dis_total * 100
       all_portfolios_total <- full_join(portfolios_total, all_portfolios_total, by = actions)
       all_portfolios_total$dx <- rep_len(c(-10, 5), length.out = nrow(all_portfolios_total))
       all_portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_total))
@@ -558,19 +560,19 @@ shinyServer(function(input, output, session) {
         if (is.null(x)) return(NULL)
         row <- all_portfolios_group_1[all_portfolios_group_1$id == x$id, ]
         row$dx <- row$dy <- NULL
-        paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
+        paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
       }
       tooltip_2 <- function(x) {
         if (is.null(x)) return(NULL)
         row <- all_portfolios_group_2[all_portfolios_group_2$id == x$id, ]
         row$dx <- row$dy <- NULL
-        paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
+        paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
       }
       tooltip_total <- function(x) {
         if (is.null(x)) return(NULL)
         row <- all_portfolios_total[all_portfolios_total$id == x$id, ]
         row$dx <- row$dy <- NULL
-        paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
+        paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
       }
       
       # Plot group 1 portfolios ###############################################
@@ -578,10 +580,10 @@ shinyServer(function(input, output, session) {
         ggvis() %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        layer_points(x = ~disagreement.y * 100, y = ~value.y * 100, key := ~id, fillOpacity := .5, fill := "grey") %>%
-        layer_points(x = ~disagreement.x * 100, y = ~value.x * 100, key := ~id, fillOpacity := 1, fill := "steelblue") %>%
-        layer_paths(x = ~disagreement.x * 100, y = ~value.x * 100, key := ~id, stroke := "steelblue") %>%
-        layer_text(x = ~disagreement.x * 100, y = ~value.x * 100, data = na.omit(all_portfolios_group_1), text := ~id, fill := "steelblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
+        layer_points(x = ~disagreement.y, y = ~value.y, key := ~id, fillOpacity := .5, fill := "grey") %>%
+        layer_points(x = ~disagreement.x, y = ~value.x, key := ~id, fillOpacity := 1, fill := "steelblue") %>%
+        layer_paths(x = ~disagreement.x, y = ~value.x, key := ~id, stroke := "steelblue") %>%
+        layer_text(x = ~disagreement.x, y = ~value.x, data = na.omit(all_portfolios_group_1), text := ~id, fill := "steelblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         add_tooltip(html = tooltip_1, on = "hover") %>%
         set_options(width = "auto", height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_13")
@@ -592,10 +594,10 @@ shinyServer(function(input, output, session) {
         ggvis() %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        layer_points(x = ~disagreement.y * 100, y = ~value.y * 100, key := ~id, fillOpacity := .5, fill := "grey") %>%
-        layer_points(x = ~disagreement.x * 100, y = ~value.x * 100, key := ~id, fillOpacity := 1, fill := "firebrick") %>%
-        layer_paths(x = ~disagreement.x * 100, y = ~value.x * 100, key := ~id, stroke := "firebrick") %>%
-        layer_text(x = ~disagreement.x * 100, y = ~value.x * 100, data = na.omit(all_portfolios_group_2), text := ~id, fill := "firebrick", fontSize := 8, dx := ~dx, dy := ~dy) %>%
+        layer_points(x = ~disagreement.y, y = ~value.y, key := ~id, fillOpacity := .5, fill := "grey") %>%
+        layer_points(x = ~disagreement.x, y = ~value.x, key := ~id, fillOpacity := 1, fill := "firebrick") %>%
+        layer_paths(x = ~disagreement.x, y = ~value.x, key := ~id, stroke := "firebrick") %>%
+        layer_text(x = ~disagreement.x, y = ~value.x, data = na.omit(all_portfolios_group_2), text := ~id, fill := "firebrick", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         add_tooltip(html = tooltip_2, on = "hover") %>%
         set_options(width = "auto", height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_14")
@@ -606,10 +608,10 @@ shinyServer(function(input, output, session) {
         ggvis() %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        layer_points(x = ~disagreement.y * 100, y = ~value.y * 100, key := ~id, fillOpacity := .5, fill := "grey") %>%
-        layer_points(x = ~disagreement.x * 100, y = ~value.x * 100, key := ~id, fillOpacity := 1, fill := "darkslateblue") %>%
-        layer_paths(x = ~disagreement.x * 100, y = ~value.x * 100, key := ~id, stroke := "darkslateblue") %>%
-        layer_text(x = ~disagreement.x * 100, y = ~value.x * 100, data = na.omit(all_portfolios_total), text := ~id, fill := "darkslateblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
+        layer_points(x = ~disagreement.y, y = ~value.y, key := ~id, fillOpacity := .5, fill := "grey") %>%
+        layer_points(x = ~disagreement.x, y = ~value.x, key := ~id, fillOpacity := 1, fill := "darkslateblue") %>%
+        layer_paths(x = ~disagreement.x, y = ~value.x, key := ~id, stroke := "darkslateblue") %>%
+        layer_text(x = ~disagreement.x, y = ~value.x, data = na.omit(all_portfolios_total), text := ~id, fill := "darkslateblue", fontSize := 8, dx := ~dx, dy := ~dy) %>%
         add_tooltip(html = tooltip_total, on = "hover") %>%
         set_options(width = "auto", height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_15")
@@ -624,7 +626,7 @@ shinyServer(function(input, output, session) {
         e <- round(sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1) * 100, digits = 0)
         portfolios_group_1 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(V = value * 100, D = disagreement * 100) %>%
+          mutate(V = value, D = disagreement) %>%
           mutate(VtD = V / D) %>%
           select(id, a, b, c, d, e, V, D, VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
@@ -663,7 +665,6 @@ shinyServer(function(input, output, session) {
         e <- round(sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2) * 100, digits = 0)
         portfolios_group_2 %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(V = value * 100, D = disagreement * 100) %>%
           mutate(VtD = V / D) %>%
           select(id, a, b, c, d, e, V, D, VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
@@ -702,7 +703,7 @@ shinyServer(function(input, output, session) {
         e <- round(sum(portfolios_total$Alt.e) / nrow(portfolios_total) * 100, digits = 0)
         portfolios_total %>%
           rename(a = Alt.a, b = Alt.b, c = Alt.c, d = Alt.d, e = Alt.e) %>%
-          mutate(V = value * 100, D = disagreement * 100) %>%
+          mutate(V = value, D = disagreement) %>%
           mutate(VtD = V / D) %>%
           select(id, a, b, c, d, e, V, D, VtD) %>%
           add_row(a = a, b = b, c = c, d = d, e = e) %>%
