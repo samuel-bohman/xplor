@@ -159,3 +159,5 @@ criterion_number[[8]] <- 8
 criterion_number[[9]] <- 9
 criterion_number[[10]] <- 10
 
+actions <- c("Alt.a","Alt.b","Alt.c","Alt.d","Alt.e")
+
