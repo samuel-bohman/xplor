@@ -557,19 +557,19 @@ shinyServer(function(input, output, session) {
       tooltip_1 <- function(x) {
         if (is.null(x)) return(NULL)
         row <- all_portfolios_group_1[all_portfolios_group_1$id == x$id, ]
-        row$dx <- row$dy <- row$value.y <- row$disagreement.y <- NULL
+        row$dx <- row$dy <- NULL
         paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
       }
       tooltip_2 <- function(x) {
         if (is.null(x)) return(NULL)
         row <- all_portfolios_group_2[all_portfolios_group_2$id == x$id, ]
-        row$dx <- row$dy <- row$value.y <- row$disagreement.y <- NULL
+        row$dx <- row$dy <- NULL
         paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
       }
       tooltip_total <- function(x) {
         if (is.null(x)) return(NULL)
         row <- all_portfolios_total[all_portfolios_total$id == x$id, ]
-        row$dx <- row$dy <- row$value.y <- row$disagreement.y <- NULL
+        row$dx <- row$dy <- NULL
         paste0(names(row), ": ", format(x = row, digits = 1), collapse = "<br />")
       }
       
