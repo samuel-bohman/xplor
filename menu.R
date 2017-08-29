@@ -19,13 +19,7 @@ menu_UI <- function(id) {
         selectInput(
           ns("colorpal"),
           label = "Color Scheme",
-          choices = c(
-            rownames(brewer.pal.info[1:9,]),
-            "viridis",
-            "magma",
-            "inferno",
-            "plasma"
-          ),
+          choices = rownames(brewer.pal.info[1:9, ]),
           selected = "RdYlGn"
         ),
         actionButton(inputId = "help", label = "Help", icon("question"), class = "btn btn-default btn-block")
