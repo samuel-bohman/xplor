@@ -1,10 +1,10 @@
 ### About
 
-Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. The software is under active development, which means that there may be bugs, incomplete features, or polish required in various areas. 
+Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. The data was collected through an online questionnaire in 2015 in Upplands Väsby municipality in Stockholm County in east central Sweden. All data is anonymized to ensure no personally identifiable information can be surfaced through the application. 
 
 ### Code
 
-Upplands Väsby Data Explorer is an open source research project. All code behind the analysis and the full data set is available in a public repository on GitHub: https://github.com/samuel-bohman/xplor
+Upplands Väsby Data Explorer is an open source research project. All code and data is available in a public repository on [GitHub] (https://github.com/samuel-bohman/xplor). The software is under active development which means that there may be bugs, incomplete features, or polish required in various areas. If you stumble across a bug, typographic error, or any other unwanted behavior, please let us know by [opening an issue](https://github.com/samuel-bohman/xplor/issues).
 
 ### Authors
 
