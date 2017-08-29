@@ -35,7 +35,7 @@ R packages used for web interface and data visualization:
 * RColorBrewer: Erich Neuwirth (2014). RColorBrewer: ColorBrewer Palettes. R package version 1.1-2.
   https://CRAN.R-project.org/package=RColorBrewer
 
-Additional R packages used for data manipulation:
+Additional R packages used for data manipulation, etc.:
 
 * dplyr: Hadley Wickham and Romain Francois (2016). dplyr: A Grammar of Data Manipulation. R package version 0.5.0.
   https://CRAN.R-project.org/package=dplyr
