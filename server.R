@@ -497,6 +497,9 @@ shinyServer(function(input, output, session) {
             results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
           conIdx = results.vec1[x]
           proIdx = results.vec1[x + 1]
+          
+          req(pGroupWeight)
+          req(cGroupWeight)
           if (pGroupWeight == 0 || cGroupWeight == 0) {
             conIdx <- 0
             proIdx <- 0

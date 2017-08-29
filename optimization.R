@@ -34,7 +34,6 @@ find_all_solutions <- function(actions, values, disagreements, budget_constraint
 # Create knapsack model
 create_model <- function(actions, values, disagreements, budget_constraint, direction) {
   no_of_actions <- length(actions)
-  budget <- sum(disagreements)
   lp_model <- make.lp(0, no_of_actions)
   set.objfn(lp_model, values)
   add.constraint(lp_model, disagreements, "<=", budget_constraint)
@@ -49,11 +48,13 @@ find_solutions <- function(lp_model, actions, disagreements, direction) {
   
   # First problem
   rc <- solve(lp_model)
-  sols <- list()
   obj0 <- get.objective(lp_model)
+  
   # Find more solutions
   while (TRUE) {
-    sol <- round(get.variables(lp_model))
+    
+    # Trying to solve the "Error in if: missing value where T/F needed" with req()
+    sol <- req(round(get.variables(lp_model)))
     sum <- 0
     for (v in 1:length(sol)) {
       if (sol[v] == 1) {
