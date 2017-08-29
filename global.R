@@ -1,5 +1,3 @@
-# Test Toulouse 2
-
 library(shiny)
 library(shinythemes)
 library(leaflet)
@@ -13,20 +11,12 @@ library(RColorBrewer)
 library(lpSolveAPI)
 library(sp)
 
-# library(stringr)
-# library(magrittr)
-# library(sp)
-# library(gridExtra)
-# library(DBI)
-# library(tidyr)
-# library(ggplot2)
-# library(RMySQL)
-
 source("menu.R")
-source("helper.R")
+# source("helper.R")
 source("disagreement.R")
 source("optimization.R")
 source("sd.R")
+
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("cleaning/data/nyko/nyko84b.rds")
 
@@ -56,7 +46,7 @@ b_years_t <- c("", "All", "0-4 years", "5-9 years", "10+ years")
 # Used for dynamically generating tabPanels for Group 1 and Group 2 (tabset.R)
 b_variables <- list(area = b_area, gender = b_gender, age = b_age, occupation = b_occupation, education = b_education, years = b_years)
 
-# Used in NULL checks (server.R)
+# Used in menu
 b_names <- names(b_variables)
 
 # Corresponding dataframe column names
@@ -65,7 +55,7 @@ b_col_names <- c("Area", "Gender", "Age", "Occupation", "Education.level", "Year
 # Labels that will appear in the GUI
 b_labels <- c("Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
 
-# randomization for polygons just for development purposes
+# Randomization for polygons just for development purposes
 rnd <- sample(x = b_area[3:45], size = 12) %>% split(f = c(1, 2))
 
 # Themes
@@ -161,4 +151,3 @@ criterion_number[[9]] <- 9
 criterion_number[[10]] <- 10
 
 actions <- c("Alt.a","Alt.b","Alt.c","Alt.d","Alt.e")
-

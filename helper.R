@@ -155,15 +155,6 @@ temLbls <- c("1. Parker & grönområden",
              "9. Trygghet",
              "10. Hållbar utveckling")
 
-
-
-
-# c("2a. Erbjuda fler bostadstyper", 
-#   "2b. Erbjuda fler lägenhetsstorlekar",
-#   "2c. Erbjuda småskaligt markägande",
-#   "2d. Bevara de idémässiga grunderna för bebyggelsen från 1970-talet",
-#   "2e. Erbjuda fler bostäder nära vatten"),
-
 frgLbls <- list(c("1a. Bevara existerande större grönområden",
                   "1b. Anlägga parker i existerande stadsdelar",
                   "1c. Bygga bostäder nära grönområden",
