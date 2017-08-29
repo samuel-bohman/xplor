@@ -4,3 +4,6 @@
 .DS_Store
 *.dcf
 .gitignore
+
+vad_ska_upplands_vasby_satsa_pa_i_framtiden.csv
+uv_original.csv
