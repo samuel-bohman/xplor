@@ -16,7 +16,11 @@ shinyServer(function(input, output, session) {
     )
   )
   
-  ### MAP #####################################################################
+  #############################################################################
+  
+  # MAP
+  
+  #############################################################################
   
   # Create static map and polygon wireframes
   output$map <- renderLeaflet({
@@ -156,17 +160,22 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  ### PLOTS ###################################################################
+  #############################################################################
+  
+  # DESCRIPTIVE PANEL
+  
+  #############################################################################
   
   observe({
     withProgress(message = "Making plots", value = 0, expr = {
-  
-      ### DESCRIPTIVES ########################################################
-      # Get data for group 1 and group 2
+      
+      # F TAB #################################################################
+      
+      # Get data for F panel
       des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
       des_group_2 <- tdata$group_2_filter_2() %>% as.vector()
       
-      # Concatenate group 1 and group 2 and coerce into data frame
+      # Concatenate and coerce into data frame
       des_total <- c(des_group_1, des_group_2) %>% data.frame()
       
       # Coerce into data frame
@@ -180,9 +189,10 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(0, NA)) %>%
         add_axis(type = "x", title = "Value", ticks = 7, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", ticks = 6, format = "d",  grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_1")
+      
       incProgress(amount = 1/23, detail = "Plot 1")
       
       # Plot values group 2
@@ -192,9 +202,10 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(0, NA)) %>%
         add_axis(type = "x", title = "Value", ticks = 7, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", ticks = 6, format = "d",  grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_2")
+      
       incProgress(amount = 1/23, detail = "Plot 2")
       
       # Plot total values
@@ -204,14 +215,15 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(0, NA)) %>%
         add_axis(type = "x", title = "Value", ticks = 7, grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Count", ticks = 6, format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_histograms(width = 1) %>%
         bind_shiny(plot_id = "ggvis_3")
+      
       incProgress(amount = 1/23, detail = "Plot 3")
     
-      ### MEAN WEIGHTED VALUES ################################################
+      # V TAB #################################################################
         
-      # Comment needed here
+      # Get data for V panel
       results.vec1 <- disagreement(tdata$theme(), tdata$group_1_filter_1())
       results.vec2 <- disagreement(tdata$theme(), tdata$group_2_filter_1())
       results.vec1.sd <- calculateSD(tdata$theme(), tdata$group_1_filter_1())
@@ -262,7 +274,7 @@ shinyServer(function(input, output, session) {
         scale_numeric(property = "y", domain = c(NA, 10)) %>%
         add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_4")
       incProgress(amount = 1/23, detail = "Plot 4")
@@ -272,7 +284,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_5")
       incProgress(amount = 1/23, detail = "Plot 5")
@@ -282,12 +294,12 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y3 * 100, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Value", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_6")
       incProgress(amount = 1/23, detail = "Plot 6")
     
-      ### DISAGREEMENTS #######################################################
+      ### D TAB ###############################################################
       
       # Calculate disagreement within group 1
       dis_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
@@ -362,7 +374,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y1 * 100, fill := "steelblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_7")
       incProgress(amount = 1/23, detail = "Plot 7")
@@ -372,7 +384,7 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y2 * 100, fill := "firebrick", stroke := "") %>%
         add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_8")
       incProgress(amount = 1/23, detail = "Plot 8")
@@ -382,51 +394,18 @@ shinyServer(function(input, output, session) {
         ggvis(x = ~x, y = ~y3 * 1000, fill := "darkslateblue", stroke := "") %>%
         add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
         add_axis(type = "y", title = "Disagreement", format = "d", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
         layer_bars() %>%
         bind_shiny(plot_id = "ggvis_9")
       incProgress(amount = 1/23, detail = "Plot 9")
       
-      ### VALUE / DISAGREEMENT ################################################
-      
-      val_dis_data <- val_data[2:4] / dis_data[2:4]
-      val_dis_data <- add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
-      
-      # Plot group 1 value / disagreement 
-      val_dis_data %>%
-        ggvis(x = ~x, y = ~y1, fill := "steelblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
-        layer_bars() %>%
-        bind_shiny(plot_id = "ggvis_10")
-      incProgress(amount = 1/23, detail = "Plot 10")
-      
-      # Plot group 2 value / disagreement 
-      val_dis_data %>%
-        ggvis(x = ~x, y = ~y2, fill := "steelblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
-        layer_bars() %>%
-        bind_shiny(plot_id = "ggvis_11")
-      incProgress(amount = 1/23, detail = "Plot 11")
-      
-      # Plot total value / disagreement 
-      val_dis_data %>%
-        ggvis(x = ~x, y = ~y3, fill := "steelblue", stroke := "") %>%
-        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
-        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
-        set_options(width = "auto", height = 180) %>%
-        layer_bars() %>%
-        bind_shiny(plot_id = "ggvis_12")
-      incProgress(amount = 1/23, detail = "Plot 12")
-      
       #########################################################################
       #                                                       
-      # PORTFOLIOS
+      # PORTFOLIOS PANEL
       #
       #########################################################################
+      
+      # P TAB #################################################################
       
       # Unlist lists
       val_group_1 <- unlist(val_group_1)
@@ -441,7 +420,7 @@ shinyServer(function(input, output, session) {
       budget_group_2 <- sum(dis_group_2)
       budget_total <- sum(dis_total)
     
-      # Portfolios group 1 for table ##########################################
+      # Portfolios group 1 for table 
       portfolios_group_1_pos <- get_all_portfolios(
         actions = actions, 
         values = val_group_1, 
@@ -462,15 +441,15 @@ shinyServer(function(input, output, session) {
       portfolios_group_1$value <- portfolios_group_1$value * 100
       portfolios_group_1$disagreement <- portfolios_group_1$disagreement * 100
       
-      # Portfolios group 1 for plotting #######################################
+      # Portfolios group 1 for plotting 
       all_portfolios_group_1 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
       names(all_portfolios_group_1) <- actions
       
       all_portfolio_val_group_1 <- apply(all_portfolios_group_1, 1, function(row) { 
-        val <- sum(val_group_1[which(row %in% 1)])
+        sum(val_group_1[which(row %in% 1)])
       })
       all_portfolio_dis_group_1 <- apply(all_portfolios_group_1, 1, function(row) {
-        dis <- sum(dis_group_1[which(row %in% 1)])
+        sum(dis_group_1[which(row %in% 1)])
       })
       all_portfolios_group_1$value <- all_portfolio_val_group_1 * 100
       all_portfolios_group_1$disagreement <- all_portfolio_dis_group_1 * 100
@@ -479,7 +458,7 @@ shinyServer(function(input, output, session) {
       all_portfolios_group_1$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_1))
       all_portfolios_group_1$id <- 1:nrow(all_portfolios_group_1)
       
-      # Portfolios group 2 for table ##########################################
+      # Portfolios group 2 for table 
       portfolios_group_2_pos <- get_all_portfolios(
         actions = actions, 
         values = val_group_2, 
@@ -500,7 +479,7 @@ shinyServer(function(input, output, session) {
       portfolios_group_2$value <- portfolios_group_2$value * 100
       portfolios_group_2$disagreement <- portfolios_group_2$disagreement * 100
       
-      # Portfolios group 2 for plotting #######################################
+      # Portfolios group 2 for plotting 
       all_portfolios_group_2 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
       names(all_portfolios_group_2) <- actions
       
@@ -517,7 +496,7 @@ shinyServer(function(input, output, session) {
       all_portfolios_group_2$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_2))
       all_portfolios_group_2$id <- 1:nrow(all_portfolios_group_2)
       
-      # Portfolios total for table ############################################
+      # Portfolios total for table 
       portfolios_total_pos <- get_all_portfolios(
         actions = actions, 
         values = val_group_1_2, 
@@ -538,7 +517,7 @@ shinyServer(function(input, output, session) {
       portfolios_total$value <- portfolios_total$value * 100
       portfolios_total$disagreement <- portfolios_total$disagreement * 100
       
-      # Portfolios total for plotting #########################################
+      # Portfolios total for plotting 
       all_portfolios_total <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
       names(all_portfolios_total) <- actions
       
@@ -555,7 +534,7 @@ shinyServer(function(input, output, session) {
       all_portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_total))
       all_portfolios_total$id <- 1:nrow(all_portfolios_total)
       
-      # Tooltips ##############################################################
+      # Tooltips 
       tooltip_1 <- function(x) {
         if (is.null(x)) return(NULL)
         row <- all_portfolios_group_1[all_portfolios_group_1$id == x$id, ]
@@ -575,7 +554,7 @@ shinyServer(function(input, output, session) {
         paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
       }
       
-      # Plot group 1 portfolios ###############################################
+      # Plot group 1 portfolios 
       all_portfolios_group_1 %>%
         ggvis() %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
@@ -589,7 +568,7 @@ shinyServer(function(input, output, session) {
         bind_shiny(plot_id = "ggvis_13")
       incProgress(amount = 1/23, detail = "Plot 13")
       
-      # Plot group 2 portfolios ###############################################
+      # Plot group 2 portfolios 
       all_portfolios_group_2 %>%
         ggvis() %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
@@ -603,7 +582,7 @@ shinyServer(function(input, output, session) {
         bind_shiny(plot_id = "ggvis_14")
       incProgress(amount = 1/23, detail = "Plot 14")
   
-      # Plot total portfolios #################################################
+      # Plot total portfolios 
       all_portfolios_total %>%
         ggvis() %>%
         add_axis(type = "x", title = "Disagreement", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
@@ -617,7 +596,48 @@ shinyServer(function(input, output, session) {
         bind_shiny(plot_id = "ggvis_15")
       incProgress(amount = 1/23, detail = "Plot 15")
       
-      # Portfolio group 1 table ###############################################
+      ### VtD TAB #############################################################
+      
+      val_dis_data <- val_data[2:4] / dis_data[2:4]
+      val_dis_data <- add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
+      
+      # Plot group 1 value / disagreement 
+      val_dis_data %>%
+        ggvis(x = ~x, y = ~y1, fill := "steelblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_10")
+      incProgress(amount = 1/23, detail = "Plot 10")
+      
+      # Plot group 2 value / disagreement 
+      val_dis_data %>%
+        ggvis(x = ~x, y = ~y2, fill := "steelblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_11")
+      incProgress(amount = 1/23, detail = "Plot 11")
+      
+      # Plot total value / disagreement 
+      val_dis_data %>%
+        ggvis(x = ~x, y = ~y3, fill := "steelblue", stroke := "") %>%
+        add_axis(type = "x", title = "Alternative", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8))) %>%
+        add_axis(type = "y", title = "VtD", grid = FALSE, properties = axis_props(title = list(fontSize = 8), labels = list(fontSize = 8)), title_offset = 40) %>%
+        set_options(width = "auto", height = 180, renderer = "canvas") %>%
+        layer_bars() %>%
+        bind_shiny(plot_id = "ggvis_12")
+      incProgress(amount = 1/23, detail = "Plot 12")
+      
+      #########################################################################
+      #
+      # PORTFOLIO DETAILS PANEL
+      #
+      #########################################################################
+      
+      # Portfolio group 1 table 
       output$portfolios_group_1_table <- DT::renderDataTable({
         a <- round(sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1) * 100, digits = 0)
         b <- round(sum(portfolios_group_1$Alt.b) / nrow(portfolios_group_1) * 100, digits = 0)
@@ -656,7 +676,7 @@ shinyServer(function(input, output, session) {
       })
       incProgress(amount = 1/23, detail = "Table 1")
       
-      # Portfolio group 2 table ###############################################
+      # Portfolio group 2 table 
       output$portfolios_group_2_table <- DT::renderDataTable({
         a <- round(sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100, digits = 0)
         b <- round(sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2) * 100, digits = 0)
@@ -695,7 +715,7 @@ shinyServer(function(input, output, session) {
       })
       incProgress(amount = 1/23, detail = "Table 2")
       
-      # Portfolio total table #################################################
+      # Portfolio total table 
       output$portfolios_total_table <- DT::renderDataTable({
         a <- round(sum(portfolios_total$Alt.a) / nrow(portfolios_total) * 100, digits = 0)
         b <- round(sum(portfolios_total$Alt.b) / nrow(portfolios_total) * 100, digits = 0)
@@ -734,15 +754,11 @@ shinyServer(function(input, output, session) {
       })
       incProgress(amount = 1/23, detail = "Table 3")
       
-      ### DEMOGRAPHICS ########################################################
-      
-      # output$pyramid_plot <- renderPlot({
-      #   ggplot(data = gender_age, aes(x = Age, y = n, fill = Gender)) +
-      #     geom_bar(data = filter(gender_age, Gender == "Woman"), fill = "steelblue", stat = "identity") +
-      #     geom_bar(data = filter(gender_age, Gender == "Man"), fill = "firebrick", stat = "identity", position = "identity") +
-      #     scale_y_continuous(breaks = seq(-30, 30, 10), labels = seq(-30, 30, 10)) +
-      #     coord_flip()
-      # })
+      #########################################################################
+      #
+      # DEMOGRAPHICS PANEL
+      #
+      #########################################################################
       
       dem_group_1 <- tdata$group_1_filter_1()@data %>% tbl_df()
       dem_group_2 <- tdata$group_2_filter_1()@data %>% tbl_df()
@@ -859,7 +875,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Gender) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 320, height = 180) %>%
+        set_options(width = 320, height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_16")
       incProgress(amount = 1/23, detail = "Plot 16")
       
@@ -873,7 +889,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Age) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 320, height = 180) %>%
+        set_options(width = 320, height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_17")
       incProgress(amount = 1/23, detail = "Plot 17")
       
@@ -887,7 +903,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Occupation) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 320, height = 180) %>%
+        set_options(width = 320, height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_18")
       incProgress(amount = 1/23, detail = "Plot 18")
       
@@ -901,7 +917,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Education) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 320, height = 180) %>%
+        set_options(width = 320, height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_19")
       incProgress(amount = 1/23, detail = "Plot 19")
       
@@ -915,7 +931,7 @@ shinyServer(function(input, output, session) {
         compute_stack(stack_var = ~n, group_var = ~Year) %>%
         layer_rects(x = ~stack_lwr_, x2 = ~stack_upr_, height = band()) %>%
         hide_legend(scales = "fill") %>%
-        set_options(width = 320, height = 180) %>%
+        set_options(width = 320, height = 180, renderer = "canvas") %>%
         bind_shiny(plot_id = "ggvis_20")
       incProgress(amount = 1/23, detail = "Plot 20")
       
@@ -939,7 +955,12 @@ shinyServer(function(input, output, session) {
     list(html_1, ggvis_16, html_2, ggvis_17, html_3, ggvis_18, html_4, ggvis_19, html_5, ggvis_20, html_6)
   })
   
-  ### TABLE ###################################################################
+
+    #########################################################################
+    #
+    # TABLE
+    #
+    #########################################################################
   
   results_df <- results_df %>%
     mutate(Education.level = 
