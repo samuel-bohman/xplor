@@ -11,23 +11,23 @@ library(RColorBrewer)
 library(lpSolveAPI)
 library(sp)
 
-source("menu.R")
-source("disagreement.R")
-source("optimization.R")
-source("sd.R")
+source("r/menu.R")
+source("r/disagreement.R")
+source("r/optimization.R")
+source("r/sd.R")
 # source("helper.R")
 
 # SpatialPolygonsDataFrame for map polygons
-nyko <- readRDS("../data-derived/nyko84.rds")
+nyko <- readRDS("data-derived/nyko84.rds")
 
 # SpatialPolygonsDataFrame for group 1
-data_spdf1 <- readRDS("../data-derived/data_spdf.rds")
+data_spdf1 <- readRDS("data-derived/data_spdf.rds")
 
 # SpatialPolygonsDataFrame for group 2
-data_spdf2 <- readRDS("../data-derived/data_spdf.rds")
+data_spdf2 <- readRDS("data-derived/data_spdf.rds")
 
 # Data frame for tabPanel "Table"
-data_df <- read.table("../data-derived/data.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
+data_df <- read.table("data-derived/data.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
 # Background variables for map
 b_area <- c("", "All", sort(unique(as.character(data_df[["Area"]]))))
