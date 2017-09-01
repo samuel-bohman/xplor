@@ -1,6 +1,6 @@
 ### About
 
-Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. The data was collected through an online questionnaire in Upplands Väsby municipality in Stockholm County, Sweden. Upplands Väsby Data Explorer is an open source research project. 
+Upplands Väsby Data Explorer is an application for data exploration and visualization. The data was collected through an online questionnaire in Upplands Väsby municipality in Stockholm County, Sweden. Upplands Väsby Data Explorer is an open source research project built using [R](https://cran.r-project.org/). 
 
 ### Code
 
