@@ -1,5 +1,5 @@
 # Load the data
-results <- read.table("cleaning/data/results/uv_original.csv", header = TRUE, sep = ";", skip = 2, fileEncoding = "latin1")
+results <- read.table("cleaning/data/results/uv_original.csv", header = TRUE, sep = ";", skip = 2, na.strings = " ", fileEncoding = "latin1")
 
 # Delete 10 unnecessary/empty columns
 results[1:7] <- list(NULL)
@@ -101,14 +101,17 @@ results$"Disagreement 1" <- as.integer(results$"Disagreement 1")
 results$"Disagreement 2" <- as.integer(results$"Disagreement 2")
 results$"Disagreement 3" <- as.integer(results$"Disagreement 3")
 
-# Lists rows that have missing values 
+# Check rows that have missing values 
 # missing_values <- results[!complete.cases(results), ] # 438, 503, 813
 
 # Delete rows with missing values (NA)
 # results <- na.omit(results)
 
-# Delete 4 rows
-results <- results[-c(1, 438, 503, 813), ]
+# Delete 4 rows with NAs
+results <- results[-c(1, 438, 503, 813), ] # also missing value row 1, column Area
+
+# Remove duplicate rows
+results <- unique(results)
 
 # Cleaning Area
 results$Area <- factor(results$Area)
