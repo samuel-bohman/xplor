@@ -1,10 +1,15 @@
 ### About
 
-Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. The data was collected through an online questionnaire in 2015 in Upplands Väsby municipality in Stockholm County in east central Sweden. All data is anonymized to ensure no personally identifiable information can be surfaced through the application. 
+Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. The data was collected through an online questionnaire in Upplands Väsby municipality in Stockholm County, Sweden. Upplands Väsby Data Explorer is an open source research project. 
 
 ### Code
 
-Upplands Väsby Data Explorer is an open source research project. All code and data is available in a public repository on [GitHub](https://github.com/samuel-bohman/xplor). The software is under active development which means that there may be bugs, incomplete features, or polish required in various areas. If you stumble across a typographic error, a bug, or any other unwanted behavior, please let us know by [opening an issue](https://github.com/samuel-bohman/xplor/issues). 
+The code is available in a public repository on [GitHub](https://github.com/samuel-bohman/xplor). The software is under active development which means that there may be bugs, incomplete features, or polish required in various areas. If you stumble across a typographic error, a bug, or any other unwanted behavior, please let us know by [opening an issue](https://github.com/samuel-bohman/xplor/issues). 
+
+### Data
+
+The dataset is available on [data.world]("https://data.world/samuel-bohman/2015-upplands-vasby-municipality"). 
+
 
 ### Authors
 
@@ -15,7 +20,7 @@ Upplands Väsby Data Explorer is being researched and developed by the departmen
 
 ### Publications
 
-Bohman, S., Fasth. T. (2017). An Open Source Web Application for Exploring Public Opinion in Geospatial Planning. Manuscript. 
+Bohman, S., Fasth. T. (2017). An Open Source Web Application for Exploring Public Opinion in Geospatial Planning. Forthcoming.  
 
 ### Credits
 
