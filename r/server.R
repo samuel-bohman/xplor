@@ -1,7 +1,9 @@
 shinyServer(function(input, output, session) {
+  
   tdata <- callModule(module = menu, id = "one")
   
-  # Start introjs when help button is clicked
+  # INTRO JS ##################################################################
+  
   observeEvent(input$help,
     introjs(
       session,
@@ -13,13 +15,9 @@ shinyServer(function(input, output, session) {
       events = list("oncomplete" = 'alert("Finish")')
     ))
   
-  #############################################################################
-  #
-  # MAP
-  #
-  #############################################################################
+  # MAP #######################################################################
   
-  # Create static map and polygon wireframes
+  ## Create static map and polygon wireframes
   output$map <- renderLeaflet({
     leaflet() %>%
       addTiles() %>%
@@ -45,7 +43,7 @@ shinyServer(function(input, output, session) {
         height = 200)
   })
   
-  # Define color palette
+  ## Define color palette
   colorpal <- reactive({
     colorNumeric(
       palette = tdata$colorpal(),
@@ -54,7 +52,7 @@ shinyServer(function(input, output, session) {
     )
   })
   
-  # Add color legend to map
+  ## Add color legend to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearControls() %>%
@@ -66,13 +64,13 @@ shinyServer(function(input, output, session) {
       )
   })
   
-  # Add polygons to map
+  ## Add polygons to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearGroup(group = "group1Polygons") %>%
       clearGroup(group = "group2Polygons")
     
-    # Group 1
+    ### Group 1
     leafletProxy(mapId = "map") %>%
       addPolygons(
         data = tdata$group_1_filter_1(),
@@ -91,7 +89,7 @@ shinyServer(function(input, output, session) {
         )
       )
     
-    # Group 2
+    ### Group 2
     leafletProxy(mapId = "map") %>%
       addPolygons(
         data = tdata$group_2_filter_1(),
@@ -111,12 +109,12 @@ shinyServer(function(input, output, session) {
       )
   })
   
-  # Add markers to map
+  ## Add markers to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearMarkers()
     
-    # Group 1
+    ### Group 1
     if (tdata$markers1() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
@@ -135,7 +133,7 @@ shinyServer(function(input, output, session) {
         )
     }
     
-    # Group 2
+    ### Group 2
     if (tdata$markers2() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addMarkers(
@@ -152,12 +150,12 @@ shinyServer(function(input, output, session) {
             )
           ),
           icon = list(
-            iconUrl = "marker-icon-red.png",
+            iconUrl = "../images/marker-icon-red.png",
             iconWidth = 25,
             iconHeight = 41,
             iconAnchorX = 0,
             iconAnchorY = 0,
-            shadowUrl = "marker-shadow.png",
+            shadowUrl = "../images/marker-shadow.png",
             shadowWidth = 41,
             shadowHeight = 41,
             shadowAnchorX = 12,
@@ -169,12 +167,12 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # Add popups to map
+  ## Add popups to map
   observe({
     leafletProxy(mapId = "map") %>%
       clearPopups()
     
-    # Group 1
+    ### Group 1
     if (tdata$pop1() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
@@ -186,7 +184,7 @@ shinyServer(function(input, output, session) {
         )
     }
     
-    # Group 2
+    ### Group 2
     if (tdata$pop2() == TRUE) {
       leafletProxy(mapId = "map") %>%
         addPopups(
@@ -199,31 +197,29 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  # PLOTS #####################################################################
+  
   observe({
     withProgress(message = "Making plots",
       value = 0,
       expr = {
         
-        #######################################################################
-        #
-        # DESCRIPTIVE PANEL
-        #
-        #######################################################################
+        # DESCRIPTIVE PANEL ###################################################
         
-        # F TAB ###############################################################
+        ## F TAB
         
-        # Get data for F panel
+        ### Get data for F panel
         des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
         des_group_2 <- tdata$group_2_filter_2() %>% as.vector()
         
-        # Concatenate and coerce into data frame
+        ### Concatenate and coerce into data frame
         des_total <- c(des_group_1, des_group_2) %>% data.frame()
         
-        # Coerce into data frame
+        ### Coerce into data frame
         des_group_1 <- data.frame(des_group_1)
         des_group_2 <- data.frame(des_group_2)
         
-        # Plot values group 1
+        ### Plot values group 1
         des_group_1 %>%
           ggvis(x = ~ des_group_1, fill := "steelblue", stroke := "") %>%
           scale_numeric(property = "x", domain = c(0, 14)) %>%
@@ -258,7 +254,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 1")
         
-        # Plot values group 2
+        ### Plot values group 2
         des_group_2 %>%
           ggvis(x = ~ des_group_2, fill := "firebrick", stroke := "") %>%
           scale_numeric(property = "x", domain = c(0, 14)) %>%
@@ -293,9 +289,9 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 2")
         
-        # Plot total values
+        ### Plot total values
         des_total %>%
-          ggvis( ~ ., fill := "darkslateblue", stroke := "") %>%
+          ggvis(~ ., fill := "darkslateblue", stroke := "") %>%
           scale_numeric(property = "x", domain = c(0, 14)) %>%
           scale_numeric(property = "y", domain = c(0, NA)) %>%
           add_axis(
@@ -328,41 +324,42 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 3")
         
-        # V TAB ###############################################################
+        ## V TAB
         
-        # Get data for V panel
-        results.vec1 <-
+        ### Get data for V panel
+        data.vec1 <-
           disagreement(tdata$theme(), tdata$group_1_filter_1())
-        results.vec2 <-
+        data.vec2 <-
           disagreement(tdata$theme(), tdata$group_2_filter_1())
-        results.vec1.sd <-
+        data.vec1.sd <-
           calculateSD(tdata$theme(), tdata$group_1_filter_1())
-        results.vec2.sd <-
+        data.vec2.sd <-
           calculateSD(tdata$theme(), tdata$group_2_filter_1())
         
-        # Calculate group 1 mean weighted values
+        ### Calculate group 1 mean weighted values
         val_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
-          return(results.vec1[x + 2])
+          return(data.vec1[x + 2])
         })
         
-        # Calculate group 2 mean weighted values
+        ### Calculate group 2 mean weighted values
         val_group_2 <- lapply(seq(1, 25, by = 5), function(x) {
-          return(results.vec2[x + 2])
+          return(data.vec2[x + 2])
         })
         
-        # Calculate total mean weighted values
+        ### Calculate total mean weighted values
         val_group_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
-          n_grp1 <- (results.vec1[x + 3] + results.vec1[x + 4])
-          n_grp2 <- (results.vec2[x + 3] + results.vec2[x + 4])
-          v_grp1 <- results.vec1[x + 2]
-          v_grp2 <- results.vec1[x + 2]
+          n_grp1 <- (data.vec1[x + 3] + data.vec1[x + 4])
+          n_grp2 <- (data.vec2[x + 3] + data.vec2[x + 4])
+          v_grp1 <- data.vec1[x + 2]
+          v_grp2 <- data.vec1[x + 2]
           org_v_grp_1 <- v_grp1 / (1 / n_grp1)
           org_v_grp_2 <- v_grp2 / (1 / n_grp2)
-          m_grp_1_2 <- (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
+          m_grp_1_2 <-
+            (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
           return(m_grp_1_2)
         })
         
-        # Flatten lists and transform into data frames
+        ### Flatten lists and transform into data frames
         val_group_1_df <-
           val_group_1 %>% flatten_dbl() %>% data.frame()
         val_group_2_df <-
@@ -370,23 +367,24 @@ shinyServer(function(input, output, session) {
         val_group_1_2_df <-
           val_group_1_2 %>% flatten_dbl() %>% data.frame()
         
-        # Create row names
-        alternatives <- c("a", "b", "c", "d", "e") %>% data.frame()
+        ### Create row names
+        alternatives <-
+          c("a", "b", "c", "d", "e") %>% data.frame()
         
-        # Add column names to data frames
+        ### Add column names to data frames
         colnames(alternatives) <- "x"
         colnames(val_group_1_df) <- "y1"
         colnames(val_group_2_df) <- "y2"
         colnames(val_group_1_2_df) <- "y3"
         
-        # Bind data frames together
+        ### Bind data frames together
         val_data <-
           bind_cols(alternatives,
             val_group_1_df,
             val_group_2_df,
             val_group_1_2_df)
         
-        # Plot group 1 mean weighted values
+        ### Plot group 1 mean weighted values
         val_data %>%
           ggvis(x = ~ x,
             y = ~ y1 * 100,
@@ -420,7 +418,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 4")
         
-        # Plot group 2 mean weighted values
+        ### Plot group 2 mean weighted values
         val_data %>%
           ggvis(x = ~ x,
             y = ~ y2 * 100,
@@ -454,7 +452,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 5")
         
-        # Plot total mean weighted values
+        ### Plot total mean weighted values
         val_data %>%
           ggvis(x = ~ x,
             y = ~ y3 * 100,
@@ -487,16 +485,16 @@ shinyServer(function(input, output, session) {
           bind_shiny(plot_id = "ggvis_6")
         incProgress(amount = 1 / 23, detail = "Plot 6")
         
-        # D TAB ###############################################################
+        ## D TAB
         
-        # Calculate disagreement within group 1
+        ### Calculate disagreement within group 1
         dis_group_1 <- lapply(seq(1, 25, by = 5), function(x) {
           cGroupWeight <-
-            results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
+            data.vec1[x + 3] / (data.vec1[x + 3] + data.vec1[x + 4])
           pGroupWeight <-
-            results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
-          conIdx = results.vec1[x]
-          proIdx = results.vec1[x + 1]
+            data.vec1[x + 4] / (data.vec1[x + 3] + data.vec1[x + 4])
+          conIdx = data.vec1[x]
+          proIdx = data.vec1[x + 1]
           if (pGroupWeight == 0 || cGroupWeight == 0) {
             conIdx <- 0
             proIdx <- 0
@@ -506,14 +504,14 @@ shinyServer(function(input, output, session) {
           return(res)
         })
         
-        # Calculate disagreement within group 2
+        ### Calculate disagreement within group 2
         dis_group_2 <- lapply(seq(1, 25, by = 5), function(x) {
           cGroupWeight <-
-            results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
+            data.vec2[x + 3] / (data.vec2[x + 3] + data.vec2[x + 4])
           pGroupWeight <-
-            results.vec2[x + 4] / (results.vec2[x + 3] + results.vec2[x + 4])
-          conIdx = results.vec2[x]
-          proIdx = results.vec2[x + 1]
+            data.vec2[x + 4] / (data.vec2[x + 3] + data.vec2[x + 4])
+          conIdx = data.vec2[x]
+          proIdx = data.vec2[x + 1]
           if (pGroupWeight == 0 || cGroupWeight == 0) {
             conIdx <- 0
             proIdx <- 0
@@ -523,20 +521,20 @@ shinyServer(function(input, output, session) {
           return(res)
         })
         
-        # Calculate total disagreement
+        ### Calculate total disagreement
         dis_total <- lapply(seq(1, 25, by = 5), function(x) {
           c1GroupWeight <-
-            results.vec1[x + 3] / (results.vec1[x + 3] + results.vec1[x + 4])
+            data.vec1[x + 3] / (data.vec1[x + 3] + data.vec1[x + 4])
           p1GroupWeight <-
-            results.vec1[x + 4] / (results.vec1[x + 3] + results.vec1[x + 4])
+            data.vec1[x + 4] / (data.vec1[x + 3] + data.vec1[x + 4])
           c2GroupWeight <-
-            results.vec2[x + 3] / (results.vec2[x + 3] + results.vec2[x + 4])
+            data.vec2[x + 3] / (data.vec2[x + 3] + data.vec2[x + 4])
           p2GroupWeight <-
-            results.vec2[x + 4] / (results.vec2[x + 3] + results.vec2[x + 4])
-          conIdx1 <- results.vec1[x]
-          conIdx2 <- results.vec2[x]
-          proIdx1 <- results.vec1[x + 1]
-          proIdx2 <- results.vec2[x + 1]
+            data.vec2[x + 4] / (data.vec2[x + 3] + data.vec2[x + 4])
+          conIdx1 <- data.vec1[x]
+          conIdx2 <- data.vec2[x]
+          proIdx1 <- data.vec1[x + 1]
+          proIdx2 <- data.vec2[x + 1]
           if ((c1GroupWeight == 0 || p1GroupWeight == 0)) {
             conIdx1 <- 0
             proIdx1 <- 0
@@ -545,16 +543,18 @@ shinyServer(function(input, output, session) {
             conIdx2 <- 0
             proIdx2 <- 0
           }
-          dDEij <- (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2)) / 2
+          dDEij <-
+            (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2)) / 2
         })
         
-        # Flatten list and coerce to data frame
+        ### Flatten list and coerce to data frame
         dis_group_1 <- flatten_dbl(dis_group_1) %>% data.frame()
         dis_group_2 <- flatten_dbl(dis_group_2) %>% data.frame()
         dis_total <- flatten_dbl(dis_total) %>% data.frame()
         
-        # Create row names
-        alternatives <- c("a", "b", "c", "d", "e") %>% data.frame()
+        ### Create row names
+        alternatives <-
+          c("a", "b", "c", "d", "e") %>% data.frame()
         
         # Add column names to data frames
         colnames(alternatives) <- "x"
@@ -562,11 +562,11 @@ shinyServer(function(input, output, session) {
         colnames(dis_group_2) <- "y2"
         colnames(dis_total) <- "y3"
         
-        # Bind data frames together
+        ### Bind data frames together
         dis_data <-
           bind_cols(alternatives, dis_group_1, dis_group_2, dis_total)
         
-        # Plot group 1 disagreement
+        ### Plot group 1 disagreement
         dis_data %>%
           ggvis(x = ~ x,
             y = ~ y1 * 100,
@@ -599,7 +599,7 @@ shinyServer(function(input, output, session) {
           bind_shiny(plot_id = "ggvis_7")
         incProgress(amount = 1 / 23, detail = "Plot 7")
         
-        # Plot group 2 disagreement
+        ### Plot group 2 disagreement
         dis_data %>%
           ggvis(x = ~ x,
             y = ~ y2 * 100,
@@ -632,7 +632,7 @@ shinyServer(function(input, output, session) {
           bind_shiny(plot_id = "ggvis_8")
         incProgress(amount = 1 / 23, detail = "Plot 8")
         
-        # Plot total disagreement
+        ### Plot total disagreement
         dis_data %>%
           ggvis(x = ~ x,
             y = ~ y3 * 1000,
@@ -666,15 +666,12 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 9")
         
-        #######################################################################
-        #
-        # PORTFOLIOS PANEL
-        #
-        #######################################################################
         
-        # P TAB ###############################################################
+        # PORTFOLIOS PANEL ####################################################
         
-        # Unlist lists
+        ## P TAB
+        
+        ### Unlist lists
         val_group_1 <- unlist(val_group_1)
         val_group_2 <- unlist(val_group_2)
         val_group_1_2 <- unlist(val_group_1_2)
@@ -682,12 +679,12 @@ shinyServer(function(input, output, session) {
         dis_group_2 <- unlist(dis_group_2)
         dis_total <- unlist(dis_total)
         
-        # Set initial budget constraints
+        ### Set initial budget constraints
         budget_group_1 <- sum(dis_group_1)
         budget_group_2 <- sum(dis_group_2)
         budget_total <- sum(dis_total)
         
-        # Portfolios group 1 for table
+        ### Portfolios group 1 for table
         portfolios_group_1_pos <- get_all_portfolios(
           actions = actions,
           values = val_group_1,
@@ -703,16 +700,17 @@ shinyServer(function(input, output, session) {
           direction = "min"
         )
         portfolios_group_1_pos_rev <-
-          portfolios_group_1_pos[rev(rownames(portfolios_group_1_pos)),]
+          portfolios_group_1_pos[rev(rownames(portfolios_group_1_pos)), ]
         portfolios_group_1 <-
-          rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1,])
+          rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
         portfolios_group_1$id <- 1:nrow(portfolios_group_1)
         portfolios_group_1$value <- portfolios_group_1$value * 100
         portfolios_group_1$disagreement <-
           portfolios_group_1$disagreement * 100
         
-        # Portfolios group 1 for plotting
-        all_portfolios_group_1 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
+        ### Portfolios group 1 for plotting
+        all_portfolios_group_1 <-
+          expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
         names(all_portfolios_group_1) <- actions
         all_portfolio_val_group_1 <-
           apply(all_portfolios_group_1, 1, function(row) {
@@ -722,7 +720,8 @@ shinyServer(function(input, output, session) {
           apply(all_portfolios_group_1, 1, function(row) {
             sum(dis_group_1[which(row %in% 1)])
           })
-        all_portfolios_group_1$value <- all_portfolio_val_group_1 * 100
+        all_portfolios_group_1$value <-
+          all_portfolio_val_group_1 * 100
         all_portfolios_group_1$disagreement <-
           all_portfolio_dis_group_1 * 100
         all_portfolios_group_1 <-
@@ -731,9 +730,10 @@ shinyServer(function(input, output, session) {
           rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_1))
         all_portfolios_group_1$dy <-
           rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_1))
-        all_portfolios_group_1$id <- 1:nrow(all_portfolios_group_1)
+        all_portfolios_group_1$id <-
+          1:nrow(all_portfolios_group_1)
         
-        # Portfolios group 2 for table
+        ### Portfolios group 2 for table
         portfolios_group_2_pos <- get_all_portfolios(
           actions = actions,
           values = val_group_2,
@@ -749,16 +749,17 @@ shinyServer(function(input, output, session) {
           direction = "min"
         )
         portfolios_group_2_pos_rev <-
-          portfolios_group_2_pos[rev(rownames(portfolios_group_2_pos)), ]
+          portfolios_group_2_pos[rev(rownames(portfolios_group_2_pos)),]
         portfolios_group_2 <-
-          rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1,])
+          rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1, ])
         portfolios_group_2$id <- 1:nrow(portfolios_group_2)
         portfolios_group_2$value <- portfolios_group_2$value * 100
         portfolios_group_2$disagreement <-
           portfolios_group_2$disagreement * 100
         
-        # Portfolios group 2 for plotting
-        all_portfolios_group_2 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
+        ### Portfolios group 2 for plotting
+        all_portfolios_group_2 <-
+          expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
         names(all_portfolios_group_2) <- actions
         all_portfolios_val_group_2 <-
           apply(all_portfolios_group_2, 1, function(row) {
@@ -768,7 +769,8 @@ shinyServer(function(input, output, session) {
           apply(all_portfolios_group_2, 1, function(row) {
             dis <- sum(dis_group_2[which(row %in% 1)])
           })
-        all_portfolios_group_2$value <- all_portfolios_val_group_2 * 100
+        all_portfolios_group_2$value <-
+          all_portfolios_val_group_2 * 100
         all_portfolios_group_2$disagreement <-
           all_portfolios_dis_group_2 * 100
         all_portfolios_group_2 <-
@@ -777,9 +779,10 @@ shinyServer(function(input, output, session) {
           rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_2))
         all_portfolios_group_2$dy <-
           rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_2))
-        all_portfolios_group_2$id <- 1:nrow(all_portfolios_group_2)
+        all_portfolios_group_2$id <-
+          1:nrow(all_portfolios_group_2)
         
-        # Portfolios total for table
+        ### Portfolios total for table
         portfolios_total_pos <- get_all_portfolios(
           actions = actions,
           values = val_group_1_2,
@@ -795,16 +798,17 @@ shinyServer(function(input, output, session) {
           direction = "min"
         )
         portfolios_total_pos_rev <-
-          portfolios_total_pos[rev(rownames(portfolios_total_pos)), ]
+          portfolios_total_pos[rev(rownames(portfolios_total_pos)),]
         portfolios_total <-
-          rbind(portfolios_total_pos_rev, portfolios_total_neg[-1,])
+          rbind(portfolios_total_pos_rev, portfolios_total_neg[-1, ])
         portfolios_total$id <- 1:nrow(portfolios_total)
         portfolios_total$value <- portfolios_total$value * 100
         portfolios_total$disagreement <-
           portfolios_total$disagreement * 100
         
-        # Portfolios total for plotting
-        all_portfolios_total <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
+        ### Portfolios total for plotting
+        all_portfolios_total <-
+          expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
         names(all_portfolios_total) <- actions
         all_portfolios_val_total <-
           apply(all_portfolios_total, 1, function(row) {
@@ -814,7 +818,8 @@ shinyServer(function(input, output, session) {
           apply(all_portfolios_total, 1, function(row) {
             dis <- sum(dis_total[which(row %in% 1)])
           })
-        all_portfolios_total$value <- all_portfolios_val_total * 100
+        all_portfolios_total$value <-
+          all_portfolios_val_total * 100
         all_portfolios_total$disagreement <-
           all_portfolios_dis_total * 100
         all_portfolios_total <-
@@ -825,12 +830,12 @@ shinyServer(function(input, output, session) {
           rep_len(c(-5, 10), length.out = nrow(all_portfolios_total))
         all_portfolios_total$id <- 1:nrow(all_portfolios_total)
         
-        # Tooltips
+        ### Tooltips
         tooltip_1 <- function(x) {
           if (is.null(x))
             return(NULL)
           row <-
-            all_portfolios_group_1[all_portfolios_group_1$id == x$id,]
+            all_portfolios_group_1[all_portfolios_group_1$id == x$id, ]
           row$dx <- row$dy <- NULL
           paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
         }
@@ -838,19 +843,20 @@ shinyServer(function(input, output, session) {
           if (is.null(x))
             return(NULL)
           row <-
-            all_portfolios_group_2[all_portfolios_group_2$id == x$id,]
+            all_portfolios_group_2[all_portfolios_group_2$id == x$id, ]
           row$dx <- row$dy <- NULL
           paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
         }
         tooltip_total <- function(x) {
           if (is.null(x))
             return(NULL)
-          row <- all_portfolios_total[all_portfolios_total$id == x$id,]
+          row <-
+            all_portfolios_total[all_portfolios_total$id == x$id, ]
           row$dx <- row$dy <- NULL
           paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
         }
         
-        # Plot group 1 portfolios
+        ### Plot group 1 portfolios
         all_portfolios_group_1 %>%
           ggvis() %>%
           add_axis(
@@ -909,7 +915,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 13")
         
-        # Plot group 2 portfolios
+        ### Plot group 2 portfolios
         all_portfolios_group_2 %>%
           ggvis() %>%
           add_axis(
@@ -968,7 +974,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 14")
         
-        # Plot total portfolios
+        ### Plot total portfolios
         all_portfolios_total %>%
           ggvis() %>%
           add_axis(
@@ -1027,13 +1033,13 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 15")
         
-        # VtD TAB #############################################################
+        ## VtD TAB
         
         val_dis_data <- val_data[2:4] / dis_data[2:4]
         val_dis_data <-
           add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
         
-        # Plot group 1 value / disagreement
+        ### Plot group 1 value / disagreement
         val_dis_data %>%
           ggvis(x = ~ x,
             y = ~ y1,
@@ -1066,11 +1072,11 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 10")
         
-        # Plot group 2 value / disagreement
+        ### Plot group 2 value / disagreement
         val_dis_data %>%
           ggvis(x = ~ x,
             y = ~ y2,
-            fill := "steelblue",
+            fill := "firebrick",
             stroke := "") %>%
           add_axis(
             type = "x",
@@ -1099,11 +1105,11 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 11")
         
-        # Plot total value / disagreement
+        ### Plot total value / disagreement
         val_dis_data %>%
           ggvis(x = ~ x,
             y = ~ y3,
-            fill := "steelblue",
+            fill := "darkslateblue",
             stroke := "") %>%
           add_axis(
             type = "x",
@@ -1132,13 +1138,11 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 12")
         
-        #######################################################################
-        #
-        # PORTFOLIO DETAILS PANEL
-        #
-        #######################################################################
+        # PORTFOLIOS DETAILS PANEL ############################################
         
-        # Portfolio group 1 table
+        ## G1 TAB
+        
+        ### G1 table
         output$portfolios_group_1_table <- DT::renderDataTable({
           a <-
             round(sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1) * 100,
@@ -1202,7 +1206,9 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Table 1")
         
-        # Portfolio group 2 table
+        ## G2 TAB
+        
+        ### G2 table
         output$portfolios_group_2_table <- DT::renderDataTable({
           a <-
             round(sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100,
@@ -1266,7 +1272,9 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Table 2")
         
-        # Portfolio total table
+        ## T TAB
+        
+        ## T table
         output$portfolios_total_table <- DT::renderDataTable({
           a <-
             round(sum(portfolios_total$Alt.a) / nrow(portfolios_total) * 100,
@@ -1330,11 +1338,9 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Table 3")
         
-        #######################################################################
-        #
-        # DEMOGRAPHICS PANEL
-        #
-        #######################################################################
+        # DEMOGRAPHICS PANEL ##################################################
+        
+        ## DEMOGRAPHICS TAB
         
         dem_group_1 <- tdata$group_1_filter_1()@data %>% tbl_df()
         dem_group_2 <- tdata$group_2_filter_1()@data %>% tbl_df()
@@ -1451,13 +1457,14 @@ shinyServer(function(input, output, session) {
           top_n(n = 10, wt = n) %>%
           droplevels()
         
-        year <- bind_rows(year_group_1, year_group_2, .id = "Group") %>%
+        year <-
+          bind_rows(year_group_1, year_group_2, .id = "Group") %>%
           ungroup() %>%
           mutate(Year = fct_recode(f = Year, "10+ years" = "10 or more years")) %>%
           mutate(Year = fct_relevel(f = Year, "0-4 years", "5-9 years", "10+ years")) %>%
           droplevels()
         
-        # Plot Gender
+        ### Plot Gender
         gender %>%
           ggvis(
             y = ~ Gender,
@@ -1501,7 +1508,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 16")
         
-        # Plot Age
+        ### Plot Age
         age %>%
           ggvis(y = ~ Age,
             x = ~ n,
@@ -1544,7 +1551,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 17")
         
-        # Plot Occupation
+        ### Plot Occupation
         occupation %>%
           ggvis(
             y = ~ Occupation,
@@ -1589,7 +1596,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 18")
         
-        # Plot Education
+        ### Plot Education
         education %>%
           ggvis(
             y = ~ Education,
@@ -1634,7 +1641,7 @@ shinyServer(function(input, output, session) {
         
         incProgress(amount = 1 / 23, detail = "Plot 19")
         
-        # Plot Years
+        ### Plot Years
         year %>%
           ggvis(y = ~ Year,
             x = ~ n,
@@ -1676,11 +1683,11 @@ shinyServer(function(input, output, session) {
           bind_shiny(plot_id = "ggvis_20")
         
         incProgress(amount = 1 / 23, detail = "Plot 20")
-        
       })
   })
   
-  # Adapted from https://groups.google.com/forum/#!topic/ggvis/s_AsEP73T-w
+  ### Put demographics plots in HTML table
+  ### Adapted from https://groups.google.com/forum/#!topic/ggvis/s_AsEP73T-w
   output$grid_ggvis <- renderUI({
     ggvis_16 <- ggvisOutput("ggvis_16")
     ggvis_17 <- ggvisOutput("ggvis_17")
@@ -1709,13 +1716,9 @@ shinyServer(function(input, output, session) {
     )
   })
   
-  #############################################################################
-  #
-  # TABLE
-  #
-  #############################################################################
+  # TABLE #####################################################################
   
-  results_df <- results_df %>%
+  data_df <- data_df %>%
     mutate(
       Education.level =
         fct_recode(
@@ -1812,41 +1815,41 @@ shinyServer(function(input, output, session) {
   table_filter <- reactive({
     if (!identical(input$area3, "All")) {
       for (o in seq_along(input$area3)) {
-        results_df <-
-          head(results_df[results_df$Area %in% input$area3,], n = 1040, drop = FALSE)
+        data_df <-
+          head(data_df[data_df$Area %in% input$area3, ], n = 1040, drop = FALSE)
       }
     }
     if (!identical(input$gender3, "All")) {
       for (p in seq_along(input$gender3)) {
-        results_df <-
-          head(results_df[results_df$Gender %in% input$gender3,], n = 1040, drop = FALSE)
+        data_df <-
+          head(data_df[data_df$Gender %in% input$gender3, ], n = 1040, drop = FALSE)
       }
     }
     if (!identical(input$age3, "All")) {
       for (q in seq_along(input$age3)) {
-        results_df <-
-          head(results_df[results_df$Age %in% input$age3,], n = 1040, drop = FALSE)
+        data_df <-
+          head(data_df[data_df$Age %in% input$age3, ], n = 1040, drop = FALSE)
       }
     }
     if (!identical(input$occupation3, "All")) {
       for (r in seq_along(input$occupation3)) {
-        results_df <-
-          head(results_df[results_df$Occupation %in% input$occupation3,], n = 1040, drop = FALSE)
+        data_df <-
+          head(data_df[data_df$Occupation %in% input$occupation3, ], n = 1040, drop = FALSE)
       }
     }
     if (!identical(input$education3, "All")) {
       for (s in seq_along(input$education3)) {
-        results_df <-
-          head(results_df[results_df$Education.level %in% input$education3,], n = 1040, drop = FALSE)
+        data_df <-
+          head(data_df[data_df$Education.level %in% input$education3, ], n = 1040, drop = FALSE)
       }
     }
     if (!identical(input$years3, "All")) {
       for (t in seq_along(input$years3)) {
-        results_df <-
-          head(results_df[results_df$Year %in% input$years3,], n = 1040, drop = FALSE)
+        data_df <-
+          head(data_df[data_df$Year %in% input$years3, ], n = 1040, drop = FALSE)
       }
     }
-    results_df
+    data_df
   })
   
   # color <- colorRampPalette(brewer.pal(n = 11, name = "RdYlGn"))(15)

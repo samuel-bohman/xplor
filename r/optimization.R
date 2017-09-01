@@ -1,5 +1,3 @@
-
-
 # Get all efficient portfolios
 get_all_portfolios <- function(actions, values, disagreements, initial_budget_constraint, direction) {
   portfolios <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
@@ -44,6 +42,22 @@ create_model <- function(actions, values, disagreements, budget_constraint, dire
 
 # Find all subsolutions (same cost and value)
 find_solutions <- function(lp_model, actions, disagreements, direction) {
+  
+  # Warning: Error in if: missing value where TRUE/FALSE needed
+  # Stack trace (innermost first):
+  #   62: find_solutions [optimization.R#58]
+  #     61: find_all_solutions [optimization.R#24]
+  #       60: get_all_portfolios [optimization.R#4]
+  #         59: eval [/home/samuel/xplor/r/server.R#698]
+  #           58: eval
+  #           57: withProgress
+  #           56: observerFunc [/home/samuel/xplor/r/server.R#203]
+  #             1: runApp 
+  req(lp_model)
+  req(actions)
+  req(disagreements)
+  req(direction)
+  
   df <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
   
   # First problem
@@ -53,10 +67,23 @@ find_solutions <- function(lp_model, actions, disagreements, direction) {
   # Find more solutions
   while (TRUE) {
     
-    # Trying to solve the "Error in if: missing value where T/F needed" with req()
-    sol <- req(round(get.variables(lp_model)))
+    sol <- round(get.variables(lp_model))
     sum <- 0
+    
+    # Warning: Error in if: missing value where TRUE/FALSE needed
+    # Stack trace (innermost first):
+    #   62: find_solutions [optimization.R#73]
+    #     61: find_all_solutions [optimization.R#24]
+    #       60: get_all_portfolios [optimization.R#4]
+    #         59: eval [/home/samuel/xplor/r/server.R#793]
+    #           58: eval
+    #           57: withProgress
+    #           56: observerFunc [/home/samuel/xplor/r/server.R#203]
+    #             1: runApp
+    req(sol)
+    
     for (v in 1:length(sol)) {
+      
       if (sol[v] == 1) {
         sum <- sum + disagreements[v]
       }

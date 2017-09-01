@@ -161,40 +161,40 @@ menu <- function(input, output, session) {
     
     if (input$area1 != "All") {
       for (i in seq_along(input$area1)) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1$Area %in% input$area1,]
+        data_spdf1 <-
+          data_spdf1[data_spdf1$Area %in% input$area1,]
       }
     }
     if (input$gender1 != "All") {
       for (i in seq_along(input$gender1)) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1$Gender %in% input$gender1,]
+        data_spdf1 <-
+          data_spdf1[data_spdf1$Gender %in% input$gender1,]
       }
     }
     if (input$age1 != "All") {
       for (i in seq_along(input$age1)) {
-        results_spdf1 <- results_spdf1[results_spdf1$Age %in% input$age1,]
+        data_spdf1 <- data_spdf1[data_spdf1$Age %in% input$age1,]
       }
     }
     if (input$occupation1 != "All") {
       for (i in seq_along(input$occupation1)) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1$Occupation %in% input$occupation1,]
+        data_spdf1 <-
+          data_spdf1[data_spdf1$Occupation %in% input$occupation1,]
       }
     }
     if (input$education1 != "All") {
       for (i in seq_along(input$education1)) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1$Education.level %in% input$education1,]
+        data_spdf1 <-
+          data_spdf1[data_spdf1$Education.level %in% input$education1,]
       }
     }
     if (input$years1 != "All") {
       for (i in seq_along(input$years1)) {
-        results_spdf1 <-
-          results_spdf1[results_spdf1$Year %in% input$years1,]
+        data_spdf1 <-
+          data_spdf1[data_spdf1$Year %in% input$years1,]
       }
     }
-    results_spdf1
+    data_spdf1
   })
   
   # Subset alternatives for group 1
@@ -383,40 +383,40 @@ menu <- function(input, output, session) {
     
     if (input$area2 != "All") {
       for (i in seq_along(input$area2)) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2$Area %in% input$area2,]
+        data_spdf2 <-
+          data_spdf2[data_spdf2$Area %in% input$area2,]
       }
     }
     if (input$gender2 != "All") {
       for (i in seq_along(input$gender2)) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2$Gender %in% input$gender2,]
+        data_spdf2 <-
+          data_spdf2[data_spdf2$Gender %in% input$gender2,]
       }
     }
     if (input$age2 != "All") {
       for (i in seq_along(input$age2)) {
-        results_spdf2 <- results_spdf2[results_spdf2$Age %in% input$age2,]
+        data_spdf2 <- data_spdf2[data_spdf2$Age %in% input$age2,]
       }
     }
     if (input$occupation2 != "All") {
       for (i in seq_along(input$occupation2)) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2$Occupation %in% input$occupation2,]
+        data_spdf2 <-
+          data_spdf2[data_spdf2$Occupation %in% input$occupation2,]
       }
     }
     if (input$education2 != "All") {
       for (i in seq_along(input$education2)) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2$Education.level %in% input$education2,]
+        data_spdf2 <-
+          data_spdf2[data_spdf2$Education.level %in% input$education2,]
       }
     }
     if (input$years2 != "All") {
       for (i in seq_along(input$years2)) {
-        results_spdf2 <-
-          results_spdf2[results_spdf2$Year %in% input$years2,]
+        data_spdf2 <-
+          data_spdf2[data_spdf2$Year %in% input$years2,]
       }
     }
-    results_spdf2
+    data_spdf2
   })
   
   # # Subset alternatives for group 2

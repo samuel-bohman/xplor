@@ -1,4 +1,4 @@
-# BCAR
+# Calculate bipolar cardinal ranking
 calculateBCAR <- function(results) {
   
   for (j in 1:10) {
@@ -12,7 +12,7 @@ calculateBCAR <- function(results) {
     pseudo.name_prop_score <- tail(alternatives_prop_scores, n = 1)
     criterion_name <- paste("wc", j, ".car", sep = "")
     
-    # Add new columns for the proportinal scores in the bipolar cardinal ranking of alternatives
+    # Add new columns for the proportional scores in the bipolar cardinal ranking of alternatives
     results[pseudo.name] <- 7
     
     for (i in 1:length(alternatives)) {
@@ -20,9 +20,11 @@ calculateBCAR <- function(results) {
       # Add columns with proportial scores
       results[alternatives_prop_scores[i]] <- 
         apply(results, 1, function(x) {
+          
           # Find the min and max values for question 1 and action 1-5 and the pseudo action (6)
           v.max <- max(as.numeric(x[c(alternatives)]))
           v.min <- min(as.numeric(x[c(alternatives)]))
+          
           # Calculate the proportinal score for question 1 and action i
           (as.numeric(x[alternatives[i]]) - v.min) / (v.max - v.min)
         })
@@ -31,7 +33,7 @@ calculateBCAR <- function(results) {
     # Iterate over the alternatives-column # a6 is the pseudo alternative!
     for (i in 1:length(alternatives)) {
       
-      # Adds a con/pro column for each alternative
+      # Add a con/pro column for each alternative
       results[alternatives_cop[i]] <-
         apply(results, 1, function(x) {
           if (as.numeric(x[alternatives[i]]) < as.numeric(x[pseudo.name])) {
@@ -68,6 +70,5 @@ calculateBCAR <- function(results) {
         })
     }
   }
-
   return(results)
 }

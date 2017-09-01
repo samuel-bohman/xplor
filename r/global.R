@@ -12,29 +12,29 @@ library(lpSolveAPI)
 library(sp)
 
 source("menu.R")
-# source("helper.R")
 source("disagreement.R")
 source("optimization.R")
 source("sd.R")
+# source("helper.R")
 
 # SpatialPolygonsDataFrame for map polygons
-nyko <- readRDS("cleaning/data/nyko/nyko84b.rds")
+nyko <- readRDS("../data-derived/nyko84.rds")
 
 # SpatialPolygonsDataFrame for group 1
-results_spdf1 <- readRDS("cleaning/data/merged/results_spdf.rds")
+data_spdf1 <- readRDS("../data-derived/data_spdf.rds")
 
 # SpatialPolygonsDataFrame for group 2
-results_spdf2 <- readRDS("cleaning/data/merged/results_spdf.rds")
+data_spdf2 <- readRDS("../data-derived/data_spdf.rds")
 
 # Data frame for tabPanel "Table"
-results_df <- read.table("cleaning/data/results/results.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
+data_df <- read.table("../data-derived/data.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
 
 # Background variables for map
-b_area <- c("", "All", sort(unique(as.character(results_df[["Area"]]))))
+b_area <- c("", "All", sort(unique(as.character(data_df[["Area"]]))))
 b_gender <- c("", "All", "Woman", "Man", "Prefer not to disclose", "Other/No gender")
-b_age <- c("", "All", sort(unique(as.character(results_df[["Age"]]))))
-b_occupation <- c("", "All", sort(unique(as.character(results_df[["Occupation"]]))))
-b_education <- c("", "All", sort(unique(as.character(results_df[["Education.level"]]))))
+b_age <- c("", "All", sort(unique(as.character(data_df[["Age"]]))))
+b_occupation <- c("", "All", sort(unique(as.character(data_df[["Occupation"]]))))
+b_education <- c("", "All", sort(unique(as.character(data_df[["Education.level"]]))))
 b_years <- c("", "All", "0-4 years", "5-9 years", "10 years or more")
 
 # Background variables for data table
@@ -56,10 +56,10 @@ b_col_names <- c("Area", "Gender", "Age", "Occupation", "Education.level", "Year
 b_labels <- c("Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
 
 # Randomization for polygons just for development purposes
-rnd <- sample(x = b_area[3:45], size = 12) %>% split(f = c(1, 2))
+rnd <- sample(x = b_area[3:45], size = 8) %>% split(f = c(1, 2))
 
 # Themes
-theme <- colnames(results_df)[57:66] %>% gsub(pattern = ".", replacement = " ", x = ., fixed = TRUE) %>% paste(c(1:10), ., sep = ". ")
+theme <- colnames(data_df)[57:66] %>% gsub(pattern = ".", replacement = " ", x = ., fixed = TRUE) %>% paste(c(1:10), ., sep = ". ")
 
 # Alternatives
 alt_theme_1 <- c(

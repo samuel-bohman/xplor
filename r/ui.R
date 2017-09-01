@@ -2,7 +2,7 @@ library(rintrojs)
 
 G1   <- HTML("<font color='steelblue'><b>G1</b></font>")
 G2   <- HTML("<font color='firebrick'><b>G2</b></font>")
-T    <- HTML("<font color='darkslateblue'><b>T</b></font>")
+To    <- HTML("<font color='darkslateblue'><b>T</b></font>")
 Diff <- HTML("<font color='darkslateblue'><b>Diff</b></font>")
 
 shinyUI(
@@ -34,7 +34,7 @@ shinyUI(
                     ggvisOutput(plot_id = "ggvis_1"),
                     G2,
                     ggvisOutput(plot_id = "ggvis_2"),
-                    T,
+                    To,
                     ggvisOutput(plot_id = "ggvis_3")
                   ),
                   tabPanel(title = "V",
@@ -42,7 +42,7 @@ shinyUI(
                     ggvisOutput(plot_id = "ggvis_4"),
                     G2,
                     ggvisOutput(plot_id = "ggvis_5"),
-                    T,
+                    To,
                     ggvisOutput(plot_id = "ggvis_6")
                   ),
                   tabPanel(title = "D",
@@ -56,7 +56,7 @@ shinyUI(
                 )
               ),
               data.step = 3,
-              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", T, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", T, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
+              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             )
           ),
           column(width = 2,
@@ -68,7 +68,7 @@ shinyUI(
                     ggvisOutput(plot_id = "ggvis_13"),
                     G2,
                     ggvisOutput(plot_id = "ggvis_14"),
-                    T,
+                    To,
                     ggvisOutput(plot_id = "ggvis_15")
                   ),
                   tabPanel(title = "VtD",
@@ -76,13 +76,13 @@ shinyUI(
                     ggvisOutput(plot_id = "ggvis_10"),
                     G2,
                     ggvisOutput(plot_id = "ggvis_11"),
-                    T,
+                    To,
                     ggvisOutput(plot_id = "ggvis_12")
                   )
                 )
               ),
               data.step = 4,
-              data.intro = paste0("This is the portfolio panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", T, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
+              data.intro = paste0("This is the portfolios panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             )
           )
         ),
@@ -112,13 +112,13 @@ shinyUI(
                   tabPanel(title = HTML(G2),
                     DT::dataTableOutput(outputId = "portfolios_group_2_table")
                   ),
-                  tabPanel(title = HTML(T),
+                  tabPanel(title = HTML(To),
                     DT::dataTableOutput(outputId = "portfolios_total_table")
                   )
                 )
               ),
               data.step = 6,
-              data.intro = paste0("This is the portfolio details panel. It has three tabs: ", G1, ", ", G2, ", and ", T, " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the disagreement in the portfolio, respectively. Column 'VtD' displays the value-to-disagreement ratio of the portfolio.")
+              data.intro = paste0("This is the portfolio details panel. It has three tabs: ", G1, ", ", G2, ", and ", To, " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the disagreement in the portfolio, respectively. Column 'VtD' displays the value-to-disagreement ratio of the portfolio.")
             )
           )
         )
@@ -138,6 +138,6 @@ shinyUI(
       )
     ),
     tabPanel(title = "About", icon = icon(name = "info-circle"),
-      includeMarkdown("about.md"))
+      includeMarkdown("../about.md"))
   )
 )
