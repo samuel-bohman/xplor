@@ -150,12 +150,12 @@ shinyServer(function(input, output, session) {
             )
           ),
           icon = list(
-            iconUrl = "../images/marker-icon-red.png",
+            iconUrl = "images/marker-icon-red.png",
             iconWidth = 25,
             iconHeight = 41,
             iconAnchorX = 0,
             iconAnchorY = 0,
-            shadowUrl = "../images/marker-shadow.png",
+            shadowUrl = "images/marker-shadow.png",
             shadowWidth = 41,
             shadowHeight = 41,
             shadowAnchorX = 12,

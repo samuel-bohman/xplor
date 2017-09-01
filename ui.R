@@ -138,6 +138,6 @@ shinyUI(
       )
     ),
     tabPanel(title = "About", icon = icon(name = "info-circle"),
-      includeMarkdown("../about.md"))
+      includeMarkdown("about.md"))
   )
 )
