@@ -83,7 +83,6 @@ find_solutions <- function(lp_model, actions, disagreements, direction) {
     req(sol)
     
     for (v in 1:length(sol)) {
-      
       if (sol[v] == 1) {
         sum <- sum + disagreements[v]
       }
