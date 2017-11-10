@@ -429,10 +429,11 @@ shinyServer(function(input, output, session) {
         ### Plot group 1 mean weighted values
         val_data %>%
           ggvis(x = ~ x,
-            y = ~ y1 * 100,
+            y = ~ y1,
             fill := "steelblue",
             stroke := "") %>%
-          scale_numeric(property = "y", domain = c(NA, 10)) %>%
+          layer_bars() %>%
+          scale_numeric(property = "y", domain = c(min(val_data$y1) * 1.1, ifelse(max(val_data$y1) < 0, 0, max(val_data$y1)))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -455,7 +456,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_4")
         
         incProgress(amount = 1 / 23, detail = "Plot 4")
@@ -463,9 +463,11 @@ shinyServer(function(input, output, session) {
         ### Plot group 2 mean weighted values
         val_data %>%
           ggvis(x = ~ x,
-            y = ~ y2 * 100,
+            y = ~ y2,
             fill := "firebrick",
             stroke := "") %>%
+          layer_bars() %>%
+          scale_numeric(property = "y", domain = c(min(val_data$y2) * 1.1, ifelse(max(val_data$y2) < 0, 0, max(val_data$y2)))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -478,7 +480,6 @@ shinyServer(function(input, output, session) {
           add_axis(
             type = "y",
             title = "Value",
-            format = "d",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -489,7 +490,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_5")
         
         incProgress(amount = 1 / 23, detail = "Plot 5")
@@ -497,9 +497,11 @@ shinyServer(function(input, output, session) {
         ### Plot total mean weighted values
         val_data %>%
           ggvis(x = ~ x,
-            y = ~ y3 * 100,
+            y = ~ y3,
             fill := "darkslateblue",
             stroke := "") %>%
+          layer_bars() %>%
+          scale_numeric(property = "y", domain = c(min(val_data$y3) * 1.1, ifelse(max(val_data$y3) < 0, 0, max(val_data$y3)))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -512,7 +514,6 @@ shinyServer(function(input, output, session) {
           add_axis(
             type = "y",
             title = "Value",
-            format = "d",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -523,7 +524,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_6")
         incProgress(amount = 1 / 23, detail = "Plot 6")
         
@@ -1098,12 +1098,16 @@ shinyServer(function(input, output, session) {
         val_dis_data <-
           add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
         
+        print(val_dis_data)
+        
         ### Plot group 1 value / disagreement
         val_dis_data %>%
           ggvis(x = ~ x,
             y = ~ y1,
             fill := "steelblue",
             stroke := "") %>%
+          layer_bars() %>%
+          scale_numeric(property = "y", domain = c(min(val_dis_data$y1) * 1.1, ifelse(max(val_dis_data$y1) < 0, 0, max(val_dis_data$y1)))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1126,7 +1130,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_10")
         
         incProgress(amount = 1 / 23, detail = "Plot 10")
@@ -1137,6 +1140,8 @@ shinyServer(function(input, output, session) {
             y = ~ y2,
             fill := "firebrick",
             stroke := "") %>%
+          layer_bars() %>%
+          scale_numeric(property = "y", domain = c(min(val_dis_data$y2) * 1.1, ifelse(max(val_dis_data$y2) < 0, 0, max(val_dis_data$y2)))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1159,7 +1164,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_11")
         
         incProgress(amount = 1 / 23, detail = "Plot 11")
@@ -1170,6 +1174,8 @@ shinyServer(function(input, output, session) {
             y = ~ y3,
             fill := "darkslateblue",
             stroke := "") %>%
+          layer_bars() %>%
+          scale_numeric(property = "y", domain = c(min(val_dis_data$y3) * 1.1, ifelse(max(val_dis_data$y3) < 0, 0, max(val_dis_data$y3)))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1192,7 +1198,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_12")
         
         incProgress(amount = 1 / 23, detail = "Plot 12")
