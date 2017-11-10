@@ -222,6 +222,7 @@ shinyServer(function(input, output, session) {
         ### Plot values group 1
         des_group_1 %>%
           ggvis(x = ~ des_group_1, fill := "steelblue", stroke := "") %>%
+          layer_histograms(width = 1) %>%
           scale_numeric(property = "x", domain = c(0, 14)) %>%
           scale_numeric(property = "y", domain = c(0, NA)) %>%
           add_axis(
@@ -249,7 +250,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_histograms(width = 1) %>%
           bind_shiny(plot_id = "ggvis_1")
         
         incProgress(amount = 1 / 23, detail = "Plot 1")
@@ -257,6 +257,7 @@ shinyServer(function(input, output, session) {
         ### Plot values group 2
         des_group_2 %>%
           ggvis(x = ~ des_group_2, fill := "firebrick", stroke := "") %>%
+          layer_histograms(width = 1) %>%
           scale_numeric(property = "x", domain = c(0, 14)) %>%
           scale_numeric(property = "y", domain = c(0, NA)) %>%
           add_axis(
@@ -284,7 +285,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_histograms(width = 1) %>%
           bind_shiny(plot_id = "ggvis_2")
         
         incProgress(amount = 1 / 23, detail = "Plot 2")
@@ -292,6 +292,7 @@ shinyServer(function(input, output, session) {
         ### Plot total values
         des_total %>%
           ggvis(~ ., fill := "darkslateblue", stroke := "") %>%
+          layer_histograms(width = 1) %>%
           scale_numeric(property = "x", domain = c(0, 14)) %>%
           scale_numeric(property = "y", domain = c(0, NA)) %>%
           add_axis(
@@ -319,7 +320,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_histograms(width = 1) %>%
           bind_shiny(plot_id = "ggvis_3")
         
         incProgress(amount = 1 / 23, detail = "Plot 3")
@@ -433,7 +433,7 @@ shinyServer(function(input, output, session) {
             fill := "steelblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_data$y1) * 1.1, ifelse(max(val_data$y1) < 0, 0, max(val_data$y1)))) %>%
+          scale_numeric(property = "y", domain = c(min(val_data$y1) * 1.1, max(val_data$y1))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -467,7 +467,7 @@ shinyServer(function(input, output, session) {
             fill := "firebrick",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_data$y2) * 1.1, ifelse(max(val_data$y2) < 0, 0, max(val_data$y2)))) %>%
+          scale_numeric(property = "y", domain = c(min(val_data$y2) * 1.1, max(val_data$y2))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -501,7 +501,7 @@ shinyServer(function(input, output, session) {
             fill := "darkslateblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_data$y3) * 1.1, ifelse(max(val_data$y3) < 0, 0, max(val_data$y3)))) %>%
+          scale_numeric(property = "y", domain = c(min(val_data$y3) * 1.1, max(val_data$y3))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -611,9 +611,10 @@ shinyServer(function(input, output, session) {
         ### Plot group 1 disagreement
         dis_data %>%
           ggvis(x = ~ x,
-            y = ~ y1 * 100,
+            y = ~ y1,
             fill := "steelblue",
             stroke := "") %>%
+          layer_bars() %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -637,16 +638,16 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_7")
         incProgress(amount = 1 / 23, detail = "Plot 7")
         
         ### Plot group 2 disagreement
         dis_data %>%
           ggvis(x = ~ x,
-            y = ~ y2 * 100,
+            y = ~ y2,
             fill := "firebrick",
             stroke := "") %>%
+          layer_bars() %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -670,16 +671,16 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_8")
         incProgress(amount = 1 / 23, detail = "Plot 8")
         
         ### Plot total disagreement
         dis_data %>%
           ggvis(x = ~ x,
-            y = ~ y3 * 1000,
+            y = ~ y3,
             fill := "darkslateblue",
             stroke := "") %>%
+          layer_bars() %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -703,7 +704,6 @@ shinyServer(function(input, output, session) {
           set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
-          layer_bars() %>%
           bind_shiny(plot_id = "ggvis_9")
         
         incProgress(amount = 1 / 23, detail = "Plot 9")
@@ -1098,8 +1098,6 @@ shinyServer(function(input, output, session) {
         val_dis_data <-
           add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
         
-        print(val_dis_data)
-        
         ### Plot group 1 value / disagreement
         val_dis_data %>%
           ggvis(x = ~ x,
@@ -1107,7 +1105,7 @@ shinyServer(function(input, output, session) {
             fill := "steelblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_dis_data$y1) * 1.1, ifelse(max(val_dis_data$y1) < 0, 0, max(val_dis_data$y1)))) %>%
+          scale_numeric(property = "y", domain = c(min(val_dis_data$y1) * 1.1, max(val_dis_data$y1))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1141,7 +1139,7 @@ shinyServer(function(input, output, session) {
             fill := "firebrick",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_dis_data$y2) * 1.1, ifelse(max(val_dis_data$y2) < 0, 0, max(val_dis_data$y2)))) %>%
+          scale_numeric(property = "y", domain = c(min(val_dis_data$y2) * 1.1, max(val_dis_data$y2))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1175,7 +1173,7 @@ shinyServer(function(input, output, session) {
             fill := "darkslateblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_dis_data$y3) * 1.1, ifelse(max(val_dis_data$y3) < 0, 0, max(val_dis_data$y3)))) %>%
+          scale_numeric(property = "y", domain = c(min(val_dis_data$y3) * 1.1, max(val_dis_data$y3))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
