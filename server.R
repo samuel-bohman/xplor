@@ -433,7 +433,7 @@ shinyServer(function(input, output, session) {
             fill := "steelblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_data$y1) * 1.1, max(val_data$y1))) %>%
+          scale_numeric(property = "y", domain = c(ifelse(min(val_data$y1) < 0, min(val_data$y1) * 1.1, 0), max(val_data$y1))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -467,7 +467,7 @@ shinyServer(function(input, output, session) {
             fill := "firebrick",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_data$y2) * 1.1, max(val_data$y2))) %>%
+          scale_numeric(property = "y", domain = c(ifelse(min(val_data$y2) < 0, min(val_data$y2) * 1.1, 0), max(val_data$y2))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -501,7 +501,7 @@ shinyServer(function(input, output, session) {
             fill := "darkslateblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_data$y3) * 1.1, max(val_data$y3))) %>%
+          scale_numeric(property = "y", domain = c(ifelse(min(val_data$y3) < 0, min(val_data$y3) * 1.1, 0), max(val_data$y3))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1105,7 +1105,7 @@ shinyServer(function(input, output, session) {
             fill := "steelblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_dis_data$y1) * 1.1, max(val_dis_data$y1))) %>%
+          scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y1) < 0, min(val_dis_data$y1) * 1.1, 0), max(val_dis_data$y1))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1139,7 +1139,7 @@ shinyServer(function(input, output, session) {
             fill := "firebrick",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_dis_data$y2) * 1.1, max(val_dis_data$y2))) %>%
+          scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y2) < 0, min(val_dis_data$y2) * 1.1, 0), max(val_dis_data$y2))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
@@ -1173,7 +1173,7 @@ shinyServer(function(input, output, session) {
             fill := "darkslateblue",
             stroke := "") %>%
           layer_bars() %>%
-          scale_numeric(property = "y", domain = c(min(val_dis_data$y3) * 1.1, max(val_dis_data$y3))) %>%
+          scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y3) < 0, min(val_dis_data$y3) * 1.1, 0), max(val_dis_data$y3))) %>%
           add_axis(
             type = "x",
             title = "Alternative",
