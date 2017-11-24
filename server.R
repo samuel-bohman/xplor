@@ -12,8 +12,7 @@ shinyServer(function(input, output, session) {
         "prevLabel" = "Previous",
         "skipLabel" = "Close"
       ),
-      events = list("oncomplete" = 'alert("Finish")')
-    ))
+      events = list("oncomplete" = I('alert("End")'))))
   
   # MAP #######################################################################
   
