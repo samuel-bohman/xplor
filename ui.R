@@ -18,7 +18,7 @@ shinyUI(
               data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a theme (1-10) and then one alternative (a-e) associated with that particular theme. From the 'Start' tab you can also customize the map color scheme. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups.")
             )
           ),
-          column(width = 6,
+          column(width = 8,
             introBox(
               leafletOutput(outputId = "map", height = 680),
               data.step = 2,
@@ -29,7 +29,8 @@ shinyUI(
             introBox(
               sidebarPanel(width = 0,
                 tabsetPanel(
-                  tabPanel(title = "F",
+                  tabPanel(
+                    title = "F",
                     G1,
                     ggvisOutput(plot_id = "ggvis_1"),
                     G2,
@@ -37,7 +38,8 @@ shinyUI(
                     To,
                     ggvisOutput(plot_id = "ggvis_3")
                   ),
-                  tabPanel(title = "V",
+                  tabPanel(
+                    title = "V",
                     G1,
                     ggvisOutput(plot_id = "ggvis_4"),
                     G2,
@@ -45,46 +47,65 @@ shinyUI(
                     To,
                     ggvisOutput(plot_id = "ggvis_6")
                   ),
-                  tabPanel(title = "D",
+                  tabPanel(
+                    title = "D",
                     G1,
                     ggvisOutput(plot_id = "ggvis_7"),
                     G2,
                     ggvisOutput(plot_id = "ggvis_8"),
                     Diff,
                     ggvisOutput(plot_id = "ggvis_9")
-                  )
-                )
-              ),
-              data.step = 3,
-              data.intro = paste0("This is the descriptive panel. It has three tabs: 'F', 'V', and 'D'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
-            )
-          ),
-          column(width = 2,
-            introBox(
-              sidebarPanel(width = 0,
-                tabsetPanel(
-                  tabPanel(title = "P",
+                  ),
+                  tabPanel(
+                    title = "P",
                     G1,
                     ggvisOutput(plot_id = "ggvis_13"),
                     G2,
                     ggvisOutput(plot_id = "ggvis_14"),
                     To,
                     ggvisOutput(plot_id = "ggvis_15")
-                  ),
-                  tabPanel(title = "VtD",
-                    G1,
-                    ggvisOutput(plot_id = "ggvis_10"),
-                    G2,
-                    ggvisOutput(plot_id = "ggvis_11"),
-                    To,
-                    ggvisOutput(plot_id = "ggvis_12")
                   )
+                  # tabPanel(
+                  #   title = "VtD",
+                  #   G1,
+                  #   ggvisOutput(plot_id = "ggvis_10"),
+                  #   G2,
+                  #   ggvisOutput(plot_id = "ggvis_11"),
+                  #   To,
+                  #   ggvisOutput(plot_id = "ggvis_12")
+                  # )
                 )
               ),
-              data.step = 4,
-              data.intro = paste0("This is the portfolios panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
+              data.step = 3,
+              data.intro = paste0("This is the plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             )
           )
+          # column(width = 2,
+          #   introBox(
+          #     sidebarPanel(width = 0,
+          #       tabsetPanel(
+          #         tabPanel(title = "P",
+          #           G1,
+          #           ggvisOutput(plot_id = "ggvis_13"),
+          #           G2,
+          #           ggvisOutput(plot_id = "ggvis_14"),
+          #           To,
+          #           ggvisOutput(plot_id = "ggvis_15")
+          #         ),
+          #         tabPanel(title = "VtD",
+          #           G1,
+          #           ggvisOutput(plot_id = "ggvis_10"),
+          #           G2,
+          #           ggvisOutput(plot_id = "ggvis_11"),
+          #           To,
+          #           ggvisOutput(plot_id = "ggvis_12")
+          #         )
+          #       )
+          #     ),
+          #     data.step = 4,
+          #     data.intro = paste0("This is the portfolios panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
+          #   )
+          # )
         ),
         fluidRow(
           column(width = 2),
