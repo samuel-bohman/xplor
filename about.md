@@ -8,7 +8,7 @@ The code is available in a public repository on [GitHub](https://github.com/samu
 
 ### Data
 
-The dataset is available on [data.world](https://data.world/samuel-bohman/2015-upplands-vasby-municipality). 
+The dataset is available on [data.world](https://data.world/samuel-bohman/2015-upplands-vasby-municipality). All data is anonymized to ensure no personally identifiable information can be surfaced through the application. 
 
 
 ### Authors

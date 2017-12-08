@@ -1,7 +1,12 @@
 # xplor
 
 ## About
+
 Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. The data was collected through an online questionnaire in 2015 in Upplands Väsby municipality in Stockholm County in east central Sweden. All data is anonymized to ensure no personally identifiable information can be surfaced through the application. 
+
+## Data
+
+The dataset is available on [data.world](https://data.world/samuel-bohman/2015-upplands-vasby-municipality). All data is anonymized to ensure no personally identifiable information can be surfaced through the application. 
 
 ## Authors
 
