@@ -15,7 +15,7 @@ shinyUI(
             introBox(
               menu_UI(id = "one"),
               data.step = 1,
-              data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a theme (1-10) and then one alternative (a-e) associated with that particular theme. From the 'Start' tab you can also customize the map color scheme. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups.")
+              data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a theme (1-10) and then one alternative (a-e) associated with that particular theme. From the 'Start' tab you can also select a map color scheme. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups.")
             )
           ),
           column(width = 8,
@@ -77,7 +77,7 @@ shinyUI(
                 )
               ),
               data.step = 3,
-              data.intro = paste0("This is the plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
+              data.intro = paste0("This is the value plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             )
           )
           # column(width = 2,
