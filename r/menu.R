@@ -6,7 +6,7 @@ G2 <- "<font color='firebrick'><b>G2</b></font>"
 menu_UI <- function(id) {
   ns <- NS(id)
   tagList(sidebarPanel(width = 0,
-    tabsetPanel(
+    tabsetPanel(id = "start",
       tabPanel(
         title = "Start",
         selectInput(

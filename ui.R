@@ -29,7 +29,7 @@ shinyUI(
             column(width = 2,
               introBox(
                 sidebarPanel(width = 0,
-                  tabsetPanel(
+                  tabsetPanel(id = "plots",
                     tabPanel(
                       title = "F",
                       G1,
@@ -113,7 +113,7 @@ shinyUI(
             column(width = 6,
               introBox(
                 sidebarPanel(width = 0,
-                  tabsetPanel(
+                  tabsetPanel(id = "demographics",
                     tabPanel(title = "Demographics",
                       htmlOutput(outputId = "grid_ggvis")
                     )
@@ -127,7 +127,7 @@ shinyUI(
               
               introBox(
                 sidebarPanel(width = 0,
-                  tabsetPanel(
+                  tabsetPanel(id = "portfolio-table",
                     tabPanel(title = HTML(G1),
                       DT::dataTableOutput(outputId = "portfolios_group_1_table")
                     ),
