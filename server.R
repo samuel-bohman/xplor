@@ -2,6 +2,19 @@ shinyServer(function(input, output, session) {
   
   tdata <- callModule(module = menu, id = "one")
   
+  # BOOKMARKING ###############################################################
+  
+  # Need to exclude the buttons from themselves being bookmarked
+  setBookmarkExclude(c("bookmark1", "bookmark2"))
+  
+  # Trigger bookmarking with either button
+  observeEvent(input$bookmark1, {
+    session$doBookmark()
+  })
+  observeEvent(input$bookmark2, {
+    session$doBookmark()
+  })
+  
   # INTRO JS ##################################################################
   
   observeEvent(input$help,

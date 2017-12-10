@@ -64,7 +64,7 @@ menu_UI <- function(id) {
       )
     ),
     HTML("<p></p>"),
-    bookmarkButton()))
+    bookmarkButton(id = "bookmark1")))
 }
 
 # Module server
