@@ -17,6 +17,9 @@ source("r/optimization.R")
 source("r/sd.R")
 # source("helper.R")
 
+# Bookmarking
+enableBookmarking(store = "server")
+
 # SpatialPolygonsDataFrame for map polygons
 nyko <- readRDS("data-derived/nyko84.rds")
 

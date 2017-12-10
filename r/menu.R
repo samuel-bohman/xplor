@@ -42,7 +42,6 @@ menu_UI <- function(id) {
         }),
         checkboxInput(ns("markers1"), label = "Display markers", value = TRUE),
         checkboxInput(ns("pop1"), label = "Display popups", value = FALSE)
-        
       ),
       tabPanel(
         title = HTML(G2),
@@ -63,7 +62,9 @@ menu_UI <- function(id) {
         checkboxInput(ns("markers2"), label = "Display markers", value = TRUE),
         checkboxInput(ns("pop2"), label = "Display popups", value = FALSE)
       )
-    )))
+    ),
+    HTML("<p></p>"),
+    bookmarkButton()))
 }
 
 # Module server
