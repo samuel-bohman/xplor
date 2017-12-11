@@ -15,7 +15,6 @@ source("r/menu.R")
 source("r/disagreement.R")
 source("r/optimization.R")
 source("r/sd.R")
-# source("helper.R")
 
 # Bookmarking
 enableBookmarking(store = "url")
