@@ -212,9 +212,9 @@ shinyServer(function(input, output, session) {
   # PLOTS #####################################################################
   
   observe({
-    withProgress(message = "Making plots",
-      value = 0,
-      expr = {
+  #   withProgress(message = "Making plots",
+  #     value = 0,
+  #     expr = {
         
         # DESCRIPTIVE PANEL ###################################################
         
@@ -264,7 +264,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_1")
         
-        incProgress(amount = 1 / 23, detail = "Plot 1")
+        # incProgress(amount = 1 / 23, detail = "Plot 1")
         
         ### Plot values group 2
         des_group_2 %>%
@@ -299,7 +299,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_2")
         
-        incProgress(amount = 1 / 23, detail = "Plot 2")
+        # incProgress(amount = 1 / 23, detail = "Plot 2")
         
         ### Plot total values
         des_total %>%
@@ -334,7 +334,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_3")
         
-        incProgress(amount = 1 / 23, detail = "Plot 3")
+        # incProgress(amount = 1 / 23, detail = "Plot 3")
         
         ## V TAB
         
@@ -397,8 +397,6 @@ shinyServer(function(input, output, session) {
         val_group_2 <- lapply(seq(1, 25, by = 5), function(x) {
           return(data.vec2[x + 2])
         })
-        
-        
         
         ### Calculate total mean weighted values
         val_group_1_2 <- lapply(seq(1, 25, by = 5), function(x) {
@@ -470,7 +468,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_4")
         
-        incProgress(amount = 1 / 23, detail = "Plot 4")
+        # incProgress(amount = 1 / 23, detail = "Plot 4")
         
         ### Plot group 2 mean weighted values
         val_data %>%
@@ -504,7 +502,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_5")
         
-        incProgress(amount = 1 / 23, detail = "Plot 5")
+        # incProgress(amount = 1 / 23, detail = "Plot 5")
         
         ### Plot total mean weighted values
         val_data %>%
@@ -537,7 +535,8 @@ shinyServer(function(input, output, session) {
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_6")
-        incProgress(amount = 1 / 23, detail = "Plot 6")
+       
+         # incProgress(amount = 1 / 23, detail = "Plot 6")
         
         ## D TAB
         
@@ -651,7 +650,8 @@ shinyServer(function(input, output, session) {
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_7")
-        incProgress(amount = 1 / 23, detail = "Plot 7")
+        
+        # incProgress(amount = 1 / 23, detail = "Plot 7")
         
         ### Plot group 2 disagreement
         dis_data %>%
@@ -684,7 +684,8 @@ shinyServer(function(input, output, session) {
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_8")
-        incProgress(amount = 1 / 23, detail = "Plot 8")
+        
+        # incProgress(amount = 1 / 23, detail = "Plot 8")
         
         ### Plot total disagreement
         dis_data %>%
@@ -718,7 +719,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_9")
         
-        incProgress(amount = 1 / 23, detail = "Plot 9")
+        # incProgress(amount = 1 / 23, detail = "Plot 9")
         
         
         # PORTFOLIOS PANEL ####################################################
@@ -984,7 +985,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_13")
         
-        incProgress(amount = 1 / 23, detail = "Plot 13")
+        # incProgress(amount = 1 / 23, detail = "Plot 13")
         
         ### Plot group 2 portfolios
         all_portfolios_group_2 %>%
@@ -1043,7 +1044,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_14")
         
-        incProgress(amount = 1 / 23, detail = "Plot 14")
+        # incProgress(amount = 1 / 23, detail = "Plot 14")
         
         ### Plot total portfolios
         all_portfolios_total %>%
@@ -1102,7 +1103,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_15")
         
-        incProgress(amount = 1 / 23, detail = "Plot 15")
+        # incProgress(amount = 1 / 23, detail = "Plot 15")
         
         ## VtD TAB
         
@@ -1142,7 +1143,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_10")
         
-        incProgress(amount = 1 / 23, detail = "Plot 10")
+        # incProgress(amount = 1 / 23, detail = "Plot 10")
         
         ### Plot group 2 value / disagreement
         val_dis_data %>%
@@ -1176,7 +1177,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_11")
         
-        incProgress(amount = 1 / 23, detail = "Plot 11")
+        # incProgress(amount = 1 / 23, detail = "Plot 11")
         
         ### Plot total value / disagreement
         val_dis_data %>%
@@ -1210,7 +1211,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_12")
         
-        incProgress(amount = 1 / 23, detail = "Plot 12")
+        # incProgress(amount = 1 / 23, detail = "Plot 12")
         
         # PORTFOLIOS DETAILS PANEL ############################################
         
@@ -1278,7 +1279,7 @@ shinyServer(function(input, output, session) {
             )
         })
         
-        incProgress(amount = 1 / 23, detail = "Table 1")
+        # incProgress(amount = 1 / 23, detail = "Table 1")
         
         ## G2 TAB
         
@@ -1344,7 +1345,7 @@ shinyServer(function(input, output, session) {
             )
         })
         
-        incProgress(amount = 1 / 23, detail = "Table 2")
+        # incProgress(amount = 1 / 23, detail = "Table 2")
         
         ## T TAB
         
@@ -1410,7 +1411,7 @@ shinyServer(function(input, output, session) {
             )
         })
         
-        incProgress(amount = 1 / 23, detail = "Table 3")
+        # incProgress(amount = 1 / 23, detail = "Table 3")
         
         # DEMOGRAPHICS PANEL ##################################################
         
@@ -1580,7 +1581,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_16")
         
-        incProgress(amount = 1 / 23, detail = "Plot 16")
+        # incProgress(amount = 1 / 23, detail = "Plot 16")
         
         ### Plot Age
         age %>%
@@ -1623,7 +1624,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_17")
         
-        incProgress(amount = 1 / 23, detail = "Plot 17")
+        # incProgress(amount = 1 / 23, detail = "Plot 17")
         
         ### Plot Occupation
         occupation %>%
@@ -1668,7 +1669,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_18")
         
-        incProgress(amount = 1 / 23, detail = "Plot 18")
+        # incProgress(amount = 1 / 23, detail = "Plot 18")
         
         ### Plot Education
         education %>%
@@ -1713,7 +1714,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_19")
         
-        incProgress(amount = 1 / 23, detail = "Plot 19")
+        # incProgress(amount = 1 / 23, detail = "Plot 19")
         
         ### Plot Years
         year %>%
@@ -1756,8 +1757,8 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_20")
         
-        incProgress(amount = 1 / 23, detail = "Plot 20")
-      })
+        # incProgress(amount = 1 / 23, detail = "Plot 20")
+      # })
   })
   
   ### Put demographics plots in HTML table
