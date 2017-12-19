@@ -32,7 +32,6 @@ Additional packages:
 * rgdal: Roger Bivand, Tim Keitt and Barry Rowlingson (2017). rgdal: Bindings for the 'Geospatial' Data Abstraction Library. R package version 1.2-16. https://CRAN.R-project.org/package=rgdal
 * sp: Pebesma, E.J., R.S. Bivand, 2005. Classes and methods for spatial data in R. R News 5 (2), https://cran.r-project.org/doc/Rnews/
 * markdown: JJ Allaire, Jeffrey Horner, Vicent Marti and Natacha Porte (2015). markdown: 'Markdown' Rendering for R. R package version 0.7.7. https://CRAN.R-project.org/package=markdown
-* magrittr: Stefan Milton Bache and Hadley Wickham (2014). magrittr: A Forward-Pipe Operator for R. R package version 1.5. https://CRAN.R-project.org/package=magrittr
 * DT: Yihui Xie (2016). DT: A Wrapper of the JavaScript Library 'DataTables'. R package version 0.2. https://CRAN.R-project.org/package=DT
 * lpSolveAPI: lp_solve and Kjell Konis. (2016). lpSolveAPI: R Interface to 'lp_solve' Version 5.5.2.0. R package version 5.5.2.0-17. https://CRAN.R-project.org/package=lpSolveAPI
 * RColorBrewer: Erich Neuwirth (2014). RColorBrewer: ColorBrewer Palettes. R package version 1.1-2. https://CRAN.R-project.org/package=RColorBrewer
