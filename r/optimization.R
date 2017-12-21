@@ -1,8 +1,13 @@
 # Get all efficient portfolios
 get_all_portfolios <- function(actions, values, disagreements, initial_budget_constraint, direction) {
-  portfolios <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
-  all_solutions <- find_all_solutions(actions, values, disagreements, initial_budget_constraint, direction)
-  portfolios <- rbind(portfolios, all_solutions)
+
+  if(is.nan(values) || is.nan(disagreements)){
+    portfolios <- data.frame(matrix(data = 0, ncol = length(actions) + 2, nrow = 2))
+  } else {
+    portfolios <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
+    all_solutions <- find_all_solutions(actions, values, disagreements, initial_budget_constraint, direction)
+    portfolios <- rbind(portfolios, all_solutions)
+  }
   colnames(portfolios) <- c(actions, "value", "disagreement")
   portfolios
 }
@@ -80,8 +85,7 @@ find_solutions <- function(lp_model, actions, disagreements, direction) {
     #           57: withProgress
     #           56: observerFunc [/home/samuel/xplor/r/server.R#203]
     #             1: runApp
-    req(sol)
-    
+
     for (v in 1:length(sol)) {
       if (sol[v] == 1) {
         sum <- sum + disagreements[v]

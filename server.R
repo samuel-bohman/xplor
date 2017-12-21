@@ -548,10 +548,14 @@ shinyServer(function(input, output, session) {
             data.vec1[x + 4] / (data.vec1[x + 3] + data.vec1[x + 4])
           conIdx = data.vec1[x]
           proIdx = data.vec1[x + 1]
-          if (pGroupWeight == 0 || cGroupWeight == 0) {
-            conIdx <- 0
-            proIdx <- 0
+          if (is.nan(pGroupWeight) || is.nan(cGroupWeight)){
+            pGroupWeight <- 0
+            cGroupWeight <- 0
+          } else if (pGroupWeight == 0 || cGroupWeight == 0) {
+              conIdx <- 0
+              proIdx <- 0
           }
+
           dSij = conIdx + proIdx
           res <- dSij
           return(res)
@@ -565,7 +569,10 @@ shinyServer(function(input, output, session) {
             data.vec2[x + 4] / (data.vec2[x + 3] + data.vec2[x + 4])
           conIdx = data.vec2[x]
           proIdx = data.vec2[x + 1]
-          if (pGroupWeight == 0 || cGroupWeight == 0) {
+          if (is.nan(pGroupWeight) || is.nan(cGroupWeight)){
+            pGroupWeight <- 0
+            cGroupWeight <- 0
+          } else if (pGroupWeight == 0 || cGroupWeight == 0) {
             conIdx <- 0
             proIdx <- 0
           }
@@ -588,14 +595,22 @@ shinyServer(function(input, output, session) {
           conIdx2 <- data.vec2[x]
           proIdx1 <- data.vec1[x + 1]
           proIdx2 <- data.vec2[x + 1]
-          if ((c1GroupWeight == 0 || p1GroupWeight == 0)) {
+          if (is.nan(c1GroupWeight) || is.nan(p1GroupWeight)){
+            pGroupWeight <- 0
+            cGroupWeight <- 0
+          } else if ((c1GroupWeight == 0 || p1GroupWeight == 0)) {
             conIdx1 <- 0
             proIdx1 <- 0
           }
-          if ((c2GroupWeight == 0 || p2GroupWeight == 0)) {
+          
+          if (is.nan(c2GroupWeight) || is.nan(p2GroupWeight)){
+            pGroupWeight <- 0
+            cGroupWeight <- 0
+          } else if ((c2GroupWeight == 0 || p2GroupWeight == 0)) {
             conIdx2 <- 0
             proIdx2 <- 0
           }
+        
           dDEij <-
             (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2)) / 2
         })
