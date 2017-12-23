@@ -16,7 +16,6 @@ The dataset is available on [data.world](https://data.world/samuel-bohman/2015-u
 Upplands Väsby Data Explorer is being researched and developed in the department of Computer and Systems Sciences at Stockholm University, Sweden:
 
 * Samuel Bohman
-* Tobias Fasth
 
 ### Publications
 
