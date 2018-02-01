@@ -19,14 +19,14 @@ shinyUI(
                 data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a theme (1-10) and then one alternative (a-e) associated with that particular theme. From the 'Start' tab you can also select a map color scheme. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups.")
               )
             ),
-            column(width = 8,
+            column(width = 7,
               introBox(
                 leafletOutput(outputId = "map", height = 680),
                 data.step = 2,
                 data.intro = paste0("This is the map. Each selected area (polygon) is filled with a color representing the mean value of the selected alternative for ", G1, " and ", G2, ", respectively. <br><br> A color legend is available in the bottom left corner. The '+' and '-' sign in the top left corner enables you to zoom in or zoom out, respectively. <br><br> In the top right corner there is a tool for measuring distances and areas. In the bottom right corner there is a minimap that provides a geographical context relative to the map.")
                 )
               ),
-            column(width = 2,
+            column(width = 3,
               introBox(
                 sidebarPanel(width = 0,
                   tabsetPanel(id = "plots",
