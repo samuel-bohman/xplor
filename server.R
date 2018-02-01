@@ -1063,107 +1063,107 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_15")
         
-        ## VtD TAB
-        
-        val_dis_data <- val_data[2:4] / dis_data[2:4]
-        val_dis_data <-
-          add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
-        
-        ### Plot group 1 value / distance
-        val_dis_data %>%
-          ggvis(x = ~ x,
-            y = ~ y1,
-            fill := "steelblue",
-            stroke := "") %>%
-          layer_bars() %>%
-          scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y1) < 0, min(val_dis_data$y1) * 1.1, 0), max(val_dis_data$y1))) %>%
-          add_axis(
-            type = "x",
-            title = "Alternative",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            )
-          ) %>%
-          add_axis(
-            type = "y",
-            title = "VtD",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            ),
-            title_offset = 40
-          ) %>%
-          set_options(width = "auto",
-            height = 180,
-            renderer = "canvas") %>%
-          bind_shiny(plot_id = "ggvis_10")
-        
-        ### Plot group 2 value / distance
-        val_dis_data %>%
-          ggvis(x = ~ x,
-            y = ~ y2,
-            fill := "firebrick",
-            stroke := "") %>%
-          layer_bars() %>%
-          scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y2) < 0, min(val_dis_data$y2) * 1.1, 0), max(val_dis_data$y2))) %>%
-          add_axis(
-            type = "x",
-            title = "Alternative",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            )
-          ) %>%
-          add_axis(
-            type = "y",
-            title = "VtD",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            ),
-            title_offset = 40
-          ) %>%
-          set_options(width = "auto",
-            height = 180,
-            renderer = "canvas") %>%
-          bind_shiny(plot_id = "ggvis_11")
-        
-        ### Plot total value / distance
-        val_dis_data %>%
-          ggvis(x = ~ x,
-            y = ~ y3,
-            fill := "darkslateblue",
-            stroke := "") %>%
-          layer_bars() %>%
-          scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y3) < 0, min(val_dis_data$y3) * 1.1, 0), max(val_dis_data$y3))) %>%
-          add_axis(
-            type = "x",
-            title = "Alternative",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            )
-          ) %>%
-          add_axis(
-            type = "y",
-            title = "VtD",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            ),
-            title_offset = 40
-          ) %>%
-          set_options(width = "auto",
-            height = 180,
-            renderer = "canvas") %>%
-          bind_shiny(plot_id = "ggvis_12")
+        # ## VtD TAB
+        # 
+        # val_dis_data <- val_data[2:4] / dis_data[2:4]
+        # val_dis_data <-
+        #   add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
+        # 
+        # ### Plot group 1 value / distance
+        # val_dis_data %>%
+        #   ggvis(x = ~ x,
+        #     y = ~ y1,
+        #     fill := "steelblue",
+        #     stroke := "") %>%
+        #   layer_bars() %>%
+        #   scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y1) < 0, min(val_dis_data$y1) * 1.1, 0), max(val_dis_data$y1))) %>%
+        #   add_axis(
+        #     type = "x",
+        #     title = "Alternative",
+        #     grid = FALSE,
+        #     properties = axis_props(
+        #       title = list(fontSize = 8),
+        #       labels = list(fontSize = 8)
+        #     )
+        #   ) %>%
+        #   add_axis(
+        #     type = "y",
+        #     title = "VtD",
+        #     grid = FALSE,
+        #     properties = axis_props(
+        #       title = list(fontSize = 8),
+        #       labels = list(fontSize = 8)
+        #     ),
+        #     title_offset = 40
+        #   ) %>%
+        #   set_options(width = "auto",
+        #     height = 180,
+        #     renderer = "canvas") %>%
+        #   bind_shiny(plot_id = "ggvis_10")
+        # 
+        # ### Plot group 2 value / distance
+        # val_dis_data %>%
+        #   ggvis(x = ~ x,
+        #     y = ~ y2,
+        #     fill := "firebrick",
+        #     stroke := "") %>%
+        #   layer_bars() %>%
+        #   scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y2) < 0, min(val_dis_data$y2) * 1.1, 0), max(val_dis_data$y2))) %>%
+        #   add_axis(
+        #     type = "x",
+        #     title = "Alternative",
+        #     grid = FALSE,
+        #     properties = axis_props(
+        #       title = list(fontSize = 8),
+        #       labels = list(fontSize = 8)
+        #     )
+        #   ) %>%
+        #   add_axis(
+        #     type = "y",
+        #     title = "VtD",
+        #     grid = FALSE,
+        #     properties = axis_props(
+        #       title = list(fontSize = 8),
+        #       labels = list(fontSize = 8)
+        #     ),
+        #     title_offset = 40
+        #   ) %>%
+        #   set_options(width = "auto",
+        #     height = 180,
+        #     renderer = "canvas") %>%
+        #   bind_shiny(plot_id = "ggvis_11")
+        # 
+        # ### Plot total value / distance
+        # val_dis_data %>%
+        #   ggvis(x = ~ x,
+        #     y = ~ y3,
+        #     fill := "darkslateblue",
+        #     stroke := "") %>%
+        #   layer_bars() %>%
+        #   scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y3) < 0, min(val_dis_data$y3) * 1.1, 0), max(val_dis_data$y3))) %>%
+        #   add_axis(
+        #     type = "x",
+        #     title = "Alternative",
+        #     grid = FALSE,
+        #     properties = axis_props(
+        #       title = list(fontSize = 8),
+        #       labels = list(fontSize = 8)
+        #     )
+        #   ) %>%
+        #   add_axis(
+        #     type = "y",
+        #     title = "VtD",
+        #     grid = FALSE,
+        #     properties = axis_props(
+        #       title = list(fontSize = 8),
+        #       labels = list(fontSize = 8)
+        #     ),
+        #     title_offset = 40
+        #   ) %>%
+        #   set_options(width = "auto",
+        #     height = 180,
+        #     renderer = "canvas") %>%
+        #   bind_shiny(plot_id = "ggvis_12")
         
         # PORTFOLIOS DETAILS PANEL ############################################
         
