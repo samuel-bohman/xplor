@@ -331,9 +331,9 @@ shinyServer(function(input, output, session) {
         
         ### Get data for V panel
         data.vec1 <-
-          disagreement(tdata$theme(), tdata$group_1_filter_1())
+          distance(tdata$theme(), tdata$group_1_filter_1())
         data.vec2 <-
-          disagreement(tdata$theme(), tdata$group_2_filter_1())
+          distance(tdata$theme(), tdata$group_2_filter_1())
         data.vec1.sd <-
           calculateSD(tdata$theme(), tdata$group_1_filter_1())
         data.vec2.sd <-
@@ -525,17 +525,17 @@ shinyServer(function(input, output, session) {
         
         ## D TAB
         
-        ### Calculate disagreement within group 1
+        ### Calculate distance within group 1
         dis_group_1 <- lapply(seq(1, 30, by = 6), function(x) {
           data.vec1[x]
         })
         
-        ### Calculate disagreement within group 2
+        ### Calculate distance within group 2
         dis_group_2 <- lapply(seq(1, 30, by = 6), function(x) {
           data.vec2[x]
         })
         
-        ### Calculate total disagreement
+        ### Calculate total distance
         dis_total <- lapply(seq(1, 30, by = 6), function(x) {
           c1GroupWeight <-
             data.vec1[x + 4] / (data.vec1[x + 4] + data.vec1[x + 5])
@@ -590,7 +590,7 @@ shinyServer(function(input, output, session) {
         dis_data <-
           bind_cols(alternatives, dis_group_1, dis_group_2, dis_total)
         
-        ### Plot group 1 disagreement
+        ### Plot group 1 distance
         dis_data %>%
           ggvis(x = ~ x,
             y = ~ y1,
@@ -622,7 +622,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_7")
         
-        ### Plot group 2 disagreement
+        ### Plot group 2 distance
         dis_data %>%
           ggvis(x = ~ x,
             y = ~ y2,
@@ -654,7 +654,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_8")
         
-        ### Plot total disagreement
+        ### Plot total distance
         dis_data %>%
           ggvis(x = ~ x,
             y = ~ y3,
@@ -724,14 +724,14 @@ shinyServer(function(input, output, session) {
         portfolios_group_1_pos <- get_all_portfolios(
           actions = actions,
           values = val_group_1,
-          disagreements = dis_group_1,
+          distance = dis_group_1,
           initial_budget_constraint = budget_group_1,
           direction = "max"
         )
         portfolios_group_1_neg <- get_all_portfolios(
           actions = actions,
           values = val_group_1,
-          disagreements = dis_group_1,
+          distance = dis_group_1,
           initial_budget_constraint = budget_group_1,
           direction = "min"
         )
@@ -741,8 +741,8 @@ shinyServer(function(input, output, session) {
           rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
         portfolios_group_1$id <- 1:nrow(portfolios_group_1)
         portfolios_group_1$value <- portfolios_group_1$value * 100
-        portfolios_group_1$disagreement <-
-          portfolios_group_1$disagreement * 100
+        portfolios_group_1$distance <-
+          portfolios_group_1$distance * 100
         
         ### Portfolios group 1 for plotting
         all_portfolios_group_1 <-
@@ -758,7 +758,7 @@ shinyServer(function(input, output, session) {
           })
         all_portfolios_group_1$value <-
           all_portfolio_val_group_1 * 100
-        all_portfolios_group_1$disagreement <-
+        all_portfolios_group_1$distance <-
           all_portfolio_dis_group_1 * 100
         all_portfolios_group_1 <-
           full_join(portfolios_group_1, all_portfolios_group_1, by = actions)
@@ -773,14 +773,14 @@ shinyServer(function(input, output, session) {
         portfolios_group_2_pos <- get_all_portfolios(
           actions = actions,
           values = val_group_2,
-          disagreements = dis_group_2,
+          distance = dis_group_2,
           initial_budget_constraint = budget_group_2,
           direction = "max"
         )
         portfolios_group_2_neg <- get_all_portfolios(
           actions = actions,
           values = val_group_2,
-          disagreements = dis_group_2,
+          distance = dis_group_2,
           initial_budget_constraint = budget_group_2,
           direction = "min"
         )
@@ -790,8 +790,8 @@ shinyServer(function(input, output, session) {
           rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1, ])
         portfolios_group_2$id <- 1:nrow(portfolios_group_2)
         portfolios_group_2$value <- portfolios_group_2$value * 100
-        portfolios_group_2$disagreement <-
-          portfolios_group_2$disagreement * 100
+        portfolios_group_2$distance <-
+          portfolios_group_2$distance * 100
         
         ### Portfolios group 2 for plotting
         all_portfolios_group_2 <-
@@ -807,7 +807,7 @@ shinyServer(function(input, output, session) {
           })
         all_portfolios_group_2$value <-
           all_portfolios_val_group_2 * 100
-        all_portfolios_group_2$disagreement <-
+        all_portfolios_group_2$distance <-
           all_portfolios_dis_group_2 * 100
         all_portfolios_group_2 <-
           full_join(portfolios_group_2, all_portfolios_group_2, by = actions)
@@ -822,14 +822,14 @@ shinyServer(function(input, output, session) {
         portfolios_total_pos <- get_all_portfolios(
           actions = actions,
           values = val_group_1_2,
-          disagreements = dis_total,
+          distance = dis_total,
           initial_budget_constraint = budget_total,
           direction = "max"
         )
         portfolios_total_neg <- get_all_portfolios(
           actions = actions,
           values = val_group_1_2,
-          disagreements = dis_total,
+          distance = dis_total,
           initial_budget_constraint = budget_total,
           direction = "min"
         )
@@ -839,8 +839,8 @@ shinyServer(function(input, output, session) {
           rbind(portfolios_total_pos_rev, portfolios_total_neg[-1, ])
         portfolios_total$id <- 1:nrow(portfolios_total)
         portfolios_total$value <- portfolios_total$value * 100
-        portfolios_total$disagreement <-
-          portfolios_total$disagreement * 100
+        portfolios_total$distance <-
+          portfolios_total$distance * 100
         
         ### Portfolios total for plotting
         all_portfolios_total <-
@@ -856,7 +856,7 @@ shinyServer(function(input, output, session) {
           })
         all_portfolios_total$value <-
           all_portfolios_val_total * 100
-        all_portfolios_total$disagreement <-
+        all_portfolios_total$distance <-
           all_portfolios_dis_total * 100
         all_portfolios_total <-
           full_join(portfolios_total, all_portfolios_total, by = actions)
@@ -914,27 +914,27 @@ shinyServer(function(input, output, session) {
             )
           ) %>%
           layer_points(
-            x = ~ disagreement.y,
+            x = ~ distance.y,
             y = ~ value.y,
             key := ~ id,
             fillOpacity := .5,
             fill := "grey"
           ) %>%
           layer_points(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             key := ~ id,
             fillOpacity := 1,
             fill := "steelblue"
           ) %>%
           layer_paths(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             key := ~ id,
             stroke := "steelblue"
           ) %>%
           layer_text(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             data = na.omit(all_portfolios_group_1),
             text := ~ id,
@@ -971,27 +971,27 @@ shinyServer(function(input, output, session) {
             )
           ) %>%
           layer_points(
-            x = ~ disagreement.y,
+            x = ~ distance.y,
             y = ~ value.y,
             key := ~ id,
             fillOpacity := .5,
             fill := "grey"
           ) %>%
           layer_points(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             key := ~ id,
             fillOpacity := 1,
             fill := "firebrick"
           ) %>%
           layer_paths(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             key := ~ id,
             stroke := "firebrick"
           ) %>%
           layer_text(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             data = na.omit(all_portfolios_group_2),
             text := ~ id,
@@ -1028,27 +1028,27 @@ shinyServer(function(input, output, session) {
             )
           ) %>%
           layer_points(
-            x = ~ disagreement.y,
+            x = ~ distance.y,
             y = ~ value.y,
             key := ~ id,
             fillOpacity := .5,
             fill := "grey"
           ) %>%
           layer_points(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             key := ~ id,
             fillOpacity := 1,
             fill := "darkslateblue"
           ) %>%
           layer_paths(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             key := ~ id,
             stroke := "darkslateblue"
           ) %>%
           layer_text(
-            x = ~ disagreement.x,
+            x = ~ distance.x,
             y = ~ value.x,
             data = na.omit(all_portfolios_total),
             text := ~ id,
@@ -1069,7 +1069,7 @@ shinyServer(function(input, output, session) {
         val_dis_data <-
           add_column(val_dis_data, x = c(as.character(letters[1:5]))) %>% select(x, y1, y2, y3)
         
-        ### Plot group 1 value / disagreement
+        ### Plot group 1 value / distance
         val_dis_data %>%
           ggvis(x = ~ x,
             y = ~ y1,
@@ -1101,7 +1101,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_10")
         
-        ### Plot group 2 value / disagreement
+        ### Plot group 2 value / distance
         val_dis_data %>%
           ggvis(x = ~ x,
             y = ~ y2,
@@ -1133,7 +1133,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_11")
         
-        ### Plot total value / disagreement
+        ### Plot total value / distance
         val_dis_data %>%
           ggvis(x = ~ x,
             y = ~ y3,
@@ -1194,7 +1194,7 @@ shinyServer(function(input, output, session) {
               d = Alt.d,
               e = Alt.e
             ) %>%
-            mutate(V = value, D = disagreement) %>%
+            mutate(V = value, D = distance) %>%
             mutate(VtD = V / D) %>%
             select(id, a, b, c, d, e, V, D, VtD) %>%
             add_row(
@@ -1258,7 +1258,7 @@ shinyServer(function(input, output, session) {
               d = Alt.d,
               e = Alt.e
             ) %>%
-            mutate(V = value, D = disagreement) %>%
+            mutate(V = value, D = distance) %>%
             mutate(VtD = V / D) %>%
             select(id, a, b, c, d, e, V, D, VtD) %>%
             add_row(
@@ -1322,7 +1322,7 @@ shinyServer(function(input, output, session) {
               d = Alt.d,
               e = Alt.e
             ) %>%
-            mutate(V = value, D = disagreement) %>%
+            mutate(V = value, D = distance) %>%
             mutate(VtD = V / D) %>%
             select(id, a, b, c, d, e, V, D, VtD) %>%
             add_row(
