@@ -11,7 +11,7 @@ shinyUI(
       tabPanel(title = "Map", icon = icon(name = "map-o"),
         fluidPage(
           fluidRow(
-            column(width = 2,
+            column(width = 3,
               introjsUI(), 
               introBox(
                 menu_UI(id = "one"),
@@ -19,7 +19,7 @@ shinyUI(
                 data.intro = paste0("This is the menu. It has three tabs: 'Start', ", G1, " (Group 1) and ", G2, " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a theme (1-10) and then one alternative (a-e) associated with that particular theme. From the 'Start' tab you can also select a map color scheme. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ", G1, " and ", G2, " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups.")
               )
             ),
-            column(width = 7,
+            column(width = 6,
               introBox(
                 leafletOutput(outputId = "map", height = 680),
                 data.step = 2,
@@ -109,7 +109,7 @@ shinyUI(
             # )
           ),
           fluidRow(
-            column(width = 2),
+            column(width = 3),
             column(width = 6,
               introBox(
                 sidebarPanel(width = 0,
@@ -123,7 +123,7 @@ shinyUI(
                 data.intro = paste0("This is the demographics panel. It displays bar plots of five background variables for ", G1, " and ", G2, ": Gender, Age, Occupation, Education level, and Length of residency. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
               )
             ),
-            column(width = 4,
+            column(width = 3,
               
               introBox(
                 sidebarPanel(width = 0,
