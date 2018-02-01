@@ -1195,8 +1195,9 @@ shinyServer(function(input, output, session) {
               e = Alt.e
             ) %>%
             mutate(V = value, D = distance) %>%
-            mutate(VtD = V / D) %>%
-            select(id, a, b, c, d, e, V, D, VtD) %>%
+            # mutate(VtD = V / D) %>%
+            # select(id, a, b, c, d, e, V, D, VtD) %>%
+            select(id, a, b, c, d, e, V, D) %>%
             add_row(
               a = a,
               b = b,
@@ -1259,8 +1260,9 @@ shinyServer(function(input, output, session) {
               e = Alt.e
             ) %>%
             mutate(V = value, D = distance) %>%
-            mutate(VtD = V / D) %>%
-            select(id, a, b, c, d, e, V, D, VtD) %>%
+            # mutate(VtD = V / D) %>%
+            # select(id, a, b, c, d, e, V, D, VtD) %>%
+            select(id, a, b, c, d, e, V, D) %>%
             add_row(
               a = a,
               b = b,
@@ -1323,8 +1325,9 @@ shinyServer(function(input, output, session) {
               e = Alt.e
             ) %>%
             mutate(V = value, D = distance) %>%
-            mutate(VtD = V / D) %>%
-            select(id, a, b, c, d, e, V, D, VtD) %>%
+            # mutate(VtD = V / D) %>%
+            # select(id, a, b, c, d, e, V, D, VtD) %>%
+            select(id, a, b, c, d, e, V, D) %>%
             add_row(
               a = a,
               b = b,
