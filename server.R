@@ -608,7 +608,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis(
             type = "y",
-            title = "Disagreement",
+            title = "Distance",
             format = "d",
             grid = FALSE,
             properties = axis_props(
@@ -640,7 +640,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis(
             type = "y",
-            title = "Disagreement",
+            title = "Distance",
             format = "d",
             grid = FALSE,
             properties = axis_props(
@@ -672,7 +672,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis(
             type = "y",
-            title = "Disagreement",
+            title = "Distance",
             format = "d",
             grid = FALSE,
             properties = axis_props(
@@ -897,7 +897,7 @@ shinyServer(function(input, output, session) {
           ggvis() %>%
           add_axis(
             type = "x",
-            title = "Disagreement",
+            title = "Distance",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -954,7 +954,7 @@ shinyServer(function(input, output, session) {
           ggvis() %>%
           add_axis(
             type = "x",
-            title = "Disagreement",
+            title = "Distance",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -1011,7 +1011,7 @@ shinyServer(function(input, output, session) {
           ggvis() %>%
           add_axis(
             type = "x",
-            title = "Disagreement",
+            title = "Distance",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
