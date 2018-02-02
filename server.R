@@ -1652,7 +1652,7 @@ shinyServer(function(input, output, session) {
               labels = list(fontSize = 8)
             )
           ) %>%
-          add_axis("x", orient = "top", ticks = 0, title = "Education",
+          add_axis("x", orient = "top", ticks = 0, title = "Education level",
                    properties = axis_props(
                      axis = list(stroke = "white"),
                      labels = list(fontSize = 0))
@@ -1725,36 +1725,6 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_20")
   })
-  
-  ### Put demographics plots in HTML table
-  ### Adapted from https://groups.google.com/forum/#!topic/ggvis/s_AsEP73T-w
-  # output$grid_ggvis <- renderUI({
-  #   ggvis_16 <- ggvisOutput("ggvis_16")
-  #   ggvis_17 <- ggvisOutput("ggvis_17")
-  #   ggvis_18 <- ggvisOutput("ggvis_18")
-  #   ggvis_19 <- ggvisOutput("ggvis_19")
-  #   ggvis_20 <- ggvisOutput("ggvis_20")
-  #   
-  #   html_1 <- HTML("<table><tr><td>")
-  #   html_2 <- HTML("</td><td>")
-  #   html_3 <- HTML("</td><td>")
-  #   html_4 <- HTML("</td></tr><tr><td>")
-  #   html_5 <- HTML("</td><td>")
-  #   html_6 <- HTML("</td></tr></table>")
-  #   list(
-  #     html_1,
-  #     ggvis_16,
-  #     html_2,
-  #     ggvis_17,
-  #     html_3,
-  #     ggvis_18,
-  #     html_4,
-  #     ggvis_19,
-  #     html_5,
-  #     ggvis_20,
-  #     html_6
-  #   )
-  # })
   
   # TABLE #####################################################################
   

@@ -107,31 +107,7 @@ shinyUI(function(request) {
               ),
               data.step = 3,
               data.intro = paste0(
-                "This is the value plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ",
-                G1,
-                ", ",
-                G2,
-                ", and ",
-                To,
-                " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ",
-                G1,
-                ", ",
-                G2,
-                ", and ",
-                To,
-                ". <br><br> 'D' displays bar plots of relative mean disagreement for each alternative (a-e) for ",
-                G1,
-                ", ",
-                G2,
-                ", and ",
-                Diff,
-                " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ",
-                G1,
-                ", ",
-                G2,
-                ", and ",
-                To,
-                " (total). A Pareto frontier is the set of all optimal combinations of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
+                "This is the value plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean distance for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of alternatives. A mouse roll-over gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
               )
             )
           )
@@ -167,44 +143,34 @@ shinyUI(function(request) {
           column(
             width = 3,
             introBox(
-              sidebarPanel(width = 0,
-                           tabsetPanel(
-                             id = "demographics1",
-                             tabPanel(title = "Demographics",
-                                      # htmlOutput(outputId = "grid_ggvis")
-                                      ggvisOutput(plot_id = "ggvis_16"),
-                                      ggvisOutput(plot_id = "ggvis_17"),
-                                      ggvisOutput(plot_id = "ggvis_20")
-                                      )
-                           )),
-              data.step = 5,
+              sidebarPanel(
+                width = 0,
+                id = "demographics1",
+                # htmlOutput(outputId = "grid_ggvis")
+                ggvisOutput(plot_id = "ggvis_16"),
+                ggvisOutput(plot_id = "ggvis_17"),
+                ggvisOutput(plot_id = "ggvis_20")
+              ),
+              
+              data.step = 4,
               data.intro = paste0(
-                "This is the demographics panel. It displays bar plots of five background variables for ",
-                G1,
-                " and ",
-                G2,
-                ": Gender, Age, Occupation, Education level, and Length of residency. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
+                "This is the demographics panel (1/2). It displays bar plots of three background variables for ", G1, " and ", G2, ": Gender, Age, and Length of residency. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
               )
             )
           ),
           column(
             width = 3,
             introBox(
-              sidebarPanel(width = 0,
-                           tabsetPanel(
-                             id = "demographics2",
-                             tabPanel(title = "Demographics",
-                                      ggvisOutput(plot_id = "ggvis_19"),
-                                      ggvisOutput(plot_id = "ggvis_18")
-                                      )
-                           )),
+              sidebarPanel(
+                width = 0,
+                id = "demographics2",
+                ggvisOutput(plot_id = "ggvis_18"),
+                ggvisOutput(plot_id = "ggvis_19")
+              ),
               data.step = 5,
+              
               data.intro = paste0(
-                "This is the demographics panel. It displays bar plots of five background variables for ",
-                G1,
-                " and ",
-                G2,
-                ": Gender, Age, Occupation, Education level, and Length of residency. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
+                "This is the demographics panel (2/2). It displays bar plots of two background variables for ", G1, " and ", G2, ": Occupation and Education level. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
               )
             )
           ),
@@ -239,7 +205,7 @@ shinyUI(function(request) {
                 G2,
                 ", and ",
                 To,
-                " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the disagreement in the portfolio, respectively. Column 'VtD' displays the value-to-disagreement ratio of the portfolio."
+                " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the distance within the portfolio, respectively."
               )
             )
           )
