@@ -1470,15 +1470,17 @@ shinyServer(function(input, output, session) {
           bind_rows(occupation_group_1, occupation_group_2, .id = "Group") %>%
           ungroup() %>%
           mutate(Occupation = fct_reorder(Occupation, n)) %>%
-          top_n(n = 10, wt = n) %>%
+          top_n(n = 8, wt = n) %>%
           droplevels()
+        
+        print(occupation)
         
         education <-
           bind_rows(education_group_1, education_group_2, .id = "Group") %>%
           ungroup() %>%
           mutate(Education = fct_reorder(Education.level, n)) %>%
           select(Group, Education, n) %>%
-          top_n(n = 10, wt = n) %>%
+          top_n(n = 8, wt = n) %>%
           droplevels()
         
         year <-
@@ -1508,6 +1510,11 @@ shinyServer(function(input, output, session) {
               labels = list(fontSize = 8)
             )
           ) %>%
+          add_axis("x", orient = "top", ticks = 0, title = "Gender",
+                   properties = axis_props(
+                     axis = list(stroke = "white"),
+                     labels = list(fontSize = 0))
+                   ) %>%
           add_axis(
             type = "y",
             title = "",
@@ -1525,7 +1532,7 @@ shinyServer(function(input, output, session) {
             height = band()
           ) %>%
           hide_legend(scales = "fill") %>%
-          set_options(width = 260,
+          set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_16")
@@ -1549,6 +1556,11 @@ shinyServer(function(input, output, session) {
               labels = list(fontSize = 8)
             )
           ) %>%
+          add_axis("x", orient = "top", ticks = 0, title = "Age",
+                   properties = axis_props(
+                     axis = list(stroke = "white"),
+                     labels = list(fontSize = 0))
+          ) %>%
           add_axis(
             type = "y",
             title = "",
@@ -1566,7 +1578,7 @@ shinyServer(function(input, output, session) {
             height = band()
           ) %>%
           hide_legend(scales = "fill") %>%
-          set_options(width = 260,
+          set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_17")
@@ -1592,6 +1604,11 @@ shinyServer(function(input, output, session) {
               labels = list(fontSize = 8)
             )
           ) %>%
+          add_axis("x", orient = "top", ticks = 0, title = "Occupation",
+                   properties = axis_props(
+                     axis = list(stroke = "white"),
+                     labels = list(fontSize = 0))
+          ) %>%
           add_axis(
             type = "y",
             title = "",
@@ -1609,7 +1626,7 @@ shinyServer(function(input, output, session) {
             height = band()
           ) %>%
           hide_legend(scales = "fill") %>%
-          set_options(width = 260,
+          set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_18")
@@ -1635,6 +1652,11 @@ shinyServer(function(input, output, session) {
               labels = list(fontSize = 8)
             )
           ) %>%
+          add_axis("x", orient = "top", ticks = 0, title = "Education",
+                   properties = axis_props(
+                     axis = list(stroke = "white"),
+                     labels = list(fontSize = 0))
+          ) %>%
           add_axis(
             type = "y",
             title = "",
@@ -1652,7 +1674,7 @@ shinyServer(function(input, output, session) {
             height = band()
           ) %>%
           hide_legend(scales = "fill") %>%
-          set_options(width = 260,
+          set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_19")
@@ -1676,6 +1698,11 @@ shinyServer(function(input, output, session) {
               labels = list(fontSize = 8)
             )
           ) %>%
+          add_axis("x", orient = "top", ticks = 0, title = "Length of residency",
+                   properties = axis_props(
+                     axis = list(stroke = "white"),
+                     labels = list(fontSize = 0))
+          ) %>%
           add_axis(
             type = "y",
             title = "",
@@ -1693,7 +1720,7 @@ shinyServer(function(input, output, session) {
             height = band()
           ) %>%
           hide_legend(scales = "fill") %>%
-          set_options(width = 260,
+          set_options(width = "auto",
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_20")
@@ -1701,33 +1728,33 @@ shinyServer(function(input, output, session) {
   
   ### Put demographics plots in HTML table
   ### Adapted from https://groups.google.com/forum/#!topic/ggvis/s_AsEP73T-w
-  output$grid_ggvis <- renderUI({
-    ggvis_16 <- ggvisOutput("ggvis_16")
-    ggvis_17 <- ggvisOutput("ggvis_17")
-    ggvis_18 <- ggvisOutput("ggvis_18")
-    ggvis_19 <- ggvisOutput("ggvis_19")
-    ggvis_20 <- ggvisOutput("ggvis_20")
-    
-    html_1 <- HTML("<table><tr><td>")
-    html_2 <- HTML("</td><td>")
-    html_3 <- HTML("</td><td>")
-    html_4 <- HTML("</td></tr><tr><td>")
-    html_5 <- HTML("</td><td>")
-    html_6 <- HTML("</td></tr></table>")
-    list(
-      html_1,
-      ggvis_16,
-      html_2,
-      ggvis_17,
-      html_3,
-      ggvis_18,
-      html_4,
-      ggvis_19,
-      html_5,
-      ggvis_20,
-      html_6
-    )
-  })
+  # output$grid_ggvis <- renderUI({
+  #   ggvis_16 <- ggvisOutput("ggvis_16")
+  #   ggvis_17 <- ggvisOutput("ggvis_17")
+  #   ggvis_18 <- ggvisOutput("ggvis_18")
+  #   ggvis_19 <- ggvisOutput("ggvis_19")
+  #   ggvis_20 <- ggvisOutput("ggvis_20")
+  #   
+  #   html_1 <- HTML("<table><tr><td>")
+  #   html_2 <- HTML("</td><td>")
+  #   html_3 <- HTML("</td><td>")
+  #   html_4 <- HTML("</td></tr><tr><td>")
+  #   html_5 <- HTML("</td><td>")
+  #   html_6 <- HTML("</td></tr></table>")
+  #   list(
+  #     html_1,
+  #     ggvis_16,
+  #     html_2,
+  #     ggvis_17,
+  #     html_3,
+  #     ggvis_18,
+  #     html_4,
+  #     ggvis_19,
+  #     html_5,
+  #     ggvis_20,
+  #     html_6
+  #   )
+  # })
   
   # TABLE #####################################################################
   
