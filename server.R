@@ -1473,8 +1473,6 @@ shinyServer(function(input, output, session) {
           top_n(n = 8, wt = n) %>%
           droplevels()
         
-        print(occupation)
-        
         education <-
           bind_rows(education_group_1, education_group_2, .id = "Group") %>%
           ungroup() %>%
