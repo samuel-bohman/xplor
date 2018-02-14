@@ -37,15 +37,15 @@ disagreement <- function(criterion, spdf) {
   for (i in 1:(length(alternatives) - 1)) {
     # mean both groups
     mean_names <- c(mean_names, c(alternatives_cmean[i]))
-    mean_values <- c(mean_values, c(mean(data[, alternatives_val[i]])))    
-
+    mean_values <- c(mean_values, c(mean(data[, alternatives_val[i]])))
+    
     # Con mean
     mean_namesc <- c(mean_names, c(alternatives_cmean[i]))
-    mean_valuesc <- c(mean_valuesc, c(mean(data[, alternatives_cval[i]])))
+    mean_valuesc <- c(mean_valuesc, mean(data[data[alternatives_cop[i]] == 0,][,alternatives_cval[i]]))
 
     # Pro mean
-    mean_namesp <- c(mean_names, c(alternatives_pmean[i]))
-    mean_valuesp <- c(mean_valuesp, c(mean(data[, alternatives_pval[i]])))
+    mean_namesp <- c(mean_namesp, c(alternatives_pmean[i]))
+    mean_valuesp <- c(mean_valuesp, mean(data[data[alternatives_cop[i]] == 1,][,alternatives_pval[i]]))
   }
   
   for (i in 1:(length(alternatives) - 1)) {
@@ -87,7 +87,7 @@ disagreement <- function(criterion, spdf) {
     # Con index
     result_names <- c(result_names, c(alternatives_cval[i]))
     result_values <- c(result_values, c(sum(data[, alternatives_cval[i]]) * lambda))
-     
+
     # Pro index
     result_names <- c(result_names, c(alternatives_pval[i]))
     result_values <- c(result_values, c(sum(data[, alternatives_pval[i]]) * lambda))
