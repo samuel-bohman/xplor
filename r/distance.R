@@ -4,7 +4,7 @@ get_alternatives <- function(criterion) {
   c(paste("Alt.", number, letters[1:5], sep = ""), paste("Alt.", number, "p", sep = ""))
 }
 
-disagreement <- function(criterion, spdf) {
+distance <- function(criterion, spdf) {
   data <- spdf@data
   lambda <- 1 / nrow(data)
   

@@ -1,33 +1,33 @@
 # Get all efficient portfolios
-get_all_portfolios <- function(actions, values, disagreements, initial_budget_constraint, direction) {
+get_all_portfolios <- function(actions, values, distance, initial_budget_constraint, direction) {
 
-  if(is.nan(values) || is.nan(disagreements)){
+  if(is.nan(values) || is.nan(distance)){
     portfolios <- data.frame(matrix(data = 0, ncol = length(actions) + 2, nrow = 2))
   } else {
     portfolios <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
-    all_solutions <- find_all_solutions(actions, values, disagreements, initial_budget_constraint, direction)
+    all_solutions <- find_all_solutions(actions, values, distance, initial_budget_constraint, direction)
     portfolios <- rbind(portfolios, all_solutions)
   }
-  colnames(portfolios) <- c(actions, "value", "disagreement")
+  colnames(portfolios) <- c(actions, "value", "distance")
   portfolios
 }
 
 # Find all solutions
-find_all_solutions <- function(actions, values, disagreements, budget_constraint, direction) {
+find_all_solutions <- function(actions, values, distance, budget_constraint, direction) {
   df <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
   
   # First problem
-  lp_model <- create_model(actions, values, disagreements, budget_constraint, direction)
-  solutions <- find_solutions(lp_model, actions, disagreements, direction)
+  lp_model <- create_model(actions, values, distance, budget_constraint, direction)
+  solutions <- find_solutions(lp_model, actions, distance, direction)
   df <- rbind(df, solutions)
-  colnames(df) <- c(actions, "value", "disagreement")
+  colnames(df) <- c(actions, "value", "distance")
 
   # Find more solutions
   while (TRUE) {
     budget_constraint <- solutions[1,length(solutions)] - 0.0001
-    lp_model <- create_model(actions, values, disagreements, budget_constraint, direction)
-    solutions <- find_solutions(lp_model, actions, disagreements, direction)
-    colnames(solutions) <- c(actions, "value", "disagreement")
+    lp_model <- create_model(actions, values, distance, budget_constraint, direction)
+    solutions <- find_solutions(lp_model, actions, distance, direction)
+    colnames(solutions) <- c(actions, "value", "distance")
     df <- rbind(solutions, df)
     if (length(unique(as.list(solutions[, 1:length(actions)]))) == 1) {break}
   }
@@ -35,18 +35,18 @@ find_all_solutions <- function(actions, values, disagreements, budget_constraint
 }
 
 # Create knapsack model
-create_model <- function(actions, values, disagreements, budget_constraint, direction) {
+create_model <- function(actions, values, distance, budget_constraint, direction) {
   no_of_actions <- length(actions)
   lp_model <- make.lp(0, no_of_actions)
   set.objfn(lp_model, values)
-  add.constraint(lp_model, disagreements, "<=", budget_constraint)
+  add.constraint(lp_model, distance, "<=", budget_constraint)
   lp.control(lp_model, sense = direction)
   set.type(lp_model, 1:no_of_actions, "binary")
   lp_model
 }
 
 # Find all subsolutions (same cost and value)
-find_solutions <- function(lp_model, actions, disagreements, direction) {
+find_solutions <- function(lp_model, actions, distance, direction) {
   
   # Warning: Error in if: missing value where TRUE/FALSE needed
   # Stack trace (innermost first):
@@ -60,7 +60,7 @@ find_solutions <- function(lp_model, actions, disagreements, direction) {
   #             1: runApp 
   req(lp_model)
   req(actions)
-  req(disagreements)
+  req(distance)
   req(direction)
   
   df <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
@@ -88,7 +88,7 @@ find_solutions <- function(lp_model, actions, disagreements, direction) {
 
     for (v in 1:length(sol)) {
       if (sol[v] == 1) {
-        sum <- sum + disagreements[v]
+        sum <- sum + distance[v]
       }
     }
     

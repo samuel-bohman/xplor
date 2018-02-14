@@ -12,7 +12,7 @@ library(lpSolveAPI)
 library(sp)
 
 source("r/menu.R")
-source("r/disagreement.R")
+source("r/distance.R")
 source("r/optimization.R")
 source("r/sd.R")
 
