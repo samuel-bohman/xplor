@@ -7,9 +7,8 @@ get_alternatives <- function(criterion) {
 distance <- function(criterion, spdf) {
   data <- spdf@data
   lambda <- 1 / nrow(data)
-  
   number <- unlist(criterion_number[[criterion]])
-  data <- data[complete.cases(data[,paste("Alt.", number, "a.value", sep = "")]), ]
+  data <- data[complete.cases(data[,paste("Alt.", number, "a.val", sep = "")]), ]
   alternatives <- get_alternatives(criterion)
   alternatives_nr <- c(paste(alternatives, ".nr", sep = ""))
   alternatives_cop <- c(paste(alternatives, ".cop", sep = ""))
@@ -47,7 +46,7 @@ distance <- function(criterion, spdf) {
     mean_namesp <- c(mean_namesp, c(alternatives_pmean[i]))
     mean_valuesp <- c(mean_valuesp, mean(data[data[alternatives_cop[i]] == 1,][,alternatives_pval[i]]))
   }
-  
+
   for (i in 1:(length(alternatives) - 1)) {
     data[alternatives_cvar[i]] <-
       apply(data, 1, function(x) {
@@ -70,7 +69,6 @@ distance <- function(criterion, spdf) {
   }
   # prepare results
   for (i in 1:(length(alternatives) - 1)) {
-    
     # Summarize nr, con, and pro 
     tmp_names <- c(tmp_names, c(alternatives_nr_con[i]))
     tmp_data <- c(tmp_data, c(sum(data[, alternatives_cop[i]] == 0)))
@@ -94,7 +92,7 @@ distance <- function(criterion, spdf) {
     
     # Avg value
     result_names <- c(result_names, c(alternatives_val[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_val[i]])) * lambda)
+    result_values <- c(result_values, c(sum(data[, alternatives_val[i]]) * lambda))
     
     # Number of members of the con group
     result_names <- c(result_names, c(alternatives_nr_con[i]))
@@ -104,7 +102,8 @@ distance <- function(criterion, spdf) {
     result_names <- c(result_names, c(alternatives_nr_pro[i]))
     result_values <- c(result_values, c(tmp_data[alternatives_nr_pro[i]]))
   }
-  
+
   names(result_values) <- result_names
+  
   return(result_values)
 }
