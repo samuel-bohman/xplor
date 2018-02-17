@@ -80,7 +80,7 @@ distance <- function(criterion, spdf) {
     
     # result_values is the distance between the pro and con groups for alternative i.
     result_names <- c(result_names, c(alternatives_var[i]))
-    result_values <- c(result_values, c(abs(sum(data[, alternatives_cvar[i]])+sum(data[, alternatives_pvar[i]])-sum(data[, alternatives_var[i]]))))
+    result_values <- c(result_values, c(sum(data[, alternatives_var[i]]) - (sum(data[, alternatives_cvar[i]])+sum(data[, alternatives_pvar[i]]))))
     
     # Con index
     result_names <- c(result_names, c(alternatives_cval[i]))
