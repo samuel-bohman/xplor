@@ -537,37 +537,13 @@ shinyServer(function(input, output, session) {
         
         ### Calculate total distance
         dis_total <- lapply(seq(1, 30, by = 6), function(x) {
-          c1GroupWeight <-
-            data.vec1[x + 4] / (data.vec1[x + 4] + data.vec1[x + 5])
-          p1GroupWeight <-
-            data.vec1[x + 5] / (data.vec1[x + 4] + data.vec1[x + 5])
-          c2GroupWeight <-
-            data.vec2[x + 4] / (data.vec2[x + 4] + data.vec2[x + 5])
-          p2GroupWeight <-
-            data.vec2[x + 5] / (data.vec2[x + 4] + data.vec2[x + 5])
           conIdx1 <- data.vec1[x+1]
           conIdx2 <- data.vec2[x+1]
           proIdx1 <- data.vec1[x + 2]
           proIdx2 <- data.vec2[x + 2]
-          if (is.nan(c1GroupWeight) || is.nan(p1GroupWeight)){
-            pGroupWeight <- 0
-            cGroupWeight <- 0
-          } else if ((c1GroupWeight == 0 || p1GroupWeight == 0)) {
-            conIdx1 <- 0
-            proIdx1 <- 0
-          }
-
-          if (is.nan(c2GroupWeight) || is.nan(p2GroupWeight)){
-            pGroupWeight <- 0
-            cGroupWeight <- 0
-          } else if ((c2GroupWeight == 0 || p2GroupWeight == 0)) {
-            conIdx2 <- 0
-            proIdx2 <- 0
-          }
-
+          
           dDEij <-
             (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2)) / 2
-
         })
         
         ### Flatten list and coerce to data frame
