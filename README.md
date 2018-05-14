@@ -36,3 +36,5 @@ Additional packages:
 * forcats: Hadley Wickham (2017). forcats: Tools for Working with Categorical Variables (Factors). R package version 0.2.0. https://CRAN.R-project.org/package=forcats
 * purrr: Hadley Wickham (2016). purrr: Functional Programming Tools. R package version 0.2.2. https://CRAN.R-project.org/package=purrr
 * tibble: Hadley Wickham, Romain Francois and Kirill Müller (2016). tibble: Simple Data Frames. R package version 1.2. https://CRAN.R-project.org/package=tibble
+
+
