@@ -334,67 +334,68 @@ shinyServer(function(input, output, session) {
           distance(tdata$theme(), tdata$group_1_filter_1())
         data.vec2 <-
           distance(tdata$theme(), tdata$group_2_filter_1())
+        data.vec12 <- distance(tdata$theme(), rbind(tdata$group_1_filter_1(), tdata$group_2_filter_1()))
         data.vec1.sd <-
           calculateSD(tdata$theme(), tdata$group_1_filter_1())
         data.vec2.sd <-
           calculateSD(tdata$theme(), tdata$group_2_filter_1())
         
         ### NEW Calculate pro-index for group 1
-        pro_group_1 <- lapply(seq(1, 30, by = 6), function(x) {
-          proIdx = data.vec1[x + 2]
+        pro_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+          proIdx = data.vec1[x + 4]
           return(proIdx)
         })
         
         ### NEW Calculate con-index for group 1
-        con_group_1 <- lapply(seq(1, 30, by = 6), function(x) {
-          conIdx = data.vec1[x+1]
+        con_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+          conIdx = data.vec1[x+3]
           return(conIdx)
         })
         
         ### NEW Calculate pro-index for group 2
-        pro_group_2 <- lapply(seq(1, 30, by = 6), function(x) {
-          proIdx = data.vec2[x + 2]
+        pro_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+          proIdx = data.vec2[x + 4]
           return(proIdx)
         })
         
         ### NEW Calculate con-index for group 2
-        con_group_2 <- lapply(seq(1, 30, by = 6), function(x) {
-          conIdx = data.vec2[x+1]
+        con_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+          conIdx = data.vec2[x+3]
           return(conIdx)
         })
         
         ### NEW Calculate total pro-index for group 1 and group 2
-        pro_group_1_2 <- lapply(seq(1, 30, by = 6), function(x) {
-          proIdx1 <- data.vec1[x + 2]
-          proIdx2 <- data.vec2[x + 2]
+        pro_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+          proIdx1 <- data.vec1[x + 4]
+          proIdx2 <- data.vec2[x + 4]
           proIdx_1_2 = proIdx1 + proIdx2
           return(proIdx_1_2)
         })
         
         ### NEW Calculate total con-index for group 1 and group 2
-        con_group_1_2 <- lapply(seq(1, 30, by = 6), function(x) {
-          conIdx1 <- data.vec1[x+1]
-          conIdx2 <- data.vec2[x+1]
+        con_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+          conIdx1 <- data.vec1[x+3]
+          conIdx2 <- data.vec2[x+3]
           conIdx_1_2 = conIdx1 + conIdx2
           return(conIdx_1_2)
         })
         
         ### Calculate group 1 mean weighted values
-        val_group_1 <- lapply(seq(1, 30, by = 6), function(x) {
-          return(data.vec1[x + 3])
+        val_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+          return(data.vec1[x + 5])
         })
         
         ### Calculate group 2 mean weighted values
-        val_group_2 <- lapply(seq(1, 30, by = 6), function(x) {
-          return(data.vec2[x + 3])
+        val_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+          return(data.vec2[x + 5])
         })
         
         ### Calculate total mean weighted values
-        val_group_1_2 <- lapply(seq(1, 30, by = 6), function(x) {
-          n_grp1 <- (data.vec1[x + 4] + data.vec1[x + 5])
-          n_grp2 <- (data.vec2[x + 4] + data.vec2[x + 5])
-          v_grp1 <- data.vec1[x + 3]
-          v_grp2 <- data.vec2[x + 3]
+        val_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+          n_grp1 <- (data.vec1[x + 6] + data.vec1[x + 5])
+          n_grp2 <- (data.vec2[x + 6] + data.vec2[x + 5])
+          v_grp1 <- data.vec1[x + 5]
+          v_grp2 <- data.vec2[x + 5]
           org_v_grp_1 <- v_grp1 / (1 / n_grp1)
           org_v_grp_2 <- v_grp2 / (1 / n_grp2)
           m_grp_1_2 <-
@@ -526,24 +527,33 @@ shinyServer(function(input, output, session) {
         ## D TAB
         
         ### Calculate distance within group 1
-        dis_group_1 <- lapply(seq(1, 30, by = 6), function(x) {
-          data.vec1[x]
+        dis_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+          lambda = 1/(data.vec1[x+6]+data.vec1[x+7])^2
+          beta <- 1/(lambda*(data.vec1[x+6]+data.vec1[x+7]))
+          beta * (data.vec1[x]*lambda - (data.vec1[x+1]*lambda + data.vec1[x+2]*lambda))
         })
         
         ### Calculate distance within group 2
-        dis_group_2 <- lapply(seq(1, 30, by = 6), function(x) {
-          data.vec2[x]
+        dis_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+          lambda = 1/(data.vec2[x+6]+data.vec2[x+7])^2
+          beta <- 1/(lambda*(data.vec2[x+6]+data.vec2[x+7]))
+          beta * (data.vec2[x]*lambda - (data.vec2[x+1]*lambda + data.vec2[x+2]*lambda))
         })
         
         ### Calculate total distance
-        dis_total <- lapply(seq(1, 30, by = 6), function(x) {
-          conIdx1 <- data.vec1[x+1]
-          conIdx2 <- data.vec2[x+1]
-          proIdx1 <- data.vec1[x + 2]
-          proIdx2 <- data.vec2[x + 2]
-          
-          dDEij <-
-            (abs(conIdx1 - conIdx2) + abs(proIdx1 - proIdx2)) / 2
+        dis_total <- lapply(seq(1, 40, by = 8), function(x) {
+          lambda = 1/(data.vec12[x+6]+data.vec12[x+7])^2
+          beta <- 1/(lambda*(data.vec12[x+6]+data.vec12[x+7]))
+          T1 <- data.vec1[x] * lambda
+          T2 <- data.vec2[x] * lambda
+          T12 <- data.vec12[x] * lambda
+          C1 <- data.vec1[x+1] * lambda
+          C2 <- data.vec2[x+1] * lambda
+          C12 <- data.vec12[x+1] * lambda
+          P1 <- data.vec1[x+2] * lambda
+          P2 <- data.vec2[x+2] * lambda
+          P12 <- data.vec12[x+2] * lambda
+          dDEij <- beta * abs(T12-(T1+T2))-((C12-(C1+C2))+(P12-(P1+P2)))
         })
         
         ### Flatten list and coerce to data frame

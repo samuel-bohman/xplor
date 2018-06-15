@@ -6,9 +6,12 @@ get_alternatives <- function(criterion) {
 
 distance <- function(criterion, spdf) {
   data <- spdf@data
-  lambda <- 1 / nrow(data)
   number <- unlist(criterion_number[[criterion]])
   data <- data[complete.cases(data[,paste("Alt.", number, "a.val", sep = "")]), ]
+  if(nrow(data)==0){
+    c(0,0,0,0,0,0,0,0)
+  }
+  lambda <- 1 / nrow(data)
   alternatives <- get_alternatives(criterion)
   alternatives_nr <- c(paste(alternatives, ".nr", sep = ""))
   alternatives_cop <- c(paste(alternatives, ".cop", sep = ""))
@@ -51,22 +54,23 @@ distance <- function(criterion, spdf) {
     data[alternatives_cvar[i]] <-
       apply(data, 1, function(x) {
         if (as.numeric(x[alternatives_cop[i]]) == 0) {
-          cvar <- ((as.numeric(x[alternatives_cval[i]]) - as.numeric(mean_valuesc[i]))^2)*lambda
+          cvar <- ((as.numeric(x[alternatives_cval[i]]) - as.numeric(mean_valuesc[i]))^2)#*lambda^2
         } else {0}
       })
     
     data[alternatives_pvar[i]] <-
       apply(data, 1, function(x) {
         if (as.numeric(x[alternatives_cop[i]]) == 1) {
-          pvar <- ((as.numeric(x[alternatives_pval[i]]) - as.numeric(mean_valuesp[i]))^2)*lambda
+          pvar <- ((as.numeric(x[alternatives_pval[i]]) - as.numeric(mean_valuesp[i]))^2)#*lambda^2
         } else {0}
       })
     
     data[alternatives_var[i]] <-
       apply(data, 1, function(x) {
-        var <- ((as.numeric(x[alternatives_val[i]]) - as.numeric(mean_values[i]))^2)*lambda
+        var <- ((as.numeric(x[alternatives_val[i]]) - as.numeric(mean_values[i]))^2)#*lambda^2
       }) 
   }
+  
   # prepare results
   for (i in 1:(length(alternatives) - 1)) {
     # Summarize nr, con, and pro 
@@ -80,7 +84,13 @@ distance <- function(criterion, spdf) {
     
     # result_values is the distance between the pro and con groups for alternative i.
     result_names <- c(result_names, c(alternatives_var[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_var[i]]) - (sum(data[, alternatives_cvar[i]])+sum(data[, alternatives_pvar[i]]))))
+    result_values <- c(result_values, c(sum(data[, alternatives_var[i]])))
+    
+    result_names <- c(result_names, c(alternatives_cvar[i]))
+    result_values <- c(result_values, c(sum(data[, alternatives_cvar[i]])))
+    
+    result_names <- c(result_names, c(alternatives_pvar[i]))
+    result_values <- c(result_values, c(sum(data[, alternatives_pvar[i]])))
     
     # Con index
     result_names <- c(result_names, c(alternatives_cval[i]))
