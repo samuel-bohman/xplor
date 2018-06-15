@@ -2,22 +2,19 @@
 
 ## About
 
-Upplands Väsby Data Explorer is an application for data exploration and visualization built using R. The data was collected through an online questionnaire in 2015 in Upplands Väsby municipality in Stockholm County in east central Sweden. 
+Upplands Väsby Data Explorer is an R Shiny web application for data exploration and visualization. The data was collected in 2015 through an online questionnaire in Upplands Väsby municipality in Stockholm county, Sweden. 
 
 ## Data
 
-The dataset is available on [data.world](https://data.world/samuel-bohman/2015-upplands-vasby-municipality). All data is anonymized to ensure no personally identifiable information can be surfaced through the application. 
+The dataset is available on [data.world](https://data.world/samuel-bohman/2015-upplands-vasby-municipality). All data was anonymized to ensure the confidentiality and privacy of all respondents. 
 
 ## Authors
 
-Upplands Väsby Data Explorer is being researched and developed in the department of Computer and Systems Sciences at Stockholm University, Sweden:
-
-* Samuel Bohman
-* Tobias Fasth
+Researched and developed by Samuel Bohman and Tobias Fasth, Department of Computer and Systems Sciences, Stockholm University. 
 
 ## Publications
 
-Bohman, S., Fasth. T. (2017). An Open Source Web Application for Exploring Public Opinion in Geospatial Planning. Forthcoming.  
+Bohman, S., Fasth. T. (2018). An Open Source Web Application for Exploring Public Opinion in Geospatial Planning. Forthcoming.  
 
 ## Credits & Dependencies
 
@@ -39,3 +36,5 @@ Additional packages:
 * forcats: Hadley Wickham (2017). forcats: Tools for Working with Categorical Variables (Factors). R package version 0.2.0. https://CRAN.R-project.org/package=forcats
 * purrr: Hadley Wickham (2016). purrr: Functional Programming Tools. R package version 0.2.2. https://CRAN.R-project.org/package=purrr
 * tibble: Hadley Wickham, Romain Francois and Kirill Müller (2016). tibble: Simple Data Frames. R package version 1.2. https://CRAN.R-project.org/package=tibble
+
+
