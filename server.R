@@ -335,50 +335,50 @@ shinyServer(function(input, output, session) {
         data.vec2 <-
           distance(tdata$theme(), tdata$group_2_filter_1())
         data.vec12 <- distance(tdata$theme(), rbind(tdata$group_1_filter_1(), tdata$group_2_filter_1()))
-        data.vec1.sd <-
-          calculateSD(tdata$theme(), tdata$group_1_filter_1())
-        data.vec2.sd <-
-          calculateSD(tdata$theme(), tdata$group_2_filter_1())
+        # data.vec1.sd <-
+        #   calculateSD(tdata$theme(), tdata$group_1_filter_1())
+        # data.vec2.sd <-
+        #   calculateSD(tdata$theme(), tdata$group_2_filter_1())
         
         ### NEW Calculate pro-index for group 1
-        pro_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
-          proIdx = data.vec1[x + 4]
-          return(proIdx)
-        })
+        # pro_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   proIdx = data.vec1[x + 4]
+        #   return(proIdx)
+        # })
         
         ### NEW Calculate con-index for group 1
-        con_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
-          conIdx = data.vec1[x+3]
-          return(conIdx)
-        })
+        # con_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   conIdx = data.vec1[x+3]
+        #   return(conIdx)
+        # })
         
         ### NEW Calculate pro-index for group 2
-        pro_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          proIdx = data.vec2[x + 4]
-          return(proIdx)
-        })
+        # pro_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   proIdx = data.vec2[x + 4]
+        #   return(proIdx)
+        # })
         
         ### NEW Calculate con-index for group 2
-        con_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          conIdx = data.vec2[x+3]
-          return(conIdx)
-        })
+        # con_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   conIdx = data.vec2[x+3]
+        #   return(conIdx)
+        # })
         
         ### NEW Calculate total pro-index for group 1 and group 2
-        pro_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          proIdx1 <- data.vec1[x + 4]
-          proIdx2 <- data.vec2[x + 4]
-          proIdx_1_2 = proIdx1 + proIdx2
-          return(proIdx_1_2)
-        })
+        # pro_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   proIdx1 <- data.vec1[x + 4]
+        #   proIdx2 <- data.vec2[x + 4]
+        #   proIdx_1_2 = proIdx1 + proIdx2
+        #   return(proIdx_1_2)
+        # })
         
         ### NEW Calculate total con-index for group 1 and group 2
-        con_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          conIdx1 <- data.vec1[x+3]
-          conIdx2 <- data.vec2[x+3]
-          conIdx_1_2 = conIdx1 + conIdx2
-          return(conIdx_1_2)
-        })
+        # con_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   conIdx1 <- data.vec1[x+3]
+        #   conIdx2 <- data.vec2[x+3]
+        #   conIdx_1_2 = conIdx1 + conIdx2
+        #   return(conIdx_1_2)
+        # })
         
         ### Calculate group 1 mean weighted values
         val_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
@@ -392,15 +392,16 @@ shinyServer(function(input, output, session) {
         
         ### Calculate total mean weighted values
         val_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          n_grp1 <- (data.vec1[x + 6] + data.vec1[x + 5])
-          n_grp2 <- (data.vec2[x + 6] + data.vec2[x + 5])
-          v_grp1 <- data.vec1[x + 5]
-          v_grp2 <- data.vec2[x + 5]
-          org_v_grp_1 <- v_grp1 / (1 / n_grp1)
-          org_v_grp_2 <- v_grp2 / (1 / n_grp2)
-          m_grp_1_2 <-
-            (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
-          return(m_grp_1_2)
+          # n_grp1 <- (data.vec1[x + 6] + data.vec1[x + 5])
+          # n_grp2 <- (data.vec2[x + 6] + data.vec2[x + 5])
+          # v_grp1 <- data.vec1[x + 5]
+          # v_grp2 <- data.vec2[x + 5]
+          # org_v_grp_1 <- v_grp1 / (1 / n_grp1)
+          # org_v_grp_2 <- v_grp2 / (1 / n_grp2)
+          # m_grp_1_2 <-
+          #   (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
+          # return(m_grp_1_2)
+          return(data.vec12[x + 5])
         })
         
         ### Flatten lists and transform into data frames
