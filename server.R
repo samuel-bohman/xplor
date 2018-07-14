@@ -1433,7 +1433,7 @@ shinyServer(function(input, output, session) {
         occupation_group_1 <- dem_group_1 %>%
           mutate(
             Occupation = fct_recode(
-              f = Occupation,
+              .f = Occupation,
               "Long-term sick leave"  = "Long-term sick leave (more than 3 months)",
               "Sickness benefit"      = "Sickness or activity benefit"
             )
@@ -1445,7 +1445,7 @@ shinyServer(function(input, output, session) {
         occupation_group_2 <- dem_group_2 %>%
           mutate(
             Occupation = fct_recode(
-              f = Occupation,
+              .f = Occupation,
               "Long-term sick leave"  = "Long-term sick leave (more than 3 months)",
               "Sickness benefit"      = "Sickness or activity benefit"
             )
@@ -1457,7 +1457,7 @@ shinyServer(function(input, output, session) {
         education_group_1 <- dem_group_1 %>%
           mutate(
             Education.level = fct_recode(
-              f = Education.level,
+              .f = Education.level,
               "University"            = "College/University",
               "Elem. school"          = "Elementary school or equivalent compulsory school",
               "High school"           = "High school, Nordic folk high school, or equivalent",
@@ -1472,7 +1472,7 @@ shinyServer(function(input, output, session) {
         education_group_2 <- dem_group_2 %>%
           mutate(
             Education.level = fct_recode(
-              f = Education.level,
+              .f = Education.level,
               "University"            = "College/University",
               "Elem. school"          = "Elementary school or equivalent compulsory school",
               "High school"           = "High school, Nordic folk high school, or equivalent",
@@ -1521,8 +1521,8 @@ shinyServer(function(input, output, session) {
         year <-
           bind_rows(year_group_1, year_group_2, .id = "Group") %>%
           ungroup() %>%
-          mutate(Year = fct_recode(f = Year, "10+ years" = "10 or more years")) %>%
-          mutate(Year = fct_relevel(f = Year, "0-4 years", "5-9 years", "10+ years")) %>%
+          mutate(Year = fct_recode(.f = Year, "10+ years" = "10 or more years")) %>%
+          mutate(Year = fct_relevel(.f = Year, "0-4 years", "5-9 years", "10+ years")) %>%
           droplevels()
         
         ### Plot Gender
@@ -1783,7 +1783,7 @@ shinyServer(function(input, output, session) {
     mutate(
       Education.level =
         fct_recode(
-          f = Education.level,
+          .f = Education.level,
           "University"      = "College/University",
           "Elem. school"    = "Elementary school or equivalent compulsory school",
           "High school"     = "High school, Nordic folk high school, or equivalent",
@@ -1794,7 +1794,7 @@ shinyServer(function(input, output, session) {
     mutate(
       Year =
         fct_recode(
-          f = Year,
+          .f = Year,
           "10+ years"       = "10 or more years",
           "5-9 years"       = "5-9 years",
           "0-4 years"       = "0-4 years"
@@ -1803,7 +1803,7 @@ shinyServer(function(input, output, session) {
     mutate(
       Occupation =
         fct_recode(
-          f = Occupation,
+          .f = Occupation,
           "LOA"             = "Leave of absence",
           "LTSL"            = "Long-term sick leave (more than 3 months)",
           "SB"              = "Sickness or activity benefit",
@@ -1813,7 +1813,7 @@ shinyServer(function(input, output, session) {
     mutate(
       Gender =
         fct_recode(
-          f = Gender,
+          .f = Gender,
           "Female"          = "Woman",
           "Male"            = "Man",
           "Other"           = "Other/No gender",
