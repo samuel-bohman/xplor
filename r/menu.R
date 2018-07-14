@@ -30,7 +30,11 @@ menu_UI <- function(id) {
           if (j == 1) {
             to_select <- rnd[[1]]
           } else {
-            to_select <- b_variables[[1]][2]
+            if (j == 2) {
+              to_select <- "Man"
+            } else {
+              to_select <- "All"
+            }
           }
           selectInput(
             ns(paste(b_names[j], 1, sep = "")),
@@ -47,9 +51,13 @@ menu_UI <- function(id) {
         title = HTML(G2),
         lapply(seq_along(b_variables), function(j) {
           if (j == 1) {
-            to_select <- rnd[[2]]
+            to_select <- rnd[[1]]
           } else {
-            to_select <- b_variables[[1]][2]
+            if (j == 2) {
+              to_select <- "Woman"
+            } else {
+              to_select <- "All"
+            }
           }
           selectInput(
             ns(paste(b_names[j], 2, sep = "")),
