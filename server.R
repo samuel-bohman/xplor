@@ -530,8 +530,9 @@ shinyServer(function(input, output, session) {
         dis_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
           lambda = 1/(data.vec1[x+6]+data.vec1[x+7])^2
           beta <- 1/(lambda*(data.vec1[x+6]+data.vec1[x+7]))
-          sqrt((beta * (data.vec1[x]*lambda - (data.vec1[x+1]*lambda + data.vec1[x+2]*lambda))))
+          sqrt(beta * (data.vec1[x]*lambda - (data.vec1[x+1]*lambda + data.vec1[x+2]*lambda)))
         })
+        
         #print("group 1")
         tdv1 <- data.vec1*(1/(data.vec1[7]+data.vec1[8])^2)
         #print(data.vec1)
@@ -547,8 +548,10 @@ shinyServer(function(input, output, session) {
         dis_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
           lambda = 1/(data.vec2[x+6]+data.vec2[x+7])^2
           beta <- 1/(lambda*(data.vec2[x+6]+data.vec2[x+7]))
-          sqrt(beta <- 1/(lambda*(data.vec2[x+6]+data.vec2[x+7])))
+          sqrt(beta * (data.vec2[x]*lambda - (data.vec2[x+1]*lambda + data.vec2[x+2]*lambda)))
         })
+        
+        
         
         ### Calculate total distance
         dis_total <- lapply(seq(1, 40, by = 8), function(x) {
@@ -563,9 +566,7 @@ shinyServer(function(input, output, session) {
           P1 <- data.vec1[x+2] * lambda
           P2 <- data.vec2[x+2] * lambda
           P12 <- data.vec12[x+2] * lambda
-          
           sqrt(beta * abs((T12-(T1+T2))-((C12-(C1+C2))+(P12-(P1+P2)))))
-
         })
         # print("group 1")
         # tdv1 <- data.vec1*(1/(data.vec12[7]+data.vec12[8])^2)
