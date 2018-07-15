@@ -11,7 +11,7 @@ distance <- function(criterion, spdf) {
   if(nrow(data)==0){
     c(0,0,0,0,0,0,0,0)
   }
-  lambda <- 1 / nrow(data)
+
   alternatives <- get_alternatives(criterion)
   alternatives_nr <- c(paste(alternatives, ".nr", sep = ""))
   alternatives_cop <- c(paste(alternatives, ".cop", sep = ""))
@@ -95,15 +95,15 @@ distance <- function(criterion, spdf) {
     
     # Con index
     result_names <- c(result_names, c(alternatives_cval[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_cval[i]]) * lambda))
+    result_values <- c(result_values, c(sum(data[, alternatives_cval[i]])))
     
     # Pro index
     result_names <- c(result_names, c(alternatives_pval[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_pval[i]]) * lambda))
+    result_values <- c(result_values, c(sum(data[, alternatives_pval[i]])))
     
     # Avg value
     result_names <- c(result_names, c(alternatives_val[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_val[i]]) * lambda))
+    result_values <- c(result_values, c(sum(data[, alternatives_val[i]])))
     
     # Number of members of the con group
     result_names <- c(result_names, c(alternatives_nr_con[i]))
