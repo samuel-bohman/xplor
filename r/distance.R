@@ -11,7 +11,7 @@ distance <- function(criterion, spdf) {
   if(nrow(data)==0){
     c(0,0,0,0,0,0,0,0)
   }
-  lambda <- 1 / nrow(data)
+
   alternatives <- get_alternatives(criterion)
   alternatives_nr <- c(paste(alternatives, ".nr", sep = ""))
   alternatives_cop <- c(paste(alternatives, ".cop", sep = ""))
@@ -22,6 +22,7 @@ distance <- function(criterion, spdf) {
   alternatives_cvar <- c(paste(alternatives, ".cvar", sep = ""))
   alternatives_pvar <- c(paste(alternatives, ".pvar", sep = ""))
   alternatives_var <- c(paste(alternatives, ".var", sep = ""))
+  alternatives_mean <- c(paste(alternatives, ".mean", sep = ""))
   alternatives_cmean <- c(paste(alternatives, ".cmean", sep = ""))
   alternatives_pmean <- c(paste(alternatives, ".pmean", sep = ""))
   alternatives_val <- c(paste(alternatives, ".val", sep = ""))
@@ -38,11 +39,11 @@ distance <- function(criterion, spdf) {
   
   for (i in 1:(length(alternatives) - 1)) {
     # mean both groups
-    mean_names <- c(mean_names, c(alternatives_cmean[i]))
+    mean_names <- c(mean_names, c(alternatives_mean[i]))
     mean_values <- c(mean_values, c(mean(data[, alternatives_val[i]])))
     
     # Con mean
-    mean_namesc <- c(mean_names, c(alternatives_cmean[i]))
+    mean_namesc <- c(mean_namesc, c(alternatives_cmean[i]))
     mean_valuesc <- c(mean_valuesc, mean(data[data[alternatives_cop[i]] == 0,][,alternatives_cval[i]]))
     
     # Pro mean
@@ -54,20 +55,20 @@ distance <- function(criterion, spdf) {
     data[alternatives_cvar[i]] <-
       apply(data, 1, function(x) {
         if (as.numeric(x[alternatives_cop[i]]) == 0) {
-          cvar <- ((as.numeric(x[alternatives_cval[i]]) - as.numeric(mean_valuesc[i]))^2)#*lambda^2
+          cvar <- ((as.numeric(x[alternatives_cval[i]]) - as.numeric(mean_valuesc[i]))^2)
         } else {0}
       })
     
     data[alternatives_pvar[i]] <-
       apply(data, 1, function(x) {
         if (as.numeric(x[alternatives_cop[i]]) == 1) {
-          pvar <- ((as.numeric(x[alternatives_pval[i]]) - as.numeric(mean_valuesp[i]))^2)#*lambda^2
+          pvar <- ((as.numeric(x[alternatives_pval[i]]) - as.numeric(mean_valuesp[i]))^2)
         } else {0}
       })
     
     data[alternatives_var[i]] <-
       apply(data, 1, function(x) {
-        var <- ((as.numeric(x[alternatives_val[i]]) - as.numeric(mean_values[i]))^2)#*lambda^2
+        var <- ((as.numeric(x[alternatives_val[i]]) - as.numeric(mean_values[i]))^2)
       }) 
   }
   
@@ -94,15 +95,15 @@ distance <- function(criterion, spdf) {
     
     # Con index
     result_names <- c(result_names, c(alternatives_cval[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_cval[i]]) * lambda))
+    result_values <- c(result_values, c(sum(data[, alternatives_cval[i]])))
     
     # Pro index
     result_names <- c(result_names, c(alternatives_pval[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_pval[i]]) * lambda))
+    result_values <- c(result_values, c(sum(data[, alternatives_pval[i]])))
     
     # Avg value
     result_names <- c(result_names, c(alternatives_val[i]))
-    result_values <- c(result_values, c(sum(data[, alternatives_val[i]]) * lambda))
+    result_values <- c(result_values, c(sum(data[, alternatives_val[i]])))
     
     # Number of members of the con group
     result_names <- c(result_names, c(alternatives_nr_con[i]))

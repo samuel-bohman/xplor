@@ -335,54 +335,54 @@ shinyServer(function(input, output, session) {
         data.vec2 <-
           distance(tdata$theme(), tdata$group_2_filter_1())
         data.vec12 <- distance(tdata$theme(), rbind(tdata$group_1_filter_1(), tdata$group_2_filter_1()))
-        data.vec1.sd <-
-          calculateSD(tdata$theme(), tdata$group_1_filter_1())
-        data.vec2.sd <-
-          calculateSD(tdata$theme(), tdata$group_2_filter_1())
+        # data.vec1.sd <-
+        #   calculateSD(tdata$theme(), tdata$group_1_filter_1())
+        # data.vec2.sd <-
+        #   calculateSD(tdata$theme(), tdata$group_2_filter_1())
         
         ### NEW Calculate pro-index for group 1
-        pro_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
-          proIdx = data.vec1[x + 4]
-          return(proIdx)
-        })
+        # pro_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   proIdx = data.vec1[x + 4]
+        #   return(proIdx)
+        # })
         
         ### NEW Calculate con-index for group 1
-        con_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
-          conIdx = data.vec1[x+3]
-          return(conIdx)
-        })
+        # con_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   conIdx = data.vec1[x+3]
+        #   return(conIdx)
+        # })
         
         ### NEW Calculate pro-index for group 2
-        pro_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          proIdx = data.vec2[x + 4]
-          return(proIdx)
-        })
+        # pro_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   proIdx = data.vec2[x + 4]
+        #   return(proIdx)
+        # })
         
         ### NEW Calculate con-index for group 2
-        con_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          conIdx = data.vec2[x+3]
-          return(conIdx)
-        })
+        # con_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   conIdx = data.vec2[x+3]
+        #   return(conIdx)
+        # })
         
         ### NEW Calculate total pro-index for group 1 and group 2
-        pro_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          proIdx1 <- data.vec1[x + 4]
-          proIdx2 <- data.vec2[x + 4]
-          proIdx_1_2 = proIdx1 + proIdx2
-          return(proIdx_1_2)
-        })
+        # pro_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   proIdx1 <- data.vec1[x + 4]
+        #   proIdx2 <- data.vec2[x + 4]
+        #   proIdx_1_2 = proIdx1 + proIdx2
+        #   return(proIdx_1_2)
+        # })
         
         ### NEW Calculate total con-index for group 1 and group 2
-        con_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          conIdx1 <- data.vec1[x+3]
-          conIdx2 <- data.vec2[x+3]
-          conIdx_1_2 = conIdx1 + conIdx2
-          return(conIdx_1_2)
-        })
+        # con_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        #   conIdx1 <- data.vec1[x+3]
+        #   conIdx2 <- data.vec2[x+3]
+        #   conIdx_1_2 = conIdx1 + conIdx2
+        #   return(conIdx_1_2)
+        # })
         
         ### Calculate group 1 mean weighted values
         val_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
-          return(data.vec1[x + 5])
+          return(data.vec1[x + 5]) 
         })
         
         ### Calculate group 2 mean weighted values
@@ -392,15 +392,16 @@ shinyServer(function(input, output, session) {
         
         ### Calculate total mean weighted values
         val_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          n_grp1 <- (data.vec1[x + 6] + data.vec1[x + 5])
-          n_grp2 <- (data.vec2[x + 6] + data.vec2[x + 5])
-          v_grp1 <- data.vec1[x + 5]
-          v_grp2 <- data.vec2[x + 5]
-          org_v_grp_1 <- v_grp1 / (1 / n_grp1)
-          org_v_grp_2 <- v_grp2 / (1 / n_grp2)
-          m_grp_1_2 <-
-            (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
-          return(m_grp_1_2)
+          # n_grp1 <- (data.vec1[x + 6] + data.vec1[x + 5])
+          # n_grp2 <- (data.vec2[x + 6] + data.vec2[x + 5])
+          # v_grp1 <- data.vec1[x + 5]
+          # v_grp2 <- data.vec2[x + 5]
+          # org_v_grp_1 <- v_grp1 / (1 / n_grp1)
+          # org_v_grp_2 <- v_grp2 / (1 / n_grp2)
+          # m_grp_1_2 <-
+          #   (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
+          # return(m_grp_1_2)
+          return(data.vec12[x + 5])
         })
         
         ### Flatten lists and transform into data frames
@@ -530,14 +531,25 @@ shinyServer(function(input, output, session) {
         dis_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
           lambda = 1/(data.vec1[x+6]+data.vec1[x+7])^2
           beta <- 1/(lambda*(data.vec1[x+6]+data.vec1[x+7]))
-          beta * (data.vec1[x]*lambda - (data.vec1[x+1]*lambda + data.vec1[x+2]*lambda))
+          sqrt(beta * (data.vec1[x]*lambda - (data.vec1[x+1]*lambda + data.vec1[x+2]*lambda)))
         })
+        
+        # print("group 1")
+        # tdv1 <- data.vec1*(1/(data.vec1[7]+data.vec1[8])^2)
+        # print(data.vec1)
+        # print("cvar")
+        # cat(tdv1[2],tdv1[10],tdv1[18],tdv1[26],tdv1[34], sep=",")
+        # print("pvar")
+        # cat(tdv1[3],tdv1[11],tdv1[19],tdv1[27],tdv1[35], sep=",")
+        # print("var")
+        # cat(tdv1[1],tdv1[9],tdv1[17],tdv1[25],tdv1[33],sep=",")
+        # print(dis_group_1)
         
         ### Calculate distance within group 2
         dis_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
           lambda = 1/(data.vec2[x+6]+data.vec2[x+7])^2
           beta <- 1/(lambda*(data.vec2[x+6]+data.vec2[x+7]))
-          beta * (data.vec2[x]*lambda - (data.vec2[x+1]*lambda + data.vec2[x+2]*lambda))
+          sqrt(beta * (data.vec2[x]*lambda - (data.vec2[x+1]*lambda + data.vec2[x+2]*lambda)))
         })
         
         ### Calculate total distance
@@ -553,11 +565,41 @@ shinyServer(function(input, output, session) {
           P1 <- data.vec1[x+2] * lambda
           P2 <- data.vec2[x+2] * lambda
           P12 <- data.vec12[x+2] * lambda
-          dDEij <- beta * abs(T12-(T1+T2))-((C12-(C1+C2))+(P12-(P1+P2)))
+          sqrt(beta * abs((T12-(T1+T2))-((C12-(C1+C2))+(P12-(P1+P2)))))
         })
         
-        ### Flatten list and coerce to data frame
+        # print("group 1")
+        # tdv1_2g <- data.vec1*(1/(data.vec12[7]+data.vec12[8])^2)
+        # print(tdv1_2g)
+        # print("cvar")
+        # cat(tdv1_2g[2],tdv1_2g[10],tdv1_2g[18],tdv1_2g[26],tdv1_2g[34], sep=",")
+        # print("pvar")
+        # cat(tdv1_2g[3],tdv1_2g[11],tdv1_2g[19],tdv1_2g[27],tdv1_2g[35], sep=",")
+        # print("var")
+        # cat(tdv1_2g[1],tdv1_2g[9],tdv1_2g[17],tdv1_2g[25],tdv1_2g[33],sep=",")
+        # 
+        # print("group 2")
+        # tdv2_2g <- data.vec2*(1/(data.vec12[7]+data.vec12[8])^2)
+        # print(data.vec2)
+        # print("cvar")
+        # cat(tdv2_2g[2],tdv2_2g[10],tdv2_2g[18],tdv2_2g[26],tdv2_2g[34], sep=",")
+        # print("pvar")
+        # cat(tdv2_2g[3],tdv2_2g[11],tdv2_2g[19],tdv2_2g[27],tdv2_2g[35], sep=",")
+        # print("var")
+        # cat(tdv2_2g[1],tdv2_2g[9],tdv2_2g[17],tdv2_2g[25],tdv2_2g[33],sep=",")
+        # 
+        # print("group total")
+        # tdv12 <- data.vec12*(1/(data.vec12[7]+data.vec12[8])^2)
+        # print(data.vec12)
+        # print("cvar")
+        # cat(tdv12[2],tdv12[10],tdv12[18],tdv12[26],tdv12[34], sep=",")
+        # print("pvar")
+        # cat(tdv12[3],tdv12[11],tdv12[19],tdv12[27],tdv12[35], sep=",")
+        # print("var")
+        # cat(tdv12[1],tdv12[9],tdv12[17],tdv12[25],tdv12[33],sep=",")
+        # print(dis_total)
 
+        ### Flatten list and coerce to data frame
         dis_group_1 <- flatten_dbl(dis_group_1) %>% data.frame()
         dis_group_2 <- flatten_dbl(dis_group_2) %>% data.frame()
         dis_total <- flatten_dbl(dis_total) %>% data.frame()
@@ -659,7 +701,7 @@ shinyServer(function(input, output, session) {
           add_axis(
             type = "y",
             title = "Distance",
-            format = "d",
+            format = "####",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -695,7 +737,7 @@ shinyServer(function(input, output, session) {
 
         ### Unlist lists
         val_group_1 <- unlist(val_group_1)
-        val_group_2 <- unlist(val_group_2)
+        val_group_2 <- unlist(val_group_2) 
         val_group_1_2 <- unlist(val_group_1_2)
         dis_group_1 <- unlist(dis_group_1)
         dis_group_2 <- unlist(dis_group_2)
@@ -703,7 +745,7 @@ shinyServer(function(input, output, session) {
         
         ### Set initial budget constraints
         budget_group_1 <- sum(dis_group_1)
-        budget_group_2 <- sum(dis_group_2)
+        budget_group_2 <- sum(dis_group_2) 
         budget_total <- sum(dis_total)
         
         ### Portfolios group 1 for table
@@ -726,9 +768,9 @@ shinyServer(function(input, output, session) {
         portfolios_group_1 <-
           rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
         portfolios_group_1$id <- 1:nrow(portfolios_group_1)
-        portfolios_group_1$value <- portfolios_group_1$value * 100
+        portfolios_group_1$value <- portfolios_group_1$value
         portfolios_group_1$distance <-
-          portfolios_group_1$distance * 100
+          portfolios_group_1$distance
         
         ### Portfolios group 1 for plotting
         all_portfolios_group_1 <-
@@ -743,9 +785,9 @@ shinyServer(function(input, output, session) {
             sum(dis_group_1[which(row %in% 1)])
           })
         all_portfolios_group_1$value <-
-          all_portfolio_val_group_1 * 100
+          all_portfolio_val_group_1
         all_portfolios_group_1$distance <-
-          all_portfolio_dis_group_1 * 100
+          all_portfolio_dis_group_1
         all_portfolios_group_1 <-
           full_join(portfolios_group_1, all_portfolios_group_1, by = actions)
         all_portfolios_group_1$dx <-
@@ -775,9 +817,9 @@ shinyServer(function(input, output, session) {
         portfolios_group_2 <-
           rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1, ])
         portfolios_group_2$id <- 1:nrow(portfolios_group_2)
-        portfolios_group_2$value <- portfolios_group_2$value * 100
+        portfolios_group_2$value <- portfolios_group_2$value
         portfolios_group_2$distance <-
-          portfolios_group_2$distance * 100
+          portfolios_group_2$distance
         
         ### Portfolios group 2 for plotting
         all_portfolios_group_2 <-
@@ -792,9 +834,9 @@ shinyServer(function(input, output, session) {
             dis <- sum(dis_group_2[which(row %in% 1)])
           })
         all_portfolios_group_2$value <-
-          all_portfolios_val_group_2 * 100
+          all_portfolios_val_group_2
         all_portfolios_group_2$distance <-
-          all_portfolios_dis_group_2 * 100
+          all_portfolios_dis_group_2
         all_portfolios_group_2 <-
           full_join(portfolios_group_2, all_portfolios_group_2, by = actions)
         all_portfolios_group_2$dx <-
@@ -812,6 +854,7 @@ shinyServer(function(input, output, session) {
           initial_budget_constraint = budget_total,
           direction = "max"
         )
+        
         portfolios_total_neg <- get_all_portfolios(
           actions = actions,
           values = val_group_1_2,
@@ -819,14 +862,15 @@ shinyServer(function(input, output, session) {
           initial_budget_constraint = budget_total,
           direction = "min"
         )
+
         portfolios_total_pos_rev <-
           portfolios_total_pos[rev(rownames(portfolios_total_pos)),]
         portfolios_total <-
           rbind(portfolios_total_pos_rev, portfolios_total_neg[-1, ])
         portfolios_total$id <- 1:nrow(portfolios_total)
-        portfolios_total$value <- portfolios_total$value * 100
+        portfolios_total$value <- portfolios_total$value
         portfolios_total$distance <-
-          portfolios_total$distance * 100
+          portfolios_total$distance
         
         ### Portfolios total for plotting
         all_portfolios_total <-
@@ -841,9 +885,9 @@ shinyServer(function(input, output, session) {
             dis <- sum(dis_total[which(row %in% 1)])
           })
         all_portfolios_total$value <-
-          all_portfolios_val_total * 100
+          all_portfolios_val_total
         all_portfolios_total$distance <-
-          all_portfolios_dis_total * 100
+          all_portfolios_dis_total
         all_portfolios_total <-
           full_join(portfolios_total, all_portfolios_total, by = actions)
         all_portfolios_total$dx <-
