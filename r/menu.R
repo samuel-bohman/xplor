@@ -3,6 +3,7 @@
 G1 <- "<font color='steelblue'><b>G1</b></font>"
 G2 <- "<font color='firebrick'><b>G2</b></font>"
 
+# Module UI
 menu_UI <- function(id) {
   ns <- NS(id)
   tagList(sidebarPanel(width = 0,
