@@ -138,6 +138,7 @@ alt_theme_10 <- c(
   "10e. Reducing environmental toxins and hazardous chemicals in nature"
   )
 
+# Put all alternative string vectors in a list
 alt_list <- list(alt_theme_1, alt_theme_2, alt_theme_3, alt_theme_4, alt_theme_5, alt_theme_6, alt_theme_7, alt_theme_8, alt_theme_9, alt_theme_10)
 rm(alt_theme_1, alt_theme_2, alt_theme_3, alt_theme_4, alt_theme_5, alt_theme_6, alt_theme_7, alt_theme_8, alt_theme_9, alt_theme_10)
 
