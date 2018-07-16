@@ -13,7 +13,7 @@ menu_UI <- function(id) {
           ns("theme"),
           label = "Theme",
           choices = theme,
-          selected = theme[2]
+          selected = theme[1]
         ),
         uiOutput(ns("alternatives")),
         selectInput(
@@ -31,7 +31,7 @@ menu_UI <- function(id) {
             to_select <- rnd[[1]]
           } else {
             if (j == 2) {
-              to_select <- "Woman"
+              to_select <- "Man"
             } else {
               to_select <- "All"
             }
@@ -51,10 +51,10 @@ menu_UI <- function(id) {
         title = HTML(G2),
         lapply(seq_along(b_variables), function(j) {
           if (j == 1) {
-            to_select <- rnd[[1]]
+            to_select <- rnd[[2]]
           } else {
             if (j == 2) {
-              to_select <- "Man"
+              to_select <- "Woman"
             } else {
               to_select <- "All"
             }

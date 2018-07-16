@@ -58,8 +58,8 @@ b_col_names <- c("Area", "Gender", "Age", "Occupation", "Education.level", "Year
 b_labels <- c("Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
 
 # Randomization for polygons just for development purposes
-rnd <- "All"
-# rnd <- sample(x = b_area[3:45], size = 8) %>% split(f = c(1, 2))
+# rnd <- "All"
+rnd <- sample(x = b_area[3:45], size = 8) %>% split(f = c(1, 2))
 
 # Themes
 theme <- colnames(data_df)[57:66] %>% gsub(pattern = ".", replacement = " ", x = ., fixed = TRUE) %>% paste(c(1:10), ., sep = ". ")
