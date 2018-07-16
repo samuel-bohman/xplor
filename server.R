@@ -1402,14 +1402,14 @@ shinyServer(function(input, output, session) {
         gender_group_1 <- dem_group_1 %>%
           select(Gender) %>%
           filter(Gender == "Woman" | Gender == "Man") %>%
-          droplevels() %>%
+          # droplevels() %>%
           group_by(Gender) %>%
           count()
         
         gender_group_2 <- dem_group_2 %>%
           select(Gender) %>%
           filter(Gender == "Woman" | Gender == "Man") %>%
-          droplevels() %>%
+          # droplevels() %>%
           group_by(Gender) %>%
           count()
         

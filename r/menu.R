@@ -31,7 +31,7 @@ menu_UI <- function(id) {
             to_select <- rnd[[1]]
           } else {
             if (j == 2) {
-              to_select <- "Man"
+              to_select <- "All"
             } else {
               to_select <- "All"
             }
@@ -54,7 +54,7 @@ menu_UI <- function(id) {
             to_select <- rnd[[2]]
           } else {
             if (j == 2) {
-              to_select <- "Woman"
+              to_select <- "All"
             } else {
               to_select <- "All"
             }
