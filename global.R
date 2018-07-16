@@ -1,3 +1,4 @@
+# Load packages
 library(shiny)
 library(shinythemes)
 library(leaflet)
@@ -11,6 +12,7 @@ library(RColorBrewer)
 library(lpSolveAPI)
 library(sp)
 
+# Read R code from files 
 source("r/menu.R")
 source("r/distance.R")
 source("r/optimization.R")
