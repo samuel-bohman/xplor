@@ -40,7 +40,7 @@ b_education <- c("", "All", sort(unique(as.character(data_df[["Education.level"]
 b_years <- c("", "All", "0-4 years", "5-9 years", "10 years or more")
 
 # Background variables for data table
-b_gender_t <- c("", "All", "Female", "Male", "Other", "-")
+b_gender_t <- c("", "All", "Woman", "Man", "Other", "-")
 b_occupation_t <- c("", "All", "Employee", "Job-seeker", "LOA", "LTSL", "Self-employed", "Senior", "SB", "Student", "Other")
 b_education_t <- c("", "All", "Doctorate", "University", "High school", "Elem. school", "No elem. school", "Other")
 b_years_t <- c("", "All", "0-4 years", "5-9 years", "10+ years")

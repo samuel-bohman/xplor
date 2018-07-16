@@ -1791,8 +1791,6 @@ shinyServer(function(input, output, session) {
       Gender =
         fct_recode(
           .f = Gender,
-          "Female"          = "Woman",
-          "Male"            = "Man",
           "Other"           = "Other/No gender",
           "-"               = "Prefer not to disclose"
         )
