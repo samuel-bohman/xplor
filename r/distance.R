@@ -4,6 +4,7 @@ get_alternatives <- function(criterion) {
   c(paste("Alt.", number, letters[1:5], sep = ""), paste("Alt.", number, "p", sep = ""))
 }
 
+# Calculate the values used to calculate the distance within a group.
 distance <- function(criterion, spdf) {
   data <- spdf@data
   number <- unlist(criterion_number[[criterion]])
