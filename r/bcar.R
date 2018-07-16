@@ -47,7 +47,7 @@ calculateBCAR <- function(results) {
           if (as.numeric(x[alternatives_cop[i]]) == 0) {
             qShAlpha = (as.numeric(x[criterion_name]) * as.numeric(x[pseudo.name_prop_score]))
             qShPartWorth = (as.numeric(x[criterion_name]) * as.numeric(x[alternatives_prop_scores[i]]))
-            (qShPartWorth - qShAlpha)
+            (qShAlpha - qShPartWorth)
           } else {0}
         })
       
@@ -57,7 +57,7 @@ calculateBCAR <- function(results) {
           if (as.numeric(x[alternatives_cop[i]]) == 1) {
             qShAlpha = (as.numeric(x[criterion_name]) * as.numeric(x[pseudo.name_prop_score]))
             qShPartWorth = (as.numeric(x[criterion_name]) * as.numeric(x[alternatives_prop_scores[i]]))
-            (qShPartWorth - qShAlpha)
+            (qShAlpha - qShPartWorth)
           } else {0}
         })
       
@@ -66,7 +66,7 @@ calculateBCAR <- function(results) {
         apply(results, 1, function(x) {
           qShAlpha = (as.numeric(x[criterion_name]) * as.numeric(x[pseudo.name_prop_score]))
           qShPartWorth = (as.numeric(x[criterion_name]) * as.numeric(x[alternatives_prop_scores[i]]))
-          (qShPartWorth - qShAlpha)
+          (qShAlpha - qShPartWorth)
         })
     }
   }
