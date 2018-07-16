@@ -213,9 +213,9 @@ shinyServer(function(input, output, session) {
   
   observe({
         
-        # DESCRIPTIVE PANEL ###################################################
+        # F V D P PANEL #######################################################
         
-        ## F TAB
+        ## F TAB ##############################################################
         
         ### Get data for F panel
         des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
@@ -327,7 +327,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_3")
         
-        ## V TAB
+        ## V TAB ##############################################################
         
         ### Get data for V panel
         data.vec1 <-
@@ -525,13 +525,13 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_6")
         
-        ## D TAB
+        ## D TAB ##############################################################
         
         ### Calculate distance within group 1
         dis_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
-          lambda = 1/(data.vec1[x+6]+data.vec1[x+7])^2
-          beta <- 1/(lambda*(data.vec1[x+6]+data.vec1[x+7]))
-          sqrt(beta * (data.vec1[x]*lambda - (data.vec1[x+1]*lambda + data.vec1[x+2]*lambda)))
+          lambda = 1 / (data.vec1[x + 6] + data.vec1[x + 7]) ^ 2
+          beta <- 1 / (lambda * (data.vec1[x + 6] + data.vec1[x + 7]))
+          sqrt(beta * (data.vec1[x] * lambda - (data.vec1[x + 1] * lambda + data.vec1[x + 2] * lambda)))
         })
         
         # print("group 1")
@@ -547,25 +547,25 @@ shinyServer(function(input, output, session) {
         
         ### Calculate distance within group 2
         dis_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          lambda = 1/(data.vec2[x+6]+data.vec2[x+7])^2
-          beta <- 1/(lambda*(data.vec2[x+6]+data.vec2[x+7]))
-          sqrt(beta * (data.vec2[x]*lambda - (data.vec2[x+1]*lambda + data.vec2[x+2]*lambda)))
+          lambda = 1 / (data.vec2[x + 6] + data.vec2[x + 7]) ^ 2
+          beta <- 1 / (lambda * (data.vec2[x + 6] + data.vec2[x + 7]))
+          sqrt(beta * (data.vec2[x] * lambda - (data.vec2[x + 1] * lambda + data.vec2[x + 2] * lambda)))
         })
         
         ### Calculate total distance
         dis_total <- lapply(seq(1, 40, by = 8), function(x) {
-          lambda = 1/(data.vec12[x+6]+data.vec12[x+7])^2
-          beta <- 1/(lambda*(data.vec12[x+6]+data.vec12[x+7]))
+          lambda = 1 / (data.vec12[x + 6] + data.vec12[x + 7]) ^ 2
+          beta <- 1 / (lambda * (data.vec12[x + 6] + data.vec12[x + 7]))
           T1 <- data.vec1[x] * lambda
           T2 <- data.vec2[x] * lambda
           T12 <- data.vec12[x] * lambda
-          C1 <- data.vec1[x+1] * lambda
-          C2 <- data.vec2[x+1] * lambda
-          C12 <- data.vec12[x+1] * lambda
-          P1 <- data.vec1[x+2] * lambda
-          P2 <- data.vec2[x+2] * lambda
-          P12 <- data.vec12[x+2] * lambda
-          sqrt(beta * abs((T12-(T1+T2))-((C12-(C1+C2))+(P12-(P1+P2)))))
+          C1 <- data.vec1[x + 1] * lambda
+          C2 <- data.vec2[x + 1] * lambda
+          C12 <- data.vec12[x + 1] * lambda
+          P1 <- data.vec1[x + 2] * lambda
+          P2 <- data.vec2[x + 2] * lambda
+          P12 <- data.vec12[x + 2] * lambda
+          sqrt(beta * abs((T12 - (T1 + T2)) - ((C12 - (C1 + C2)) + (P12 - (P1 + P2)))))
         })
         
         # print("group 1")
@@ -714,9 +714,8 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_9")
         
-        # PORTFOLIOS PANEL ####################################################
         
-        ## P TAB
+        ## P TAB ##############################################################
         
         ### NEW Con-index constrained portfolios (maximise pro-index)
         # Unlist lists
@@ -1195,9 +1194,9 @@ shinyServer(function(input, output, session) {
         #     renderer = "canvas") %>%
         #   bind_shiny(plot_id = "ggvis_12")
         
-        # PORTFOLIOS DETAILS PANEL ############################################
+        # PORTFOLIO DETAILS PANEL #############################################
         
-        ## G1 TAB
+        ## G1 TAB #############################################################
         
         ### G1 table
         output$portfolios_group_1_table <- DT::renderDataTable({
@@ -1262,7 +1261,7 @@ shinyServer(function(input, output, session) {
             )
         })
         
-        ## G2 TAB
+        ## G2 TAB #############################################################
         
         ### G2 table
         output$portfolios_group_2_table <- DT::renderDataTable({
