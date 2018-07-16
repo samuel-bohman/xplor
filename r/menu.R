@@ -94,7 +94,7 @@ menu <- function(input, output, session) {
         label = "Alternative",
         choices = alt_list[[4]]
       ),
-      "5. Culture and leasure" = selectInput(
+      "5. Culture and leisure" = selectInput(
         ns("alt"),
         label = "Alternative",
         choices = alt_list[[5]]
