@@ -409,7 +409,7 @@ menu <- function(input, output, session) {
     data_spdf2
   })
   
-  # # Subset theme alternatives
+  # Subset theme alternatives
   group_2_filter_2 <- reactive({
     req(input$alt)
     
@@ -584,6 +584,13 @@ menu <- function(input, output, session) {
 
   return(
     list(
+      
+      # Start tab
+      theme = reactive(input$theme),
+      alt = reactive(input$alt),
+      colorpal = reactive(input$colorpal),
+      
+      # G1 tab
       area1 = reactive(input$area1),
       gender1 = reactive(input$gender1),
       age1 = reactive(input$age1),
@@ -592,7 +599,11 @@ menu <- function(input, output, session) {
       years1 = reactive(input$years1),
       pop1 = reactive(input$pop1),
       markers1 = reactive(input$markers1),
+      group_1_filter_1 = group_1_filter_1,
+      group_1_filter_2 = group_1_filter_2,
+      group_1_mean = group_1_mean,
       
+      # G2 tab
       area2 = reactive(input$area2),
       gender2 = reactive(input$gender2),
       age2 = reactive(input$age2),
@@ -601,20 +612,10 @@ menu <- function(input, output, session) {
       years2 = reactive(input$years2),
       pop2 = reactive(input$pop2),
       markers2 = reactive(input$markers2),
-      
-      colorpal = reactive(input$colorpal),
-      
-      alt = reactive(input$alt),
-      
-      group_1_filter_1 = group_1_filter_1,
-      group_1_filter_2 = group_1_filter_2,
-      group_1_mean = group_1_mean,
-      
       group_2_filter_1 = group_2_filter_1,
       group_2_filter_2 = group_2_filter_2,
-      group_2_mean = group_2_mean,
+      group_2_mean = group_2_mean
       
-      theme = reactive(input$theme)
     )
   )
   
