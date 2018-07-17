@@ -132,8 +132,10 @@ menu <- function(input, output, session) {
   
   ### GROUP 1 FILTERS #########################################################
   
-  # Subset themes for group 1
+  # Subset background variables
   group_1_filter_1 <- reactive({
+    
+    # Check for required values
     req(
       input$area1,
       input$gender1,
@@ -181,8 +183,10 @@ menu <- function(input, output, session) {
     data_spdf1
   })
   
-  # Subset alternatives for group 1
+  # Subset theme alternatives
   group_1_filter_2 <- reactive({
+    
+    # Check for required values
     req(input$alt)
     
     # Theme 1
@@ -347,15 +351,17 @@ menu <- function(input, output, session) {
     }
   })
   
-  # # Calculate mean for group 1
+  # Calculate mean
   group_1_mean <- reactive({
     round(mean(group_1_filter_2()), digits = 2)
   })
   
   ### GROUP 2 FILTERS #########################################################
   
-  # Subset background variables for group 2
+  # Subset background variables
   group_2_filter_1 <- reactive({
+    
+    # Check for required values
     req(
       input$area2,
       input$gender2,
@@ -403,7 +409,7 @@ menu <- function(input, output, session) {
     data_spdf2
   })
   
-  # # Subset alternatives for group 2
+  # # Subset theme alternatives
   group_2_filter_2 <- reactive({
     req(input$alt)
     
@@ -569,12 +575,13 @@ menu <- function(input, output, session) {
     }
   })
   
-  # calculate mean
+  # Calculate mean
   group_2_mean <- reactive({
     round(mean(group_2_filter_2()), digits = 2)
   })
   
-  # Return list of reactive expressions
+  ### RETURN REACTIVE EXPRESSIONS #############################################
+
   return(
     list(
       area1 = reactive(input$area1),
