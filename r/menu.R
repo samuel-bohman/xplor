@@ -4,89 +4,92 @@ G2 <- "<font color='firebrick'><b>G2</b></font>"
 # Module UI
 menu_UI <- function(id) {
   ns <- NS(id)
-  tagList(sidebarPanel(
-    width = 0,
-    tabsetPanel(
-      id = "start",
-      tabPanel(
-        title = "Start",
-        selectInput(
-          ns("theme"),
-          label = "Theme",
-          choices = theme,
-          selected = theme[1]
+  tagList(
+    
+    sidebarPanel(
+      width = 0,
+    
+      # Main menu
+      tabsetPanel(
+        id = "start",
+        
+        # Start tab
+        tabPanel(
+          title = "Start",
+          selectInput(
+            ns("theme"),
+            label = "Theme",
+            choices = theme
+          ),
+          uiOutput(ns("alternatives")),
+          selectInput(
+            ns("colorpal"),
+            label = "Color Scheme",
+            choices = rownames(brewer.pal.info[1:9,]),
+            selected = "RdYlGn"
+          )
         ),
-        uiOutput(ns("alternatives")),
-        selectInput(
-          ns("colorpal"),
-          label = "Color Scheme",
-          choices = rownames(brewer.pal.info[1:9,]),
-          selected = "RdYlGn"
+        
+        # G1 tab
+        tabPanel(
+          title = HTML(G1),
+          lapply(seq_along(b_variables), function(j) {
+            if (j == 1) {
+              to_select <- rnd[[1]]
+            } else {
+              if (j == 2) {
+                to_select <- "All"
+              } else {
+                to_select <- "All"
+              }
+            }
+            selectInput(
+              ns(paste(b_names[j], 1, sep = "")),
+              label = paste(b_labels[j]),
+              choices = b_variables[[j]],
+              selected = to_select,
+              multiple = TRUE
+            )
+          }),
+          checkboxInput(ns("markers1"), label = "Display markers", value = TRUE),
+          checkboxInput(ns("pop1"), label = "Display popups", value = FALSE)
+        ),
+        
+        # G2 tab
+        tabPanel(
+          title = HTML(G2),
+          lapply(seq_along(b_variables), function(j) {
+            if (j == 1) {
+              to_select <- rnd[[2]]
+            } else {
+              if (j == 2) {
+                to_select <- "All"
+              } else {
+                to_select <- "All"
+              }
+            }
+            selectInput(
+              ns(paste(b_names[j], 2, sep = "")),
+              label = paste(b_labels[j]),
+              choices = b_variables[[j]],
+              selected = to_select,
+              multiple = TRUE
+            )
+          }),
+          checkboxInput(ns("markers2"), label = "Display markers", value = TRUE),
+          checkboxInput(ns("pop2"), label = "Display popups", value = FALSE)
         )
       ),
-      tabPanel(
-        title = HTML(G1),
-        lapply(seq_along(b_variables), function(j) {
-          if (j == 1) {
-            to_select <- rnd[[1]]
-          } else {
-            if (j == 2) {
-              to_select <- "All"
-            } else {
-              to_select <- "All"
-            }
-          }
-          selectInput(
-            ns(paste(b_names[j], 1, sep = "")),
-            label = paste(b_labels[j]),
-            choices = b_variables[[j]],
-            selected = to_select,
-            multiple = TRUE
-          )
-        }),
-        checkboxInput(ns("markers1"), label = "Display markers", value = TRUE),
-        checkboxInput(ns("pop1"), label = "Display popups", value = FALSE)
+      HTML("<p></p>"),
+      actionButton(
+        inputId = "help",
+        label = "Help",
+        icon = icon("question")
       ),
-      tabPanel(
-        title = HTML(G2),
-        lapply(seq_along(b_variables), function(j) {
-          if (j == 1) {
-            to_select <- rnd[[2]]
-          } else {
-            if (j == 2) {
-              to_select <- "All"
-            } else {
-              to_select <- "All"
-            }
-          }
-          selectInput(
-            ns(paste(b_names[j], 2, sep = "")),
-            label = paste(b_labels[j]),
-            choices = b_variables[[j]],
-            selected = to_select,
-            multiple = TRUE
-          )
-        }),
-        checkboxInput(ns("markers2"), label = "Display markers", value = TRUE),
-        checkboxInput(ns("pop2"), label = "Display popups", value = FALSE)
-      )
-    ),
-    # HTML("<p></p>"),
-    # actionButton(
-    #   inputId = "action",
-    #   label = "Go!",
-    #   icon = icon("run"),
-    #   class = "btn btn-success"
-    # ),
-    HTML("<p></p>"),
-    actionButton(
-      inputId = "help",
-      label = "Help",
-      icon = icon("question")
-    ),
-    HTML("<p></p>"),
-    bookmarkButton(id = "bookmark")
-  ))
+      HTML("<p></p>"),
+      bookmarkButton(id = "bookmark")
+    )
+  )
 }
 
 # Module server
