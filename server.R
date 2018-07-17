@@ -215,7 +215,7 @@ shinyServer(function(input, output, session) {
         
         # F V D P PANEL #######################################################
         
-        ## F TAB ##############################################################
+        ## FREQUENCY TAB ##############################################################
         
         ### Get data for F panel
         des_group_1 <- tdata$group_1_filter_2() %>% as.vector()
@@ -327,7 +327,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_3")
         
-        ## V TAB ##############################################################
+        ## VALUES TAB ##############################################################
         
         ### Get data for V panel
         data.vec1 <-
@@ -525,7 +525,7 @@ shinyServer(function(input, output, session) {
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_6")
         
-        ## D TAB ##############################################################
+        ## DISTANCE TAB ##############################################################
         
         ### Calculate distance within group 1
         dis_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
@@ -715,7 +715,7 @@ shinyServer(function(input, output, session) {
           bind_shiny(plot_id = "ggvis_9")
         
         
-        ## P TAB ##############################################################
+        ## PORTFOLIO TAB ##############################################################
         
         ### NEW Con-index constrained portfolios (maximise pro-index)
         # Unlist lists
