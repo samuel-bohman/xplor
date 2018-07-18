@@ -8,6 +8,7 @@ calculateBCAR <- function(results) {
     alternatives_cval <- c(paste(alternatives, ".cval", sep = ""))
     alternatives_pval <- c(paste(alternatives, ".pval", sep = ""))
     alternatives_val <- c(paste(alternatives, ".val", sep = ""))
+    alternatives_valuew <- c(paste(alternatives, ".valuew", sep = ""))
     pseudo.name <- tail(alternatives, n = 1)
     pseudo.name_prop_score <- tail(alternatives_prop_scores, n = 1)
     criterion_name <- paste("wc", j, ".car", sep = "")
@@ -67,6 +68,13 @@ calculateBCAR <- function(results) {
           qShAlpha = (as.numeric(x[criterion_name]) * as.numeric(x[pseudo.name_prop_score]))
           qShPartWorth = (as.numeric(x[criterion_name]) * as.numeric(x[alternatives_prop_scores[i]]))
           (qShPartWorth - qShAlpha)
+        })
+      
+      # Add a column with weighted proportional scores
+      results[alternatives_valuew[i]] <-
+        apply(results, 1, function(x) {
+          qShAlpha = (as.numeric(x[criterion_name]) * as.numeric(x[pseudo.name_prop_score]))
+          qShPartWorth = (as.numeric(x[criterion_name]) * as.numeric(x[alternatives_prop_scores[i]]))
         })
     }
   }

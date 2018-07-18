@@ -27,6 +27,7 @@ distance <- function(criterion, spdf) {
   alternatives_cmean <- c(paste(alternatives, ".cmean", sep = ""))
   alternatives_pmean <- c(paste(alternatives, ".pmean", sep = ""))
   alternatives_val <- c(paste(alternatives, ".val", sep = ""))
+  alternatives_valuew <- c(paste(alternatives, ".valuew", sep = ""))
   mean_values <- c()
   mean_names <- c()
   mean_valuesc <- c()
@@ -94,15 +95,15 @@ distance <- function(criterion, spdf) {
     result_names <- c(result_names, c(alternatives_pvar[i]))
     result_values <- c(result_values, c(sum(data[, alternatives_pvar[i]])))
     
-    # Con index
+    # Con index distance from pseudo
     result_names <- c(result_names, c(alternatives_cval[i]))
     result_values <- c(result_values, c(sum(data[, alternatives_cval[i]])))
     
-    # Pro index
+    # Pro index distance from pseudo
     result_names <- c(result_names, c(alternatives_pval[i]))
     result_values <- c(result_values, c(sum(data[, alternatives_pval[i]])))
     
-    # Avg value
+    # Avg value distance from pseudo
     result_names <- c(result_names, c(alternatives_val[i]))
     result_values <- c(result_values, c(sum(data[, alternatives_val[i]])))
     
@@ -113,6 +114,10 @@ distance <- function(criterion, spdf) {
     # Number of members of the pro group
     result_names <- c(result_names, c(alternatives_nr_pro[i]))
     result_values <- c(result_values, c(tmp_data[alternatives_nr_pro[i]]))
+    
+    # Avg value weighted value
+    result_names <- c(result_names, c(alternatives_valuew[i]))
+    result_values <- c(result_values, c(sum(data[, alternatives_valuew[i]])))
   }
 
   names(result_values) <- result_names

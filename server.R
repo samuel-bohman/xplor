@@ -381,17 +381,19 @@ shinyServer(function(input, output, session) {
         # })
         
         ### Calculate group 1 mean weighted values
-        val_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
-          return(data.vec1[x + 5]) 
+        val_group_1 <- lapply(seq(1, 45, by = 9), function(x) {
+          lambda = 1 / (data.vec1[x + 6] + data.vec1[x + 7])
+          return(data.vec1[x + 8] * lambda) 
         })
         
         ### Calculate group 2 mean weighted values
-        val_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
-          return(data.vec2[x + 5])
+        val_group_2 <- lapply(seq(1, 45, by = 9), function(x) {
+          lambda = 1 / (data.vec2[x + 6] + data.vec2[x + 7])
+          return(data.vec2[x + 8] * lambda)
         })
         
         ### Calculate total mean weighted values
-        val_group_1_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        val_group_1_2 <- lapply(seq(1, 45, by = 9), function(x) {
           # n_grp1 <- (data.vec1[x + 6] + data.vec1[x + 5])
           # n_grp2 <- (data.vec2[x + 6] + data.vec2[x + 5])
           # v_grp1 <- data.vec1[x + 5]
@@ -401,7 +403,8 @@ shinyServer(function(input, output, session) {
           # m_grp_1_2 <-
           #   (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
           # return(m_grp_1_2)
-          return(data.vec12[x + 5])
+          lambda = 1 / (data.vec12[x + 6] + data.vec12[x + 7])
+          return(data.vec12[x + 8] * lambda)
         })
         
         ### Flatten lists and transform into data frames
@@ -528,7 +531,7 @@ shinyServer(function(input, output, session) {
         ## D TAB ##############################################################
         
         ### Calculate distance within group 1
-        dis_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
+        dis_group_1 <- lapply(seq(1, 45, by = 9), function(x) {
           lambda = 1 / (data.vec1[x + 6] + data.vec1[x + 7]) ^ 2
           beta <- 1 / (lambda * (data.vec1[x + 6] + data.vec1[x + 7]))
           sqrt(beta * (data.vec1[x] * lambda - (data.vec1[x + 1] * lambda + data.vec1[x + 2] * lambda)))
@@ -538,22 +541,22 @@ shinyServer(function(input, output, session) {
         # tdv1 <- data.vec1*(1/(data.vec1[7]+data.vec1[8])^2)
         # print(data.vec1)
         # print("cvar")
-        # cat(tdv1[2],tdv1[10],tdv1[18],tdv1[26],tdv1[34], sep=",")
+        # cat(tdv1[2],tdv1[11],tdv1[20],tdv1[29],tdv1[38], sep=",")
         # print("pvar")
-        # cat(tdv1[3],tdv1[11],tdv1[19],tdv1[27],tdv1[35], sep=",")
+        # cat(tdv1[3],tdv1[12],tdv1[21],tdv1[30],tdv1[39], sep=",")
         # print("var")
-        # cat(tdv1[1],tdv1[9],tdv1[17],tdv1[25],tdv1[33],sep=",")
+        # cat(tdv1[1],tdv1[10],tdv1[19],tdv1[28],tdv1[37],sep=",")
         # print(dis_group_1)
         
         ### Calculate distance within group 2
-        dis_group_2 <- lapply(seq(1, 40, by = 8), function(x) {
+        dis_group_2 <- lapply(seq(1, 45, by = 9), function(x) {
           lambda = 1 / (data.vec2[x + 6] + data.vec2[x + 7]) ^ 2
           beta <- 1 / (lambda * (data.vec2[x + 6] + data.vec2[x + 7]))
           sqrt(beta * (data.vec2[x] * lambda - (data.vec2[x + 1] * lambda + data.vec2[x + 2] * lambda)))
         })
         
         ### Calculate total distance
-        dis_total <- lapply(seq(1, 40, by = 8), function(x) {
+        dis_total <- lapply(seq(1, 45, by = 9), function(x) {
           lambda = 1 / (data.vec12[x + 6] + data.vec12[x + 7]) ^ 2
           beta <- 1 / (lambda * (data.vec12[x + 6] + data.vec12[x + 7]))
           T1 <- data.vec1[x] * lambda
@@ -572,31 +575,31 @@ shinyServer(function(input, output, session) {
         # tdv1_2g <- data.vec1*(1/(data.vec12[7]+data.vec12[8])^2)
         # print(tdv1_2g)
         # print("cvar")
-        # cat(tdv1_2g[2],tdv1_2g[10],tdv1_2g[18],tdv1_2g[26],tdv1_2g[34], sep=",")
+        # cat(tdv1_2g[2],tdv1_2g[11],tdv1_2g[20],tdv1_2g[29],tdv1_2g[38], sep=",")
         # print("pvar")
-        # cat(tdv1_2g[3],tdv1_2g[11],tdv1_2g[19],tdv1_2g[27],tdv1_2g[35], sep=",")
+        # cat(tdv1_2g[3],tdv1_2g[12],tdv1_2g[21],tdv1_2g[30],tdv1_2g[39], sep=",")
         # print("var")
-        # cat(tdv1_2g[1],tdv1_2g[9],tdv1_2g[17],tdv1_2g[25],tdv1_2g[33],sep=",")
+        # cat(tdv1_2g[1],tdv1_2g[10],tdv1_2g[19],tdv1_2g[28],tdv1_2g[37],sep=",")
         # 
         # print("group 2")
         # tdv2_2g <- data.vec2*(1/(data.vec12[7]+data.vec12[8])^2)
         # print(data.vec2)
         # print("cvar")
-        # cat(tdv2_2g[2],tdv2_2g[10],tdv2_2g[18],tdv2_2g[26],tdv2_2g[34], sep=",")
+        # cat(tdv2_2g[2],tdv2_2g[11],tdv2_2g[20],tdv2_2g[29],tdv2_2g[38], sep=",")
         # print("pvar")
-        # cat(tdv2_2g[3],tdv2_2g[11],tdv2_2g[19],tdv2_2g[27],tdv2_2g[35], sep=",")
+        # cat(tdv2_2g[3],tdv2_2g[12],tdv2_2g[21],tdv2_2g[30],tdv2_2g[39], sep=",")
         # print("var")
-        # cat(tdv2_2g[1],tdv2_2g[9],tdv2_2g[17],tdv2_2g[25],tdv2_2g[33],sep=",")
+        # cat(tdv2_2g[1],tdv2_2g[10],tdv2_2g[19],tdv2_2g[28],tdv2_2g[37],sep=",")
         # 
         # print("group total")
         # tdv12 <- data.vec12*(1/(data.vec12[7]+data.vec12[8])^2)
         # print(data.vec12)
         # print("cvar")
-        # cat(tdv12[2],tdv12[10],tdv12[18],tdv12[26],tdv12[34], sep=",")
+        # cat(tdv12[2],tdv12[11],tdv12[20],tdv12[29],tdv12[38], sep=",")
         # print("pvar")
-        # cat(tdv12[3],tdv12[11],tdv12[19],tdv12[27],tdv12[35], sep=",")
+        # cat(tdv12[3],tdv12[12],tdv12[21],tdv12[30],tdv12[39], sep=",")
         # print("var")
-        # cat(tdv12[1],tdv12[9],tdv12[17],tdv12[25],tdv12[33],sep=",")
+        # cat(tdv12[1],tdv12[10],tdv12[19],tdv12[28],tdv12[37],sep=",")
         # print(dis_total)
 
         ### Flatten list and coerce to data frame
