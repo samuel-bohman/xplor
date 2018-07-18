@@ -392,7 +392,7 @@ shinyServer(function(input, output, session) {
           return(data.vec2[x + 8] * lambda)
         })
         
-        ### Calculate total mean weighted values
+        ### Calculate total mean weighted values 
         val_group_1_2 <- lapply(seq(1, 45, by = 9), function(x) {
           # n_grp1 <- (data.vec1[x + 6] + data.vec1[x + 5])
           # n_grp2 <- (data.vec2[x + 6] + data.vec2[x + 5])
