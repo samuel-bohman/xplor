@@ -100,13 +100,13 @@ menu <- function(input, output, session) {
     ns <- session$ns
     switch(
       input$theme,
-      "1. Parks and green areas" = selectInput(ns("alt"),
+      "1. Parks and green spaces" = selectInput(ns("alt"),
                                                label = "Alternative",
                                                choices = alt_list[[1]]),
       "2. Diversity in housing supply" = selectInput(ns("alt"),
                                                      label = "Alternative",
                                                      choices = alt_list[[2]]),
-      "3. Invest in public areas" = selectInput(ns("alt"),
+      "3. Invest in public spaces" = selectInput(ns("alt"),
                                                 label = "Alternative",
                                                 choices = alt_list[[3]]),
       "4. Communications" = selectInput(ns("alt"),

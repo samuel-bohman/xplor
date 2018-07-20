@@ -68,11 +68,11 @@ theme <- colnames(data_df)[57:66] %>% gsub(pattern = ".", replacement = " ", x =
 
 # Alternatives
 alt_theme_1 <- c(
-  "1a. Preserve existing large green areas", 
+  "1a. Preserve existing large green spaces", 
   "1b. Build parks in existing urban districts", 
-  "1c. Build homes close to green areas", 
+  "1c. Build homes close to green spaces", 
   "1d. Renovate existing parks", 
-  "1e. Improve accessibility to major green areas"
+  "1e. Improve accessibility to major green spaces"
   )
 alt_theme_2 <- c(
   "2a. Offer more residential building types", 
