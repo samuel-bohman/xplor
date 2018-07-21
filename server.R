@@ -330,15 +330,13 @@ shinyServer(function(input, output, session) {
         ## V TAB ##############################################################
         
         ### Get data for V panel
-        data.vec1 <-
-          distance(tdata$theme(), tdata$group_1_filter_1())
-        data.vec2 <-
-          distance(tdata$theme(), tdata$group_2_filter_1())
-        data.vec12 <- distance(tdata$theme(), rbind(tdata$group_1_filter_1(), tdata$group_2_filter_1()))
+        data.vec1 <- distance(tdata$focus_area(), tdata$group_1_filter_1())
+        data.vec2 <- distance(tdata$focus_area(), tdata$group_2_filter_1())
+        data.vec12 <- distance(tdata$focus_area(), rbind(tdata$group_1_filter_1(), tdata$group_2_filter_1()))
         # data.vec1.sd <-
-        #   calculateSD(tdata$theme(), tdata$group_1_filter_1())
+        #   calculateSD(tdata$focus_area(), tdata$group_1_filter_1())
         # data.vec2.sd <-
-        #   calculateSD(tdata$theme(), tdata$group_2_filter_1())
+        #   calculateSD(tdata$focus_area(), tdata$group_2_filter_1())
         
         ### NEW Calculate pro-index for group 1
         # pro_group_1 <- lapply(seq(1, 40, by = 8), function(x) {
@@ -408,29 +406,21 @@ shinyServer(function(input, output, session) {
         })
         
         ### Flatten lists and transform into data frames
-        val_group_1_df <-
-          val_group_1 %>% flatten_dbl() %>% data.frame()
-        val_group_2_df <-
-          val_group_2 %>% flatten_dbl() %>% data.frame()
-        val_group_1_2_df <-
-          val_group_1_2 %>% flatten_dbl() %>% data.frame()
+        val_group_1_df <- val_group_1 %>% flatten_dbl() %>% data.frame()
+        val_group_2_df <- val_group_2 %>% flatten_dbl() %>% data.frame()
+        val_group_1_2_df <- val_group_1_2 %>% flatten_dbl() %>% data.frame()
         
         ### Create row names
-        alternatives <-
-          c("a", "b", "c", "d", "e") %>% data.frame()
+        abcde <- c("a", "b", "c", "d", "e") %>% data.frame()
         
         ### Add column names to data frames
-        colnames(alternatives) <- "x"
+        colnames(abcde) <- "x"
         colnames(val_group_1_df) <- "y1"
         colnames(val_group_2_df) <- "y2"
         colnames(val_group_1_2_df) <- "y3"
         
         ### Bind data frames together
-        val_data <-
-          bind_cols(alternatives,
-            val_group_1_df,
-            val_group_2_df,
-            val_group_1_2_df)
+        val_data <- bind_cols(abcde, val_group_1_df, val_group_2_df, val_group_1_2_df)
         
         ### Plot group 1 mean weighted values
         val_data %>%
@@ -442,7 +432,7 @@ shinyServer(function(input, output, session) {
           scale_numeric(property = "y", domain = c(ifelse(min(val_data$y1) < 0, min(val_data$y1) * 1.1, 0), max(val_data$y1))) %>%
           add_axis(
             type = "x",
-            title = "Alternative",
+            title = "Action",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -474,7 +464,7 @@ shinyServer(function(input, output, session) {
           scale_numeric(property = "y", domain = c(ifelse(min(val_data$y2) < 0, min(val_data$y2) * 1.1, 0), max(val_data$y2))) %>%
           add_axis(
             type = "x",
-            title = "Alternative",
+            title = "Action",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -506,7 +496,7 @@ shinyServer(function(input, output, session) {
           scale_numeric(property = "y", domain = c(ifelse(min(val_data$y3) < 0, min(val_data$y3) * 1.1, 0), max(val_data$y3))) %>%
           add_axis(
             type = "x",
-            title = "Alternative",
+            title = "Action",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -608,18 +598,16 @@ shinyServer(function(input, output, session) {
         dis_total <- flatten_dbl(dis_total) %>% data.frame()
         
         ### Create row names
-        alternatives <-
-          c("a", "b", "c", "d", "e") %>% data.frame()
+        abcde <- c("a", "b", "c", "d", "e") %>% data.frame()
         
         # Add column names to data frames
-        colnames(alternatives) <- "x"
+        colnames(abcde) <- "x"
         colnames(dis_group_1) <- "y1"
         colnames(dis_group_2) <- "y2"
         colnames(dis_total) <- "y3"
         
         ### Bind data frames together
-        dis_data <-
-          bind_cols(alternatives, dis_group_1, dis_group_2, dis_total)
+        dis_data <- bind_cols(abcde, dis_group_1, dis_group_2, dis_total)
         
         ### Plot group 1 distance
         dis_data %>%
@@ -630,7 +618,7 @@ shinyServer(function(input, output, session) {
           layer_bars() %>%
           add_axis(
             type = "x",
-            title = "Alternative",
+            title = "Action",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -662,7 +650,7 @@ shinyServer(function(input, output, session) {
           layer_bars() %>%
           add_axis(
             type = "x",
-            title = "Alternative",
+            title = "Action",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -694,7 +682,7 @@ shinyServer(function(input, output, session) {
           layer_bars() %>%
           add_axis(
             type = "x",
-            title = "Alternative",
+            title = "Action",
             grid = FALSE,
             properties = axis_props(
               title = list(fontSize = 8),
@@ -752,105 +740,81 @@ shinyServer(function(input, output, session) {
         
         ### Portfolios group 1 for table
         portfolios_group_1_pos <- get_all_portfolios(
-          actions = actions,
+          actions = p_actions,
           values = val_group_1,
           distance = dis_group_1,
           initial_budget_constraint = budget_group_1,
           direction = "max"
         )
         portfolios_group_1_neg <- get_all_portfolios(
-          actions = actions,
+          actions = p_actions,
           values = val_group_1,
           distance = dis_group_1,
           initial_budget_constraint = budget_group_1,
           direction = "min"
         )
-        portfolios_group_1_pos_rev <-
-          portfolios_group_1_pos[rev(rownames(portfolios_group_1_pos)), ]
-        portfolios_group_1 <-
-          rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
+        portfolios_group_1_pos_rev <- portfolios_group_1_pos[rev(rownames(portfolios_group_1_pos)), ]
+        portfolios_group_1 <- rbind(portfolios_group_1_pos_rev, portfolios_group_1_neg[-1, ])
         portfolios_group_1$id <- 1:nrow(portfolios_group_1)
         portfolios_group_1$value <- portfolios_group_1$value
-        portfolios_group_1$distance <-
-          portfolios_group_1$distance
+        portfolios_group_1$distance <- portfolios_group_1$distance
         
         ### Portfolios group 1 for plotting
-        all_portfolios_group_1 <-
-          expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
-        names(all_portfolios_group_1) <- actions
-        all_portfolio_val_group_1 <-
-          apply(all_portfolios_group_1, 1, function(row) {
+        all_portfolios_group_1 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
+        names(all_portfolios_group_1) <- p_actions
+        all_portfolio_val_group_1 <- apply(all_portfolios_group_1, 1, function(row) {
             sum(val_group_1[which(row %in% 1)])
           })
-        all_portfolio_dis_group_1 <-
-          apply(all_portfolios_group_1, 1, function(row) {
+        all_portfolio_dis_group_1 <- apply(all_portfolios_group_1, 1, function(row) {
             sum(dis_group_1[which(row %in% 1)])
           })
-        all_portfolios_group_1$value <-
-          all_portfolio_val_group_1
-        all_portfolios_group_1$distance <-
-          all_portfolio_dis_group_1
-        all_portfolios_group_1 <-
-          full_join(portfolios_group_1, all_portfolios_group_1, by = actions)
-        all_portfolios_group_1$dx <-
-          rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_1))
-        all_portfolios_group_1$dy <-
-          rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_1))
-        all_portfolios_group_1$id <-
-          1:nrow(all_portfolios_group_1)
+        all_portfolios_group_1$value <- all_portfolio_val_group_1
+        all_portfolios_group_1$distance <- all_portfolio_dis_group_1
+        all_portfolios_group_1 <- full_join(portfolios_group_1, all_portfolios_group_1, by = p_actions)
+        all_portfolios_group_1$dx <- rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_1))
+        all_portfolios_group_1$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_1))
+        all_portfolios_group_1$id <- 1:nrow(all_portfolios_group_1)
         
         ### Portfolios group 2 for table
         portfolios_group_2_pos <- get_all_portfolios(
-          actions = actions,
+          actions = p_actions,
           values = val_group_2,
           distance = dis_group_2,
           initial_budget_constraint = budget_group_2,
           direction = "max"
         )
         portfolios_group_2_neg <- get_all_portfolios(
-          actions = actions,
+          actions = p_actions,
           values = val_group_2,
           distance = dis_group_2,
           initial_budget_constraint = budget_group_2,
           direction = "min"
         )
-        portfolios_group_2_pos_rev <-
-          portfolios_group_2_pos[rev(rownames(portfolios_group_2_pos)),]
-        portfolios_group_2 <-
-          rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1, ])
+        portfolios_group_2_pos_rev <- portfolios_group_2_pos[rev(rownames(portfolios_group_2_pos)),]
+        portfolios_group_2 <- rbind(portfolios_group_2_pos_rev, portfolios_group_2_neg[-1, ])
         portfolios_group_2$id <- 1:nrow(portfolios_group_2)
         portfolios_group_2$value <- portfolios_group_2$value
-        portfolios_group_2$distance <-
-          portfolios_group_2$distance
+        portfolios_group_2$distance <- portfolios_group_2$distance
         
         ### Portfolios group 2 for plotting
-        all_portfolios_group_2 <-
-          expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
-        names(all_portfolios_group_2) <- actions
-        all_portfolios_val_group_2 <-
-          apply(all_portfolios_group_2, 1, function(row) {
+        all_portfolios_group_2 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
+        names(all_portfolios_group_2) <- p_actions
+        all_portfolios_val_group_2 <- apply(all_portfolios_group_2, 1, function(row) {
             val <- sum(val_group_2[which(row %in% 1)])
           })
-        all_portfolios_dis_group_2 <-
-          apply(all_portfolios_group_2, 1, function(row) {
+        all_portfolios_dis_group_2 <- apply(all_portfolios_group_2, 1, function(row) {
             dis <- sum(dis_group_2[which(row %in% 1)])
           })
-        all_portfolios_group_2$value <-
-          all_portfolios_val_group_2
-        all_portfolios_group_2$distance <-
-          all_portfolios_dis_group_2
-        all_portfolios_group_2 <-
-          full_join(portfolios_group_2, all_portfolios_group_2, by = actions)
-        all_portfolios_group_2$dx <-
-          rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_2))
-        all_portfolios_group_2$dy <-
-          rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_2))
-        all_portfolios_group_2$id <-
-          1:nrow(all_portfolios_group_2)
+        all_portfolios_group_2$value <- all_portfolios_val_group_2
+        all_portfolios_group_2$distance <- all_portfolios_dis_group_2
+        all_portfolios_group_2 <- full_join(portfolios_group_2, all_portfolios_group_2, by = p_actions)
+        all_portfolios_group_2$dx <- rep_len(c(-10, 5), length.out = nrow(all_portfolios_group_2))
+        all_portfolios_group_2$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_group_2))
+        all_portfolios_group_2$id <- 1:nrow(all_portfolios_group_2)
         
         ### Portfolios total for table
         portfolios_total_pos <- get_all_portfolios(
-          actions = actions,
+          actions = p_actions,
           values = val_group_1_2,
           distance = dis_total,
           initial_budget_constraint = budget_total,
@@ -858,68 +822,56 @@ shinyServer(function(input, output, session) {
         )
         
         portfolios_total_neg <- get_all_portfolios(
-          actions = actions,
+          actions = p_actions,
           values = val_group_1_2,
           distance = dis_total,
           initial_budget_constraint = budget_total,
           direction = "min"
         )
 
-        portfolios_total_pos_rev <-
-          portfolios_total_pos[rev(rownames(portfolios_total_pos)),]
-        portfolios_total <-
-          rbind(portfolios_total_pos_rev, portfolios_total_neg[-1, ])
+        portfolios_total_pos_rev <- portfolios_total_pos[rev(rownames(portfolios_total_pos)),]
+        portfolios_total <- rbind(portfolios_total_pos_rev, portfolios_total_neg[-1, ])
         portfolios_total$id <- 1:nrow(portfolios_total)
         portfolios_total$value <- portfolios_total$value
-        portfolios_total$distance <-
-          portfolios_total$distance
+        portfolios_total$distance <- portfolios_total$distance
         
         ### Portfolios total for plotting
-        all_portfolios_total <-
-          expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
-        names(all_portfolios_total) <- actions
-        all_portfolios_val_total <-
-          apply(all_portfolios_total, 1, function(row) {
+        all_portfolios_total <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
+        names(all_portfolios_total) <- p_actions
+        all_portfolios_val_total <- apply(all_portfolios_total, 1, function(row) {
             val <- sum(val_group_1_2[which(row %in% 1)])
           })
-        all_portfolios_dis_total <-
-          apply(all_portfolios_total, 1, function(row) {
+        all_portfolios_dis_total <- apply(all_portfolios_total, 1, function(row) {
             dis <- sum(dis_total[which(row %in% 1)])
           })
-        all_portfolios_total$value <-
-          all_portfolios_val_total
-        all_portfolios_total$distance <-
-          all_portfolios_dis_total
-        all_portfolios_total <-
-          full_join(portfolios_total, all_portfolios_total, by = actions)
-        all_portfolios_total$dx <-
-          rep_len(c(-10, 5), length.out = nrow(all_portfolios_total))
-        all_portfolios_total$dy <-
-          rep_len(c(-5, 10), length.out = nrow(all_portfolios_total))
+        all_portfolios_total$value <- all_portfolios_val_total
+        all_portfolios_total$distance <- all_portfolios_dis_total
+        all_portfolios_total <- full_join(portfolios_total, all_portfolios_total, by = p_actions)
+        all_portfolios_total$dx <- rep_len(c(-10, 5), length.out = nrow(all_portfolios_total))
+        all_portfolios_total$dy <- rep_len(c(-5, 10), length.out = nrow(all_portfolios_total))
         all_portfolios_total$id <- 1:nrow(all_portfolios_total)
         
         ### Tooltips
         tooltip_1 <- function(x) {
           if (is.null(x))
             return(NULL)
-          row <-
-            all_portfolios_group_1[all_portfolios_group_1$id == x$id, ]
+          row <- all_portfolios_group_1[all_portfolios_group_1$id == x$id, ]
           row$dx <- row$dy <- NULL
           paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
         }
+        
         tooltip_2 <- function(x) {
           if (is.null(x))
             return(NULL)
-          row <-
-            all_portfolios_group_2[all_portfolios_group_2$id == x$id, ]
+          row <- all_portfolios_group_2[all_portfolios_group_2$id == x$id, ]
           row$dx <- row$dy <- NULL
           paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
         }
+        
         tooltip_total <- function(x) {
           if (is.null(x))
             return(NULL)
-          row <-
-            all_portfolios_total[all_portfolios_total$id == x$id, ]
+          row <- all_portfolios_total[all_portfolios_total$id == x$id, ]
           row$dx <- row$dy <- NULL
           paste0(names(row), ": ", format(x = row, digits = 2), collapse = "<br />")
         }
@@ -1111,7 +1063,7 @@ shinyServer(function(input, output, session) {
         #   scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y1) < 0, min(val_dis_data$y1) * 1.1, 0), max(val_dis_data$y1))) %>%
         #   add_axis(
         #     type = "x",
-        #     title = "Alternative",
+        #     title = "Action",
         #     grid = FALSE,
         #     properties = axis_props(
         #       title = list(fontSize = 8),
@@ -1143,7 +1095,7 @@ shinyServer(function(input, output, session) {
         #   scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y2) < 0, min(val_dis_data$y2) * 1.1, 0), max(val_dis_data$y2))) %>%
         #   add_axis(
         #     type = "x",
-        #     title = "Alternative",
+        #     title = "Action",
         #     grid = FALSE,
         #     properties = axis_props(
         #       title = list(fontSize = 8),
@@ -1175,7 +1127,7 @@ shinyServer(function(input, output, session) {
         #   scale_numeric(property = "y", domain = c(ifelse(min(val_dis_data$y3) < 0, min(val_dis_data$y3) * 1.1, 0), max(val_dis_data$y3))) %>%
         #   add_axis(
         #     type = "x",
-        #     title = "Alternative",
+        #     title = "Action",
         #     grid = FALSE,
         #     properties = axis_props(
         #       title = list(fontSize = 8),
@@ -1203,21 +1155,11 @@ shinyServer(function(input, output, session) {
         
         ### G1 table
         output$portfolios_group_1_table <- DT::renderDataTable({
-          a <-
-            round(sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1) * 100,
-              digits = 0)
-          b <-
-            round(sum(portfolios_group_1$Alt.b) / nrow(portfolios_group_1) * 100,
-              digits = 0)
-          c <-
-            round(sum(portfolios_group_1$Alt.c) / nrow(portfolios_group_1) * 100,
-              digits = 0)
-          d <-
-            round(sum(portfolios_group_1$Alt.d) / nrow(portfolios_group_1) * 100,
-              digits = 0)
-          e <-
-            round(sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1) * 100,
-              digits = 0)
+          a <- round(sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1) * 100, digits = 0)
+          b <- round(sum(portfolios_group_1$Alt.b) / nrow(portfolios_group_1) * 100, digits = 0)
+          c <- round(sum(portfolios_group_1$Alt.c) / nrow(portfolios_group_1) * 100, digits = 0)
+          d <- round(sum(portfolios_group_1$Alt.d) / nrow(portfolios_group_1) * 100, digits = 0)
+          e <- round(sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1) * 100, digits = 0)
           portfolios_group_1 %>%
             rename(
               a = Alt.a,
@@ -1268,21 +1210,11 @@ shinyServer(function(input, output, session) {
         
         ### G2 table
         output$portfolios_group_2_table <- DT::renderDataTable({
-          a <-
-            round(sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100,
-              digits = 0)
-          b <-
-            round(sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2) * 100,
-              digits = 0)
-          c <-
-            round(sum(portfolios_group_2$Alt.c) / nrow(portfolios_group_2) * 100,
-              digits = 0)
-          d <-
-            round(sum(portfolios_group_2$Alt.d) / nrow(portfolios_group_2) * 100,
-              digits = 0)
-          e <-
-            round(sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2) * 100,
-              digits = 0)
+          a <- round(sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100, digits = 0)
+          b <- round(sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2) * 100, digits = 0)
+          c <- round(sum(portfolios_group_2$Alt.c) / nrow(portfolios_group_2) * 100, digits = 0)
+          d <- round(sum(portfolios_group_2$Alt.d) / nrow(portfolios_group_2) * 100, digits = 0)
+          e <- round(sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2) * 100, digits = 0)
           portfolios_group_2 %>%
             rename(
               a = Alt.a,
@@ -1333,21 +1265,11 @@ shinyServer(function(input, output, session) {
         
         ## T table
         output$portfolios_total_table <- DT::renderDataTable({
-          a <-
-            round(sum(portfolios_total$Alt.a) / nrow(portfolios_total) * 100,
-              digits = 0)
-          b <-
-            round(sum(portfolios_total$Alt.b) / nrow(portfolios_total) * 100,
-              digits = 0)
-          c <-
-            round(sum(portfolios_total$Alt.c) / nrow(portfolios_total) * 100,
-              digits = 0)
-          d <-
-            round(sum(portfolios_total$Alt.d) / nrow(portfolios_total) * 100,
-              digits = 0)
-          e <-
-            round(sum(portfolios_total$Alt.e) / nrow(portfolios_total) * 100,
-              digits = 0)
+          a <- round(sum(portfolios_total$Alt.a) / nrow(portfolios_total) * 100, digits = 0)
+          b <- round(sum(portfolios_total$Alt.b) / nrow(portfolios_total) * 100, digits = 0)
+          c <- round(sum(portfolios_total$Alt.c) / nrow(portfolios_total) * 100, digits = 0)
+          d <- round(sum(portfolios_total$Alt.d) / nrow(portfolios_total) * 100, digits = 0)
+          e <- round(sum(portfolios_total$Alt.e) / nrow(portfolios_total) * 100, digits = 0)
           portfolios_total %>%
             rename(
               a = Alt.a,

@@ -17,8 +17,8 @@ menu_UI <- function(id) {
         tabPanel(
           title = "Start",
           selectInput(
-            ns("theme"),
-            label = "Theme",
+            ns("focus_area"),
+            label = "Focus Area",
             choices = theme
           ),
           uiOutput(ns("alternatives")),
@@ -99,37 +99,37 @@ menu <- function(input, output, session) {
   output$alternatives <- renderUI({
     ns <- session$ns
     switch(
-      input$theme,
-      "1. Parks and green spaces" = selectInput(ns("alt"),
-                                               label = "Alternative",
-                                               choices = alt_list[[1]]),
-      "2. Diversity in housing supply" = selectInput(ns("alt"),
-                                                     label = "Alternative",
-                                                     choices = alt_list[[2]]),
-      "3. Invest in public spaces" = selectInput(ns("alt"),
-                                                label = "Alternative",
-                                                choices = alt_list[[3]]),
-      "4. Communications" = selectInput(ns("alt"),
-                                        label = "Alternative",
-                                        choices = alt_list[[4]]),
-      "5. Culture and leisure" = selectInput(ns("alt"),
-                                             label = "Alternative",
-                                             choices = alt_list[[5]]),
-      "6. Education" = selectInput(ns("alt"),
-                                   label = "Alternative",
-                                   choices = alt_list[[6]]),
-      "7. Care" = selectInput(ns("alt"),
-                              label = "Alternative",
-                              choices = alt_list[[7]]),
-      "8. School" = selectInput(ns("alt"),
-                                label = "Alternative",
-                                choices = alt_list[[8]]),
-      "9. Safety" = selectInput(ns("alt"),
-                                label = "Alternative",
-                                choices = alt_list[[9]]),
-      "10. Ecological sustainability" = selectInput(ns("alt"),
-                                                    label = "Alternative",
-                                                    choices = alt_list[[10]])
+      input$focus_area,
+      "1. Parks and green spaces" = selectInput(ns("action"),
+                                               label = "Action",
+                                               choices = actions_list[[1]]),
+      "2. Diversity in housing supply" = selectInput(ns("action"),
+                                                     label = "Action",
+                                                     choices = actions_list[[2]]),
+      "3. Invest in public spaces" = selectInput(ns("action"),
+                                                label = "Action",
+                                                choices = actions_list[[3]]),
+      "4. Communications" = selectInput(ns("action"),
+                                        label = "Action",
+                                        choices = actions_list[[4]]),
+      "5. Culture and leisure" = selectInput(ns("action"),
+                                             label = "Action",
+                                             choices = actions_list[[5]]),
+      "6. Education" = selectInput(ns("action"),
+                                   label = "Action",
+                                   choices = actions_list[[6]]),
+      "7. Care" = selectInput(ns("action"),
+                              label = "Action",
+                              choices = actions_list[[7]]),
+      "8. School" = selectInput(ns("action"),
+                                label = "Action",
+                                choices = actions_list[[8]]),
+      "9. Safety" = selectInput(ns("action"),
+                                label = "Action",
+                                choices = actions_list[[9]]),
+      "10. Ecological sustainability" = selectInput(ns("action"),
+                                                    label = "Action",
+                                                    choices = actions_list[[10]])
     )
   })
   
@@ -186,170 +186,170 @@ menu <- function(input, output, session) {
     data_spdf1
   })
   
-  # Subset theme alternatives
+  # Subset actions
   group_1_filter_2 <- reactive({
     
     # Check for required values
-    req(input$alt)
+    req(input$action)
     
-    # Theme 1
-    if (input$alt == alt_list[[1]][1]) {
+    # Focus area 1
+    if (input$action == actions_list[[1]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 10]))
     }
-    if (input$alt == alt_list[[1]][2]) {
+    if (input$action == actions_list[[1]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 11]))
     }
-    if (input$alt == alt_list[[1]][3]) {
+    if (input$action == actions_list[[1]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 12]))
     }
-    if (input$alt == alt_list[[1]][4]) {
+    if (input$action == actions_list[[1]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 13]))
     }
-    if (input$alt == alt_list[[1]][5]) {
+    if (input$action == actions_list[[1]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 14]))
     }
-    # Theme 2
-    if (input$alt == alt_list[[2]][1]) {
+    # Focus area 2
+    if (input$action == actions_list[[2]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 15]))
     }
-    if (input$alt == alt_list[[2]][2]) {
+    if (input$action == actions_list[[2]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 16]))
     }
-    if (input$alt == alt_list[[2]][3]) {
+    if (input$action == actions_list[[2]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 17]))
     }
-    if (input$alt == alt_list[[2]][4]) {
+    if (input$action == actions_list[[2]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 18]))
     }
-    if (input$alt == alt_list[[2]][5]) {
+    if (input$action == actions_list[[2]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 19]))
     }
-    # Theme 3
-    if (input$alt == alt_list[[3]][1]) {
+    # Focus area 3
+    if (input$action == actions_list[[3]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 20]))
     }
-    if (input$alt == alt_list[[3]][2]) {
+    if (input$action == actions_list[[3]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 21]))
     }
-    if (input$alt == alt_list[[3]][3]) {
+    if (input$action == actions_list[[3]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 22]))
     }
-    if (input$alt == alt_list[[3]][4]) {
+    if (input$action == actions_list[[3]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 23]))
     }
-    if (input$alt == alt_list[[3]][5]) {
+    if (input$action == actions_list[[3]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 24]))
     }
-    # Theme 4
-    if (input$alt == alt_list[[4]][1]) {
+    # Focus area 4
+    if (input$action == actions_list[[4]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 25]))
     }
-    if (input$alt == alt_list[[4]][2]) {
+    if (input$action == actions_list[[4]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 26]))
     }
-    if (input$alt == alt_list[[4]][3]) {
+    if (input$action == actions_list[[4]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 27]))
     }
-    if (input$alt == alt_list[[4]][4]) {
+    if (input$action == actions_list[[4]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 28]))
     }
-    if (input$alt == alt_list[[4]][5]) {
+    if (input$action == actions_list[[4]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 29]))
     }
-    # Theme 5
-    if (input$alt == alt_list[[5]][1]) {
+    # Focus area 5
+    if (input$action == actions_list[[5]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 30]))
     }
-    if (input$alt == alt_list[[5]][2]) {
+    if (input$action == actions_list[[5]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 31]))
     }
-    if (input$alt == alt_list[[5]][3]) {
+    if (input$action == actions_list[[5]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 32]))
     }
-    if (input$alt == alt_list[[5]][4]) {
+    if (input$action == actions_list[[5]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 33]))
     }
-    if (input$alt == alt_list[[5]][5]) {
+    if (input$action == actions_list[[5]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 34]))
     }
-    # Theme 6
-    if (input$alt == alt_list[[6]][1]) {
+    # Focus area 6
+    if (input$action == actions_list[[6]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 35]))
     }
-    if (input$alt == alt_list[[6]][2]) {
+    if (input$action == actions_list[[6]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 36]))
     }
-    if (input$alt == alt_list[[6]][3]) {
+    if (input$action == actions_list[[6]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 37]))
     }
-    if (input$alt == alt_list[[6]][4]) {
+    if (input$action == actions_list[[6]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 38]))
     }
-    if (input$alt == alt_list[[6]][5]) {
+    if (input$action == actions_list[[6]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 39]))
     }
-    # Theme 7
-    if (input$alt == alt_list[[7]][1]) {
+    # Focus area 7
+    if (input$action == actions_list[[7]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 40]))
     }
-    if (input$alt == alt_list[[7]][2]) {
+    if (input$action == actions_list[[7]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 41]))
     }
-    if (input$alt == alt_list[[7]][3]) {
+    if (input$action == actions_list[[7]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 42]))
     }
-    if (input$alt == alt_list[[7]][4]) {
+    if (input$action == actions_list[[7]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 43]))
     }
-    if (input$alt == alt_list[[7]][5]) {
+    if (input$action == actions_list[[7]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 44]))
     }
-    # Theme 8
-    if (input$alt == alt_list[[8]][1]) {
+    # Focus area 8
+    if (input$action == actions_list[[8]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 45]))
     }
-    if (input$alt == alt_list[[8]][2]) {
+    if (input$action == actions_list[[8]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 46]))
     }
-    if (input$alt == alt_list[[8]][3]) {
+    if (input$action == actions_list[[8]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 47]))
     }
-    if (input$alt == alt_list[[8]][4]) {
+    if (input$action == actions_list[[8]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 48]))
     }
-    if (input$alt == alt_list[[8]][5]) {
+    if (input$action == actions_list[[8]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 49]))
     }
-    # Theme 9
-    if (input$alt == alt_list[[9]][1]) {
+    # Focus area 9
+    if (input$action == actions_list[[9]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 50]))
     }
-    if (input$alt == alt_list[[9]][2]) {
+    if (input$action == actions_list[[9]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 51]))
     }
-    if (input$alt == alt_list[[9]][3]) {
+    if (input$action == actions_list[[9]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 52]))
     }
-    if (input$alt == alt_list[[9]][4]) {
+    if (input$action == actions_list[[9]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 53]))
     }
-    if (input$alt == alt_list[[9]][5]) {
+    if (input$action == actions_list[[9]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 54]))
     }
-    # Theme 10
-    if (input$alt == alt_list[[10]][1]) {
+    # Focus area 10
+    if (input$action == actions_list[[10]][1]) {
       return(as.matrix(group_1_filter_1()@data[, 55]))
     }
-    if (input$alt == alt_list[[10]][2]) {
+    if (input$action == actions_list[[10]][2]) {
       return(as.matrix(group_1_filter_1()@data[, 56]))
     }
-    if (input$alt == alt_list[[10]][3]) {
+    if (input$action == actions_list[[10]][3]) {
       return(as.matrix(group_1_filter_1()@data[, 57]))
     }
-    if (input$alt == alt_list[[10]][4]) {
+    if (input$action == actions_list[[10]][4]) {
       return(as.matrix(group_1_filter_1()@data[, 58]))
     }
-    if (input$alt == alt_list[[10]][5]) {
+    if (input$action == actions_list[[10]][5]) {
       return(as.matrix(group_1_filter_1()@data[, 59]))
     }
   })
@@ -412,168 +412,168 @@ menu <- function(input, output, session) {
     data_spdf2
   })
   
-  # Subset theme alternatives
+  # Subset actions
   group_2_filter_2 <- reactive({
-    req(input$alt)
+    req(input$action)
     
-    # theme 1
-    if (input$alt == alt_list[[1]][1]) {
+    # Focus area 1
+    if (input$action == actions_list[[1]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 10]))
     }
-    if (input$alt == alt_list[[1]][2]) {
+    if (input$action == actions_list[[1]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 11]))
     }
-    if (input$alt == alt_list[[1]][3]) {
+    if (input$action == actions_list[[1]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 12]))
     }
-    if (input$alt == alt_list[[1]][4]) {
+    if (input$action == actions_list[[1]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 13]))
     }
-    if (input$alt == alt_list[[1]][5]) {
+    if (input$action == actions_list[[1]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 14]))
     }
-    # theme 2
-    if (input$alt == alt_list[[2]][1]) {
+    # Focus area 2
+    if (input$action == actions_list[[2]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 15]))
     }
-    if (input$alt == alt_list[[2]][2]) {
+    if (input$action == actions_list[[2]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 16]))
     }
-    if (input$alt == alt_list[[2]][3]) {
+    if (input$action == actions_list[[2]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 17]))
     }
-    if (input$alt == alt_list[[2]][4]) {
+    if (input$action == actions_list[[2]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 18]))
     }
-    if (input$alt == alt_list[[2]][5]) {
+    if (input$action == actions_list[[2]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 19]))
     }
-    # theme 3
-    if (input$alt == alt_list[[3]][1]) {
+    # Focus area 3
+    if (input$action == actions_list[[3]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 20]))
     }
-    if (input$alt == alt_list[[3]][2]) {
+    if (input$action == actions_list[[3]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 21]))
     }
-    if (input$alt == alt_list[[3]][3]) {
+    if (input$action == actions_list[[3]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 22]))
     }
-    if (input$alt == alt_list[[3]][4]) {
+    if (input$action == actions_list[[3]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 23]))
     }
-    if (input$alt == alt_list[[3]][5]) {
+    if (input$action == actions_list[[3]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 24]))
     }
-    # theme 4
-    if (input$alt == alt_list[[4]][1]) {
+    # Focus area 4
+    if (input$action == actions_list[[4]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 25]))
     }
-    if (input$alt == alt_list[[4]][2]) {
+    if (input$action == actions_list[[4]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 26]))
     }
-    if (input$alt == alt_list[[4]][3]) {
+    if (input$action == actions_list[[4]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 27]))
     }
-    if (input$alt == alt_list[[4]][4]) {
+    if (input$action == actions_list[[4]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 28]))
     }
-    if (input$alt == alt_list[[4]][5]) {
+    if (input$action == actions_list[[4]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 29]))
     }
-    # theme 5
-    if (input$alt == alt_list[[5]][1]) {
+    # Focus area 5
+    if (input$action == actions_list[[5]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 30]))
     }
-    if (input$alt == alt_list[[5]][2]) {
+    if (input$action == actions_list[[5]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 31]))
     }
-    if (input$alt == alt_list[[5]][3]) {
+    if (input$action == actions_list[[5]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 32]))
     }
-    if (input$alt == alt_list[[5]][4]) {
+    if (input$action == actions_list[[5]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 33]))
     }
-    if (input$alt == alt_list[[5]][5]) {
+    if (input$action == actions_list[[5]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 34]))
     }
-    # theme 6
-    if (input$alt == alt_list[[6]][1]) {
+    # Focus area 6
+    if (input$action == actions_list[[6]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 35]))
     }
-    if (input$alt == alt_list[[6]][2]) {
+    if (input$action == actions_list[[6]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 36]))
     }
-    if (input$alt == alt_list[[6]][3]) {
+    if (input$action == actions_list[[6]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 37]))
     }
-    if (input$alt == alt_list[[6]][4]) {
+    if (input$action == actions_list[[6]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 38]))
     }
-    if (input$alt == alt_list[[6]][5]) {
+    if (input$action == actions_list[[6]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 39]))
     }
-    # theme 7
-    if (input$alt == alt_list[[7]][1]) {
+    # Focus area 7
+    if (input$action == actions_list[[7]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 40]))
     }
-    if (input$alt == alt_list[[7]][2]) {
+    if (input$action == actions_list[[7]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 41]))
     }
-    if (input$alt == alt_list[[7]][3]) {
+    if (input$action == actions_list[[7]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 42]))
     }
-    if (input$alt == alt_list[[7]][4]) {
+    if (input$action == actions_list[[7]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 43]))
     }
-    if (input$alt == alt_list[[7]][5]) {
+    if (input$action == actions_list[[7]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 44]))
     }
-    # theme 8
-    if (input$alt == alt_list[[8]][1]) {
+    # Focus area 8
+    if (input$action == actions_list[[8]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 45]))
     }
-    if (input$alt == alt_list[[8]][2]) {
+    if (input$action == actions_list[[8]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 46]))
     }
-    if (input$alt == alt_list[[8]][3]) {
+    if (input$action == actions_list[[8]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 47]))
     }
-    if (input$alt == alt_list[[8]][4]) {
+    if (input$action == actions_list[[8]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 48]))
     }
-    if (input$alt == alt_list[[8]][5]) {
+    if (input$action == actions_list[[8]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 49]))
     }
-    # theme 9
-    if (input$alt == alt_list[[9]][1]) {
+    # Focus area 9
+    if (input$action == actions_list[[9]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 50]))
     }
-    if (input$alt == alt_list[[9]][2]) {
+    if (input$action == actions_list[[9]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 51]))
     }
-    if (input$alt == alt_list[[9]][3]) {
+    if (input$action == actions_list[[9]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 52]))
     }
-    if (input$alt == alt_list[[9]][4]) {
+    if (input$action == actions_list[[9]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 53]))
     }
-    if (input$alt == alt_list[[9]][5]) {
+    if (input$action == actions_list[[9]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 54]))
     }
-    # theme 10
-    if (input$alt == alt_list[[10]][1]) {
+    # Focus area 10
+    if (input$action == actions_list[[10]][1]) {
       return(as.matrix(group_2_filter_1()@data[, 55]))
     }
-    if (input$alt == alt_list[[10]][2]) {
+    if (input$action == actions_list[[10]][2]) {
       return(as.matrix(group_2_filter_1()@data[, 56]))
     }
-    if (input$alt == alt_list[[10]][3]) {
+    if (input$action == actions_list[[10]][3]) {
       return(as.matrix(group_2_filter_1()@data[, 57]))
     }
-    if (input$alt == alt_list[[10]][4]) {
+    if (input$action == actions_list[[10]][4]) {
       return(as.matrix(group_2_filter_1()@data[, 58]))
     }
-    if (input$alt == alt_list[[10]][5]) {
+    if (input$action == actions_list[[10]][5]) {
       return(as.matrix(group_2_filter_1()@data[, 59]))
     }
   })
@@ -589,8 +589,8 @@ menu <- function(input, output, session) {
     list(
       
       # Start tab
-      theme = reactive(input$theme),
-      alt = reactive(input$alt),
+      focus_area = reactive(input$focus_area),
+      # alt = reactive(input$action),
       colorpal = reactive(input$colorpal),
       
       # G1 tab

@@ -8,7 +8,6 @@ Diff <- HTML("<font color='darkslateblue'><b>Diff</b></font>")
 shinyUI(
   function(request) {
     navbarPage(
-      # theme = shinytheme("yeti"),
       title = HTML("Upplands Väsby Data Explorer"),
       id = "nav",
       position = "static-top",
@@ -30,11 +29,11 @@ shinyUI(
                   G1,
                   " (Group 1) and ",
                   G2,
-                  " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a theme (1-10) and then one alternative (a-e) associated with that particular theme. From the 'Start' tab you can also select a map color scheme. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ",
+                  " (Group 2).<br><br> 'Start' is where you begin your analysis. Select a focus area (1-10) and then one action (a-e) associated with that particular focus area. From the 'Start' tab you can also select a new color scheme for the map. A click on the <i class='fa fa-question'></i> Help button displays a brief introduction (this one!). <br><br> From the ",
                   G1,
                   " and ",
                   G2,
-                  " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Eduaction, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups."
+                  " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Education, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups."
                 )
               )
             ),
@@ -44,7 +43,7 @@ shinyUI(
                 leafletOutput(outputId = "map", height = 680),
                 data.step = 2,
                 data.intro = paste0(
-                  "This is the map. Each selected area (polygon) is filled with a color representing the mean value of the selected alternative for ",
+                  "This is the map. Each selected area (polygon) is filled with a color representing the mean value of the selected action for ",
                   G1,
                   " and ",
                   G2,
@@ -108,7 +107,7 @@ shinyUI(
                 ),
                 data.step = 3,
                 data.intro = paste0(
-                  "This is the value plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected alternative for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each alternative (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean distance for each alternative (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of alternatives. A mouse roll-over gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
+                  "This is the value plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected action for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each action (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean distance for each action (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of actions. A mouse roll-over gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
                 )
               )
             )
@@ -135,7 +134,7 @@ shinyUI(
             #       )
             #     ),
             #     data.step = 4,
-            #     data.intro = paste0("This is the portfolios panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of alternatives. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each alternative (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
+            #     data.intro = paste0("This is the portfolios panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of actions. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each action (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
             #   )
             # )
           ),
@@ -206,7 +205,7 @@ shinyUI(
                   G2,
                   ", and ",
                   To,
-                  " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the alternative is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the distance within the portfolio, respectively."
+                  " (total). <br><br> Column 'id' displays the portfolio identification number. Columns 'a' through 'e' indicate if the action is present (1) or not present (0) in the portfolio. Columns 'V' and 'D' display the value of and the distance within the portfolio, respectively."
                 )
               )
             )
