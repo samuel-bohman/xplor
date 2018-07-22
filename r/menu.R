@@ -24,7 +24,7 @@ menu_UI <- function(id) {
           uiOutput(ns("alternatives")),
           selectInput(
             ns("colorpal"),
-            label = "Color Scheme",
+            label = "Color Palette",
             choices = rownames(brewer.pal.info[1:9,]),
             selected = "RdYlGn"
           )
