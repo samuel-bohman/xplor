@@ -1,7 +1,7 @@
 # Get all efficient portfolios
 get_all_portfolios <- function(actions, values, distance, initial_budget_constraint, direction) {
 
-  if(is.nan(values) || is.nan(distance)){
+  if(is.nan(values) || is.nan(distance) || is.null(distance) || is.null(values) || is.na(values) || is.na(distance)){
     portfolios <- data.frame(matrix(data = 0, ncol = length(actions) + 2, nrow = 2))
   } else {
     portfolios <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
@@ -58,10 +58,10 @@ find_solutions <- function(lp_model, actions, distance, direction) {
   #           57: withProgress
   #           56: observerFunc [/home/samuel/xplor/r/server.R#203]
   #             1: runApp 
-  req(lp_model)
-  req(actions)
-  req(distance)
-  req(direction)
+  #req(lp_model)
+  #req(actions)
+  #req(distance)
+  #req(direction)
   
   df <- data.frame(matrix(ncol = length(actions) + 2, nrow = 0))
   
