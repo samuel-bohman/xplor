@@ -1,14 +1,14 @@
 # Load library and source files
 library(rgdal)
 source("r/car.R")
-source("r/bcar.R")
+source("r/car_ce.R")
 
 # Load data
 data <- read.csv2("data-derived/data.csv", header = TRUE, fileEncoding = "UTF-8")
 
 # Run functions on data
 data_car <- calculateCAR(data)
-data_car_bcar <- calculateBCAR(data_car)
+data_car_bcar <- calculateCAR_CE(data_car)
 
 # Read spatial data
 nyko84 <- readRDS("data-derived/nyko84.rds")

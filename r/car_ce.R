@@ -1,5 +1,5 @@
 # Calculate bipolar cardinal ranking
-calculateBCAR <- function(results) {
+calculateCAR_CE <- function(results) {
   
   for (j in 1:10) {
     alternatives <- c(paste("Alt.", j, letters[1:5], sep = ""), paste("Alt.", j, "p", sep = ""))
