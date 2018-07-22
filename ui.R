@@ -220,7 +220,7 @@ shinyUI(
             width = 3,
             selectInput(
               inputId = "area3",
-              label = "Area",
+              label = "Geographic Area",
               choices = b_area,
               selected = "All",
               multiple = TRUE
@@ -270,7 +270,7 @@ shinyUI(
             width = 3,
             selectInput(
               inputId = "years3",
-              label = "Length of residency",
+              label = "Length of Residency",
               choices = b_years_t,
               selected = "All",
               multiple = TRUE
