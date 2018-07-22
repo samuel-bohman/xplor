@@ -57,7 +57,7 @@ b_names <- names(b_variables)
 b_col_names <- c("Area", "Gender", "Age", "Occupation", "Education.level", "Year")
 
 # Labels that will appear in the GUI
-b_labels <- c("Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
+b_labels <- c("Geographic Area", "Gender", "Age", "Occupation", "Education", "Length of residency")
 
 # Randomization for polygons just for development purposes
 # rnd <- "All"
