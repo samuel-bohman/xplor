@@ -1,6 +1,5 @@
 # Load libraries
 library(rgdal)
-# library(rgeos)
 
 # Read MapInfo file (see NOTE)
 nyko <-
