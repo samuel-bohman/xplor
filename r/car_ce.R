@@ -73,7 +73,7 @@ calculateCAR_CE <- function(results) {
       # Add a column with weighted proportional scores
       results[alternatives_valuew[i]] <-
         apply(results, 1, function(x) {
-          qShAlpha = (as.numeric(x[criterion_name]) * as.numeric(x[pseudo.name_prop_score]))
+          #qShAlpha = (as.numeric(x[criterion_name]) * as.numeric(x[pseudo.name_prop_score]))
           qShPartWorth = (as.numeric(x[criterion_name]) * as.numeric(x[alternatives_prop_scores[i]]))
         })
     }

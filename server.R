@@ -381,13 +381,23 @@ shinyServer(function(input, output, session) {
         ### Calculate group 1 mean weighted values
         val_group_1 <- lapply(seq(1, 45, by = 9), function(x) {
           lambda = 1 / (data.vec1[x + 6] + data.vec1[x + 7])
-          return(data.vec1[x + 8] * lambda) 
+          
+          # weighted prop value
+          #return(data.vec1[x + 8] * lambda) 
+          
+          #weighted val (prop_pw_val - pseudo_pw_val)
+          return(data.vec1[x + 5] * lambda)
         })
         
         ### Calculate group 2 mean weighted values
         val_group_2 <- lapply(seq(1, 45, by = 9), function(x) {
           lambda = 1 / (data.vec2[x + 6] + data.vec2[x + 7])
-          return(data.vec2[x + 8] * lambda)
+          
+          # weighted prop value
+          #return(data.vec2[x + 8] * lambda)
+          
+          #weighted val (prop_pw_val - pseudo_pw_val)
+          return(data.vec2[x + 5] * lambda)
         })
         
         ### Calculate total mean weighted values 
@@ -401,8 +411,13 @@ shinyServer(function(input, output, session) {
           # m_grp_1_2 <-
           #   (org_v_grp_1 + org_v_grp_2) / (n_grp1 + n_grp2)
           # return(m_grp_1_2)
+          
           lambda = 1 / (data.vec12[x + 6] + data.vec12[x + 7])
-          return(data.vec12[x + 8] * lambda)
+          # weighted prop value
+          #return(data.vec12[x + 8] * lambda)
+          
+          #weighted val (prop_pw_val - pseudo_pw_val)
+          return(data.vec12[x + 5] * lambda)
         })
         
         ### Flatten lists and transform into data frames
