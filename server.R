@@ -774,6 +774,7 @@ shinyServer(function(input, output, session) {
         portfolios_group_1$value <- portfolios_group_1$value
         portfolios_group_1$distance <- portfolios_group_1$distance
         
+        
         ### Portfolios group 1 for plotting
         all_portfolios_group_1 <- expand.grid(0:1, 0:1, 0:1, 0:1, 0:1)
         names(all_portfolios_group_1) <- p_actions
@@ -1166,15 +1167,31 @@ shinyServer(function(input, output, session) {
         
         # PORTFOLIO DETAILS PANEL #############################################
         
+        ## Function to calculate portfolio core index.
+        calculateCoreIndex <- function(portfolio_df_pos, portfolio_df_neg, alt){
+          if(sum(portfolio_df_pos[alt]) == 0){
+            alt.ci <- -round(sum(portfolio_df_neg[alt]) / (nrow(portfolio_df_neg)-1) * 100, digits = 0)
+          } else {
+            alt.ci <- round(sum(portfolio_df_pos[alt]) / (nrow(portfolio_df_pos)-1) * 100, digits = 0)
+          }
+          return(alt.ci)
+        }
+        
         ## G1 TAB #############################################################
+        grp1_ci_a <- calculateCoreIndex(portfolios_group_1_pos_rev, portfolios_group_1_neg, "Alt.a")
+        grp1_ci_b <- calculateCoreIndex(portfolios_group_1_pos_rev, portfolios_group_1_neg, "Alt.b")
+        grp1_ci_c <- calculateCoreIndex(portfolios_group_1_pos_rev, portfolios_group_1_neg, "Alt.c")
+        grp1_ci_d <- calculateCoreIndex(portfolios_group_1_pos_rev, portfolios_group_1_neg, "Alt.d")
+        grp1_ci_e <- calculateCoreIndex(portfolios_group_1_pos_rev, portfolios_group_1_neg, "Alt.e")
         
         ### G1 table
         output$portfolios_group_1_table <- DT::renderDataTable({
-          a <- round(sum(portfolios_group_1$Alt.a) / nrow(portfolios_group_1) * 100, digits = 0)
-          b <- round(sum(portfolios_group_1$Alt.b) / nrow(portfolios_group_1) * 100, digits = 0)
-          c <- round(sum(portfolios_group_1$Alt.c) / nrow(portfolios_group_1) * 100, digits = 0)
-          d <- round(sum(portfolios_group_1$Alt.d) / nrow(portfolios_group_1) * 100, digits = 0)
-          e <- round(sum(portfolios_group_1$Alt.e) / nrow(portfolios_group_1) * 100, digits = 0)
+          a <- grp1_ci_a
+          b <- grp1_ci_b
+          c <- grp1_ci_c
+          d <- grp1_ci_d
+          e <- grp1_ci_e
+          
           portfolios_group_1 %>%
             rename(
               a = Alt.a,
@@ -1204,7 +1221,7 @@ shinyServer(function(input, output, session) {
                   rowCallback = JS(
                     "function(row, data) {",
                     "if(data[0] == null){",
-                    "console.log(data)",
+                    "console.log(typeof(data[4]))",
                     "var num = data[1].toString() + '%';",
                     "$('td:eq(1)', row).html(num);",
                     "var num2 = data[2].toString() + '%';",
@@ -1222,14 +1239,20 @@ shinyServer(function(input, output, session) {
         })
         
         ## G2 TAB #############################################################
+        grp2_ci_a <- calculateCoreIndex(portfolios_group_2_pos_rev, portfolios_group_2_neg, "Alt.a")
+        grp2_ci_b <- calculateCoreIndex(portfolios_group_2_pos_rev, portfolios_group_2_neg, "Alt.b")
+        grp2_ci_c <- calculateCoreIndex(portfolios_group_2_pos_rev, portfolios_group_2_neg, "Alt.c")
+        grp2_ci_d <- calculateCoreIndex(portfolios_group_2_pos_rev, portfolios_group_2_neg, "Alt.d")
+        grp2_ci_e <- calculateCoreIndex(portfolios_group_2_pos_rev, portfolios_group_2_neg, "Alt.e")
         
         ### G2 table
         output$portfolios_group_2_table <- DT::renderDataTable({
-          a <- round(sum(portfolios_group_2$Alt.a) / nrow(portfolios_group_2) * 100, digits = 0)
-          b <- round(sum(portfolios_group_2$Alt.b) / nrow(portfolios_group_2) * 100, digits = 0)
-          c <- round(sum(portfolios_group_2$Alt.c) / nrow(portfolios_group_2) * 100, digits = 0)
-          d <- round(sum(portfolios_group_2$Alt.d) / nrow(portfolios_group_2) * 100, digits = 0)
-          e <- round(sum(portfolios_group_2$Alt.e) / nrow(portfolios_group_2) * 100, digits = 0)
+          a <- grp2_ci_a
+          b <- grp2_ci_b
+          c <- grp2_ci_c
+          d <- grp2_ci_d
+          e <- grp2_ci_e
+          
           portfolios_group_2 %>%
             rename(
               a = Alt.a,
@@ -1277,14 +1300,20 @@ shinyServer(function(input, output, session) {
         })
         
         ## T TAB
+        grpt_ci_a <- calculateCoreIndex(portfolios_total_pos_rev, portfolios_total_neg, "Alt.a")
+        grpt_ci_b <- calculateCoreIndex(portfolios_total_pos_rev, portfolios_total_neg, "Alt.b")
+        grpt_ci_c <- calculateCoreIndex(portfolios_total_pos_rev, portfolios_total_neg, "Alt.c")
+        grpt_ci_d <- calculateCoreIndex(portfolios_total_pos_rev, portfolios_total_neg, "Alt.d")
+        grpt_ci_e <- calculateCoreIndex(portfolios_total_pos_rev, portfolios_total_neg, "Alt.e")
         
         ## T table
         output$portfolios_total_table <- DT::renderDataTable({
-          a <- round(sum(portfolios_total$Alt.a) / nrow(portfolios_total) * 100, digits = 0)
-          b <- round(sum(portfolios_total$Alt.b) / nrow(portfolios_total) * 100, digits = 0)
-          c <- round(sum(portfolios_total$Alt.c) / nrow(portfolios_total) * 100, digits = 0)
-          d <- round(sum(portfolios_total$Alt.d) / nrow(portfolios_total) * 100, digits = 0)
-          e <- round(sum(portfolios_total$Alt.e) / nrow(portfolios_total) * 100, digits = 0)
+          a <- grpt_ci_a
+          b <- grpt_ci_b
+          c <- grpt_ci_c
+          d <- grpt_ci_d
+          e <- grpt_ci_e
+          
           portfolios_total %>%
             rename(
               a = Alt.a,
