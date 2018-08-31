@@ -117,7 +117,7 @@ actions7 <- c(
   "7e. Reduce preschool class sizes"
   )
 actions8 <- c(
-  "8a. Reduce preschool child groups", 
+  "8a. Reduce preschool class sizes", 
   "8b. Raise the quality of teaching", 
   "8c. More professional development for school teachers", 
   "8d. More modern information technology (IT) in education", 
