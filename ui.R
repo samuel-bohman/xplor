@@ -3,7 +3,7 @@ library(rintrojs)
 G1   <- HTML("<font color='steelblue'><b>G1</b></font>")
 G2   <- HTML("<font color='firebrick'><b>G2</b></font>")
 To    <- HTML("<font color='darkslateblue'><b>T</b></font>")
-Diff <- HTML("<font color='darkslateblue'><b>Diff</b></font>")
+# Diff <- HTML("<font color='darkslateblue'><b>Diff</b></font>")
 
 shinyUI(
   function(request) {
@@ -82,7 +82,7 @@ shinyUI(
                       ggvisOutput(plot_id = "ggvis_7"),
                       G2,
                       ggvisOutput(plot_id = "ggvis_8"),
-                      Diff,
+                      To,
                       ggvisOutput(plot_id = "ggvis_9")
                     ),
                     tabPanel(
@@ -107,7 +107,7 @@ shinyUI(
                 ),
                 data.step = 3,
                 data.intro = paste0(
-                  "This is the value plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected action for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each action (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean distance for each action (a-e) for ", G1, ", ", G2, ", and ", Diff, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of actions. A mouse roll-over gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
+                  "This is the value plots panel. It has four tabs: 'F', 'V', 'D' and 'P'. <br><br> 'F' displays histograms of the frequency distribution for the selected action for ", G1, ", ", G2, ", and ", To, " (total). <br><br> 'V' displays bar plots of the relative mean value for each action (a-e) for ", G1, ", ", G2, ", and ", To, ". <br><br> 'D' displays bar plots of relative mean distance for each action (a-e) for ", G1, ", ", G2, ", and ", To, " (difference). <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal combinations of actions. A mouse roll-over gives detailed information about that particular portfolio. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
                 )
               )
             )
