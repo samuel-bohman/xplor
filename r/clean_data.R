@@ -4,7 +4,7 @@ data <-
     "data-raw/data.csv",
     header = TRUE,
     sep = ";",
-    skip = 2,
+    skip = 0,
     na.strings = " ",
     fileEncoding = "latin1",
     stringsAsFactors = FALSE
