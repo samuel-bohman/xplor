@@ -16,7 +16,7 @@ Researched and developed by Samuel Bohman and Tobias Fasth, Department of Comput
 
 ### Publications
 
-Bohman, S., Fasth. T. (2017). An Open Source Web Application for Exploring Public Opinion in Geospatial Planning. Forthcoming.  
+Bohman, S., Fasth. T. (2019). A Web-Based Visualization Tool for Exploring Stakeholder Conflicts in Land Use Planning. Forthcoming.  
 
 ### Credits & Dependencies
 
