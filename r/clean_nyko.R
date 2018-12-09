@@ -48,7 +48,7 @@ names(centroids)[2] <- "lat"
 # Merge nyko84 with centroids
 centroids$ID <- nyko84@data$ID  # add common column
 nyko84 <- sp::merge(x = nyko84, y = centroids, by = "ID")
-saveRDS(object = nyko84, file = "data-derived/nyko84.rds")
+saveRDS(object = nyko84, file = "data-derived/nyko84.Rds")
 remove(centroids)
 remove(nyko84)
 

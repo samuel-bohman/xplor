@@ -22,13 +22,13 @@ source("r/sd.R")
 enableBookmarking(store = "url")
 
 # SpatialPolygonsDataFrame for map polygons
-nyko <- readRDS("data-derived/nyko84.rds")
+nyko <- readRDS("data-derived/nyko84.Rds")
 
 # SpatialPolygonsDataFrame for group 1
-data_spdf1 <- readRDS("data-derived/data_spdf.rds")
+data_spdf1 <- readRDS("data-derived/data_spdf.Rds")
 
 # SpatialPolygonsDataFrame for group 2
-data_spdf2 <- readRDS("data-derived/data_spdf.rds")
+data_spdf2 <- readRDS("data-derived/data_spdf.Rds")
 
 # Data frame for tabPanel "Table"
 data_df <- read.table("data-derived/data.csv", header = TRUE, sep = ";", fileEncoding = "UTF-8")
