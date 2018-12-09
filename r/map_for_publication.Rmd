@@ -1,0 +1,47 @@
+---
+title: "Map of UV for Publication"
+author: "Samuel Bohman"
+output: html_notebook
+---
+
+```{r setup}
+knitr::opts_knit$set(root.dir = "../")
+library(ggmap)
+library(tmap)
+library(sp)
+library(sf)
+library(leaflet)
+```
+
+```{r}
+nyko84 <- readRDS("data-derived/nyko84.Rds")
+data_spdf <- readRDS("data-derived/data_spdf.Rds")
+```
+
+```{r}
+tmap_mode("view")
+bb <- make_bbox(lon = data_spdf$long, lat = data_spdf$lat, f = 0.25)
+tm_basemap(server = "OpenStreetMap", alpha = 1) +
+  tm_shape(shp = nyko84, bbox = bb) +
+  tm_borders(col = NA, lwd = 1, lty = "solid") +
+  tm_text(text = "ID", size = 0.5) +
+  tm_minimap(position = c("right", "top"), toggle = FALSE, width = 200, height = 200, zoomLevelOffset = -4)
+```
+
+```{r}
+tmap_mode("plot")
+# bb <- make_bbox(lon = data_spdf$long, lat = data_spdf$lat, f = 0.3)  # 17.80475 59.47622 18.02273 59.56472
+bb <- c(left = 17.78, bottom = 59.47622, right = 18.031, top = 59.555)
+osm_tiles <- tmaptools::read_osm(bb, type = "osm")
+map <- tm_shape(osm_tiles) + 
+  tm_rgb() +
+  tm_shape(nyko84) +
+  tm_borders(col = NA) + 
+  tm_text(text = "ID", size = 0.5) +
+  # tm_layout(title = "UPPLANDS VÄSBY", title.size = 1, title.position = c("right", "top"), frame = TRUE) +
+  tm_compass(type = "4star", show.labels = 1, fontsize = 0.7, position = c("left", "top")) +
+  tm_scale_bar(width = 0.2, size = 0.7, position = c("right", "bottom"))
+map
+tmap_save(map, filename = "images/map.pdf", dpi = 600, asp = 0)
+```
+
