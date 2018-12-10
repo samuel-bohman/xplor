@@ -85,10 +85,11 @@ find_solutions <- function(lp_model, actions, distance, direction) {
     #           57: withProgress
     #           56: observerFunc [/home/samuel/xplor/r/server.R#203]
     #             1: runApp
-
-    for (v in 1:length(sol)) {
-      if (sol[v] == 1) {
-        sum <- sum + distance[v]
+    if (!NA %in% sol){
+      for (v in 1:length(sol)) {
+        if (sol[v] == 1) {
+          sum <- sum + distance[v]
+        }
       }
     }
     
