@@ -61,7 +61,9 @@ b_labels <- c("Geographic Area", "Gender", "Age", "Occupation", "Education", "Le
 
 # Randomization for polygons just for development purposes
 # rnd <- "All"
-rnd <- sample(x = b_area[3:45], size = 8) %>% split(f = c(1, 2))
+# rnd <- sample(x = b_area[3:45], size = 8) %>% split(f = c(1, 2))
+rnd <- list(a = c("Sigma/Apoteksskogen", "Hasselgatan", "Ekebo", "Dragonvägen", "Kavallerigatan/Vilundaparken", "Smedby 2", "Smedby 3", "Stallgatan"),
+            b = c("Sjukyrkoberget", "Norra Bollstanäs", "Södra Bollstanäs", "Grimstaby", "Norra Nordanvägen"))
 
 # Themes
 theme <- colnames(data_df)[57:66] %>% gsub(pattern = ".", replacement = " ", x = ., fixed = TRUE) %>% paste(c(1:10), ., sep = ". ")
