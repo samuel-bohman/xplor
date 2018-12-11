@@ -58,7 +58,7 @@ createPortfolioLatexTables <- function(focusarea, values, conflicts, grupp){
   portfolios_total$value <- portfolios_total$value
   portfolios_total$distance <- portfolios_total$distance
   portfolios_total <- portfolios_total[, c(8,1:7)]
-  write.csv2(portfolios_total, file = paste("latex/portfolios ", focusarea, " ", grupp, ".csv", sep = ""), row.names=FALSE)
+  write.csv2(portfolios_total, file = paste("latexXPLOR/portfolios ", focusarea, " ", grupp, ".csv", sep = ""), row.names=FALSE)
   
   grp_ci_a <- calculateCoreIndex(portfolios_total_pos_rev, portfolios_total_neg, p_actions[1])
   grp_ci_b <- calculateCoreIndex(portfolios_total_pos_rev, portfolios_total_neg, p_actions[2])
