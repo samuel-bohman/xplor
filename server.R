@@ -57,9 +57,11 @@ shinyServer(function(input, output, session) {
   
   ## Define color palette
   colorpal <- reactive({
-    colorNumeric(
+    # colorNumeric(
+    colorBin(
       palette = tdata$colorpal(),
-      domain = c(0, 14),
+      # palette = c("#d73027", "#fc8d59", "#fee08b", "#ffffbf", "#d9ef8b", "#91cf60", "#1a9850"),
+      domain = c(0L, 14L),
       na.color = "gray"
     )
   })
@@ -71,7 +73,8 @@ shinyServer(function(input, output, session) {
       addLegend(
         position = "bottomleft",
         pal = colorpal(),
-        values = c(0:14),
+        values = c(0L:14L),
+        bins = 7,
         labels = c("Min", "Mean", "Max")
       )
   })
