@@ -183,7 +183,7 @@ shinyUI(
             width = 3,
             selectInput(
               inputId = "area3",
-              label = "Geographic Area",
+              label = "Geographic Subarea",
               choices = b_area,
               selected = "All",
               multiple = TRUE
