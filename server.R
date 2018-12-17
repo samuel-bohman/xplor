@@ -1433,6 +1433,8 @@ shinyServer(function(input, output, session) {
           group_by(Education.level) %>%
           count()
         
+        print(education_group_1)
+        
         education_group_2 <- dem_group_2 %>%
           mutate(
             Education.level = fct_recode(
@@ -1447,6 +1449,8 @@ shinyServer(function(input, output, session) {
           select(Education.level) %>%
           group_by(Education.level) %>%
           count()
+        
+        print(education_group_2)
         
         year_group_1 <- dem_group_1 %>%
           select(Year) %>%
@@ -1568,7 +1572,7 @@ shinyServer(function(input, output, session) {
               title = list(fontSize = 8),
               labels = list(fontSize = 8)
             ),
-            title_offset = 45
+            title_offset = 60
           ) %>%
           compute_stack(stack_var = ~ n, group_var = ~ Age) %>%
           layer_rects(
@@ -1664,7 +1668,7 @@ shinyServer(function(input, output, session) {
               title = list(fontSize = 8),
               labels = list(fontSize = 8)
             ),
-            title_offset = 80
+            title_offset = 90
           ) %>%
           compute_stack(stack_var = ~ n, group_var = ~ Education) %>%
           layer_rects(
