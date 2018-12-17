@@ -3,7 +3,6 @@ library(rintrojs)
 G1   <- HTML("<font color='steelblue'><b>G1</b></font>")
 G2   <- HTML("<font color='firebrick'><b>G2</b></font>")
 To    <- HTML("<font color='darkslateblue'><b>T</b></font>")
-# Diff <- HTML("<font color='darkslateblue'><b>Diff</b></font>")
 
 shinyUI(
   function(request) {
@@ -94,15 +93,6 @@ shinyUI(
                       To,
                       ggvisOutput(plot_id = "ggvis_15")
                     )
-                    # tabPanel(
-                    #   title = "VtD",
-                    #   G1,
-                    #   ggvisOutput(plot_id = "ggvis_10"),
-                    #   G2,
-                    #   ggvisOutput(plot_id = "ggvis_11"),
-                    #   To,
-                    #   ggvisOutput(plot_id = "ggvis_12")
-                    # )
                   )
                 ),
                 data.step = 3,
@@ -111,32 +101,6 @@ shinyUI(
                 )
               )
             )
-            # column(width = 2,
-            #   introBox(
-            #     sidebarPanel(width = 0,
-            #       tabsetPanel(
-            #         tabPanel(title = "P",
-            #           G1,
-            #           ggvisOutput(plot_id = "ggvis_13"),
-            #           G2,
-            #           ggvisOutput(plot_id = "ggvis_14"),
-            #           To,
-            #           ggvisOutput(plot_id = "ggvis_15")
-            #         ),
-            #         tabPanel(title = "VtD",
-            #           G1,
-            #           ggvisOutput(plot_id = "ggvis_10"),
-            #           G2,
-            #           ggvisOutput(plot_id = "ggvis_11"),
-            #           To,
-            #           ggvisOutput(plot_id = "ggvis_12")
-            #         )
-            #       )
-            #     ),
-            #     data.step = 4,
-            #     data.intro = paste0("This is the portfolios panel. It has two tabs: 'P' and 'VtD'. <br><br> 'P' displays Pareto-efficient frontiers for ", G1, ", ", G2, ", and ", To, " (total). A Pareto frontier is the set of all optimal portfolios (combinations) of actions. A mouse rollover gives detailed information about that particular portfolio. <br><br> 'VtD' displays value-to-disagreement bar plots for each action (a-e). <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon.")
-            #   )
-            # )
           ),
           fluidRow(
             column(width = 3),
@@ -146,7 +110,6 @@ shinyUI(
                 sidebarPanel(
                   width = 0,
                   id = "demographics1",
-                  # htmlOutput(outputId = "grid_ggvis")
                   ggvisOutput(plot_id = "ggvis_16"),
                   ggvisOutput(plot_id = "ggvis_17"),
                   ggvisOutput(plot_id = "ggvis_20")
