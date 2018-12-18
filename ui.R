@@ -32,7 +32,7 @@ shinyUI(
                   G1,
                   " and ",
                   G2,
-                  " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Education, and Length of residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups."
+                  " tabs you can select geographical areas. Adjust the demographic variables (Gender, Age, Occupation, Education, and Length of Residency) to see the data from different viewpoints. At the bottom, two checkboxes let you enable or disable map markers and map popups."
                 )
               )
             ),
@@ -117,7 +117,7 @@ shinyUI(
                 
                 data.step = 4,
                 data.intro = paste0(
-                  "This is the demographics panel (1/2). It displays bar plots of three background variables for ", G1, " and ", G2, ": Gender, Age, and Length of residency. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
+                  "This is the demographics panel (1/2). It displays bar plots of three background variables for ", G1, " and ", G2, ": Gender, Age, and Length of Residency. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
                 )
               )
             ),
@@ -133,7 +133,7 @@ shinyUI(
                 data.step = 5,
                 
                 data.intro = paste0(
-                  "This is the demographics panel (2/2). It displays bar plots of two background variables for ", G1, " and ", G2, ": Occupation and Education level. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
+                  "This is the demographics panel (2/2). It displays bar plots of two background variables for ", G1, " and ", G2, ": Occupation and Education. <br><br> To download a plot, click the <i class='fa fa-gear'></i> icon."
                 )
               )
             ),
@@ -223,7 +223,7 @@ shinyUI(
             width = 3,
             selectInput(
               inputId = "education3",
-              label = "Education level",
+              label = "Education",
               choices = b_education_t,
               selected = "All",
               multiple = TRUE

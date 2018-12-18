@@ -1433,8 +1433,6 @@ shinyServer(function(input, output, session) {
           group_by(Education.level) %>%
           count()
         
-        print(education_group_1)
-        
         education_group_2 <- dem_group_2 %>%
           mutate(
             Education.level = fct_recode(
@@ -1449,8 +1447,6 @@ shinyServer(function(input, output, session) {
           select(Education.level) %>%
           group_by(Education.level) %>%
           count()
-        
-        print(education_group_2)
         
         year_group_1 <- dem_group_1 %>%
           select(Year) %>%
@@ -1526,7 +1522,7 @@ shinyServer(function(input, output, session) {
               title = list(fontSize = 8),
               labels = list(fontSize = 8)
             ),
-            title_offset = 60
+            title_offset = 40
           ) %>%
           compute_stack(stack_var = ~ n, group_var = ~ Gender) %>%
           layer_rects(
@@ -1572,7 +1568,7 @@ shinyServer(function(input, output, session) {
               title = list(fontSize = 8),
               labels = list(fontSize = 8)
             ),
-            title_offset = 60
+            title_offset = 40
           ) %>%
           compute_stack(stack_var = ~ n, group_var = ~ Age) %>%
           layer_rects(
@@ -1585,102 +1581,6 @@ shinyServer(function(input, output, session) {
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_17")
-        
-        ### Plot Occupation
-        occupation %>%
-          ggvis(
-            y = ~ Occupation,
-            x = ~ n,
-            fill = ~ Group,
-            stroke := ""
-          ) %>%
-          scale_nominal(property = "fill",
-            range = c("steelblue", "firebrick")) %>%
-          scale_nominal(property = "y", reverse = TRUE) %>%
-          add_axis(
-            type = "x",
-            title = "Count",
-            ticks = 5,
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            )
-          ) %>%
-          add_axis("x", orient = "top", ticks = 0, title = "Occupation",
-                   properties = axis_props(
-                     axis = list(stroke = "white"),
-                     labels = list(fontSize = 0))
-          ) %>%
-          add_axis(
-            type = "y",
-            title = "",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            ),
-            title_offset = 90
-          ) %>%
-          compute_stack(stack_var = ~ n, group_var = ~ Occupation) %>%
-          layer_rects(
-            x = ~ stack_lwr_,
-            x2 = ~ stack_upr_,
-            height = band()
-          ) %>%
-          hide_legend(scales = "fill") %>%
-          set_options(width = "auto",
-            height = 180,
-            renderer = "canvas") %>%
-          bind_shiny(plot_id = "ggvis_18")
-        
-        ### Plot Education
-        education %>%
-          ggvis(
-            y = ~ Education,
-            x = ~ n,
-            fill = ~ Group,
-            stroke := ""
-          ) %>%
-          scale_nominal(property = "fill",
-            range = c("steelblue", "firebrick")) %>%
-          scale_nominal(property = "y", reverse = TRUE) %>%
-          add_axis(
-            type = "x",
-            title = "Count",
-            ticks = 5,
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            )
-          ) %>%
-          add_axis("x", orient = "top", ticks = 0, title = "Education level",
-                   properties = axis_props(
-                     axis = list(stroke = "white"),
-                     labels = list(fontSize = 0))
-          ) %>%
-          add_axis(
-            type = "y",
-            title = "",
-            grid = FALSE,
-            properties = axis_props(
-              title = list(fontSize = 8),
-              labels = list(fontSize = 8)
-            ),
-            title_offset = 90
-          ) %>%
-          compute_stack(stack_var = ~ n, group_var = ~ Education) %>%
-          layer_rects(
-            x = ~ stack_lwr_,
-            x2 = ~ stack_upr_,
-            height = band()
-          ) %>%
-          hide_legend(scales = "fill") %>%
-          set_options(width = "auto",
-            height = 180,
-            renderer = "canvas") %>%
-          bind_shiny(plot_id = "ggvis_19")
         
         ### Plot Years
         year %>%
@@ -1714,7 +1614,7 @@ shinyServer(function(input, output, session) {
               title = list(fontSize = 8),
               labels = list(fontSize = 8)
             ),
-            title_offset = 60
+            title_offset = 40
           ) %>%
           compute_stack(stack_var = ~ n, group_var = ~ Year) %>%
           layer_rects(
@@ -1727,6 +1627,102 @@ shinyServer(function(input, output, session) {
             height = 180,
             renderer = "canvas") %>%
           bind_shiny(plot_id = "ggvis_20")
+        
+        ### Plot Occupation
+        occupation %>%
+          ggvis(
+            y = ~ Occupation,
+            x = ~ n,
+            fill = ~ Group,
+            stroke := ""
+          ) %>%
+          scale_nominal(property = "fill",
+                        range = c("steelblue", "firebrick")) %>%
+          scale_nominal(property = "y", reverse = TRUE) %>%
+          add_axis(
+            type = "x",
+            title = "Count",
+            ticks = 5,
+            grid = FALSE,
+            properties = axis_props(
+              title = list(fontSize = 8),
+              labels = list(fontSize = 8)
+            )
+          ) %>%
+          add_axis("x", orient = "top", ticks = 0, title = "Occupation",
+                   properties = axis_props(
+                     axis = list(stroke = "white"),
+                     labels = list(fontSize = 0))
+          ) %>%
+          add_axis(
+            type = "y",
+            title = "",
+            grid = FALSE,
+            properties = axis_props(
+              title = list(fontSize = 8),
+              labels = list(fontSize = 8)
+            ),
+            title_offset = 40
+          ) %>%
+          compute_stack(stack_var = ~ n, group_var = ~ Occupation) %>%
+          layer_rects(
+            x = ~ stack_lwr_,
+            x2 = ~ stack_upr_,
+            height = band()
+          ) %>%
+          hide_legend(scales = "fill") %>%
+          set_options(width = "auto",
+                      height = 180,
+                      renderer = "canvas") %>%
+          bind_shiny(plot_id = "ggvis_18")
+        
+        ### Plot Education
+        education %>%
+          ggvis(
+            y = ~ Education,
+            x = ~ n,
+            fill = ~ Group,
+            stroke := ""
+          ) %>%
+          scale_nominal(property = "fill",
+                        range = c("steelblue", "firebrick")) %>%
+          scale_nominal(property = "y", reverse = TRUE) %>%
+          add_axis(
+            type = "x",
+            title = "Count",
+            ticks = 5,
+            grid = FALSE,
+            properties = axis_props(
+              title = list(fontSize = 8),
+              labels = list(fontSize = 8)
+            )
+          ) %>%
+          add_axis("x", orient = "top", ticks = 0, title = "Education",
+                   properties = axis_props(
+                     axis = list(stroke = "white"),
+                     labels = list(fontSize = 0))
+          ) %>%
+          add_axis(
+            type = "y",
+            title = "",
+            grid = FALSE,
+            properties = axis_props(
+              title = list(fontSize = 8),
+              labels = list(fontSize = 8)
+            ),
+            title_offset = 40
+          ) %>%
+          compute_stack(stack_var = ~ n, group_var = ~ Education) %>%
+          layer_rects(
+            x = ~ stack_lwr_,
+            x2 = ~ stack_upr_,
+            height = band()
+          ) %>%
+          hide_legend(scales = "fill") %>%
+          set_options(width = "auto",
+                      height = 180,
+                      renderer = "canvas") %>%
+          bind_shiny(plot_id = "ggvis_19")
   })
   
   # TABLE #####################################################################
