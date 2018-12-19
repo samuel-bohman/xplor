@@ -1172,10 +1172,10 @@ shinyServer(function(input, output, session) {
         
         ## Function to calculate portfolio core index.
         calculateCoreIndex <- function(portfolio_df_pos, portfolio_df_neg, alt){
-          if(sum(portfolio_df_pos[alt]) == 0){
-            alt.ci <- -round(sum(portfolio_df_neg[alt]) / (nrow(portfolio_df_neg)-1) * 100, digits = 0)
+          if (sum(portfolio_df_pos[alt]) == 0) {
+            alt.ci <- -round(sum(portfolio_df_neg[alt]) / (nrow(portfolio_df_neg) - 1) * 100, digits = 0)
           } else {
-            alt.ci <- round(sum(portfolio_df_pos[alt]) / (nrow(portfolio_df_pos)-1) * 100, digits = 0)
+            alt.ci <- round(sum(portfolio_df_pos[alt]) / (nrow(portfolio_df_pos) - 1) * 100, digits = 0)
           }
           return(alt.ci)
         }
@@ -1511,7 +1511,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis("x", orient = "top", ticks = 0, title = "Gender",
                    properties = axis_props(
-                     axis = list(stroke = "white"),
+                     axis = list(stroke = ""),
                      labels = list(fontSize = 0))
                    ) %>%
           add_axis(
@@ -1557,7 +1557,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis("x", orient = "top", ticks = 0, title = "Age",
                    properties = axis_props(
-                     axis = list(stroke = "white"),
+                     axis = list(stroke = ""),
                      labels = list(fontSize = 0))
           ) %>%
           add_axis(
@@ -1603,7 +1603,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis("x", orient = "top", ticks = 0, title = "Length of residency",
                    properties = axis_props(
-                     axis = list(stroke = "white"),
+                     axis = list(stroke = ""),
                      labels = list(fontSize = 0))
           ) %>%
           add_axis(
@@ -1651,7 +1651,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis("x", orient = "top", ticks = 0, title = "Occupation",
                    properties = axis_props(
-                     axis = list(stroke = "white"),
+                     axis = list(stroke = ""),
                      labels = list(fontSize = 0))
           ) %>%
           add_axis(
@@ -1699,7 +1699,7 @@ shinyServer(function(input, output, session) {
           ) %>%
           add_axis("x", orient = "top", ticks = 0, title = "Education",
                    properties = axis_props(
-                     axis = list(stroke = "white"),
+                     axis = list(stroke = ""),
                      labels = list(fontSize = 0))
           ) %>%
           add_axis(
