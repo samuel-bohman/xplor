@@ -1,24 +1,28 @@
-### About
+## About
 
 Upplands Väsby Data Explorer is an R Shiny web application for data exploration and visualization. The data was collected in 2015 through an online questionnaire in Upplands Väsby municipality in Stockholm county, Sweden. 
 
-### Code
+## Code
 
 The code is available in a public repository on [GitHub](https://github.com/samuel-bohman/xplor). The software is under active development which means that there may be bugs, incomplete features, or polish required in various areas. If you stumble across a typographic error, a bug, or any other unwanted behavior, please let us know by [opening an issue](https://github.com/samuel-bohman/xplor/issues). 
 
-### Data
+## Data
 
 The dataset is available on [data.world](https://data.world/samuel-bohman/2015-upplands-vasby-municipality). All data was anonymized to ensure the confidentiality and privacy of all respondents. 
 
-### Authors
+## Authors
 
 Researched and developed by Samuel Bohman and Tobias Fasth, Department of Computer and Systems Sciences, Stockholm University. 
 
-### Publications
+## Publication
 
-Bohman, S., Fasth. T. (2019). A Web-Based Visualization Tool for Exploring Stakeholder Conflicts in Land Use Planning. Forthcoming.  
+Bohman, S., Fasth. T. (2019). A Web-Based Visualization Tool for Exploring Stakeholder Conflicts in Land Use Planning. Submitted for peer review to Transactions in GIS. 
 
-### Credits & Dependencies
+## Funding information
+
+Partially funded by the Swedish Research Council for Environment, Agricultural Sciences and Spatial Planning, grant number: 2011-3313-20412-31. 
+
+## Credits & dependencies
 
 * R Core Team (2016). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/
 
