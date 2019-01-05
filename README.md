@@ -12,11 +12,15 @@ The dataset is available on [data.world](https://data.world/samuel-bohman/2015-u
 
 Researched and developed by Samuel Bohman and Tobias Fasth, Department of Computer and Systems Sciences, Stockholm University. 
 
-## Publications
+## Publication
 
-Bohman, S., Fasth. T. (2018). An Open Source Web Application for Exploring Public Opinion in Geospatial Planning. Forthcoming.  
+Bohman, S., Fasth. T. (2019). A Web-Based Visualization Tool for Exploring Stakeholder Conflicts in Land Use Planning. Submitted for peer review to Transactions in GIS. 
 
-## Credits & Dependencies
+## Funding information
+
+Partially funded by the Swedish Research Council for Environment, Agricultural Sciences and Spatial Planning, grant number: 2011-3313-20412-31. 
+
+## Credits & dependencies
 
 * R Core Team (2016). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/
 
