@@ -1,6 +1,6 @@
 # Load library and source files
 library(rgdal)
-source("r/car.R")
+debugSource("r/car.R")
 source("r/car_ce.R")
 
 # Load data

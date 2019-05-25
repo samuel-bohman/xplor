@@ -3,9 +3,9 @@ calculateCAR <- function(results) {
   
   # Add new columns of the cardinal ranking of the criteria
   wColNames = c(
-    "Parks.and.green.areas",
+    "Parks.and.green.spaces",
     "Diversity.in.housing.supply",
-    "Invest.in.public.areas",
+    "Invest.in.public.spaces",
     "Communications",
     "Culture.and.leisure",
     "Education",
@@ -25,9 +25,9 @@ calculateCAR <- function(results) {
     collName = paste0("rc", nr, collapse = NULL)
     results[collName] <-
       apply(results, 1, function(x) {
-        v <- max(as.numeric(c(x["Parks.and.green.areas"],
+        v <- max(as.numeric(c(x["Parks.and.green.spaces"],
           x["Diversity.in.housing.supply"],
-          x["Invest.in.public.areas"],
+          x["Invest.in.public.spaces"],
           x["Communications"],
           x["Culture.and.leisure"],
           x["Education"], 

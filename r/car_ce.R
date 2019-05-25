@@ -27,7 +27,9 @@ calculateCAR_CE <- function(results) {
           v.min <- min(as.numeric(x[c(alternatives)]))
           
           # Calculate the proportinal score for question j and action i
-          (as.numeric(x[alternatives[i]]) - v.min) / (v.max - v.min)
+          #(as.numeric(x[alternatives[i]]) - v.min) / (v.max - v.min)
+          # Changed to eq. 16 in "Scaling issues in additive multicriteria portfolio analysis" by Almeida et al 2014.
+          as.numeric(x[alternatives[i]]) / (v.max - v.min)
         })
     }
     
