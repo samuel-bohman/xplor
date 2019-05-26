@@ -386,10 +386,10 @@ shinyServer(function(input, output, session) {
           lambda = 1 / (data.vec1[x + 6] + data.vec1[x + 7])
           
           # weighted prop value
-          return(data.vec1[x + 8] * lambda) 
+          #return(data.vec1[x + 8] * lambda) 
           
           #weighted val (prop_pw_val - pseudo_pw_val)
-          #return(data.vec1[x + 5] * lambda)
+          return(data.vec1[x + 5] * lambda)
         })
         
         ### Calculate group 2 mean weighted values
@@ -397,10 +397,10 @@ shinyServer(function(input, output, session) {
           lambda = 1 / (data.vec2[x + 6] + data.vec2[x + 7])
           
           # weighted prop value
-          return(data.vec2[x + 8] * lambda)
+          #return(data.vec2[x + 8] * lambda)
           
           #weighted val (prop_pw_val - pseudo_pw_val)
-          #return(data.vec2[x + 5] * lambda)
+          return(data.vec2[x + 5] * lambda)
         })
         
         ### Calculate total mean weighted values 
@@ -417,10 +417,10 @@ shinyServer(function(input, output, session) {
           
           lambda = 1 / (data.vec12[x + 6] + data.vec12[x + 7])
           # weighted prop value
-          return(data.vec12[x + 8] * lambda)
+          #return(data.vec12[x + 8] * lambda)
           
           #weighted val (prop_pw_val - pseudo_pw_val)
-          #return(data.vec12[x + 5] * lambda)
+          return(data.vec12[x + 5] * lambda)
         })
         
         ### Flatten lists and transform into data frames
