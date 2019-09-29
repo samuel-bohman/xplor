@@ -18,7 +18,7 @@ write.csv2(
   x = data,
   file = "data-raw/data.csv",
   row.names = FALSE,
-  fileEncoding = "latin1"
+  fileEncoding = "UTF-8"
 )
 
 remove(data)

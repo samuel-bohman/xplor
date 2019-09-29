@@ -15,7 +15,7 @@ if (!("data.table" %in% installed.packages()[,"Package"])) {
   install.packages("data.table")
 }
 
-data <- data.table::fread("data-raw/data.csv", encoding = "Latin-1", data.table = FALSE)
+data <- data.table::fread("data-raw/data.csv", data.table = FALSE)
 
 # Delete 10 unnecessary/empty columns
 data[1:7] <- list(NULL)
