@@ -7,7 +7,7 @@ nyko <-
     dsn = "data-raw/nyko/Nycklekodsomr_3siffr.TAB",
     layer = "Nycklekodsomr_3siffr",
     use_iconv = TRUE,
-    encoding = "latin1"
+    encoding = "UTF-8"
   )
 
 # List layers
