@@ -22,14 +22,14 @@ calculateCAR_CE <- function(results) {
       results[alternatives_prop_scores[i]] <- 
         apply(results, 1, function(x) {
           
-          # Find the min and max values for question 1 and action 1-5 and the pseudo action (6)
+          # Find the max value for question 1 and actions 1-5 and the pseudo action (6)
           v.max <- max(as.numeric(x[c(alternatives)]))
-          v.min <- min(as.numeric(x[c(alternatives)]))
+          #v.min <- min(as.numeric(x[c(alternatives)]))
           
           # Calculate the proportinal score for question j and action i
           #(as.numeric(x[alternatives[i]]) - v.min) / (v.max - v.min)
           # Changed to eq. 16 in "Scaling issues in additive multicriteria portfolio analysis" by Almeida et al 2014.
-          as.numeric(x[alternatives[i]]) / (v.max - v.min)
+          as.numeric(x[alternatives[i]]) / (v.max)
         })
     }
     
