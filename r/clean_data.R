@@ -1,14 +1,21 @@
 # Load the data
-data <-
-  read.table(
-    "data-raw/data.csv",
-    header = TRUE,
-    sep = ";",
-    skip = 0,
-    na.strings = " ",
-    fileEncoding = "latin1",
-    stringsAsFactors = FALSE
-  )
+# data <-
+#   read.table(
+#     "data-raw/data.csv",
+#     header = TRUE,
+#     sep = ";",
+#     skip = 0,
+#     na.strings = " ",
+#     fileEncoding = "latin1",
+#     stringsAsFactors = FALSE)
+
+# Load the data
+if (!("data.table" %in% installed.packages()[,"Package"])) {
+  message("Package data.table not installed: installing...") 
+  install.packages("data.table")
+}
+
+data <- data.table::fread("data-raw/data.csv", encoding = "Latin-1", data.table = FALSE)
 
 # Delete 10 unnecessary/empty columns
 data[1:7] <- list(NULL)
@@ -102,7 +109,7 @@ names(data)[68] <- "Age"
 names(data)[69] <- "Gender"
 
 # Find incomplete cases
-# missing_values <- data[!complete.cases(data), ] # 438, 503, 813
+data[!complete.cases(data), ] # 438, 503, 813
 
 # Delete NAs
 data <- na.omit(data) # 438, 503, 813
@@ -132,40 +139,34 @@ data$Age <- factor(data$Age)
 data$Gender <- factor(data$Gender)
 
 # Fix levels attributes of factors
-levels(data$"Education level") <-
-  c(
-    "Other post-secondary education",
-    "Doctorate",
-    "Elementary school or equivalent compulsory school",
-    "High school, Nordic folk high school, or equivalent",
-    "College/University",
-    "No elementary or equivalent compulsary school"
-  )
-levels(data$Occupation) <-
-  c(
-    "Job-seeker",
-    "Self-employed",
-    "Employee",
-    "Sickness or activity benefit",
-    "Long-term sick leave (more than 3 months)",
-    "Other",
-    "Senior citizen",
-    "Student",
-    "Leave of absence"
-  )
-levels(data$Year) <-
-  c("0-4 years", "5-9 years", "10 or more years")
-levels(data$Gender) <-
-  c("Other/No gender", "Woman", "Man", "Prefer not to disclose")
+levels(data$"Education level") <- c("Other post-secondary education",
+                                    "Doctorate",
+                                    "Elementary school or equivalent compulsory school",
+                                    "High school, Nordic folk high school, or equivalent",
+                                    "College/University",
+                                    "No elementary or equivalent compulsary school")
+
+levels(data$Occupation) <- c("Job-seeker",
+                             "Self-employed",
+                             "Employee",
+                             "Sickness or activity benefit",
+                             "Long-term sick leave (more than 3 months)",
+                             "Other",
+                             "Senior citizen",
+                             "Student",
+                             "Leave of absence")
+
+levels(data$Year) <- c("0-4 years", "5-9 years", "10 or more years")
+
+levels(data$Gender) <- c("Other/No gender", "Woman", "Man", "Prefer not to disclose")
 
 # Reorder columns
 data <- data[, c(64, 69, 68, 66, 65, 67, 1:50, 51:60, 61:63)]
 
 # Save data
-write.csv2(
-  x = data,
-  file = "data-derived/data.csv",
-  row.names = FALSE,
-  fileEncoding = "UTF-8"
-)
-remove(data)
+# write.csv2(
+#   x = data,
+#   file = "data-derived/data.csv",
+#   row.names = FALSE,
+#   fileEncoding = "UTF-8"
+# )
