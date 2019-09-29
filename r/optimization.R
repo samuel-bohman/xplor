@@ -24,9 +24,10 @@ find_all_solutions <- function(actions, values, distance, budget_constraint, dir
 
   # Find more solutions
   while (TRUE) {
-    budget_constraint <- solutions[1,length(solutions)] - 0.0001
+    budget_constraint <- solutions[1,length(solutions)] - 1e-6 #0.0001
     lp_model <- create_model(actions, values, distance, budget_constraint, direction)
     solutions <- find_solutions(lp_model, actions, distance, direction)
+    solutions <- solutions[rev(rownames(solutions)),]
     colnames(solutions) <- c(actions, "value", "distance")
     df <- rbind(solutions, df)
     if (length(unique(as.list(solutions[, 1:length(actions)]))) == 1) {break}

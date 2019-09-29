@@ -1,5 +1,5 @@
 debugSource("r/distance.R")
-source("r/optimization.R")
+debugSource("r/optimization.R")
 source("global.R")
 source("r/car.R")
 source("r/car_ce.R")
@@ -28,6 +28,10 @@ calculateCoreIndex <- function(portfolio_df_pos, portfolio_df_neg, alt){
 }
 
 createPortfolioLatexTables <- function(focusarea, values, conflicts, grupp){
+  #if (grupp == "T" && focusarea == "7. Care"){
+  #  debugggg = 1
+  #}
+  
   values <- unlist(values)
   conflicts <- unlist(conflicts)
   
@@ -91,7 +95,7 @@ for(i in 1:length(theme)){
   ### Calculate total mean weighted values
   val_total <- lapply(seq(1, 45, by = 9), function(x) {
     lambda = 1 / (data.vec12[x + 6] + data.vec12[x + 7])
-    return(data.vec12[x + 8] * lambda)
+    return(data.vec12[x + 5] * lambda)
   })
   
   ### Calculate total distance
@@ -120,7 +124,7 @@ for(i in 1:length(theme)){
   ### Calculate total mean weighted values
   val_group_1 <- lapply(seq(1, 45, by = 9), function(x) {
     lambda = 1 / (data.vec1[x + 6] + data.vec1[x + 7])
-    return(data.vec1[x + 8] * lambda)
+    return(data.vec1[x + 5] * lambda)
   })
   
   ### Calculate distance within the group
@@ -133,7 +137,7 @@ for(i in 1:length(theme)){
   ### Calculate total mean weighted values 
   val_group_2 <- lapply(seq(1, 45, by = 9), function(x) {
     lambda = 1 / (data.vec2[x + 6] + data.vec2[x + 7])
-    return(data.vec2[x + 8] * lambda)
+    return(data.vec2[x + 5] * lambda)
   })
   
   createPortfolioLatexTables(focusarea, val_group_1, dis_group_1, "G1")
