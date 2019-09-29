@@ -25,7 +25,9 @@ nyko$Klass <-
   nyko$om_1 <-
   nyko$om_2 <-
   nyko$om_3 <-
-  nyko$om_4 <- nyko$Socken <- nyko$Ursprungsdatum <- NULL
+  nyko$om_4 <- 
+  nyko$Socken <- 
+  nyko$Ursprungsdatum <- NULL
 
 # Reproject data 
 EPSG <- make_EPSG()  # create data frame of available EPSG codes

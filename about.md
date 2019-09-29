@@ -16,7 +16,7 @@ Researched and developed by Samuel Bohman and Tobias Fasth, Department of Comput
 
 ## Publication
 
-Bohman, S., Fasth. T. (2019). A Web-Based Visualization Tool for Exploring Stakeholder Conflicts in Land Use Planning. Submitted for peer review to Transactions in GIS. 
+Bohman, S, Fasth, T. A web‐based visualization tool for exploring stakeholder conflicts in land‐use planning. Transactions in GIS. 2019; 23: 769–785. https://doi-org.ezp.sub.su.se/10.1111/tgis.12527
 
 ## Funding information
 
