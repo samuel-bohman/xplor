@@ -28,10 +28,7 @@ calculateCoreIndex <- function(portfolio_df_pos, portfolio_df_neg, alt){
 }
 
 createPortfolioLatexTables <- function(focusarea, values, conflicts, grupp){
-  #if (grupp == "T" && focusarea == "7. Care"){
-  #  debugggg = 1
-  #}
-  
+
   values <- unlist(values)
   conflicts <- unlist(conflicts)
   
