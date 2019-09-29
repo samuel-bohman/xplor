@@ -164,9 +164,9 @@ levels(data$Gender) <- c("Other/No gender", "Woman", "Man", "Prefer not to discl
 data <- data[, c(64, 69, 68, 66, 65, 67, 1:50, 51:60, 61:63)]
 
 # Save data
-# write.csv2(
-#   x = data,
-#   file = "data-derived/data.csv",
-#   row.names = FALSE,
-#   fileEncoding = "UTF-8"
-# )
+write.csv2(
+  x = data,
+  file = "data-derived/data.csv",
+  row.names = FALSE,
+  fileEncoding = "UTF-8"
+)
