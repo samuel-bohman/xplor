@@ -18,8 +18,3 @@ data_spdf <- sp::merge(x = nyko84, y = data_car_ce, by = "Area", duplicateGeoms 
 
 # Save new spdf object
 saveRDS(object = data_spdf, file = "data-derived/data_spdf.Rds")
-
-# Remove temporary objects
-remove(data)
-remove(data_spdf)
-remove(nyko84)
