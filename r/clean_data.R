@@ -109,7 +109,7 @@ names(data)[68] <- "Age"
 names(data)[69] <- "Gender"
 
 # Find incomplete cases
-data[!complete.cases(data), ] # 438, 503, 813
+# data[!complete.cases(data), ] # 438, 503, 813
 
 # Delete NAs
 data <- na.omit(data) # 438, 503, 813
